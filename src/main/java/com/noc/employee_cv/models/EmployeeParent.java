@@ -1,26 +1,28 @@
 package com.noc.employee_cv.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @NoArgsConstructor
 @Table
 public class EmployeeParent {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String firstName;
     private String lastName;
     private String gender;
     private LocalDate dateOfBirth;
     private boolean isAlive;
-//    private Address placeOfBirth;
     private String jobName;
     private String phoneNumber;
-//    private Address address;
 
+    @OneToOne(mappedBy = "employeeParent")
+    private Employee employee;
 
 }

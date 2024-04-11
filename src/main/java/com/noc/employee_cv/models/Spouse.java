@@ -1,20 +1,30 @@
 package com.noc.employee_cv.models;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import lombok.Data;
 
+import java.time.LocalDate;
+import java.util.Set;
+
+@Entity
+@Data
+@Table
 public class Spouse {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String spouseFirstName;
     private String spouseLastName;
     private boolean isAlive;
     private LocalDate spouseDateOfBirth;
-    private Address spousePlaceOfBirth;
     private String spouseJobName;
     private String spousePhoneNumber;
-    private Address spouseAddress;
     private int childrenNumber;
     private int numberOfDaughters;
     private int numberOfSons;
-//    private List<SpouseChildren> spouseChildrenList;
+    @OneToMany(mappedBy = "spouse")
+    private Set<SpouseChildren> children;
+    @OneToOne(mappedBy = "spouse")
+    private Employee employee;
 
 }

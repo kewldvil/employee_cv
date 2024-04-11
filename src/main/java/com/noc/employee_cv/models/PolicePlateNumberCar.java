@@ -5,13 +5,13 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table
-public class UniversitySkill {
-    @ManyToOne(cascade = CascadeType.ALL)
+public class PolicePlateNumberCar {
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
-    private String skill;
+    private Integer id;
+    private String plateNumber;
+    private String carType;
 }

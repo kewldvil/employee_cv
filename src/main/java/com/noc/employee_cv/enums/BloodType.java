@@ -1,4 +1,4 @@
-package com.sopheak.staff_cv.enums;
+package com.noc.employee_cv.enums;
 
 public enum BloodType {
     O_POSITIVE("O+"),

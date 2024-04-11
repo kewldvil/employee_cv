@@ -1,4 +1,4 @@
-package com.sopheak.staff_cv.enums;
+package com.noc.employee_cv.enums;
 
 public enum PoliceRank {
     CHIEF_CORPORAL("ពលបាលត្រី", 1), STAFF_SERGEANT("ពលបាលទោ", 2), MASTER_SERGEANT("ពលបាលឯក", 3),

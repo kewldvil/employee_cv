@@ -3,15 +3,14 @@ package com.noc.employee_cv.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
 @Data
-@Table
-public class UniversitySkill {
-    @ManyToOne(cascade = CascadeType.ALL)
+@Entity
+public class PhoneNumber {
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
-    private String skill;
+    private Integer id;
+    private String phoneNumber;
 }

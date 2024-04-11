@@ -1,4 +1,4 @@
-package com.sopheak.staff_cv.enums;
+package com.noc.employee_cv.enums;
 
 public enum Gender {
     M("ប្រុស"),F("ស្រី");

@@ -1,4 +1,4 @@
-package com.sopheak.staff_cv.enums;
+package com.noc.employee_cv.enums;
 
 public enum Position {
     DIRECTOR_OF_DEPARTMENT(1, "ប្រធាននាយកដ្ឋាន"),

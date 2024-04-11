@@ -3,14 +3,13 @@ package com.noc.employee_cv.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
-@Table(name = "employee")
+@Table
 @Data
-@NoArgsConstructor
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -18,34 +17,48 @@ public class Employee {
     private String firstName;
     private String lastName;
 
-    private String gender;
+    private int genderId;
     private LocalDate dateOfBirth;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    private Set<Address> employeeAddress;
 
-    //    private Address placeOfBirth;
-    private int currentPoliceRankID;
-    private int currentPositionID;
-    //    private List<Address> addressList;
-    private String phoneNumber;
-    private int bloodTypeID;
-    //    private List<PolicePlatNumberCar> policePlatNumberCars;
-//    private List<Weapon> weapon;
-    private int educationLevelID;
-//    private Map<UniversitySkill> universitySkillList;
-//    private List<ForeignLanguage> foreignLanguageList;
+    private int currentPoliceRankId;
+    private int currentPositionId;
 
-    //    private List<Appreciation> appreciationList;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    private Set<PhoneNumber> phoneNumber;
+    private int bloodTypeId;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    private Set<PolicePlateNumberCar> policePlatNumberCars;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    private Set<EmployeeWeapon> employeeWeapon;
+    private int educationLevelId;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    private Set<UniversitySkill> universitySkill;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    private Set<EmployeeLanguage> foreignLanguage;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    private Set<Appreciation> appreciation;
     private LocalDate dateJoinGovernmentJob;
     private LocalDate dateJoinPoliceJob;
-    private int previousPoliceRankID;
-    private int previousPositionID;
+    private int previousPoliceRankId;
+    private int previousPositionId;
 
     private LocalDate previousActivityAndPositionDate;
 //    private List<PreviousActivityAndPosition> activityAndPositionList;
 
 
     private boolean isMarried;
-    private int spouseId;
-//    private List<SpouseChildren> spouseChildrenList;
-//    private List<EmployeeParent> parentList;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="spouse_id")
+    private Spouse spouse;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="employee_parent_id")
+    private EmployeeParent employeeParent;
+
+
+
 }
 

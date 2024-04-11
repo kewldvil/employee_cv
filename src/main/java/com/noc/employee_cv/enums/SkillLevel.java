@@ -1,4 +1,4 @@
-package com.sopheak.staff_cv.enums;
+package com.noc.employee_cv.enums;
 
 public enum SkillLevel {
     POOR("ខ្សោយ"), FAIR("មធ្យម"), GOOD("ល្អ"), VERY_GOOD("ល្អណាស់");
