@@ -1,13 +1,26 @@
 package com.noc.employee_cv.models;
 
+import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalDate;
 
+@Entity
+@Data
+@Table
 public class PreviousActivityAndPosition {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private LocalDate fromDate;
     private LocalDate toDate;
-    private String activityAndArchievement;
+    private String activityAndAchievement;
 
-    private Spouse spouse;
+    private String department;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
 
 }

@@ -19,45 +19,46 @@ public class Employee {
 
     private int genderId;
     private LocalDate dateOfBirth;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<Address> employeeAddress;
 
     private int currentPoliceRankId;
     private int currentPositionId;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<PhoneNumber> phoneNumber;
     private int bloodTypeId;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<PolicePlateNumberCar> policePlatNumberCars;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<EmployeeWeapon> employeeWeapon;
     private int educationLevelId;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<UniversitySkill> universitySkill;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<EmployeeLanguage> foreignLanguage;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<Appreciation> appreciation;
     private LocalDate dateJoinGovernmentJob;
     private LocalDate dateJoinPoliceJob;
     private int previousPoliceRankId;
     private int previousPositionId;
+    private String policeDepartment;
 
     private LocalDate previousActivityAndPositionDate;
-//    private List<PreviousActivityAndPosition> activityAndPositionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    private Set<PreviousActivityAndPosition> activityAndPosition;
 
 
     private boolean isMarried;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="spouse_id")
+    @JoinColumn(name = "spouse_id")
     private Spouse spouse;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="employee_parent_id")
+    @JoinColumn(name = "employee_parent_id")
     private EmployeeParent employeeParent;
-
 
 
 }

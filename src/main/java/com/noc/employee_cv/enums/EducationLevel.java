@@ -1,6 +1,6 @@
 package com.noc.employee_cv.enums;
 
-public enum Education {
+public enum EducationLevel {
     PRIMARY(1, "សញ្ញាបត្របឋមភូមិ"),
     SECONDARY(2, "សញ្ញាបត្រអនុវីទ្យាល័យ"),
     HIGH_SCHOOL(3, "សញ្ញាបត្រវិទ្យាល័យ"),
@@ -12,7 +12,7 @@ public enum Education {
     public final int key;
     public final String value;
 
-    Education(int key, String value) {
+    EducationLevel(int key, String value) {
         this.key = key;
         this.value = value;
     }
