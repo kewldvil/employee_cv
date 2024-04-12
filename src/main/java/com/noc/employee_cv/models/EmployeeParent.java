@@ -22,7 +22,8 @@ public class EmployeeParent {
     private String jobName;
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "employeeParent")
+    @OneToOne
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
 }

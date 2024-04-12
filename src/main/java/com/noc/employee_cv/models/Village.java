@@ -12,7 +12,8 @@ public class Village {
     private String villageCode;
     private String villageNameKh;
     private String villageNameEn;
-    @OneToOne(mappedBy = "village")
+    @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
 }

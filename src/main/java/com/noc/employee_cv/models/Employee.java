@@ -2,7 +2,10 @@ package com.noc.employee_cv.models;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -10,6 +13,9 @@ import java.util.Set;
 @Entity
 @Table
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -27,7 +33,8 @@ public class Employee {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<PhoneNumber> phoneNumber;
-    private int bloodTypeId;
+    @Column(length = 5)
+    private String bloodType;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<PolicePlateNumberCar> policePlatNumberCars;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
@@ -52,11 +59,11 @@ public class Employee {
 
 
     private boolean isMarried;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "spouse_id")
     private Spouse spouse;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "employee_parent_id")
     private EmployeeParent employeeParent;
 

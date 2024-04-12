@@ -1,10 +1,14 @@
 package com.noc.employee_cv.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProvinceCity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -12,7 +16,8 @@ public class ProvinceCity {
     private String  provinceCityCode;
     private String  provinceCityNameKh;
     private String  provinceCityNameEn;
-    @OneToOne(mappedBy = "provinceCity")
+    @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
 }

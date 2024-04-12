@@ -24,7 +24,8 @@ public class Spouse {
     private int numberOfSons;
     @OneToMany(mappedBy = "spouse")
     private Set<SpouseChildren> children;
-    @OneToOne(mappedBy = "spouse")
+    @OneToOne
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
 }

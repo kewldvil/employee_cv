@@ -12,6 +12,7 @@ public class District {
     private String  DistrictCode;
     private String  DistrictNameKh;
     private String  DistrictNameEn;
-    @OneToOne(mappedBy = "district")
+    @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 }
