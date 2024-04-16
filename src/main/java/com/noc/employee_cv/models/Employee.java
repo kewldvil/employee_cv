@@ -1,6 +1,7 @@
 package com.noc.employee_cv.models;
 
 
+import com.noc.employee_cv.enums.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,23 +24,23 @@ public class Employee {
     private String firstName;
     private String lastName;
 
-    private int genderId;
+    private Gender gender;
     private LocalDate dateOfBirth;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<Address> employeeAddress;
 
-    private int currentPoliceRankId;
-    private int currentPositionId;
+    private PoliceRank currentPoliceRank;
+    private Position currentPosition;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<PhoneNumber> phoneNumber;
     @Column(length = 5)
-    private String bloodType;
+    private BloodType bloodType;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<PolicePlateNumberCar> policePlatNumberCars;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<EmployeeWeapon> employeeWeapon;
-    private int educationLevelId;
+    private EducationLevel educationLevel;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private Set<UniversitySkill> universitySkill;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
@@ -49,8 +50,8 @@ public class Employee {
     private Set<Appreciation> appreciation;
     private LocalDate dateJoinGovernmentJob;
     private LocalDate dateJoinPoliceJob;
-    private int previousPoliceRankId;
-    private int previousPositionId;
+    private PoliceRank previousPoliceRank;
+    private Position previousPosition;
     private String policeDepartment;
 
     private LocalDate previousActivityAndPositionDate;

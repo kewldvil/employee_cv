@@ -1,5 +1,6 @@
 package com.noc.employee_cv.models;
 
+import com.noc.employee_cv.enums.AddressType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,5 +44,5 @@ public class Address {
     @JoinColumn(name="village_id")
     private Village village;
 
-    private String addressType;
+    private AddressType addressType;
 }

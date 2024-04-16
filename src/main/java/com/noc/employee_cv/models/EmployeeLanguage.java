@@ -1,5 +1,6 @@
 package com.noc.employee_cv.models;
 
+import com.noc.employee_cv.enums.SkillLevel;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,5 +18,7 @@ public class EmployeeLanguage {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "language_id")
     private Language language;
+    @Enumerated
+    private SkillLevel  skillLevel;
 
 }
