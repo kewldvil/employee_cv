@@ -13,7 +13,7 @@ public class Weapon {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "weapon")
     private Set<EmployeeWeapon> employeeWeapon;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String weaponName;
 

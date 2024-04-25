@@ -13,10 +13,9 @@ public class SpouseChildren {
     private Spouse spouse;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-    private String childFirstName;
-    private String childLastName;
+    private String childFullName;
     private String childGender;
     private LocalDate childDateOfBirth;
     private String childJob;

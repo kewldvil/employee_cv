@@ -11,7 +11,7 @@ import java.util.Set;
 @Table
 public class Spouse {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String spouseFirstName;
     private String spouseLastName;

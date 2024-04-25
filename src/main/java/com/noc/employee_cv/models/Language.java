@@ -10,10 +10,10 @@ import java.util.Set;
 @Data
 public class Language {
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "language")
+    @OneToMany(mappedBy = "language")
     private Set<EmployeeLanguage> employeeLanguage;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String language;
 }

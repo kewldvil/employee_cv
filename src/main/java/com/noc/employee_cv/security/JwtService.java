@@ -19,15 +19,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
-    @Value("${application.security.jwt.expiration}")
+    @Value("3600000")
     private long jwtExpiration;
-    @Value("${application.security.jwt.secret-key}")
-    private static final String SECRET_KEY = "<KEY>";
+    @Value("${jwt.secret-key}")
+    private String SECRET_KEY;
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
 
-    private String generateToken(HashMap<String, Object> claims, UserDetails userDetails) {
+    public String generateToken(HashMap<String, Object> claims, UserDetails userDetails) {
         return buildToken(claims, userDetails,jwtExpiration);
     }
 
@@ -42,8 +42,11 @@ public class JwtService {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+jwtExpiration))
                 .claim("authorities", authorities)
-                .signWith(getSigninKey(), SignatureAlgorithm.HS256)
+//                .signWith(getSigninKey(), SignatureAlgorithm.HS256)
+                .signWith(getSigninKey())
                 .compact();
+
+
     }
 
     private Key getSigninKey() {
@@ -75,7 +78,7 @@ public class JwtService {
 
     private Claims extractAllClaims(String token) {
         return Jwts
-                .parser()
+                .parserBuilder()
                 .setSigningKey(getSigninKey())
                 .build()
                 .parseClaimsJws(token)

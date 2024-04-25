@@ -1,14 +1,16 @@
 package com.noc.employee_cv.models;
 
 import com.noc.employee_cv.enums.AddressType;
+import com.noc.employee_cv.provinces.Commune;
+import com.noc.employee_cv.provinces.District;
+import com.noc.employee_cv.provinces.ProvinceCity;
+import com.noc.employee_cv.provinces.Village;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.hibernate.annotations.Cascade;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -19,7 +21,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @Builder
 public class Address {
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
@@ -30,19 +32,9 @@ public class Address {
 //    private int districtId;
 //    private int villageId;
 //    private int provinceCityId;
-
-    @OneToOne
-    @JoinColumn(name="province_city_id")
-    private ProvinceCity provinceCity;
-    @OneToOne
-    @JoinColumn(name="district_id")
-    private District district;
-    @OneToOne
-    @JoinColumn(name="commune_id")
-    private Commune commune;
-    @OneToOne
-    @JoinColumn(name="village_id")
-    private Village village;
+//    @OneToOne
+//    @JoinColumn(name="village_id")
+//    private Village village;
 
     private AddressType addressType;
 }

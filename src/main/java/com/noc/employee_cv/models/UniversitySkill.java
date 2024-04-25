@@ -11,7 +11,7 @@ public class UniversitySkill {
     @JoinColumn(name = "employee_id")
     private Employee employee;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String skill;
 }

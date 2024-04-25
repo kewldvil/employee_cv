@@ -12,7 +12,7 @@ import java.util.Set;
 @Table
 public class EmployeeParent {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String firstName;
     private String lastName;

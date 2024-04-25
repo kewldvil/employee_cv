@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "employee_weapon")
 public class EmployeeWeapon {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "employee_id")

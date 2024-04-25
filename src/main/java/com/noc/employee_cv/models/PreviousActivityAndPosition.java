@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Table
 public class PreviousActivityAndPosition {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDate fromDate;
     private LocalDate toDate;

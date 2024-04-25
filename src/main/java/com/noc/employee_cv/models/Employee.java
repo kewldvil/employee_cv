@@ -19,34 +19,34 @@ import java.util.Set;
 @Builder
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
 
     private Gender gender;
     private LocalDate dateOfBirth;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(mappedBy = "employee",fetch=FetchType.LAZY)
     private Set<Address> employeeAddress;
 
     private PoliceRank currentPoliceRank;
     private Position currentPosition;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(mappedBy = "employee")
     private Set<PhoneNumber> phoneNumber;
     @Column(length = 5)
     private BloodType bloodType;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(mappedBy = "employee")
     private Set<PolicePlateNumberCar> policePlatNumberCars;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(mappedBy = "employee")
     private Set<EmployeeWeapon> employeeWeapon;
     private EducationLevel educationLevel;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(mappedBy = "employee")
     private Set<UniversitySkill> universitySkill;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(mappedBy = "employee")
     private Set<EmployeeLanguage> foreignLanguage;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(mappedBy = "employee")
     private Set<Appreciation> appreciation;
     private LocalDate dateJoinGovernmentJob;
     private LocalDate dateJoinPoliceJob;
@@ -55,7 +55,7 @@ public class Employee {
     private String policeDepartment;
 
     private LocalDate previousActivityAndPositionDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(mappedBy = "employee")
     private Set<PreviousActivityAndPosition> activityAndPosition;
 
 

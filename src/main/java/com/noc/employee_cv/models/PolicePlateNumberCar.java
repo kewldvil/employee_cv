@@ -10,7 +10,7 @@ public class PolicePlateNumberCar {
     @JoinColumn(name = "employee_id")
     private Employee employee;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String plateNumber;
     private String carType;

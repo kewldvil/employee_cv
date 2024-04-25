@@ -15,7 +15,7 @@ public class Appreciation {
     private Employee employee;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String appreciationNumber;
     private LocalDate appreciationDate;
