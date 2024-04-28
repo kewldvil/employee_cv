@@ -10,7 +10,7 @@ public enum PoliceRank {
     SECOND_LIEUTENANT(6,"អនុសេនីយ៏ត្រី"), FIRST_LIEUTENANT(7,"អនុសេនិយ៏ទោ"), CAPTAIN(8,"អនុសេនីយ៏ឯក"), MAJOR(9,"វរសេនីយ៏ត្រី"),
     LIEUTENANT_COLONEL(10,"វរសេនីយ៏ទោ"), COLONEL(11,"វរសេនីយ៏ឯក"),
     BRIGADIER_GENERAL(12,"ឧត្តមសេនីយ៏ត្រី"), MAJOR_GENERAL(13,"ឧត្តមសេនីយ៏ទោ"), LIEUTENANT_GENERAL(14,"ឧត្តមសេនីយ៏ឯក"),
-    GENERAL(15,"នាយឧត្តសេនីយ៏");
+    GENERAL(15,"នាយឧត្តមសេនីយ៏");
 
     public final String value;
     public final int key;
