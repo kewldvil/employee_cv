@@ -43,6 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/address/**").hasAnyAuthority("USER","ADMIN")
                         .requestMatchers("/api/v1/enum/**").hasAnyAuthority("USER","ADMIN")
                         .requestMatchers("/api/v1/university-skills/**").hasAnyAuthority("USER","ADMIN")
+                        .requestMatchers("/api/v1/employee/**").hasAnyAuthority("USER","ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

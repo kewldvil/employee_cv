@@ -1,10 +1,8 @@
 package com.noc.employee_cv.contollers;
 
 import com.noc.employee_cv.models.UniversitySkill;
-import com.noc.employee_cv.services.UniversitySkillService;
-import com.noc.employee_cv.services.UniversitySkillServiceImp;
+import com.noc.employee_cv.services.serviceImp.UniversitySkillServiceImp;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

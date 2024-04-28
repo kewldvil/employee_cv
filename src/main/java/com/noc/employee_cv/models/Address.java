@@ -6,6 +6,7 @@ import com.noc.employee_cv.provinces.District;
 import com.noc.employee_cv.provinces.ProvinceCity;
 import com.noc.employee_cv.provinces.Village;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,13 +29,15 @@ public class Address {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
     public Integer id;
-//    private int communeId;
-//    private int districtId;
-//    private int villageId;
-//    private int provinceCityId;
-//    @OneToOne
-//    @JoinColumn(name="village_id")
-//    private Village village;
-
+    private String streetNumber;
+    private String houseNumber;
+    @NotNull
+    private int communeId;
+    @NotNull
+    private int districtId;
+    @NotNull
+    private int villageId;
+    @NotNull
+    private int provinceCityId;
     private AddressType addressType;
 }
