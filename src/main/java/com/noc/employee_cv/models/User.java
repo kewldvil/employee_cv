@@ -46,6 +46,8 @@ public class User implements UserDetails, Principal {
     @Column(nullable = false, updatable = false)
     private LocalDateTime updatedDate;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Employee employee;
 
     @Override
     public String getName() {

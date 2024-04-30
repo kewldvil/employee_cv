@@ -24,7 +24,7 @@ public class ProvinceCity {
     private String province_city_name_kh;
     private String province_city_name_en;
 
-//    @OneToMany(mappedBy = "provinceCity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<District> district;
+    @OneToMany(mappedBy = "provinceCity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<District> district;
 
 }

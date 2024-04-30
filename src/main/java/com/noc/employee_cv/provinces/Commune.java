@@ -20,12 +20,12 @@ public class Commune {
     private String commune_code;
     private String commune_name_kh;
     private String commune_name_en;
-//
-//    @OneToMany(mappedBy = "commune", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-//    private Set<Village> village;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "district_id")
-//    private District district;
+
+    @OneToMany(mappedBy = "commune", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<Village> village;
+
+    @ManyToOne
+    @JoinColumn(name = "district_id")
+    private District district;
 
 }

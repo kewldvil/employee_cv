@@ -12,7 +12,6 @@ import java.util.List;
 @RequestMapping("/api/v1/address")
 @RequiredArgsConstructor
 public class ProvinceController {
-    @Autowired
     private final ProvinceService service;
     private final EntityManager entityManager;
 

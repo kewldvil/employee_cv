@@ -14,19 +14,14 @@ public class Spouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
     private String spouseFullName;
-    @NotNull
     private boolean isAlive;
-    @NotNull
     private String spouseGender;
-    @NotNull
     private LocalDate spouseDateOfBirth;
-    @NotNull
     private String spouseJobName;
     private String spousePhoneNumber;
-    private int childrenNumber;
-    private int numberOfDaughters;
+//    private int childrenNumber;
+//    private int numberOfDaughters;
     @OneToMany(mappedBy = "spouse")
     private Set<SpouseChildren> children;
     @OneToOne

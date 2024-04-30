@@ -14,6 +14,7 @@ public class EmployeeImp implements EmployeeService {
     private final EmployeeRepo employeeRepo;
     @Override
     public void save(Employee employee) {
+        System.out.println(employee.getDateOfBirth());
         employeeRepo.save(employee);
     }
 

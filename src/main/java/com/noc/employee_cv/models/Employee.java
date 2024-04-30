@@ -1,6 +1,7 @@
 package com.noc.employee_cv.models;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.noc.employee_cv.enums.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -29,6 +30,7 @@ public class Employee {
 
     @NotNull
     private Gender gender;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotNull
     private LocalDate dateOfBirth;
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
@@ -38,6 +40,16 @@ public class Employee {
     private PoliceRank currentPoliceRank;
     @NotNull
     private Position currentPosition;
+    @NotNull
+    private String policeRankDocumentNumber;
+    @NotNull
+    private String positionDocumentNumber;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @NotNull
+    private LocalDate policeRankDocumentIssueDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @NotNull
+    private LocalDate positionDocumentIssueDate;
 
     @OneToMany(mappedBy = "employee")
     private Set<PhoneNumber> phoneNumber;
@@ -56,8 +68,10 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     private Set<Appreciation> appreciation;
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateJoinGovernmentJob;
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateJoinPoliceJob;
     private PoliceRank previousPoliceRank;
     @NotNull
@@ -70,15 +84,17 @@ public class Employee {
     private Set<PreviousActivityAndPosition> activityAndPosition;
 
     @NotNull
-    private boolean isMarried;
-    @OneToOne
+    private boolean isMarried=true;
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "spouse_id")
     private Spouse spouse;
 
-    @OneToOne
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "employee_parent_id")
     private EmployeeParent employeeParent;
-
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
 
