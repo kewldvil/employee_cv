@@ -1,5 +1,6 @@
 package com.noc.employee_cv.models;
 
+import com.noc.employee_cv.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ public class SpouseChildren {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String childFullName;
-    private String childGender;
+    private Gender childGender;
     private LocalDate childDateOfBirth;
     private String childJob;
 }

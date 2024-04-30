@@ -15,7 +15,7 @@ public class Spouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String spouseFullName;
-    private boolean isAlive;
+    private boolean isAlive=true;
     private String spouseGender;
     private LocalDate spouseDateOfBirth;
     private String spouseJobName;
