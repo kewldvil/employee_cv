@@ -32,12 +32,20 @@ public class Address {
     private String streetNumber;
     private String houseNumber;
     @NotNull
-    private int communeId;
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "province_city_id")
+    private ProvinceCity provinceCity;
     @NotNull
-    private int districtId;
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "district_id")
+    private District district;
     @NotNull
-    private int villageId;
-    @NotNull
-    private int provinceCityId;
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "commune_id")
+    private Commune commune;
+
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "village_id")
+    private Village village;
     private AddressType addressType;
 }

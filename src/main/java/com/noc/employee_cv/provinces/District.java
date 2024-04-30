@@ -16,10 +16,8 @@ public class District {
     private String district_code;
     private String district_name_kh;
     private String district_name_en;
-    @OneToMany(mappedBy = "district", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<Commune> commune;
 
-    @ManyToOne
-    @JoinColumn(name = "province_city_id")
-    private ProvinceCity provinceCity;
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 }

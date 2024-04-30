@@ -18,9 +18,5 @@ public class Village {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @ManyToOne
-    @JoinColumn(name = "commune_id")
-    private Commune commune;
-
 
 }

@@ -21,11 +21,8 @@ public class Commune {
     private String commune_name_kh;
     private String commune_name_en;
 
-    @OneToMany(mappedBy = "commune", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<Village> village;
-
-    @ManyToOne
-    @JoinColumn(name = "district_id")
-    private District district;
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
 }
