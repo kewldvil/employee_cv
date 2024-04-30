@@ -13,6 +13,7 @@ public class District {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
+    private int province_city_id;
     private String district_code;
     private String district_name_kh;
     private String district_name_en;

@@ -17,6 +17,7 @@ public class Commune {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
+    private int district_id;
     private String commune_code;
     private String commune_name_kh;
     private String commune_name_en;

@@ -11,6 +11,7 @@ public class Village {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
+    private int commune_id;
     private String village_code;
     private String village_name_kh;
     private String village_name_en;
