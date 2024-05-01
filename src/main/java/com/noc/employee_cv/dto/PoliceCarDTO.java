@@ -9,5 +9,5 @@ import lombok.ToString;
 @ToString
 public class PoliceCarDTO {
     private String vehicleBrand;
-    private String vehiclePlateNumber;
+    private String vehicleNumber;
 }

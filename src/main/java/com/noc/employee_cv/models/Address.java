@@ -13,6 +13,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -22,9 +25,8 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @Builder
 public class Address {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @OneToMany(mappedBy = "address")
+    private Set<EmployeeAddress> employeeAddresses = new HashSet<EmployeeAddress>();
 
     @Id
     @GeneratedValue(strategy = SEQUENCE)
@@ -47,5 +49,4 @@ public class Address {
     @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "village_id")
     private Village village;
-    private AddressType addressType;
-}
+    }

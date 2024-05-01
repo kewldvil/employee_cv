@@ -11,9 +11,9 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class ChildDTO {
-    private String childName;
-    private String childGender;
+    private String fullName;
+    private String gender;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate childDOB;
-    private String childJob;
+    private LocalDate dateOfBirth;
+    private String job;
 }

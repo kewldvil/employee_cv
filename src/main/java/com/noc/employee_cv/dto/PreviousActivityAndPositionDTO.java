@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PreviousActivityAndPositionDTO {
-    private String activityFromToDate;
-    private String activityAndArchievement;
-    private String positionOrUnit;
+    private String fromDateToDate;
+    private String activityAndRank;
+    private String departmentOrUnit;
 }

@@ -31,18 +31,28 @@ public class EmployeeController {
             @RequestBody @Valid EmployeeDTO req
     ) throws MessagingException {
         System.out.println(req.toString());
-//        Employee res = new Employee();
-//        Set<Address> adrList= new HashSet<Address>();
-//        Address empPOB= new Address();
-//        empPOB.setAddressType(req.getAddressType());
-//        Address empCurAdr= new Address();
-//        res.setFirstname(req.getFirstname());
-//        res.setLastname(req.getLastname());
-//        res.setGender(req.getGender());
-//        res.setDateOfBirth(req.getDateOfBirth());
-//        res.setEmployeeAddress(req.getCurrentAddress().getAddress());
+        Employee res = new Employee();
+        res.setFirstname(req.getFirstname());
+        res.setLastname(req.getLastname());
+        res.setGender(req.getGender());
+        res.setDateOfBirth(req.getDateOfBirth());
 
-//        System.out.println(req.toString());
+        Set<Address> adrList= new HashSet<Address>();
+        Address empPOB= new Address();
+        Address empCurrentAdr= new Address();
+        Address spouseCurrentAdr= new Address();
+        Address spousePOB= new Address();
+        Address fatherPOB= new Address();
+        Address fatherCurrentAdr= new Address();
+        Address motherPOB= new Address();
+        Address motherCurrentAdr= new Address();
+
+//        empPOB=(Address)req.getPlaceOfBirth();
+
+
+
+
+        System.out.println(req.toString());
 //        service.save(employee);
         return ResponseEntity.accepted().build();
     }

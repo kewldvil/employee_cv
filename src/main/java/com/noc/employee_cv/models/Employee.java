@@ -5,12 +5,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.noc.employee_cv.enums.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,6 +17,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Setter
+@Getter
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +33,8 @@ public class Employee {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotNull
     private LocalDate dateOfBirth;
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private Set<Address> employeeAddress;
+    @OneToMany(mappedBy = "employee")
+    private Set<EmployeeAddress> employeeAddresses = new HashSet<EmployeeAddress>();
 
     @NotNull
     private PoliceRank currentPoliceRank;
