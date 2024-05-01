@@ -59,8 +59,11 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     private Set<PolicePlateNumberCar> policePlatNumberCars;
     @OneToMany(mappedBy = "employee")
-    private Set<EmployeeWeapon> employeeWeapon;
-    private EducationLevel educationLevel;
+    private Set<Weapon> employeeWeapon;
+
+    @OneToMany(mappedBy = "employee")
+    private Set<DegreeLevel> educationLevel;
+
     @OneToMany(mappedBy = "employee")
     private Set<UniversitySkill> universitySkill;
     @OneToMany(mappedBy = "employee")

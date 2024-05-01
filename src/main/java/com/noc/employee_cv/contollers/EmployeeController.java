@@ -1,6 +1,10 @@
 package com.noc.employee_cv.contollers;
 
 import com.noc.employee_cv.dto.EmployeeDTO;
+import com.noc.employee_cv.enums.BloodType;
+import com.noc.employee_cv.enums.EducationLevel;
+import com.noc.employee_cv.enums.PoliceRank;
+import com.noc.employee_cv.enums.Position;
 import com.noc.employee_cv.models.Address;
 import com.noc.employee_cv.models.Employee;
 import com.noc.employee_cv.services.serviceImp.EmployeeServiceImp;
@@ -29,22 +33,19 @@ public class EmployeeController {
     ) throws MessagingException {
         System.out.println(req.toString());
         Employee res = new Employee();
-        res.setFirstname(req.getFirstname());
-        res.setLastname(req.getLastname());
-        res.setGender(req.getGender());
+
+        res.setBloodType(BloodType.valueOf(req.getBloodType()));
+        res.setCurrentPoliceRank(PoliceRank.valueOf(req.getCurrentPoliceRank()));
+        res.setCurrentPosition(Position.valueOf(req.getCurrentPosition()));
+        res.setDateJoinGovernmentJob(req.getDateJoinGov());
+        res.setDateJoinPoliceJob(req.getDateJoinPolice());
         res.setDateOfBirth(req.getDateOfBirth());
+//        res.setEducationLevel(EducationLevel.valueOf(req.getEducationList()));
 
-        Set<Address> adrList= new HashSet<Address>();
-        Address empPOB= new Address();
-        Address empCurrentAdr= new Address();
-        Address spouseCurrentAdr= new Address();
-        Address spousePOB= new Address();
-        Address fatherPOB= new Address();
-        Address fatherCurrentAdr= new Address();
-        Address motherPOB= new Address();
-        Address motherCurrentAdr= new Address();
 
-//        empPOB=(Address)req.getPlaceOfBirth();
+
+
+
 
 
 
