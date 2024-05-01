@@ -1,12 +1,9 @@
 package com.noc.employee_cv.contollers;
 
-import com.noc.employee_cv.authentication.RegistrationRequest;
-import com.noc.employee_cv.dto.AppreciationDTO;
 import com.noc.employee_cv.dto.EmployeeDTO;
-import com.noc.employee_cv.enums.AddressType;
 import com.noc.employee_cv.models.Address;
 import com.noc.employee_cv.models.Employee;
-import com.noc.employee_cv.services.serviceImp.EmployeeImp;
+import com.noc.employee_cv.services.serviceImp.EmployeeServiceImp;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -22,7 +19,7 @@ import java.util.Set;
 @RequestMapping("/api/v1/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
-    private final EmployeeImp service;
+    private final EmployeeServiceImp service;
 
     @Transactional
     @PostMapping("/")

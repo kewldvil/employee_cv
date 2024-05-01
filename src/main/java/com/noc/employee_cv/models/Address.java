@@ -25,7 +25,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @Builder
 public class Address {
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EmployeeAddress> employeeAddresses = new HashSet<EmployeeAddress>();
 
     @Id

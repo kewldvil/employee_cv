@@ -33,7 +33,8 @@ public class Employee {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotNull
     private LocalDate dateOfBirth;
-    @OneToMany(mappedBy = "employee")
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EmployeeAddress> employeeAddresses = new HashSet<EmployeeAddress>();
 
     @NotNull
@@ -90,8 +91,13 @@ public class Employee {
     private Spouse spouse;
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "employee_parent_id")
-    private EmployeeParent employeeParent;
+    @JoinColumn(name = "employee_father_id")
+    private Father father;
+
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "employee_mother_id")
+    private Mother mother;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;

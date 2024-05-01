@@ -5,13 +5,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
 @Table
-public class EmployeeParent {
+public class Mother {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -32,5 +30,4 @@ public class EmployeeParent {
     @OneToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
-
 }
