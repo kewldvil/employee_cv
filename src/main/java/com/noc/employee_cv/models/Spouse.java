@@ -23,8 +23,8 @@ public class Spouse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate spouseDateOfBirth;
     private String spouseJobName;
-    @OneToMany(mappedBy = "spouse")
-    private List<PhoneNumber> phoneNumberList;
+//    @OneToMany(mappedBy = "spouse")
+//    private List<PhoneNumber> phoneNumberList;
 
     @OneToMany(mappedBy = "spouse")
     private Set<SpouseChildren> children;

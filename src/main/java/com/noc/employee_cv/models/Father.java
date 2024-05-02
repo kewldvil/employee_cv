@@ -26,8 +26,8 @@ public class Father {
     private LocalDate dateOfBirth;
     private boolean isAlive=false;
     private String jobName;
-    @OneToMany(mappedBy = "father")
-    private Set<PhoneNumber> phoneNumberList;
+//    @OneToMany(mappedBy = "father")
+//    private Set<PhoneNumber> phoneNumberList;
     private boolean isFather=true;
 
     @OneToOne

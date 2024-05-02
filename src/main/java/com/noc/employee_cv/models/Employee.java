@@ -12,13 +12,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
-@Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Setter
 @Getter
+@Table(name = "employees")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,8 +62,9 @@ public class Employee {
 
 
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PhoneNumber> phoneNumberList=new HashSet<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "employee")
+    private Set<PhoneNumber> phoneNumberList;
+
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PolicePlateNumberCar> policePlatNumberCars;
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)

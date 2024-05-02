@@ -1,25 +1,52 @@
 package com.noc.employee_cv.services.serviceImp;
 
+import com.noc.employee_cv.dto.EmployeeDTO;
+import com.noc.employee_cv.dto.PhoneNumberDTO;
 import com.noc.employee_cv.enums.AddressType;
+import com.noc.employee_cv.mapper.EmployeeMapper;
 import com.noc.employee_cv.models.Address;
 import com.noc.employee_cv.models.Employee;
 import com.noc.employee_cv.models.EmployeeAddress;
+import com.noc.employee_cv.models.PhoneNumber;
 import com.noc.employee_cv.repositories.AddressRepo;
 import com.noc.employee_cv.repositories.EmployeeAddressRepo;
 import com.noc.employee_cv.repositories.EmployeeRepo;
+import com.noc.employee_cv.repositories.PhoneNumberRepo;
 import com.noc.employee_cv.services.EmployeeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImp implements EmployeeService {
+
     private final EmployeeRepo employeeRepo;
+    private final PhoneNumberRepo phoneNumberRepo;
     private final AddressRepo addressRepo;
     private final EmployeeAddressRepo employeeAddressRepo;
+    private final EmployeeMapper employeeMapper;
+
+    @Override
+    public void createNew(EmployeeDTO employeeDTO) {
+        Employee employee = employeeMapper.fromEmployeeDto(employeeDTO);
+        employee = employeeRepo.save(employee);
+        //set phone number
+        //Set<PhoneNumber> phoneNumbers = new HashSet<>();
+//        for (PhoneNumberDTO dto : employeeDTO.getPhoneNumberList()) {
+//            PhoneNumber phoneNumber = new PhoneNumber();
+//            phoneNumber.setPhoneNumber(dto.getPhoneNumber());
+//            phoneNumber.setEmployee(employee);
+//            phoneNumberRepo.save(phoneNumber);
+//           // phoneNumbers.add(phoneNumber);
+//        }
+        System.out.println("Chhaya: " + employee.getId());
+        employee.getPhoneNumberList().forEach(phone -> System.out.println(phone.getPhoneNumber()));
+    }
 
     @Override
     @Transactional
@@ -62,4 +89,7 @@ public class EmployeeServiceImp implements EmployeeService {
     public void update(Employee employee) {
 
     }
+
+
+
 }

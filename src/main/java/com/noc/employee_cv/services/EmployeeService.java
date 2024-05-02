@@ -1,5 +1,6 @@
 package com.noc.employee_cv.services;
 
+import com.noc.employee_cv.dto.EmployeeDTO;
 import com.noc.employee_cv.enums.AddressType;
 import com.noc.employee_cv.models.Employee;
 
@@ -12,4 +13,5 @@ public interface EmployeeService {
     List<Employee> findAll();
     void deleteById(Integer id);
     void update(Employee employee);
+    void createNew(EmployeeDTO employeeDTO);
 }

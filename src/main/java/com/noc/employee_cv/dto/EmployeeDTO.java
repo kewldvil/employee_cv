@@ -32,7 +32,7 @@ public class EmployeeDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate positionDocumentIssueDate;
     private AddressDTO currentAddress;
-    private int bloodType;
+    private int bloodTypeId;
     private List<PhoneNumberDTO> phoneNumberList;
     private List<WeaponDTO> weaponList;
     private List<PoliceCarDTO> policeCarList;
