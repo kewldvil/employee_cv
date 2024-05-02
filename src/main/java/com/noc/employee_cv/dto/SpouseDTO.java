@@ -10,14 +10,14 @@ import java.util.List;
 @Setter
 @ToString
 public class SpouseDTO{
-    public String fullName;
+    private String fullName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    public LocalDate dateOfBirth;
-    public String job;
-    public Boolean isAlive;
-    public List<PhoneNumberDTO> phoneNumberList;
-    public AddressDTO currentAddress;
-    public AddressDTO placeOfBirth;
+    private LocalDate dateOfBirth;
+    private String job;
+    private boolean isAlive=false;
+    private List<PhoneNumberDTO> phoneNumberList;
+    private AddressDTO currentAddress;
+    private AddressDTO placeOfBirth;
 
     private List<ChildDTO> childrenList;
 }

@@ -55,7 +55,15 @@ public class EnumController {
             departmentList.add(p.departmentName);
         }
         outerList.add(departmentList);
+// get university major index 6
+        List<String> majorList = new ArrayList<>();
+        for (UniversityMajor p:UniversityMajor.values()) {
+            majorList.add(p.majorSkill);
+        }
+        outerList.add(majorList);
 
             return outerList;
     }
+
+
 }

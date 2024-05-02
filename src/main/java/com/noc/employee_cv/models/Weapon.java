@@ -14,7 +14,9 @@ public class Weapon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String weaponName;
+    private String weaponType;
+    private String weaponBrand;
+    private String weaponSerialNumber;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;

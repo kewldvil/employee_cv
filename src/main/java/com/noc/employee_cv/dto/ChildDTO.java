@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @ToString
 public class ChildDTO {
     private String fullName;
-    private String gender;
+    private int gender;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
     private String job;

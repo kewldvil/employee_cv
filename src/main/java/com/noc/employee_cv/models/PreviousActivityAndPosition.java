@@ -12,8 +12,7 @@ public class PreviousActivityAndPosition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate fromDate;
-    private LocalDate toDate;
+    private String fromDateToDateActivity;
     private String activityAndAchievement;
 
     private String department;

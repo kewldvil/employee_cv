@@ -6,15 +6,15 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+
 @Data
 @Entity
+@Table
 public class DegreeLevel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private EducationLevel educationLevel;
+    private boolean degreeLevel;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;

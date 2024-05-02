@@ -3,15 +3,18 @@ package com.noc.employee_cv.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 @Table
 public class UniversitySkill {
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String skill;
+
+    @ManyToMany(mappedBy = "universitySkills")
+    private Set<Employee> employees = new HashSet<>();
 }

@@ -3,17 +3,18 @@ package com.noc.employee_cv.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table
 @Data
 public class Language {
-
-    @OneToMany(mappedBy = "language")
-    private Set<EmployeeLanguage> employeeLanguage;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String language;
+
+    @ManyToMany(mappedBy = "languages")
+    private Set<Employee> employees = new HashSet<>();
 }
