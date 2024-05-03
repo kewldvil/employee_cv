@@ -1,8 +1,10 @@
 package com.noc.employee_cv.services.serviceImp;
 
+import com.noc.employee_cv.authentication.AuthenticationService;
 import com.noc.employee_cv.dto.EmployeeDTO;
 import com.noc.employee_cv.dto.PhoneNumberDTO;
 import com.noc.employee_cv.enums.AddressType;
+import com.noc.employee_cv.enums.Gender;
 import com.noc.employee_cv.enums.PhoneType;
 import com.noc.employee_cv.mapper.EmployeeMapper;
 import com.noc.employee_cv.models.*;
@@ -10,9 +12,15 @@ import com.noc.employee_cv.repositories.AddressRepo;
 import com.noc.employee_cv.repositories.EmployeeAddressRepo;
 import com.noc.employee_cv.repositories.EmployeeRepo;
 import com.noc.employee_cv.repositories.PhoneNumberRepo;
+import com.noc.employee_cv.security.UserDetailServiceImpl;
 import com.noc.employee_cv.services.EmployeeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,11 +37,14 @@ public class EmployeeServiceImp implements EmployeeService {
     private final AddressRepo addressRepo;
     private final EmployeeAddressRepo employeeAddressRepo;
     private final EmployeeMapper employeeMapper;
+    private final UserDetailServiceImpl userDetailService;
 
     @Override
     @Transactional
     public void save(EmployeeDTO employeeDTO) {
         Employee employee = employeeMapper.fromEmployeeDto(employeeDTO);
+        User user = (User)userDetailService.getLoggedInUser();
+        employee.setUser(user);
 //  phone number
         Set<PhoneNumber> phoneNumberList = new HashSet<PhoneNumber>();
         employeeDTO.getPhoneNumberList().forEach(phone -> {
@@ -104,92 +115,80 @@ public class EmployeeServiceImp implements EmployeeService {
 //end appreciation
 // set previous activity
         Set<PreviousActivityAndPosition> previousActivityAndPositionList = new HashSet<>();
-        employeeDTO.getActivityList().forEach(activity->{
+        employeeDTO.getActivityList().forEach(activity -> {
             PreviousActivityAndPosition ps = new PreviousActivityAndPosition();
             ps.setFromDate(activity.getFromDate());
+            ps.setToDate(activity.getToDate());
+            ps.setActivityAndAchievement(activity.getActivityAndRank());
+            ps.setDepartment(activity.getDepartmentOrUnit());
+            ps.setEmployee(employee);
+            employee.getActivityAndPosition().add(ps);
+            previousActivityAndPositionList.add(ps);
         });
+        employee.setActivityAndPosition(previousActivityAndPositionList);
 //        end previous activity
+// set spouse
+        Spouse sp = employee.getSpouse();
+        sp.setEmployee(employee);
+//        sp.setSpouseFullName(employeeDTO.getSpouse().getFullName());
+//        sp.setAlive(employeeDTO.getSpouse().isAlive());
+//        sp.setSpouseDateOfBirth(employeeDTO.getSpouse().getDateOfBirth());
+//        sp.setSpouseJobName(employeeDTO.getSpouse().getJob());
+//        set children
+        Set<SpouseChildren> spChildrenList = new HashSet<>();
+        employeeDTO.getSpouse().getChildrenList().forEach(child -> {
+            SpouseChildren spChild = new SpouseChildren();
+            spChild.setChildFullName(child.getFullName());
+            spChild.setChildGender(Gender.values()[child.getGender()]);
+            spChild.setChildDateOfBirth(child.getDateOfBirth());
+            spChild.setChildJob(child.getJob());
+            spChild.setSpouse(sp);
+            sp.getChildren().add(spChild);
+            spChildrenList.add(spChild);
+        });
+        sp.setChildren(spChildrenList);
+//        set phone number
+//        Set<PhoneNumber> spPhoneList= new HashSet<>();
+        employeeDTO.getSpouse().getPhoneNumberList().forEach(phone -> {
+            PhoneNumber phoneNumber = new PhoneNumber();
+            phoneNumber.setPhoneNumber(phone.getPhoneNumber());
+            phoneNumber.setPhoneType(PhoneType.SPOUSE);
+            phoneNumber.setEmployee(employee);
+            employee.getPhoneNumberList().add(phoneNumber);
+            phoneNumberList.add(phoneNumber);
+        });
+        employee.setPhoneNumberList(phoneNumberList);
+//end spouse and child
+//        set father
+        Father fa = employee.getFather();
+        fa.setEmployee(employee);
+        //set father's phone number
+        employeeDTO.getFather().getPhoneNumberList().forEach(phone -> {
+            PhoneNumber phoneNumber = new PhoneNumber();
+            phoneNumber.setPhoneNumber(phone.getPhoneNumber());
+            phoneNumber.setPhoneType(PhoneType.FATHER);
+            phoneNumber.setEmployee(employee);
+            employee.getPhoneNumberList().add(phoneNumber);
+            phoneNumberList.add(phoneNumber);
+        });
+        employee.setPhoneNumberList(phoneNumberList);
+//end father
+        //        set mother
+        Mother mo = employee.getMother();
+        mo.setEmployee(employee);
+        //set mother's phone number
+        employeeDTO.getMother().getPhoneNumberList().forEach(phone -> {
+            PhoneNumber phoneNumber = new PhoneNumber();
+            phoneNumber.setPhoneNumber(phone.getPhoneNumber());
+            phoneNumber.setPhoneType(PhoneType.MOTHER);
+            phoneNumber.setEmployee(employee);
+            employee.getPhoneNumberList().add(phoneNumber);
+            phoneNumberList.add(phoneNumber);
+        });
+        employee.setPhoneNumberList(phoneNumberList);
+//end mother
 
 
-
-//        Set<Appreciation> appreciationList = new HashSet<>();
-//        req.getAppreciationList().forEach((e) -> {
-//            Appreciation appreciation = new Appreciation();
-//            appreciation.setAppreciationNumber(e.getAppreNumber());
-//            appreciation.setAppreciationDate(e.getAppreDate());
-//            appreciation.setAppreciationDescription(e.getAppreciation());
-//            appreciationList.add(appreciation);
-//        });
-//        res.setAppreciation(appreciationList);
-////        set previous activity and position
-//        Set<PreviousActivityAndPosition> previousActivityAndPositionList = new HashSet<>();
-//        req.getActivityList().forEach((e) -> {
-//            PreviousActivityAndPosition previousActivityAndPosition = new PreviousActivityAndPosition();
-//            previousActivityAndPosition.setFromDateToDateActivity(e.getFromDateToDate());
-//            previousActivityAndPosition.setActivityAndAchievement(e.getActivityAndRank());
-//            previousActivityAndPosition.setDepartment(e.getDepartmentOrUnit());
-//            previousActivityAndPositionList.add(previousActivityAndPosition);
-//        });
-//        res.setActivityAndPosition(previousActivityAndPositionList);
-////        set spouse
-//        Spouse s = new Spouse();
-//        s.setSpouseFullName(req.getSpouse().getFullName());
-//        s.setAlive(req.getSpouse().isAlive());
-//        s.setSpouseDateOfBirth(req.getSpouse().getDateOfBirth());
-//        s.setSpouseJobName(req.getSpouse().getJob());
-//        //set phone number
-//        List<PhoneNumber> spousePhone = new ArrayList<>();
-//        req.getSpouse().getPhoneNumberList().forEach((e) -> {
-//            PhoneNumber phoneNumber = new PhoneNumber();
-//            phoneNumber.setPhoneNumber(e.getPhoneNumber());
-//            spousePhone.add(phoneNumber);
-//        });
-//        s.setPhoneNumberList(spousePhone);
-//        //  set children
-//        Set<SpouseChildren> spouseChildren = new HashSet<>();
-//        req.getSpouse().getChildrenList().forEach((e) -> {
-//            SpouseChildren child = new SpouseChildren();
-//            child.setChildFullName(e.getFullName());
-//            child.setChildGender(Gender.values()[e.getGender()]);
-//            child.setChildDateOfBirth(e.getDateOfBirth());
-//            child.setChildJob(e.getJob());
-//        });
-//        s.setChildren(spouseChildren);
-//        res.setSpouse(s);
-//// set father
-//        if (res.getFather() != null) {
-//            Father father = new Father();
-//            father.setFullName(res.getFather().getFullName());
-//            father.setDateOfBirth(res.getFather().getDateOfBirth());
-//            father.setAlive(res.getFather().isAlive());
-//            father.setJobName(res.getFather().getJobName());
-//            // set phone number
-//            Set<PhoneNumber> fatherPhone = new HashSet<>();
-//            req.getFather().getPhoneNumberList().forEach((e) -> {
-//                PhoneNumber phoneNumber = new PhoneNumber();
-//                phoneNumber.setPhoneNumber(e.getPhoneNumber());
-//                spousePhone.add(phoneNumber);
-//            });
-//            father.setPhoneNumberList(fatherPhone);
-//            res.setFather(father);
-//        }
-//// set mother
-//        if (res.getFather() != null) {
-//            Mother mother = new Mother();
-//            mother.setFullName(res.getMother().getFullName());
-//            mother.setDateOfBirth(res.getMother().getDateOfBirth());
-//            mother.setAlive(res.getMother().isAlive());
-//            mother.setJobName(res.getMother().getJobName());
-//            // set phone number
-//            Set<PhoneNumber> motherPhone = new HashSet<>();
-//            req.getMother().getPhoneNumberList().forEach((e) -> {
-//                PhoneNumber phoneNumber = new PhoneNumber();
-//                phoneNumber.setPhoneNumber(e.getPhoneNumber());
-//                spousePhone.add(phoneNumber);
-//            });
-//            mother.setPhoneNumberList(motherPhone);
-//            res.setMother(mother);
-//        }
         employeeRepo.save(employee);
 
     }

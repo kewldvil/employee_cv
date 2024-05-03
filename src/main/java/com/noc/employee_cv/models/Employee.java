@@ -47,10 +47,10 @@ public class Employee {
     private LocalDate positionDocumentIssueDate;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate dateJoinGovernmentJob;
+    private LocalDate dateJoinGov;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate dateJoinPoliceJob;
+    private LocalDate dateJoinPolice;
     private PoliceRank previousPoliceRank;
     @NotNull
     private Position previousPosition;
@@ -83,7 +83,7 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Appreciation> appreciation= new HashSet<>();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PreviousActivityAndPosition> activityAndPosition;
+    private Set<PreviousActivityAndPosition> activityAndPosition=new HashSet<>();
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "spouse_id")
     private Spouse spouse;

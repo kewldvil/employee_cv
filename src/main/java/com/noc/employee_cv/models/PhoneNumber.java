@@ -2,10 +2,7 @@ package com.noc.employee_cv.models;
 
 import com.noc.employee_cv.enums.PhoneType;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -22,4 +19,5 @@ public class PhoneNumber {
     @ManyToOne()
     @JoinColumn(name="employee_id")
     private Employee employee;
+
 }
