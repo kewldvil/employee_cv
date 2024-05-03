@@ -78,7 +78,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
         //        push education level to list
 //        Set<DegreeLevel> degreeLevelList = new HashSet<>();
-          List<DegreeLevel> degreeLevelList = new ArrayList<>();
+        List<DegreeLevel> degreeLevelList = new ArrayList<>();
         employeeDTO.getEducationList().forEach(degree -> {
             System.out.println(degree);
             DegreeLevel dl = new DegreeLevel();
@@ -90,9 +90,9 @@ public class EmployeeServiceImp implements EmployeeService {
         employee.setDegreeLevels(degreeLevelList);
 //        end education level
 // set apreciation
-    Set<Appreciation> appreciationList = new HashSet<>();
-        employeeDTO.getAppreciationList().forEach(edu->{
-            Appreciation    app = new Appreciation();
+        Set<Appreciation> appreciationList = new HashSet<>();
+        employeeDTO.getAppreciationList().forEach(edu -> {
+            Appreciation app = new Appreciation();
             app.setAppreciationNumber(edu.getAppreciationNumber());
             app.setAppreciationDate(edu.getAppreciationDate());
             app.setAppreciationDescription(edu.getAppreciation());
@@ -101,8 +101,14 @@ public class EmployeeServiceImp implements EmployeeService {
             appreciationList.add(app);
         });
         employee.setAppreciation(appreciationList);
-
-
+//end appreciation
+// set previous activity
+        Set<PreviousActivityAndPosition> previousActivityAndPositionList = new HashSet<>();
+        employeeDTO.getActivityList().forEach(activity->{
+            PreviousActivityAndPosition ps = new PreviousActivityAndPosition();
+            ps.setFromDate(activity.getFromDate());
+        });
+//        end previous activity
 
 
 

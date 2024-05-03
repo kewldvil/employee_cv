@@ -8,10 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @NoArgsConstructor
@@ -61,6 +59,13 @@ public class Employee {
     private int previousActivityAndPositionStartYear;
     @NotNull
     private boolean isMarried=true;
+    @NotNull
+
+    @NotNull
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
 
 
 
@@ -112,5 +117,18 @@ public class Employee {
             inverseJoinColumns = { @JoinColumn(name = "language_id") }
     )
     private Set<Language> languages=new HashSet<>();
+
+
+    @PrePersist
+    protected void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+        createdAt = now;
+        updatedAt = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
 
