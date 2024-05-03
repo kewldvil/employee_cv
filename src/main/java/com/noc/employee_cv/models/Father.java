@@ -26,10 +26,6 @@ public class Father {
     private LocalDate dateOfBirth;
     private boolean isAlive=false;
     private String jobName;
-//    @OneToMany(mappedBy = "father")
-//    private Set<PhoneNumber> phoneNumberList;
-    private boolean isFather=true;
-
     @OneToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;

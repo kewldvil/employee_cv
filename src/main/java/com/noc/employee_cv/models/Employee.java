@@ -8,7 +8,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -62,19 +64,19 @@ public class Employee {
 
 
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "employee")
-    private Set<PhoneNumber> phoneNumberList;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PhoneNumber> phoneNumberList = new HashSet<>();
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PolicePlateNumberCar> policePlatNumberCars;
+    private Set<PolicePlateNumberCar> policePlatNumberCars = new HashSet<>();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Weapon> employeeWeapon;
+    private Set<Weapon> weapon = new HashSet<>();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<DegreeLevel> degreeLevels;
+    private List<DegreeLevel> degreeLevels = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Appreciation> appreciation;
+    private Set<Appreciation> appreciation= new HashSet<>();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PreviousActivityAndPosition> activityAndPosition;
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)

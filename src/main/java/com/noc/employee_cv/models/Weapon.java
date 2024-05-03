@@ -17,7 +17,7 @@ public class Weapon {
     private String weaponType;
     private String weaponBrand;
     private String weaponSerialNumber;
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @ManyToOne()
+    @JoinColumn(name="employee_id")
     private Employee employee;
 }

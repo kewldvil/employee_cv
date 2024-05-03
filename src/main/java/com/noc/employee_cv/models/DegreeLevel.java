@@ -15,8 +15,8 @@ public class DegreeLevel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private boolean degreeLevel;
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @ManyToOne()
+    @JoinColumn(name="employee_id")
     private Employee employee;
 
 }

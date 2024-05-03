@@ -6,12 +6,14 @@ import lombok.Data;
 @Entity
 @Data
 public class PolicePlateNumberCar {
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String plateNumber;
     private String carType;
+
+    @ManyToOne()
+    @JoinColumn(name="employee_id")
+    private Employee employee;
 }

@@ -1,5 +1,6 @@
 package com.noc.employee_cv.models;
 
+import com.noc.employee_cv.enums.PhoneType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -11,26 +12,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "phone_numbers")
-@Data
 public class PhoneNumber {
-
-    @ManyToOne
-    private Employee employee;
-
-//    @ManyToOne
-//    @JoinColumn(name = "spouse_id")
-//    private Spouse spouse;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "father_id")
-//    private Father father;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "mother_id")
-//    private Mother mother;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String phoneNumber;
+    private PhoneType phoneType;
+
+    @ManyToOne()
+    @JoinColumn(name="employee_id")
+    private Employee employee;
 }

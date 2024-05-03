@@ -104,6 +104,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.11.0</version>
 				<configuration>
+					<source>22</source> <!-- Set this to your JDK version -->
+					<target>22</target>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
@@ -121,6 +123,11 @@
 							<version>0.2.0</version>
 						</path>
 					</annotationProcessorPaths>
+					<compilerArgs>
+						<compilerArg>
+							-AmapStruct.suppressGeneratorTimestamp=true
+						</compilerArg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class AppreciationDTO {
-    private String appreNumber;
+    private String appreciationNumber;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate appreDate;
+    private LocalDate appreciationDate;
     private String appreciation;
 }

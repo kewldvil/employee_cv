@@ -8,10 +8,9 @@ import java.util.List;
 
 public interface EmployeeService {
     void saveEmployeeAddress(int employeeId, int addressId, AddressType addressType);
-    void save(Employee employee);
     Employee findById(Integer id);
     List<Employee> findAll();
     void deleteById(Integer id);
     void update(Employee employee);
-    void createNew(EmployeeDTO employeeDTO);
+    void save(EmployeeDTO employeeDTO);
 }
