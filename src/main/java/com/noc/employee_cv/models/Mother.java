@@ -22,7 +22,8 @@ public class Mother {
     private String fullName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
-    private boolean isAlive=false;
+    private Boolean isAlive;
+    @Column(name = "job")
     private String job;
 
     @OneToOne(fetch = FetchType.LAZY)

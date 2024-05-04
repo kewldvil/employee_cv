@@ -2,22 +2,18 @@ package com.noc.employee_cv.contollers;
 
 
 import com.noc.employee_cv.dto.EmployeeDTO;
-import com.noc.employee_cv.enums.*;
 import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.repositories.AppreciationRepo;
 import com.noc.employee_cv.services.serviceImp.EmployeeServiceImp;
 import jakarta.mail.MessagingException;
-import jakarta.transaction.Transactional;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
 
 @RestController
 @RequestMapping("/api/v1/employee")

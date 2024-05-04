@@ -18,7 +18,7 @@ import java.util.List;
 public class EmployeeDTO {
     private String firstname;
     private String lastname;
-    private Boolean isMarried=true;
+    private Boolean isMarried;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
     private Gender gender;

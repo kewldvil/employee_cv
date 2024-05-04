@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,10 +15,10 @@ public class SpouseDTO{
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
     private String job;
-    private boolean isAlive=false;
-    private List<PhoneNumberDTO> phoneNumberList;
+    private Boolean isAlive;
+    private Set<PhoneNumberDTO> phoneNumberList;
     private AddressDTO currentAddress;
     private AddressDTO placeOfBirth;
 
-    private List<ChildDTO> childrenList;
+    private Set<ChildDTO> childrenList;
 }

@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,7 +17,7 @@ public class ParentDTO {
     private LocalDate dateOfBirth;
     private String job;
     private Boolean isAlive;
-    private List<PhoneNumberDTO> phoneNumberList;
+    private Set<PhoneNumberDTO> phoneNumberList;
     private AddressDTO currentAddress;
     private AddressDTO placeOfBirth;
 }

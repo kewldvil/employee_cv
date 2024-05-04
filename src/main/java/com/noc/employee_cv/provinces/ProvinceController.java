@@ -1,5 +1,9 @@
 package com.noc.employee_cv.provinces;
 
+import com.noc.employee_cv.services.serviceImp.CommuneServiceImp;
+import com.noc.employee_cv.services.serviceImp.DistrictServiceImp;
+import com.noc.employee_cv.services.serviceImp.ProvinceCityServiceImp;
+import com.noc.employee_cv.services.serviceImp.VillageServiceImp;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +16,25 @@ import java.util.List;
 @RequestMapping("/api/v1/address")
 @RequiredArgsConstructor
 public class ProvinceController {
-    private final ProvinceService service;
-    private final EntityManager entityManager;
+    private final ProvinceCityServiceImp provinceService;
+    private final DistrictServiceImp districtService;
+    private final CommuneServiceImp communeService;
+    private final VillageServiceImp villageService;
+
 
     @GetMapping("/provinces")
     public ResponseEntity<List<ProvinceCity>> province() {
-        List<ProvinceCity> provinceCities = service.getProvinces(entityManager);
+        List<ProvinceCity> provinceCities = provinceService.getAllProvinceCities();
         if (provinceCities.isEmpty()) {
             return ResponseEntity.noContent().build(); // Return 204 No Content
         }
+        System.out.println(provinceCities.toString());
         return ResponseEntity.ok(provinceCities); // Return 200 OK with body
 
     }
     @GetMapping("/districts")
     public ResponseEntity<List<District>> district(@RequestParam Integer province_id) {
-        List<District> districts = service.getDistrict(entityManager,province_id);
+        List<District> districts = districtService.getAllDistrictById(province_id);
         if (districts.isEmpty()) {
             return ResponseEntity.noContent().build(); // Return 204 No Content
         }
@@ -35,7 +43,7 @@ public class ProvinceController {
     }
     @GetMapping("/communes")
     public ResponseEntity<List<Commune>> commune(@RequestParam Integer district_id) {
-        List<Commune> communes = service.getCommune(entityManager,district_id);
+        List<Commune> communes = communeService.getAllCommuneById(district_id);
         if (communes.isEmpty()) {
             return ResponseEntity.noContent().build(); // Return 204 No Content
         }
@@ -44,7 +52,7 @@ public class ProvinceController {
     }
     @GetMapping("/villages")
     public ResponseEntity<List<Village>> village(@RequestParam Integer commune_id) {
-        List<Village> villages = service.getVillage(entityManager,commune_id);
+        List<Village> villages = villageService.getAllVillageById(commune_id);
         if (villages.isEmpty()) {
             return ResponseEntity.noContent().build(); // Return 204 No Content
         }

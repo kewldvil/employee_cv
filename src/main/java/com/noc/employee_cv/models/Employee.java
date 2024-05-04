@@ -58,7 +58,7 @@ public class Employee {
     private GeneralDepartment generalDepartment;
     private int previousActivityAndPositionStartYear;
     @NotNull
-    private boolean isMarried=true;
+    private Boolean isMarried;
     @NotNull
 
     @NotNull
