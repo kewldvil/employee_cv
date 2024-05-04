@@ -1,5 +1,6 @@
 package com.noc.employee_cv.models;
 
+import com.noc.employee_cv.enums.ForeignLang;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,8 +14,8 @@ public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String language;
+    private ForeignLang language;
 
-    @ManyToMany(mappedBy = "languages")
-    private Set<Employee> employees = new HashSet<>();
+    @OneToMany(mappedBy = "language", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<EmployeeLanguage> employeeLanguages=new HashSet<>();
 }

@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ForeignLanugeDTO {
+public class ForeignLanguageDTO {
     private int langLevel;
     private int langName;
 }

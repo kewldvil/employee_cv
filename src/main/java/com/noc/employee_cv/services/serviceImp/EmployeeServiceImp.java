@@ -1,8 +1,6 @@
 package com.noc.employee_cv.services.serviceImp;
 import com.noc.employee_cv.dto.EmployeeDTO;
-import com.noc.employee_cv.enums.AddressType;
-import com.noc.employee_cv.enums.Gender;
-import com.noc.employee_cv.enums.PhoneType;
+import com.noc.employee_cv.enums.*;
 import com.noc.employee_cv.mapper.EmployeeMapper;
 import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.provinces.*;
@@ -30,13 +28,25 @@ public class EmployeeServiceImp implements EmployeeService {
     private final CommuneServiceImp communeServiceImp;
     private final VillageServiceImp villageServiceImp;
     private final AddressServiceImp addressServiceImp;
+    private final UniversitySkillRepo universitySkillRepo;
+    private final EmployeeUniversitySkillRepo employeeUniversitySkillRepo;
+    private final UniversitySkillServiceImp universitySkillServiceImp;
+    private final EmployeeUniversitySkillServiceImp employeeUniversitySkillServiceImp;
+    private final LanguageServiceImp languageServiceImp;
+    private final EmployeeLanguageServiceImp employeeLanguageServiceImp;
 
     @Override
     @Transactional
     public void save(EmployeeDTO employeeDTO) {
         Employee employee = employeeMapper.fromEmployeeDto(employeeDTO);
-//        User user = (User) userDetailService.getLoggedInUser();
-//        employee.setUser(user);
+        User user = (User) userDetailService.getLoggedInUser();
+        employee.setUser(user);
+        employee.setBloodType(BloodType.values()[employeeDTO.getBloodTypeId()]);
+        employee.setCurrentPoliceRank(PoliceRank.values()[employeeDTO.getCurrentPoliceRankId()]);
+        employee.setCurrentPosition(Position.values()[employeeDTO.getCurrentPositionId()]);
+        employee.setGeneralDepartment(GeneralDepartment.values()[employeeDTO.getDepartmentId()]);
+        employee.setPreviousPoliceRank(PoliceRank.values()[employeeDTO.getPrevPoliceRankId()]);
+        employee.setPreviousPosition(Position.values()[employeeDTO.getPrevPositionId()]);
 //  phone number
         Set<PhoneNumber> phoneNumberList = new HashSet<PhoneNumber>();
         employeeDTO.getPhoneNumberList().forEach(phone -> {
@@ -92,7 +102,7 @@ public class EmployeeServiceImp implements EmployeeService {
         });
         employee.setDegreeLevels(degreeLevelList);
 //        end education level
-// set apreciation
+// set appreciation
         Set<Appreciation> appreciationList = new HashSet<>();
         employeeDTO.getAppreciationList().forEach(edu -> {
             Appreciation app = new Appreciation();
@@ -323,6 +333,7 @@ public class EmployeeServiceImp implements EmployeeService {
         mo_current_adr.setVillage(employeeDTO.getMother().getCurrentAddress().getVillage());
         mo_current_adr.setStreetNumber(employeeDTO.getMother().getCurrentAddress().getStreetNumber());
         mo_current_adr.setHouseNumber(employeeDTO.getMother().getCurrentAddress().getHouseNumber());
+
         moAddress.setAddress(mo_current_adr);
         moAddress.setEmployee(employee);
         moAddress.setAddressType(AddressType.MOTHER_ADDRESS);
@@ -336,6 +347,38 @@ public class EmployeeServiceImp implements EmployeeService {
 
 
 // end Pob and current adr
+                    //UNIVERISTY SKILL
+
+        employeeDTO.getUniversityMajorList().forEach(skill->{
+            EmployeeUniversitySkill empUniSkill = new EmployeeUniversitySkill();
+            UniversitySkill universitySkill = new UniversitySkill();
+            universitySkill.setSkill(skill.getMajorName());
+            empUniSkill.setUniversitySkill(universitySkill);
+            empUniSkill.setEmployee(employee);
+
+            employee.getEmployeeUniversitySkills().add(empUniSkill);
+            universitySkill.getEmployeeUniversitySkills().add(empUniSkill);
+            universitySkillServiceImp.save(universitySkill);
+            employeeUniversitySkillRepo.save(empUniSkill);
+
+        });
+                    //END UNIVERSITY SKILL
+                    //START FOREIGN LANGUAGES
+                    employeeDTO.getForeignLangList().forEach(lang->{
+                        EmployeeLanguage empLang= new EmployeeLanguage();
+                        Language language = new Language();
+                        language.setLanguage(ForeignLang.values()[lang.getLangName()]);
+                        empLang.setLanguage(language);
+                        empLang.setEmployee(employee);
+                        empLang.setLevel(SkillLevel.values()[lang.getLangLevel()]);
+                        employee.getEmployeeLanguages().add(empLang);
+                        language.getEmployeeLanguages().add(empLang);
+                        languageServiceImp.save(language);
+                        employeeLanguageServiceImp.save(empLang);
+
+                    });
+                    //END FOREIGN LANGUAGES
+
 
         employeeRepo.save(employee);
 

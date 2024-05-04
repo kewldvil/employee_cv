@@ -102,21 +102,12 @@ public class Employee {
     private Set<EmployeeAddress> employeeAddresses = new HashSet<EmployeeAddress>();
 
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            joinColumns = { @JoinColumn(name = "employee_id") },
-            inverseJoinColumns = { @JoinColumn(name = "university_skill_id") }
-    )
-    private Set<UniversitySkill> universitySkills = new HashSet<>();
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<EmployeeUniversitySkill> employeeUniversitySkills = new HashSet<>();
 
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name="Employee_Language",
-            joinColumns = { @JoinColumn(name = "employee_id") },
-            inverseJoinColumns = { @JoinColumn(name = "language_id") }
-    )
-    private Set<Language> languages=new HashSet<>();
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<EmployeeLanguage> employeeLanguages=new HashSet<>();
 
 
     @PrePersist

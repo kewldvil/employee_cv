@@ -7,10 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "employee_address")
+@Table(name = "employee_university_skill")
+@Data
 @Setter
 @Getter
-public class EmployeeAddress {
+public class EmployeeUniversitySkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,9 +21,6 @@ public class EmployeeAddress {
     private Employee employee;
 
     @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
-
-    private AddressType addressType;
-
+    @JoinColumn(name = "university_skill_id")
+    private UniversitySkill universitySkill;
 }

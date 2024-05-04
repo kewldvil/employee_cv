@@ -1,28 +1,28 @@
 package com.noc.employee_cv.models;
 
-import com.noc.employee_cv.enums.AddressType;
+import com.noc.employee_cv.enums.SkillLevel;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "employee_address")
-@Setter
 @Getter
-public class EmployeeAddress {
+@Setter
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+public class EmployeeLanguage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    private SkillLevel level;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
-
-    private AddressType addressType;
-
+    @JoinColumn(name = "language_id")
+    private Language language;
 }
+

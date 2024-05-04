@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import com.noc.employee_cv.enums.Gender;
 
-import com.noc.employee_cv.enums.UniversityMajor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,7 +37,7 @@ public class EmployeeDTO {
     private List<PoliceCarDTO> policeCarList;
     private List<Boolean> educationList;
     private List<UniversityMajorDTO> UniversityMajorList;
-    private List<ForeignLanugeDTO> foreignLangList;
+    private List<ForeignLanguageDTO> foreignLangList;
     private List<VocationalTrainingDTO> vocationalTrainingList;
     private List<AppreciationDTO> appreciationList;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
