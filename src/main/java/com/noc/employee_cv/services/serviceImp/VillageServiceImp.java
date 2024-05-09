@@ -16,7 +16,7 @@ public class VillageServiceImp implements VillageService {
     private final VillageRepo villageRepo;
 
     @Override
-    public Village getVillageById(int id) {
+    public Village getVillageById(Integer id) {
         Optional<Village> village = villageRepo.findById(id);
         return village.orElse(null);
     }

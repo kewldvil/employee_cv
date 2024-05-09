@@ -2,9 +2,11 @@ package com.noc.employee_cv.authentication;
 
 import com.noc.employee_cv.email.EmailService;
 import com.noc.employee_cv.email.EmailTemplateName;
+import com.noc.employee_cv.models.ImageData;
 import com.noc.employee_cv.models.Token;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.RoleRepo;
+import com.noc.employee_cv.repositories.StorageRepo;
 import com.noc.employee_cv.repositories.TokenRepo;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.security.JwtService;
@@ -42,6 +44,8 @@ public class AuthenticationService {
 
     @Value("${activation_url}")
     private String activationUrl;
+    @Autowired
+    private StorageRepo storageRepo;
 
     public void register(RegistrationRequest request) throws MessagingException {
         var userRole = roleRepo.findByName(request.getRoles())

@@ -28,7 +28,6 @@ public class ProvinceController {
         if (provinceCities.isEmpty()) {
             return ResponseEntity.noContent().build(); // Return 204 No Content
         }
-        System.out.println(provinceCities.toString());
         return ResponseEntity.ok(provinceCities); // Return 200 OK with body
 
     }

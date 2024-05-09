@@ -6,6 +6,6 @@ import com.noc.employee_cv.provinces.District;
 import java.util.List;
 
 public interface CommuneService {
-    Commune getCommuneById(int id);
+    Commune getCommuneById(Integer id);
     List<Commune> getAllCommuneById(Integer districtId);
 }

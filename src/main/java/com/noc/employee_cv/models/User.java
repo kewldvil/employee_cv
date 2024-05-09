@@ -1,5 +1,6 @@
 package com.noc.employee_cv.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -33,21 +34,33 @@ public class User implements UserDetails, Principal {
     private String password;
     private String firstname;
     private String lastname;
+    private String imageName;
+    private String imagePath;
     @Column(unique = true)
     private String email;
     private boolean accountLocked;
     private boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-    @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private LocalDateTime updatedDate;
+    @PrePersist
+    protected void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+        createdDate = now;
+        updatedDate = now;
+    }
 
+    @PreUpdate
+    protected void onUpdate() {
+        updatedDate = LocalDateTime.now();
+    }
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private Employee employee;
+
+
 
     @Override
     public String getName() {

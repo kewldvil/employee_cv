@@ -1,5 +1,7 @@
 package com.noc.employee_cv.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,7 +15,8 @@ public class PolicePlateNumberCar {
     private String plateNumber;
     private String carType;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name="employee_id")
     private Employee employee;
 }

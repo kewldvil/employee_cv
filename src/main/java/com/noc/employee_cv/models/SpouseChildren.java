@@ -1,5 +1,8 @@
 package com.noc.employee_cv.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.noc.employee_cv.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -12,7 +15,8 @@ import java.time.LocalDate;
 @Setter
 @Getter
 public class SpouseChildren {
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "spouse_id")
     private Spouse spouse;
 
@@ -21,6 +25,7 @@ public class SpouseChildren {
     private int id;
     private String childFullName;
     private Gender childGender;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate childDateOfBirth;
     private String childJob;
 }

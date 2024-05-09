@@ -2,6 +2,8 @@ package com.noc.employee_cv.models;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.noc.employee_cv.enums.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -25,16 +27,21 @@ public class Employee {
     @NotNull
     private String lastname;
     @NotNull
+    private String latinName;
+    @NotNull
+    private String nationality;
+    @NotNull
     private Gender gender;
+
     @Column(length = 5)
-    private BloodType bloodType;
+    private String bloodType;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotNull
     private LocalDate dateOfBirth;
     @NotNull
-    private PoliceRank currentPoliceRank;
+    private String currentPoliceRank;
     @NotNull
-    private Position currentPosition;
+    private String currentPosition;
     @NotNull
     private String policeRankDocumentNumber;
     @NotNull
@@ -51,11 +58,11 @@ public class Employee {
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateJoinPolice;
-    private PoliceRank previousPoliceRank;
+    private String previousPoliceRank;
     @NotNull
-    private Position previousPosition;
+    private String previousPosition;
     @NotNull
-    private GeneralDepartment generalDepartment;
+    private String generalDepartment;
     private int previousActivityAndPositionStartYear;
     @NotNull
     private Boolean isMarried;
@@ -67,47 +74,52 @@ public class Employee {
     private LocalDateTime updatedAt;
 
 
-
-
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PhoneNumber> phoneNumberList = new HashSet<>();
-
+    private List<PhoneNumber> phoneNumberList = new ArrayList<>();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PolicePlateNumberCar> policePlatNumberCars = new HashSet<>();
+    private List<PolicePlateNumberCar> policePlatNumberCars = new ArrayList<>();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Weapon> weapon = new HashSet<>();
+    private List<Weapon> weapon = new ArrayList<>();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DegreeLevel> degreeLevels = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Appreciation> appreciation= new HashSet<>();
+    private List<Appreciation> appreciation = new ArrayList<>();
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PreviousActivityAndPosition> activityAndPosition=new HashSet<>();
+    private List<VocationalTraining> vocationalTraining = new ArrayList<>();
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PreviousActivityAndPosition> activityAndPosition = new ArrayList<>();
+
+
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "spouse_id")
     private Spouse spouse;
+
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "father_id")
     private Father father;
+
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "mother_id")
     private Mother mother;
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<EmployeeAddress> employeeAddresses = new HashSet<EmployeeAddress>();
+    private List<EmployeeAddress> employeeAddresses = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<EmployeeUniversitySkill> employeeUniversitySkills = new HashSet<>();
+    private List<EmployeeUniversitySkill> employeeUniversitySkills = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<EmployeeLanguage> employeeLanguages=new HashSet<>();
+    private List<EmployeeLanguage> employeeLanguages = new ArrayList<>();
 
 
     @PrePersist

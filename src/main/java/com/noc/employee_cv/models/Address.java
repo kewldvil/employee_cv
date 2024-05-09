@@ -1,5 +1,6 @@
 package com.noc.employee_cv.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.noc.employee_cv.enums.AddressType;
 import com.noc.employee_cv.provinces.Commune;
 import com.noc.employee_cv.provinces.District;
@@ -10,7 +11,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -22,6 +25,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Getter
 @Setter
 public class Address {
+    @JsonIgnore
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EmployeeAddress> employeeAddresses = new HashSet<>();
 
@@ -30,8 +34,12 @@ public class Address {
     public Integer id;
     private String streetNumber;
     private String houseNumber;
-    private int province;
-    private int district;
-    private int commune;
-    private int village;
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AddressProvinceCity> addressProvinceCities = new ArrayList<>();
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AddressDistrict> addressDistricts= new ArrayList<>();
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AddressCommune>addressCommunes= new ArrayList<>();
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AddressVillage> addressVillages= new ArrayList<>();
     }

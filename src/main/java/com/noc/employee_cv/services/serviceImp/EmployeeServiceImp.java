@@ -1,4 +1,5 @@
 package com.noc.employee_cv.services.serviceImp;
+
 import com.noc.employee_cv.dto.EmployeeDTO;
 import com.noc.employee_cv.enums.*;
 import com.noc.employee_cv.mapper.EmployeeMapper;
@@ -9,6 +10,7 @@ import com.noc.employee_cv.security.UserDetailServiceImpl;
 import com.noc.employee_cv.services.EmployeeService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.antlr.v4.runtime.misc.Array2DHashSet;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -34,6 +36,10 @@ public class EmployeeServiceImp implements EmployeeService {
     private final EmployeeUniversitySkillServiceImp employeeUniversitySkillServiceImp;
     private final LanguageServiceImp languageServiceImp;
     private final EmployeeLanguageServiceImp employeeLanguageServiceImp;
+    private final AddressProvinceServiceImp addressProvinceServiceImp;
+    private final AddressDistrictServiceImp addressDistrictServiceImp;
+    private final AddressCommuneServiceImp addressCommuneServiceImp;
+    private final AddressVillageServiceImp addressVillageServiceImp;
 
     @Override
     @Transactional
@@ -41,14 +47,14 @@ public class EmployeeServiceImp implements EmployeeService {
         Employee employee = employeeMapper.fromEmployeeDto(employeeDTO);
         User user = (User) userDetailService.getLoggedInUser();
         employee.setUser(user);
-        employee.setBloodType(BloodType.values()[employeeDTO.getBloodTypeId()]);
-        employee.setCurrentPoliceRank(PoliceRank.values()[employeeDTO.getCurrentPoliceRankId()]);
-        employee.setCurrentPosition(Position.values()[employeeDTO.getCurrentPositionId()]);
-        employee.setGeneralDepartment(GeneralDepartment.values()[employeeDTO.getDepartmentId()]);
-        employee.setPreviousPoliceRank(PoliceRank.values()[employeeDTO.getPrevPoliceRankId()]);
-        employee.setPreviousPosition(Position.values()[employeeDTO.getPrevPositionId()]);
+        employee.setBloodType(employeeDTO.getBloodTypeId());
+        employee.setCurrentPoliceRank(employeeDTO.getCurrentPoliceRankId());
+        employee.setCurrentPosition(employeeDTO.getCurrentPositionId());
+        employee.setGeneralDepartment(employeeDTO.getDepartmentId());
+        employee.setPreviousPoliceRank(employeeDTO.getPrevPoliceRankId());
+        employee.setPreviousPosition(employeeDTO.getPrevPositionId());
 //  phone number
-        Set<PhoneNumber> phoneNumberList = new HashSet<PhoneNumber>();
+        List<PhoneNumber> phoneNumberList = new ArrayList<>();
         employeeDTO.getPhoneNumberList().forEach(phone -> {
             PhoneNumber phoneNumber = new PhoneNumber();
             phoneNumber.setPhoneNumber(phone.getPhoneNumber());
@@ -62,7 +68,7 @@ public class EmployeeServiceImp implements EmployeeService {
 // end phone number list
 //        set police car
 
-        Set<PolicePlateNumberCar> policePlateNumberCarList = new HashSet<>();
+        List<PolicePlateNumberCar> policePlateNumberCarList = new ArrayList<>();
         employeeDTO.getPoliceCarList().forEach(car -> {
             PolicePlateNumberCar policeCar = new PolicePlateNumberCar();
             policeCar.setCarType(car.getVehicleBrand());
@@ -76,7 +82,7 @@ public class EmployeeServiceImp implements EmployeeService {
 //        end police car
 
 // set weapon
-        Set<Weapon> weaponList = new HashSet<>();
+        List<Weapon> weaponList = new ArrayList<>();
         employeeDTO.getWeaponList().forEach(weapon -> {
             Weapon w = new Weapon();
             w.setWeaponType(weapon.getWeaponType());
@@ -93,7 +99,6 @@ public class EmployeeServiceImp implements EmployeeService {
 //        Set<DegreeLevel> degreeLevelList = new HashSet<>();
         List<DegreeLevel> degreeLevelList = new ArrayList<>();
         employeeDTO.getEducationList().forEach(degree -> {
-            System.out.println(degree);
             DegreeLevel dl = new DegreeLevel();
             dl.setDegreeLevel(degree);
             dl.setEmployee(employee);
@@ -103,7 +108,7 @@ public class EmployeeServiceImp implements EmployeeService {
         employee.setDegreeLevels(degreeLevelList);
 //        end education level
 // set appreciation
-        Set<Appreciation> appreciationList = new HashSet<>();
+        List<Appreciation> appreciationList = new ArrayList<>();
         employeeDTO.getAppreciationList().forEach(edu -> {
             Appreciation app = new Appreciation();
             app.setAppreciationNumber(edu.getAppreciationNumber());
@@ -115,8 +120,22 @@ public class EmployeeServiceImp implements EmployeeService {
         });
         employee.setAppreciation(appreciationList);
 //end appreciation
+        // SET VOCATIONAL TRAINING
+        List<VocationalTraining> vocationalTrainingList = new ArrayList<>();
+        employeeDTO.getVocationalTrainingList().forEach(trainingDTO -> {
+            VocationalTraining vt = new VocationalTraining();
+            vt.setTrainingCenter(trainingDTO.getTrainingCenter());
+            vt.setTrainingDate(trainingDTO.getTrainingDate());
+            vt.setTrainingCourse(trainingDTO.getTrainingCourse());
+            vt.setTrainingDuration(trainingDTO.getTrainingDuration());
+            vt.setEmployee(employee);
+            employee.getVocationalTraining().add(vt);
+            vocationalTrainingList.add(vt);
+        });
+        employee.setVocationalTraining(vocationalTrainingList);
+        //END VOCATIONAL TRAINING
 // set previous activity
-        Set<PreviousActivityAndPosition> previousActivityAndPositionList = new HashSet<>();
+        List<PreviousActivityAndPosition> previousActivityAndPositionList = new ArrayList<>();
         employeeDTO.getActivityList().forEach(activity -> {
             PreviousActivityAndPosition ps = new PreviousActivityAndPosition();
             ps.setFromDate(activity.getFromDate());
@@ -137,7 +156,7 @@ public class EmployeeServiceImp implements EmployeeService {
 //        sp.setSpouseDateOfBirth(employeeDTO.getSpouse().getDateOfBirth());
 //        sp.setSpouseJobName(employeeDTO.getSpouse().getJob());
 //        set children
-        Set<SpouseChildren> spChildrenList = new HashSet<>();
+        List<SpouseChildren> spChildrenList = new ArrayList<>();
         employeeDTO.getSpouse().getChildrenList().forEach(child -> {
             SpouseChildren spChild = new SpouseChildren();
             spChild.setChildFullName(child.getFullName());
@@ -189,167 +208,76 @@ public class EmployeeServiceImp implements EmployeeService {
         });
         employee.setPhoneNumberList(phoneNumberList);
 //end mother
-                        // set POB and Current Adr emp
-        EmployeeAddress employeeAddress = new EmployeeAddress();
-//        emp pob
-        Address emp_pob = new Address();
-        emp_pob.setProvince(employeeDTO.getPlaceOfBirth().getProvince());
-        emp_pob.setDistrict(employeeDTO.getPlaceOfBirth().getDistrict());
-        emp_pob.setCommune(employeeDTO.getPlaceOfBirth().getCommune());
-        emp_pob.setVillage(employeeDTO.getPlaceOfBirth().getVillage());
+        //SET EMPLOYEE PLACE OF BIRTH
+        ProvinceCity provinceCity = provinceServiceImp.getProvinceById(employeeDTO.getPlaceOfBirth().getProvince());
+        District district = districtServiceImp.getDistrictById(employeeDTO.getPlaceOfBirth().getDistrict());
+        Commune commune = communeServiceImp.getCommuneById(employeeDTO.getPlaceOfBirth().getCommune());
+        Village village = villageServiceImp.getVillageById(employeeDTO.getPlaceOfBirth().getVillage());
+        myPlaceOfBirth(employee, provinceCity, district, commune, village, AddressType.POB);
+        //END EMPLOYEE PLACE OF BIRTH
+        // EMPLOYEE CURRENT ADDRESS
+        ProvinceCity cur_provinceCity = provinceServiceImp.getProvinceById(employeeDTO.getCurrentAddress().getProvince());
+        District cur_district = districtServiceImp.getDistrictById(employeeDTO.getCurrentAddress().getDistrict());
+        Commune cur_commune = communeServiceImp.getCommuneById(employeeDTO.getCurrentAddress().getCommune());
+        Village cur_village = villageServiceImp.getVillageById(employeeDTO.getCurrentAddress().getVillage());
+        var streetNumber = employeeDTO.getCurrentAddress().getStreetNumber();
+        var houseNumber = employeeDTO.getCurrentAddress().getHouseNumber();
+        myCurrentAddress(employee, cur_provinceCity, cur_district, cur_commune, cur_village, AddressType.CURRENT_ADDRESS, streetNumber, houseNumber);
+        // END EMPLOYEE CURRENT ADDRESS
 
-        employeeAddress.setAddress(emp_pob);
-        employeeAddress.setEmployee(employee);
-        employeeAddress.setAddressType(AddressType.POB);
-
-        employee.getEmployeeAddresses().add(employeeAddress);
-        emp_pob.getEmployeeAddresses().add(employeeAddress);
-
-        addressServiceImp.save(emp_pob);
-        employeeAddressRepo.save(employeeAddress);
-//        end emp pob
-//        start emp current adr
-        EmployeeAddress employeeAddress1 = new EmployeeAddress();
-//        emp pob
-        Address emp_current_adr = new Address();
-        emp_current_adr.setProvince(employeeDTO.getCurrentAddress().getProvince());
-        emp_current_adr.setDistrict(employeeDTO.getCurrentAddress().getDistrict());
-        emp_current_adr.setCommune(employeeDTO.getCurrentAddress().getCommune());
-        emp_current_adr.setVillage(employeeDTO.getCurrentAddress().getVillage());
-        emp_current_adr.setStreetNumber(employeeDTO.getCurrentAddress().getStreetNumber());
-        emp_current_adr.setHouseNumber(employeeDTO.getCurrentAddress().getHouseNumber());
-        employeeAddress1.setAddress(emp_current_adr);
-        employeeAddress1.setEmployee(employee);
-        employeeAddress1.setAddressType(AddressType.CURRENT_ADDRESS);
-
-        employee.getEmployeeAddresses().add(employeeAddress1);
-        emp_current_adr.getEmployeeAddresses().add(employeeAddress1);
-
-        addressServiceImp.save(emp_current_adr);
-        employeeAddressRepo.save(employeeAddress1);
-//        end emp current addr
-                        //SPOUSE ADDRESS
-        EmployeeAddress spuosePOB = new EmployeeAddress();
-
-        Address sp_pob = new Address();
-        sp_pob.setProvince(employeeDTO.getSpouse().getPlaceOfBirth().getProvince());
-        sp_pob.setDistrict(employeeDTO.getSpouse().getPlaceOfBirth().getDistrict());
-        sp_pob.setCommune(employeeDTO.getSpouse().getPlaceOfBirth().getCommune());
-        sp_pob.setVillage(employeeDTO.getSpouse().getPlaceOfBirth().getVillage());
-
-        spuosePOB.setAddress(sp_pob);
-        spuosePOB.setEmployee(employee);
-        spuosePOB.setAddressType(AddressType.SPOUSE_POB);
-
-        employee.getEmployeeAddresses().add(spuosePOB);
-        sp_pob.getEmployeeAddresses().add(spuosePOB);
-
-        addressServiceImp.save(sp_pob);
-        employeeAddressRepo.save(spuosePOB);
-
-        EmployeeAddress SpouseAddress = new EmployeeAddress();
-
-        Address sp_current_adr = new Address();
-        sp_current_adr.setProvince(employeeDTO.getSpouse().getCurrentAddress().getProvince());
-        sp_current_adr.setDistrict(employeeDTO.getSpouse().getCurrentAddress().getDistrict());
-        sp_current_adr.setCommune(employeeDTO.getSpouse().getCurrentAddress().getCommune());
-        sp_current_adr.setVillage(employeeDTO.getSpouse().getCurrentAddress().getVillage());
-        sp_current_adr.setStreetNumber(employeeDTO.getSpouse().getCurrentAddress().getStreetNumber());
-        sp_current_adr.setHouseNumber(employeeDTO.getSpouse().getCurrentAddress().getHouseNumber());
-        SpouseAddress.setAddress(sp_current_adr);
-        SpouseAddress.setEmployee(employee);
-        SpouseAddress.setAddressType(AddressType.SPOUSE_ADDRESS);
-
-        employee.getEmployeeAddresses().add(SpouseAddress);
-        sp_current_adr.getEmployeeAddresses().add(SpouseAddress);
-
-        addressServiceImp.save(sp_current_adr);
-        employeeAddressRepo.save(SpouseAddress);
-                        // END SPOUSE ADDRESS
-
-        //FATHER ADDRESS
-        EmployeeAddress faPOB = new EmployeeAddress();
-
-        Address fa_pob = new Address();
-        fa_pob.setProvince(employeeDTO.getFather().getPlaceOfBirth().getProvince());
-        fa_pob.setDistrict(employeeDTO.getFather().getPlaceOfBirth().getDistrict());
-        fa_pob.setCommune(employeeDTO.getFather().getPlaceOfBirth().getCommune());
-        fa_pob.setVillage(employeeDTO.getFather().getPlaceOfBirth().getVillage());
-
-        faPOB.setAddress(fa_pob);
-        faPOB.setEmployee(employee);
-        faPOB.setAddressType(AddressType.FATHER_POB);
-
-        employee.getEmployeeAddresses().add(faPOB);
-        fa_pob.getEmployeeAddresses().add(faPOB);
-
-        addressServiceImp.save(fa_pob);
-        employeeAddressRepo.save(spuosePOB);
-
-        EmployeeAddress faAddress = new EmployeeAddress();
-
-        Address fa_current_adr = new Address();
-        fa_current_adr.setProvince(employeeDTO.getFather().getCurrentAddress().getProvince());
-        fa_current_adr.setDistrict(employeeDTO.getFather().getCurrentAddress().getDistrict());
-        fa_current_adr.setCommune(employeeDTO.getFather().getCurrentAddress().getCommune());
-        fa_current_adr.setVillage(employeeDTO.getFather().getCurrentAddress().getVillage());
-        fa_current_adr.setStreetNumber(employeeDTO.getFather().getCurrentAddress().getStreetNumber());
-        fa_current_adr.setHouseNumber(employeeDTO.getFather().getCurrentAddress().getHouseNumber());
-        faAddress.setAddress(fa_current_adr);
-        faAddress.setEmployee(employee);
-        faAddress.setAddressType(AddressType.FATHER_ADDRESS);
-
-        employee.getEmployeeAddresses().add(faAddress);
-        fa_current_adr.getEmployeeAddresses().add(faAddress);
-
-        addressServiceImp.save(fa_current_adr);
-        employeeAddressRepo.save(faAddress);
-        // END FATHER ADDRESS
-        //MOTHER ADDRESS
-        EmployeeAddress moPOB = new EmployeeAddress();
-
-        Address mo_pob = new Address();
-        mo_pob.setProvince(employeeDTO.getMother().getPlaceOfBirth().getProvince());
-        mo_pob.setDistrict(employeeDTO.getMother().getPlaceOfBirth().getDistrict());
-        mo_pob.setCommune(employeeDTO.getMother().getPlaceOfBirth().getCommune());
-        mo_pob.setVillage(employeeDTO.getMother().getPlaceOfBirth().getVillage());
-
-        moPOB.setAddress(mo_pob);
-        moPOB.setEmployee(employee);
-        moPOB.setAddressType(AddressType.MOTHER_POB);
-
-        employee.getEmployeeAddresses().add(moPOB);
-        mo_pob.getEmployeeAddresses().add(moPOB);
-
-        addressServiceImp.save(mo_pob);
-        employeeAddressRepo.save(spuosePOB);
-
-        EmployeeAddress moAddress = new EmployeeAddress();
-
-        Address mo_current_adr = new Address();
-        mo_current_adr.setProvince(employeeDTO.getMother().getCurrentAddress().getProvince());
-        mo_current_adr.setDistrict(employeeDTO.getMother().getCurrentAddress().getDistrict());
-        mo_current_adr.setCommune(employeeDTO.getMother().getCurrentAddress().getCommune());
-        mo_current_adr.setVillage(employeeDTO.getMother().getCurrentAddress().getVillage());
-        mo_current_adr.setStreetNumber(employeeDTO.getMother().getCurrentAddress().getStreetNumber());
-        mo_current_adr.setHouseNumber(employeeDTO.getMother().getCurrentAddress().getHouseNumber());
-
-        moAddress.setAddress(mo_current_adr);
-        moAddress.setEmployee(employee);
-        moAddress.setAddressType(AddressType.MOTHER_ADDRESS);
-
-        employee.getEmployeeAddresses().add(moAddress);
-        mo_current_adr.getEmployeeAddresses().add(moAddress);
-
-        addressServiceImp.save(mo_current_adr);
-        employeeAddressRepo.save(moAddress);
-        // END MOTHER ADDRESS
+        //SET SPOUSE PLACE OF BIRTH
+        ProvinceCity spouseProvinceCity = provinceServiceImp.getProvinceById(employeeDTO.getSpouse().getPlaceOfBirth().getProvince());
+        District spouseDistrict = districtServiceImp.getDistrictById(employeeDTO.getSpouse().getPlaceOfBirth().getDistrict());
+        Commune spouseCommune = communeServiceImp.getCommuneById(employeeDTO.getSpouse().getPlaceOfBirth().getCommune());
+        Village spouseVillage = villageServiceImp.getVillageById(employeeDTO.getSpouse().getPlaceOfBirth().getVillage());
+        myPlaceOfBirth(employee, spouseProvinceCity, spouseDistrict, spouseCommune, spouseVillage, AddressType.SPOUSE_POB);
+        //END SPOUSE PLACE OF BIRTH
+        // SPOUSE CURRENT ADDRESS
+        ProvinceCity spouse_cur_provinceCity = provinceServiceImp.getProvinceById(employeeDTO.getSpouse().getCurrentAddress().getProvince());
+        District spouse_cur_district = districtServiceImp.getDistrictById(employeeDTO.getSpouse().getCurrentAddress().getDistrict());
+        Commune spouse_cur_commune = communeServiceImp.getCommuneById(employeeDTO.getSpouse().getCurrentAddress().getCommune());
+        Village spouse_cur_village = villageServiceImp.getVillageById(employeeDTO.getSpouse().getCurrentAddress().getVillage());
+        var spouse_streetNumber = employeeDTO.getSpouse().getCurrentAddress().getStreetNumber();
+        var spouse_houseNumber = employeeDTO.getSpouse().getCurrentAddress().getHouseNumber();
+        myCurrentAddress(employee, spouse_cur_provinceCity, spouse_cur_district, spouse_cur_commune, spouse_cur_village, AddressType.SPOUSE_ADDRESS, spouse_streetNumber, spouse_houseNumber);
+        // END SPOUSE CURRENT ADDRESS
+        //SET FATHER PLACE OF BIRTH
+        ProvinceCity fatherProvinceCity = provinceServiceImp.getProvinceById(employeeDTO.getFather().getPlaceOfBirth().getProvince());
+        District fatherDistrict = districtServiceImp.getDistrictById(employeeDTO.getFather().getPlaceOfBirth().getDistrict());
+        Commune fatherCommune = communeServiceImp.getCommuneById(employeeDTO.getFather().getPlaceOfBirth().getCommune());
+        Village fatherVillage = villageServiceImp.getVillageById(employeeDTO.getFather().getPlaceOfBirth().getVillage());
+        myPlaceOfBirth(employee, fatherProvinceCity, fatherDistrict, fatherCommune, fatherVillage, AddressType.FATHER_POB);
+        //END FATHER PLACE OF BIRTH
+        // FATHER CURRENT ADDRESS
+        ProvinceCity father_cur_provinceCity = provinceServiceImp.getProvinceById(employeeDTO.getFather().getCurrentAddress().getProvince());
+        District father_cur_district = districtServiceImp.getDistrictById(employeeDTO.getFather().getCurrentAddress().getDistrict());
+        Commune father_cur_commune = communeServiceImp.getCommuneById(employeeDTO.getFather().getCurrentAddress().getCommune());
+        Village father_cur_village = villageServiceImp.getVillageById(employeeDTO.getFather().getCurrentAddress().getVillage());
+        var father_streetNumber = employeeDTO.getFather().getCurrentAddress().getStreetNumber();
+        var father_houseNumber = employeeDTO.getFather().getCurrentAddress().getHouseNumber();
+        myCurrentAddress(employee, father_cur_provinceCity, father_cur_district, father_cur_commune, father_cur_village, AddressType.FATHER_ADDRESS, father_streetNumber, father_houseNumber);
+        // END FATHER CURRENT ADDRESS
+        //SET MOTHER PLACE OF BIRTH
+        ProvinceCity motherProvinceCity = provinceServiceImp.getProvinceById(employeeDTO.getMother().getPlaceOfBirth().getProvince());
+        District motherDistrict = districtServiceImp.getDistrictById(employeeDTO.getMother().getPlaceOfBirth().getDistrict());
+        Commune motherCommune = communeServiceImp.getCommuneById(employeeDTO.getMother().getPlaceOfBirth().getCommune());
+        Village motherVillage = villageServiceImp.getVillageById(employeeDTO.getMother().getPlaceOfBirth().getVillage());
+        myPlaceOfBirth(employee, motherProvinceCity, motherDistrict, motherCommune, motherVillage, AddressType.MOTHER_POB);
+        //END MOTHER PLACE OF BIRTH
+        // MOTHER CURRENT ADDRESS
+        ProvinceCity mother_cur_provinceCity = provinceServiceImp.getProvinceById(employeeDTO.getMother().getCurrentAddress().getProvince());
+        District mother_cur_district = districtServiceImp.getDistrictById(employeeDTO.getMother().getCurrentAddress().getDistrict());
+        Commune mother_cur_commune = communeServiceImp.getCommuneById(employeeDTO.getMother().getCurrentAddress().getCommune());
+        Village mother_cur_village = villageServiceImp.getVillageById(employeeDTO.getMother().getCurrentAddress().getVillage());
+        var mother_streetNumber = employeeDTO.getMother().getCurrentAddress().getStreetNumber();
+        var mother_houseNumber = employeeDTO.getMother().getCurrentAddress().getHouseNumber();
+        myCurrentAddress(employee, mother_cur_provinceCity, mother_cur_district, mother_cur_commune, mother_cur_village, AddressType.MOTHER_ADDRESS, mother_streetNumber, mother_houseNumber);
+        // END MOTHER CURRENT ADDRESS
 
 
-// end Pob and current adr
-                    //UNIVERISTY SKILL
+        //UNIVERISTY SKILL
 
-        employeeDTO.getUniversityMajorList().forEach(skill->{
+        employeeDTO.getUniversityMajorList().forEach(skill -> {
             EmployeeUniversitySkill empUniSkill = new EmployeeUniversitySkill();
             UniversitySkill universitySkill = new UniversitySkill();
             universitySkill.setSkill(skill.getMajorName());
@@ -362,49 +290,134 @@ public class EmployeeServiceImp implements EmployeeService {
             employeeUniversitySkillRepo.save(empUniSkill);
 
         });
-                    //END UNIVERSITY SKILL
-                    //START FOREIGN LANGUAGES
-                    employeeDTO.getForeignLangList().forEach(lang->{
-                        EmployeeLanguage empLang= new EmployeeLanguage();
-                        Language language = new Language();
-                        language.setLanguage(ForeignLang.values()[lang.getLangName()]);
-                        empLang.setLanguage(language);
-                        empLang.setEmployee(employee);
-                        empLang.setLevel(SkillLevel.values()[lang.getLangLevel()]);
-                        employee.getEmployeeLanguages().add(empLang);
-                        language.getEmployeeLanguages().add(empLang);
-                        languageServiceImp.save(language);
-                        employeeLanguageServiceImp.save(empLang);
+        //END UNIVERSITY SKILL
+        //START FOREIGN LANGUAGES
+        employeeDTO.getForeignLangList().forEach(lang -> {
+            EmployeeLanguage empLang = new EmployeeLanguage();
+            Language language = new Language();
+            language.setLanguage(ForeignLang.values()[lang.getLangName()]);
+            empLang.setLanguage(language);
+            empLang.setEmployee(employee);
+            empLang.setLevel(SkillLevel.values()[lang.getLangLevel()]);
+            employee.getEmployeeLanguages().add(empLang);
+            language.getEmployeeLanguages().add(empLang);
+            languageServiceImp.save(language);
+            employeeLanguageServiceImp.save(empLang);
 
-                    });
-                    //END FOREIGN LANGUAGES
+        });
+        //END FOREIGN LANGUAGES
 
 
         employeeRepo.save(employee);
 
     }
 
-    @Override
-    @Transactional
-    public void saveEmployeeAddress(int employeeId, int addressId, AddressType addressType) {
-        Employee employee = employeeRepo.findById(employeeId).orElseThrow();
-        Address address = addressRepo.findById(addressId).orElseThrow();
+    private void myPlaceOfBirth(Employee employee, ProvinceCity provinceCity, District district, Commune commune, Village village, AddressType addressType) {
+        AddressProvinceCity addressProvinceCity = new AddressProvinceCity();
+        AddressDistrict addressDistrict = new AddressDistrict();
+        AddressCommune addressCommune = new AddressCommune();
+        AddressVillage addressVillage = new AddressVillage();
 
+        Address emp_pob = new Address();
+        addressProvinceCity.setProvinceCity(provinceCity);
+        addressDistrict.setDistrict(district);
+        addressCommune.setCommune(commune);
+        addressVillage.setVillage(village);
+
+        addressProvinceCity.setAddress(emp_pob);
+        addressDistrict.setAddress(emp_pob);
+        addressCommune.setAddress(emp_pob);
+        addressVillage.setAddress(emp_pob);
+
+        provinceCity.getAddressProvinceCities().add(addressProvinceCity);
+        district.getAddressDistricts().add(addressDistrict);
+        commune.getAddressCommunes().add(addressCommune);
+        village.getAddressVillages().add(addressVillage);
+
+        emp_pob.getAddressProvinceCities().add(addressProvinceCity);
+        emp_pob.getAddressDistricts().add(addressDistrict);
+        emp_pob.getAddressCommunes().add(addressCommune);
+        emp_pob.getAddressVillages().add(addressVillage);
+
+        addressProvinceCity.setAddress(emp_pob);
+        addressDistrict.setAddress(emp_pob);
+        addressCommune.setAddress(emp_pob);
+        addressVillage.setAddress(emp_pob);
+        addressProvinceServiceImp.save(addressProvinceCity);
+        addressDistrictServiceImp.save(addressDistrict);
+        addressCommuneServiceImp.save(addressCommune);
+        addressVillageServiceImp.save(addressVillage);
         EmployeeAddress employeeAddress = new EmployeeAddress();
+        employeeAddress.setAddress(emp_pob);
         employeeAddress.setEmployee(employee);
-        employeeAddress.setAddress(address);
         employeeAddress.setAddressType(addressType);
 
         employee.getEmployeeAddresses().add(employeeAddress);
-        address.getEmployeeAddresses().add(employeeAddress);
+        emp_pob.getEmployeeAddresses().add(employeeAddress);
 
+        addressServiceImp.save(emp_pob);
         employeeAddressRepo.save(employeeAddress);
+    }
+
+    private void myCurrentAddress(Employee employee, ProvinceCity provinceCity, District district, Commune commune, Village village, AddressType addressType, String streetNumber, String houseNumber) {
+        AddressProvinceCity addressProvinceCity = new AddressProvinceCity();
+        AddressDistrict addressDistrict = new AddressDistrict();
+        AddressCommune addressCommune = new AddressCommune();
+        AddressVillage addressVillage = new AddressVillage();
+
+        Address emp_pob = new Address();
+        emp_pob.setStreetNumber(streetNumber);
+        emp_pob.setHouseNumber(houseNumber);
+        addressProvinceCity.setProvinceCity(provinceCity);
+        addressDistrict.setDistrict(district);
+        addressCommune.setCommune(commune);
+        addressVillage.setVillage(village);
+
+        addressProvinceCity.setAddress(emp_pob);
+        addressDistrict.setAddress(emp_pob);
+        addressCommune.setAddress(emp_pob);
+        addressVillage.setAddress(emp_pob);
+
+        provinceCity.getAddressProvinceCities().add(addressProvinceCity);
+        district.getAddressDistricts().add(addressDistrict);
+        commune.getAddressCommunes().add(addressCommune);
+        village.getAddressVillages().add(addressVillage);
+
+        emp_pob.getAddressProvinceCities().add(addressProvinceCity);
+        emp_pob.getAddressDistricts().add(addressDistrict);
+        emp_pob.getAddressCommunes().add(addressCommune);
+        emp_pob.getAddressVillages().add(addressVillage);
+
+
+        addressProvinceCity.setAddress(emp_pob);
+        addressDistrict.setAddress(emp_pob);
+        addressCommune.setAddress(emp_pob);
+        addressVillage.setAddress(emp_pob);
+        addressProvinceServiceImp.save(addressProvinceCity);
+        addressDistrictServiceImp.save(addressDistrict);
+        addressCommuneServiceImp.save(addressCommune);
+        addressVillageServiceImp.save(addressVillage);
+        EmployeeAddress employeeAddress = new EmployeeAddress();
+        employeeAddress.setAddress(emp_pob);
+        employeeAddress.setEmployee(employee);
+        employeeAddress.setAddressType(addressType);
+
+        employee.getEmployeeAddresses().add(employeeAddress);
+        emp_pob.getEmployeeAddresses().add(employeeAddress);
+
+        addressServiceImp.save(emp_pob);
+        employeeAddressRepo.save(employeeAddress);
+    }
+
+    @Override
+    public void saveEmployeeAddress(int employeeId, int addressId, AddressType addressType) {
+        return;
     }
 
 
     @Override
     public Employee findById(Integer id) {
-        return null;
+        return employeeRepo.findById(id).orElseThrow();
     }
 
     @Override

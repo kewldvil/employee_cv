@@ -17,7 +17,7 @@ public class DistrictServiceImp implements DistrictService {
 
 
     @Override
-    public District getDistrictById(int id) {
+    public District getDistrictById(Integer id) {
         Optional<District> district = districtRepo.findById(id);
         return district.orElse(null);
     }

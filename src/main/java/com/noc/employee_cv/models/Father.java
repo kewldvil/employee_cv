@@ -1,6 +1,7 @@
 package com.noc.employee_cv.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.noc.employee_cv.dto.PhoneNumberDTO;
 import com.noc.employee_cv.enums.Gender;
 import jakarta.persistence.*;
@@ -28,7 +29,7 @@ public class Father {
     private Boolean isAlive;
     @Column(name = "job")
     private String job;
-
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;

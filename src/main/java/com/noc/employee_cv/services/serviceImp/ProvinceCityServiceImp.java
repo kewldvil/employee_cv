@@ -16,7 +16,7 @@ public class ProvinceCityServiceImp implements ProvinceCityService {
     private final ProvinceCityRepo provinceCityRepo;
 
     @Override
-    public ProvinceCity getProvinceById(int id) {
+    public ProvinceCity getProvinceById(Integer id) {
         Optional<ProvinceCity> province = provinceCityRepo.findById(id);
         return province.orElse(null); // Return user if present; otherwise
     }

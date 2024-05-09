@@ -6,6 +6,6 @@ import com.noc.employee_cv.provinces.Village;
 import java.util.List;
 
 public interface VillageService {
-    Village getVillageById(int id);
+    Village getVillageById(Integer id);
     List<Village> getAllVillageById(Integer communeId);
 }

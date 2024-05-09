@@ -1,12 +1,15 @@
 package com.noc.employee_cv.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.noc.employee_cv.dto.PhoneNumberDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,10 +37,11 @@ public class Spouse {
 
 
     @OneToMany(mappedBy = "spouse", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<SpouseChildren> children=new HashSet<>();
+    private List<SpouseChildren> children=new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
+    @JsonIgnore
     private Employee employee;
 
 }

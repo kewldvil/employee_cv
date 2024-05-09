@@ -16,7 +16,7 @@ public class CommuneServiceImp implements CommuneService {
     private final CommuneRepo communeRepo;
 
     @Override
-    public Commune getCommuneById(int id) {
+    public Commune getCommuneById(Integer id) {
         Optional<Commune> commune = communeRepo.findById(id);
         return commune.orElse(null);
     }

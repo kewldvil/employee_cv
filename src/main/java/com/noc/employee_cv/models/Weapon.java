@@ -1,6 +1,8 @@
 package com.noc.employee_cv.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,7 +19,8 @@ public class Weapon {
     private String weaponType;
     private String weaponBrand;
     private String weaponSerialNumber;
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name="employee_id")
     private Employee employee;
 }
