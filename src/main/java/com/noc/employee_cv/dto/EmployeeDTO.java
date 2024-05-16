@@ -18,6 +18,7 @@ public class EmployeeDTO {
     private String firstname;
     private String lastname;
     private String latinName;
+    private String policeId;
     private String nationality;
     private Boolean isMarried;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -54,6 +55,5 @@ public class EmployeeDTO {
     private ParentDTO father;
     private ParentDTO mother;
     private SpouseDTO spouse;
-
 
 }

@@ -54,9 +54,7 @@ public class EmployeeController {
         System.out.println("getEmployeeById");
         EmployeeDTO employeeDTO = new EmployeeDTO();
         Employee employee = service.findById(id);
-//        employee.setCurrentPoliceRank(PoliceRank.values()[employeeDTO.getCurrentPoliceRankId()]);
-//        employee.setCurrentPosition(Position.values()[employeeDTO.getCurrentPositionId()]);
-        return ResponseEntity.ok(employee);
+        if(employee == null) return null;else return ResponseEntity.ok(employee);
     }
 
     @PostConstruct

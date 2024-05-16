@@ -17,7 +17,6 @@ import java.util.*;
 @NoArgsConstructor
 @Setter
 @Getter
-@Table(name = "employees")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +30,9 @@ public class Employee {
     @NotNull
     private String nationality;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Gender gender;
+    @NotNull String policeId;
 
     @Column(length = 5)
     private String bloodType;
