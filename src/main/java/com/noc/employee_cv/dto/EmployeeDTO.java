@@ -50,7 +50,7 @@ public class EmployeeDTO {
     private String prevPositionId;
     private String departmentId;
     private int previousActivityAndPositionStartYear;
-    private List<PreviousActivityAndPositionDTO> activityList;
+    private List<PreviousActivityAndPositionDTO> activityAndPosition;
     private ParentDTO father;
     private ParentDTO mother;
     private SpouseDTO spouse;

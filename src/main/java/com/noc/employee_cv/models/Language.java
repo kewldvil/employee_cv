@@ -17,7 +17,7 @@ public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private ForeignLang language;
+    private String language;
     @JsonIgnore
     @OneToMany(mappedBy = "language", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmployeeLanguage> employeeLanguages = new ArrayList<>();

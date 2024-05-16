@@ -136,7 +136,7 @@ public class EmployeeServiceImp implements EmployeeService {
         //END VOCATIONAL TRAINING
 // set previous activity
         List<PreviousActivityAndPosition> previousActivityAndPositionList = new ArrayList<>();
-        employeeDTO.getActivityList().forEach(activity -> {
+        employeeDTO.getActivityAndPosition().forEach(activity -> {
             PreviousActivityAndPosition ps = new PreviousActivityAndPosition();
             ps.setFromDate(activity.getFromDate());
             ps.setToDate(activity.getToDate());
@@ -295,10 +295,10 @@ public class EmployeeServiceImp implements EmployeeService {
         employeeDTO.getForeignLangList().forEach(lang -> {
             EmployeeLanguage empLang = new EmployeeLanguage();
             Language language = new Language();
-            language.setLanguage(ForeignLang.values()[lang.getLangName()]);
+            language.setLanguage(lang.getLangName());
             empLang.setLanguage(language);
             empLang.setEmployee(employee);
-            empLang.setLevel(SkillLevel.values()[lang.getLangLevel()]);
+            empLang.setLevel(lang.getLangLevel());
             employee.getEmployeeLanguages().add(empLang);
             language.getEmployeeLanguages().add(empLang);
             languageServiceImp.save(language);
