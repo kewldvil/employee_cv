@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(req -> req.requestMatchers(WHITE_LIST_URL).permitAll()
-                        .requestMatchers("/api/v1/employee/**","/api/v1/address/**","/api/v1/enum/**").hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/api/v1/photo/**","/api/v1/employee/**","/api/v1/address/**","/api/v1/enum/**").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated()
 //                        .anyRequest().permitAll()
                 )

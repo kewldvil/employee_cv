@@ -19,6 +19,7 @@ public class    EmployeeLanguage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String level;
+
     @ManyToOne(fetch = FetchType.LAZY)
      @JsonIgnore
     @JoinColumn(name = "employee_id")

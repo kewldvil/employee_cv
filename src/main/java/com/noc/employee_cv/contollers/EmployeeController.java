@@ -36,11 +36,6 @@ import java.nio.file.Paths;
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeServiceImp service;
-    private final AppreciationRepo appreciationRepo;
-    private final StorageServiceImp storageService;
-    private final UserRepo userRepo;
-    @Value("${file.upload-dir}")
-    private String uploadDir;
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -48,57 +43,19 @@ public class EmployeeController {
         service.save(req);
         return ResponseEntity.accepted().build();
     }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) throws MessagingException {
         System.out.println("getEmployeeById");
-        EmployeeDTO employeeDTO = new EmployeeDTO();
         Employee employee = service.findById(id);
-        if(employee == null) return null;else return ResponseEntity.ok(employee);
-    }
-
-    @PostConstruct
-    public void init() throws IOException {
-        Path fileStorageLocation = Path.of(uploadDir);
-    }
-
-    @PostMapping("/image/")
-    public ResponseEntity<Void> uploadPhoto(@RequestParam("photo") MultipartFile photo) {
-        User storedPhoto = storageService.storeFile(photo);
-        userRepo.save(storedPhoto);
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/uploads/")
-                .path(storedPhoto.getId().toString())
-                .build()
-                .toUri();
-        return ResponseEntity.created(uri).build();
-    }
-
-    @PutMapping("/updatePhoto/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<String> updatePhoto(@PathVariable Integer id,
-                                            @RequestParam MultipartFile file) throws IOException {
-        User updatedPhoto = storageService.updateFile(file, id);
-        userRepo.save(updatedPhoto);
-
-        return ResponseEntity.ok(updatedPhoto.getImageName());
-    }
-
-    @GetMapping("/user/photo/{userId}")
-    public ResponseEntity<byte[]> getPhotoByUserId(@PathVariable Integer userId) throws IOException {
-        User user = storageService.getPhotoByUserId(userId);
-        if(user.getImageName()!=null) {
-            byte[] fileContent = Files.readAllBytes(Paths.get(this.uploadDir + user.getImageName()));
-            return ResponseEntity.ok(fileContent);
-        }else return null;
-    }
-
-    @GetMapping(value = "/photos/{filename}")
-    public ResponseEntity<byte[]> getImage(@PathVariable String filename) throws IOException {
-
-            byte[] fileContent = Files.readAllBytes(Paths.get(this.uploadDir+filename));
-        return ResponseEntity.ok(fileContent);
+        if (employee != null) {
+            // If response body is not null, return it with HTTP status 200 OK
+            return ResponseEntity.ok(employee);
+        } else {
+            // If response body is null, return 404 Not Found status code
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
 }

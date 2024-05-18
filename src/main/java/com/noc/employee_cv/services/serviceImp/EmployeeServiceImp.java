@@ -40,12 +40,14 @@ public class EmployeeServiceImp implements EmployeeService {
     private final AddressDistrictServiceImp addressDistrictServiceImp;
     private final AddressCommuneServiceImp addressCommuneServiceImp;
     private final AddressVillageServiceImp addressVillageServiceImp;
+    private final UserRepo userRepo;
 
     @Override
     @Transactional
     public void save(EmployeeDTO employeeDTO) {
         Employee employee = employeeMapper.fromEmployeeDto(employeeDTO);
-        User user = (User) userDetailService.getLoggedInUser();
+        User user = userRepo.findUserById(employeeDTO.getUserId());
+        System.out.println(user.toString());
         employee.setUser(user);
         employee.setBloodType(employeeDTO.getBloodTypeId());
         employee.setCurrentPoliceRank(employeeDTO.getCurrentPoliceRankId());
@@ -100,7 +102,8 @@ public class EmployeeServiceImp implements EmployeeService {
         List<DegreeLevel> degreeLevelList = new ArrayList<>();
         employeeDTO.getEducationList().forEach(degree -> {
             DegreeLevel dl = new DegreeLevel();
-            dl.setDegreeLevel(degree);
+            dl.setIsChecked(degree.getIsChecked());
+            dl.setEducation_level(degree.getEducation_level());
             dl.setEmployee(employee);
             employee.getDegreeLevels().add(dl);
             degreeLevelList.add(dl);
@@ -149,25 +152,27 @@ public class EmployeeServiceImp implements EmployeeService {
         employee.setActivityAndPosition(previousActivityAndPositionList);
 //        end previous activity
 // set spouse
-        Spouse sp = employee.getSpouse();
-        sp.setEmployee(employee);
+        if(employee.getIsMarried()) {
+            Spouse sp = employee.getSpouse();
+            sp.setEmployee(employee);
 //        sp.setSpouseFullName(employeeDTO.getSpouse().getFullName());
 //        sp.setAlive(employeeDTO.getSpouse().isAlive());
 //        sp.setSpouseDateOfBirth(employeeDTO.getSpouse().getDateOfBirth());
 //        sp.setSpouseJobName(employeeDTO.getSpouse().getJob());
 //        set children
-        List<SpouseChildren> spChildrenList = new ArrayList<>();
-        employeeDTO.getSpouse().getChildrenList().forEach(child -> {
-            SpouseChildren spChild = new SpouseChildren();
-            spChild.setChildFullName(child.getFullName());
-            spChild.setChildGender(Gender.values()[child.getGender()]);
-            spChild.setChildDateOfBirth(child.getDateOfBirth());
-            spChild.setChildJob(child.getJob());
-            spChild.setSpouse(sp);
-            sp.getChildren().add(spChild);
-            spChildrenList.add(spChild);
-        });
-        sp.setChildren(spChildrenList);
+            List<SpouseChildren> spChildrenList = new ArrayList<>();
+            employeeDTO.getSpouse().getChildrenList().forEach(child -> {
+                SpouseChildren spChild = new SpouseChildren();
+                spChild.setChildFullName(child.getFullName());
+                spChild.setChildGender(Gender.values()[child.getGender()]);
+                spChild.setChildDateOfBirth(child.getDateOfBirth());
+                spChild.setChildJob(child.getJob());
+                spChild.setSpouse(sp);
+                sp.getChildren().add(spChild);
+                spChildrenList.add(spChild);
+            });
+            sp.setChildren(spChildrenList);
+        }
 //        set phone number
 //        Set<PhoneNumber> spPhoneList= new HashSet<>();
         employeeDTO.getSpouse().getPhoneNumberList().forEach(phone -> {

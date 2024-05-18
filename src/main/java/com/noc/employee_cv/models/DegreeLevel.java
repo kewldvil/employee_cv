@@ -16,7 +16,8 @@ public class DegreeLevel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private boolean degreeLevel;
+    private Boolean isChecked;
+    private String education_level;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name="employee_id")

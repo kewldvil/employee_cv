@@ -66,7 +66,7 @@ public class Employee {
     private String generalDepartment;
     private int previousActivityAndPositionStartYear;
     @NotNull
-    private Boolean isMarried;
+    private Boolean isMarried=true;
     @NotNull
 
     @NotNull

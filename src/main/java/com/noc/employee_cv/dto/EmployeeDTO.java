@@ -15,6 +15,7 @@ import java.util.List;
 @Setter
 @ToString
 public class EmployeeDTO {
+    private Integer userId;
     private String firstname;
     private String lastname;
     private String latinName;
@@ -38,7 +39,7 @@ public class EmployeeDTO {
     private List<PhoneNumberDTO> phoneNumberList;
     private List<WeaponDTO> weaponList;
     private List<PoliceCarDTO> policeCarList;
-    private List<Boolean> educationList;
+    private List<educationDTO> educationList;
     private List<UniversityMajorDTO> UniversityMajorList;
     private List<ForeignLanguageDTO> foreignLangList;
     private List<VocationalTrainingDTO> vocationalTrainingList;
