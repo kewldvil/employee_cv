@@ -1,6 +1,8 @@
 package com.noc.employee_cv.enums;
 
-public enum BloodType {
+import java.util.Arrays;
+
+public enum BloodType implements CommonEnum{
     O_POSITIVE("O+"),
     O_NEGATIVE("O-"),
     A_POSITIVE("A+"),
@@ -14,5 +16,19 @@ public enum BloodType {
 
     BloodType(String bloodType) {
         this.bloodType = bloodType;
+    }
+
+    @Override
+    public String getValue() {
+        return bloodType;
+    }
+
+    public static String getValueByKey(String key) {
+        for (PoliceRank rank : PoliceRank.values()) {
+            if (rank.name().equalsIgnoreCase(key)) {
+                return rank.getValue();
+            }
+        }
+        return null; // or throw an exception, or return a default value
     }
 }

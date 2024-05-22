@@ -1,20 +1,15 @@
 package com.noc.employee_cv.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.noc.employee_cv.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "_user")
@@ -24,6 +19,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Builder
+@ToString
 public class User implements UserDetails, Principal {
 
     @Id
@@ -40,8 +36,11 @@ public class User implements UserDetails, Principal {
     private String email;
     private boolean accountLocked;
     private boolean enabled;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    private Set<Role> roles;
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
     @Column(nullable = false)
@@ -69,11 +68,15 @@ public class User implements UserDetails, Principal {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles
-                .stream()
-                .map(r->new SimpleGrantedAuthority(r.getName()))
-                .collect(Collectors.toList());
+        return role.getAuthorities();
     }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return this.roles
+//                .stream()
+//                .map(r->new SimpleGrantedAuthority(r.getName()))
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     public String getPassword() {

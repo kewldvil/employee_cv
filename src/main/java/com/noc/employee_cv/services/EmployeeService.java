@@ -11,6 +11,7 @@ public interface EmployeeService {
     Employee findById(Integer id);
     List<Employee> findAll();
     void deleteById(Integer id);
-    void update(Employee employee);
+    void update(EmployeeDTO employeeDTO);
     void save(EmployeeDTO employeeDTO);
+    Employee findByUserIdAndEmployeeId(Integer employeeId,Integer userId);
 }

@@ -12,6 +12,7 @@ import java.util.Set;
 @Setter
 @ToString
 public class ParentDTO {
+    private Integer id;
     private String fullName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;

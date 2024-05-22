@@ -1,7 +1,6 @@
 package com.noc.employee_cv.enums;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collections;

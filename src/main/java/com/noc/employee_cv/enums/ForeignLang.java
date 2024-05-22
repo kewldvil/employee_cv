@@ -1,6 +1,6 @@
 package com.noc.employee_cv.enums;
 
-public enum ForeignLang {
+public enum ForeignLang implements CommonEnum{
     CHINESE("ចិន"),
     ENGLISH("អង់គ្លេស"),
     THAI("ថៃ"),
@@ -22,4 +22,8 @@ public enum ForeignLang {
     }
 
 
+    @Override
+    public String getValue() {
+        return language;
+    }
 }

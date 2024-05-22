@@ -29,19 +29,20 @@ public class Employee {
     private String latinName;
     @NotNull
     private String nationality;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-    @NotNull String policeId;
 
-    @Column(length = 5)
+    private String gender;
+    @NotNull
+    String policeId;
+    @NotNull
+    private Boolean isMarried = true;
+
     private String bloodType;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotNull
     private LocalDate dateOfBirth;
-    @NotNull
+
     private String currentPoliceRank;
-    @NotNull
+
     private String currentPosition;
     @NotNull
     private String policeRankDocumentNumber;
@@ -59,20 +60,13 @@ public class Employee {
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateJoinPolice;
-    private String previousPoliceRank;
-    @NotNull
-    private String previousPosition;
-    @NotNull
+
+    private String prevPoliceRank;
+
+    private String prevPosition;
+
     private String generalDepartment;
     private int previousActivityAndPositionStartYear;
-    @NotNull
-    private Boolean isMarried=true;
-    @NotNull
-
-    @NotNull
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -94,15 +88,15 @@ public class Employee {
     private List<PreviousActivityAndPosition> activityAndPosition = new ArrayList<>();
 
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "spouse_id")
     private Spouse spouse;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "father_id")
     private Father father;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "mother_id")
     private Mother mother;
     @OneToOne
@@ -122,6 +116,10 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmployeeLanguage> employeeLanguages = new ArrayList<>();
 
+    @NotNull
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {

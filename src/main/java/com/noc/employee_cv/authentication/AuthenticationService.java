@@ -2,16 +2,14 @@ package com.noc.employee_cv.authentication;
 
 import com.noc.employee_cv.email.EmailService;
 import com.noc.employee_cv.email.EmailTemplateName;
-import com.noc.employee_cv.models.ImageData;
+import com.noc.employee_cv.enums.Role;
 import com.noc.employee_cv.models.Token;
 import com.noc.employee_cv.models.User;
-import com.noc.employee_cv.repositories.RoleRepo;
 import com.noc.employee_cv.repositories.StorageRepo;
 import com.noc.employee_cv.repositories.TokenRepo;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.security.JwtService;
 import jakarta.mail.MessagingException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +22,13 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Objects;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-    @Autowired
-    private RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
     private final TokenRepo tokenRepo;
     @Autowired
@@ -44,13 +37,12 @@ public class AuthenticationService {
 
     @Value("${activation_url}")
     private String activationUrl;
-    @Autowired
-    private StorageRepo storageRepo;
+
 
     public void register(RegistrationRequest request) throws MessagingException {
-        var userRole = roleRepo.findByName(request.getRoles())
-                // todo - better exception handling
-                .orElseThrow(() -> new IllegalStateException("ROLE USER was not initiated"));
+//        var userRole = roleRepo.findByName(request.getRoles())
+//                // todo - better exception handling
+//                .orElseThrow(() -> new IllegalStateException("ROLE USER was not initiated"));
         var user = User.builder()
                 .username(request.getUsername())
                 .firstname(request.getFirstname())
@@ -59,7 +51,8 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(true)
-                .roles(Set.of(userRole))
+//                .roles(Set.of(userRole))
+                .role(Role.valueOf(request.getRole()))
                 .createdDate(LocalDateTime.now())
                 .updatedDate(LocalDateTime.now())
                 .build();
@@ -115,16 +108,24 @@ public class AuthenticationService {
         );
         var claims = new HashMap<String, Object>();
         var user = (User) auth.getPrincipal();
-        claims.put("fullName", user.getFullName());
+//        var user = User.builder()
+//                .id(loggedInUser.getId())
+//                .firstname(loggedInUser.getFirstname())
+//                .lastname(loggedInUser.getLastname())
+//                .role(loggedInUser.getRole())
+//                .build();
+        claims.put("firstname", user.getFirstname());
+        claims.put("lastname", user.getLastname());
+        claims.put("id",user.getId());
+        claims.put("role", user.getRole());
         var jwtToken = jwtService.generateToken(claims, user);
-
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-                .user(user)
+//                .user(user)
                 .build();
     }
 
-//    @Transactional
+    //    @Transactional
     public void activateAccount(String token) throws MessagingException {
         Token savedToken = tokenRepo.findByToken(token)
                 // todo exception has to be defined
@@ -150,6 +151,6 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        return (User)auth.getPrincipal();
+        return (User) auth.getPrincipal();
     }
 }

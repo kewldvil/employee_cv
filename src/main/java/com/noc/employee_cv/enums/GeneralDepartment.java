@@ -1,6 +1,6 @@
 package com.noc.employee_cv.enums;
 
-public enum GeneralDepartment {
+public enum GeneralDepartment implements CommonEnum{
     COMMISSARIAT_OF_NATIONAL_POLICE("អគ្គស្នងការដ្ឋាននគរបាលជាតិ"),
     GENERAL_DEPARTMENT_OF_INSPECTION("អគ្គាធិការដ្ឋាន"),
     DIRECTORATE_GENERAL_OF_PRISONS("អគ្គនាយកដ្ឋានពន្ធនាគារ"),
@@ -20,5 +20,10 @@ public enum GeneralDepartment {
 
     GeneralDepartment(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    @Override
+    public String getValue() {
+        return departmentName;
     }
 }

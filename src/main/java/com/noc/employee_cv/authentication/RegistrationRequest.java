@@ -1,11 +1,7 @@
 package com.noc.employee_cv.authentication;
 
-import com.noc.employee_cv.models.Role;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.*;
-
-import java.util.Set;
 
 @Getter
 @Setter
@@ -35,5 +31,5 @@ public class RegistrationRequest {
     @NotEmpty(message = "not blank")
     @NotBlank(message = "not blank")
     @NotNull(message = "not blank")
-    private String roles;
+    private String role;
 }

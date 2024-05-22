@@ -30,6 +30,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 
 @RestController
 @RequestMapping("/api/v1/employee")
@@ -43,12 +45,33 @@ public class EmployeeController {
         service.save(req);
         return ResponseEntity.accepted().build();
     }
+    @PutMapping("/")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<Employee> updateEmployee(@RequestBody @Valid EmployeeDTO req) throws MessagingException {
+        System.out.println("update employee");
+        service.update(req);
+        return ResponseEntity.accepted().build();
+    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) throws MessagingException {
         System.out.println("getEmployeeById");
-        Employee employee = service.findById(id);
+        Employee employee = service.findByUserId(id);
+        if (employee != null) {
+            // If response body is not null, return it with HTTP status 200 OK
+            return ResponseEntity.ok(employee);
+        } else {
+            // If response body is null, return 404 Not Found status code
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+    @GetMapping("/{userId}/{employeeId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<Employee> getEmployeeByUserIdAndEmployeeId(@PathVariable Integer userId,@PathVariable Integer employeeId) throws MessagingException {
+        System.out.println("getEmployeeByUserIdAndEmployeeId");
+        Employee employee = service.findByUserIdAndEmployeeId(employeeId,userId);
+
         if (employee != null) {
             // If response body is not null, return it with HTTP status 200 OK
             return ResponseEntity.ok(employee);

@@ -7,63 +7,53 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/enum")
 public class EnumController {
 
-    @GetMapping("/get-rank-position")
-    public List<List<String>> getPoliceRankings() {
-
-            List<List<String>> outerList = new ArrayList<>();
-//            list of police ran index 0
-            List<String> policeRankList = new ArrayList<>();
-            for (PoliceRank p:PoliceRank.values()) {
-                policeRankList.add(p.getValue());
-            }
-            outerList.add(policeRankList);
-//=========
-        //list of position index1
-            List<String> positionList = new ArrayList<>();
-            for (Position p:Position.values()) {
-                positionList.add(p.value);
-            }
-            outerList.add(positionList);
-
-//            bloodtype index2
-        List<String> bloodTypeList = new ArrayList<>();
-        for (BloodType p:BloodType.values()) {
-            bloodTypeList.add(p.bloodType);
-        }
-        outerList.add(bloodTypeList);
-
-//        skill level index3
-        List<String> skillLevelList = new ArrayList<>();
-        for (SkillLevel p:SkillLevel.values()) {
-            skillLevelList.add(p.levelName);
-        }
-        outerList.add(skillLevelList);
-//        foreign language index4
-        List<String> foreignLanguageList = new ArrayList<>();
-        for (ForeignLang p:ForeignLang.values()) {
-            foreignLanguageList.add(p.language);
-        }
-        outerList.add(foreignLanguageList);
-//        general department index5
-        List<String> departmentList = new ArrayList<>();
-        for (GeneralDepartment p:GeneralDepartment.values()) {
-            departmentList.add(p.departmentName);
-        }
-        outerList.add(departmentList);
-// get university major index 6
-        List<String> majorList = new ArrayList<>();
-        for (UniversityMajor p:UniversityMajor.values()) {
-            majorList.add(p.majorSkill);
-        }
-        outerList.add(majorList);
-
-            return outerList;
+    @GetMapping("/police-rank")
+    public <E extends Enum<E>>List<Map<Enum<PoliceRank>, String>> getPoliceRankings() {
+        return getEnumKeyValuePairs(PoliceRank.class);
     }
+    @GetMapping("/position")
+    public <E extends Enum<E>>List<Map<Enum<Position>, String>> getPosition() {
+        return getEnumKeyValuePairs(Position.class);
+    }
+    @GetMapping("/blood-type")
+    public <E extends Enum<E>>List<Map<Enum<BloodType>, String>> getBloodType() {
+        return getEnumKeyValuePairs(BloodType.class);
+    }
+    @GetMapping("/skill-level")
+    public <E extends Enum<E>>List<Map<Enum<SkillLevel>, String>> getSkillLevel() {
+        return getEnumKeyValuePairs(SkillLevel.class);
+    }
+    @GetMapping("/foreign-language")
+    public <E extends Enum<E>>List<Map<Enum<ForeignLang>, String>> getForeignLang() {
+        return getEnumKeyValuePairs(ForeignLang.class);
+    }
+    @GetMapping("/general-department")
+    public <E extends Enum<E>>List<Map<Enum<GeneralDepartment>, String>> getGeneralDepartment() {
+        return getEnumKeyValuePairs(GeneralDepartment.class);
+    }
+    @GetMapping("/university-major")
+    public <E extends Enum<E>>List<Map<Enum<UniversityMajor>, String>> getUniversityMajor() {
+        return getEnumKeyValuePairs(UniversityMajor.class);
+    }
+    public static <E extends Enum<E>> List<Map<Enum<E>, String>> getEnumKeyValuePairs(Class<E> enumClass) {
+        List<Map<Enum<E>, String>> resultList = new ArrayList<>();
+        // Iterate over enum constants
+        for (E enumConstant : enumClass.getEnumConstants()) {
+            // Create a map for each enum constant
+            Map<Enum<E>, String> map = new HashMap<>();
+            // Put the key and value into the map
+            CommonEnum keyValueEnum = (CommonEnum) enumConstant;
+            map.put(enumConstant, keyValueEnum.getValue());
+            resultList.add(map);
+        }
 
+        return resultList;
+    }
 
 }

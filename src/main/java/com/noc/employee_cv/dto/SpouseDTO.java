@@ -11,6 +11,7 @@ import java.util.Set;
 @Setter
 @ToString
 public class SpouseDTO{
+    private Integer id;
     private String fullName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
@@ -19,6 +20,5 @@ public class SpouseDTO{
     private Set<PhoneNumberDTO> phoneNumberList;
     private AddressDTO currentAddress;
     private AddressDTO placeOfBirth;
-
     private Set<ChildDTO> childrenList;
 }

@@ -1,20 +1,8 @@
 package com.noc.employee_cv;
 
-import com.noc.employee_cv.enums.AddressType;
-import com.noc.employee_cv.enums.BloodType;
-import com.noc.employee_cv.models.*;
-import com.noc.employee_cv.repositories.EmployeeRepo;
-import com.noc.employee_cv.repositories.RoleRepo;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 @EnableAsync
@@ -61,27 +49,27 @@ public class EmployeeCvApplication {
 //            repository.save(employee);
 //        };
 //    }
-    @Bean
-    public CommandLineRunner runner(RoleRepo roleRepo) {
-        return args -> {
-            if (roleRepo.findByName("USER").isEmpty()) {
-                roleRepo.save(
-                        Role.builder()
-                                .name("USER").build()
-                );
-            }
-            if (roleRepo.findByName("ADMIN").isEmpty()) {
-                roleRepo.save(
-                        Role.builder()
-                                .name("ADMIN").build()
-                );
-            }
-            if (roleRepo.findByName("MANAGER").isEmpty()) {
-                roleRepo.save(
-                        Role.builder()
-                                .name("MANAGER").build()
-                );
-            }
-        };
-    }
+//    @Bean
+//    public CommandLineRunner runner(RoleEntityRepo roleRepo) {
+//        return args -> {
+//            if (roleRepo.findByName("USER").isEmpty()) {
+//                roleRepo.save(
+//                        Role.builder()
+//                                .name("USER").build()
+//                );
+//            }
+//            if (roleRepo.findByName("ADMIN").isEmpty()) {
+//                roleRepo.save(
+//                        Role.builder()
+//                                .name("ADMIN").build()
+//                );
+//            }
+//            if (roleRepo.findByName("MANAGER").isEmpty()) {
+//                roleRepo.save(
+//                        Role.builder()
+//                                .name("MANAGER").build()
+//                );
+//            }
+//        };
+//    }
 }

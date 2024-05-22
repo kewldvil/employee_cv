@@ -14,6 +14,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.noc.employee_cv.enums.Permission.ADMIN_READ;
+import static com.noc.employee_cv.enums.Permission.MANAGER_READ;
+import static com.noc.employee_cv.enums.Role.*;
+import static org.springframework.http.HttpMethod.GET;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -39,10 +44,11 @@ public class SecurityConfig {
         http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeRequests(req -> req.requestMatchers(WHITE_LIST_URL).permitAll()
-                        .requestMatchers("/api/v1/photo/**","/api/v1/employee/**","/api/v1/address/**","/api/v1/enum/**").hasAnyAuthority("USER", "ADMIN")
+                .authorizeHttpRequests(req -> req
+                        .requestMatchers(WHITE_LIST_URL).permitAll()
+                        .requestMatchers("/api/v1/photo/**", "/api/v1/employee/**", "/api/v1/address/**", "/api/v1/enum/**").hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
+//                        .requestMatchers(GET, "/api/v1/employee/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
                         .anyRequest().authenticated()
-//                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
