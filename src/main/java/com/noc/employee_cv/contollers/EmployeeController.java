@@ -59,7 +59,7 @@ public class EmployeeController {
         System.out.println("getEmployeeById");
         Employee employee = service.findByUserId(id);
         if (employee != null) {
-            // If response body is not null, return it with HTTP status 200 OK
+                        // If response body is not null, return it with HTTP status 200 OK
             return ResponseEntity.ok(employee);
         } else {
             // If response body is null, return 404 Not Found status code

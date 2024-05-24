@@ -560,53 +560,56 @@ public class EmployeeServiceImp implements EmployeeService {
             District district = districtServiceImp.getDistrictById(districtId);
             Commune commune = communeServiceImp.getCommuneById(communeId);
             Village village = villageServiceImp.getVillageById(villageId);
-            AddressProvinceCity addressProvinceCity = new AddressProvinceCity();
-            AddressDistrict addressDistrict = new AddressDistrict();
-            AddressCommune addressCommune = new AddressCommune();
-            AddressVillage addressVillage = new AddressVillage();
 
-            Address emp_pob = new Address();
-            emp_pob.setStreetNumber(streetNumber);
-            emp_pob.setHouseNumber(houseNumber);
-            addressProvinceCity.setProvinceCity(provinceCity);
-            addressDistrict.setDistrict(district);
-            addressCommune.setCommune(commune);
-            addressVillage.setVillage(village);
+            if(provinceCity!=null  && district != null && commune!=null ) {
+                AddressProvinceCity addressProvinceCity = new AddressProvinceCity();
+                AddressDistrict addressDistrict = new AddressDistrict();
+                AddressCommune addressCommune = new AddressCommune();
+                AddressVillage addressVillage = new AddressVillage();
 
-            addressProvinceCity.setAddress(emp_pob);
-            addressDistrict.setAddress(emp_pob);
-            addressCommune.setAddress(emp_pob);
-            addressVillage.setAddress(emp_pob);
+                Address emp_pob = new Address();
+                emp_pob.setStreetNumber(streetNumber);
+                emp_pob.setHouseNumber(houseNumber);
+                addressProvinceCity.setProvinceCity(provinceCity);
+                addressDistrict.setDistrict(district);
+                addressCommune.setCommune(commune);
+                addressVillage.setVillage(village);
 
-            provinceCity.getAddressProvinceCities().add(addressProvinceCity);
-            district.getAddressDistricts().add(addressDistrict);
-            commune.getAddressCommunes().add(addressCommune);
-            village.getAddressVillages().add(addressVillage);
+                addressProvinceCity.setAddress(emp_pob);
+                addressDistrict.setAddress(emp_pob);
+                addressCommune.setAddress(emp_pob);
+                addressVillage.setAddress(emp_pob);
 
-            emp_pob.getAddressProvinceCities().add(addressProvinceCity);
-            emp_pob.getAddressDistricts().add(addressDistrict);
-            emp_pob.getAddressCommunes().add(addressCommune);
-            emp_pob.getAddressVillages().add(addressVillage);
+                provinceCity.getAddressProvinceCities().add(addressProvinceCity);
+                district.getAddressDistricts().add(addressDistrict);
+                commune.getAddressCommunes().add(addressCommune);
+                village.getAddressVillages().add(addressVillage);
+
+                emp_pob.getAddressProvinceCities().add(addressProvinceCity);
+                emp_pob.getAddressDistricts().add(addressDistrict);
+                emp_pob.getAddressCommunes().add(addressCommune);
+                emp_pob.getAddressVillages().add(addressVillage);
 
 
-            addressProvinceCity.setAddress(emp_pob);
-            addressDistrict.setAddress(emp_pob);
-            addressCommune.setAddress(emp_pob);
-            addressVillage.setAddress(emp_pob);
-            addressProvinceServiceImp.save(addressProvinceCity);
-            addressDistrictServiceImp.save(addressDistrict);
-            addressCommuneServiceImp.save(addressCommune);
-            addressVillageServiceImp.save(addressVillage);
-            EmployeeAddress employeeAddress = new EmployeeAddress();
-            employeeAddress.setAddress(emp_pob);
-            employeeAddress.setEmployee(employee);
-            employeeAddress.setAddressType(addressType);
+                addressProvinceCity.setAddress(emp_pob);
+                addressDistrict.setAddress(emp_pob);
+                addressCommune.setAddress(emp_pob);
+                addressVillage.setAddress(emp_pob);
+                addressProvinceServiceImp.save(addressProvinceCity);
+                addressDistrictServiceImp.save(addressDistrict);
+                addressCommuneServiceImp.save(addressCommune);
+                addressVillageServiceImp.save(addressVillage);
+                EmployeeAddress employeeAddress = new EmployeeAddress();
+                employeeAddress.setAddress(emp_pob);
+                employeeAddress.setEmployee(employee);
+                employeeAddress.setAddressType(addressType);
 
-            employee.getEmployeeAddresses().add(employeeAddress);
-            emp_pob.getEmployeeAddresses().add(employeeAddress);
+                employee.getEmployeeAddresses().add(employeeAddress);
+                emp_pob.getEmployeeAddresses().add(employeeAddress);
 
-            addressServiceImp.save(emp_pob);
-            employeeAddressRepo.save(employeeAddress);
+                addressServiceImp.save(emp_pob);
+                employeeAddressRepo.save(employeeAddress);
+            }
         }
     }
 
