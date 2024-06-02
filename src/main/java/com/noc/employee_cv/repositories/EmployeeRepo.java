@@ -11,4 +11,6 @@ public interface EmployeeRepo extends JpaRepository<Employee,Integer> {
     Employee findByUserId(Integer userId);
 
     Employee findByIdAndUserId( Integer employeeId,Integer userId);
+
+    long count();
 }

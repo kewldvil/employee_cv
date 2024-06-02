@@ -24,6 +24,6 @@ public class Appreciation {
     private String appreciationNumber;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate appreciationDate;
-    private String appreciationDescription;
+    private String appreciation;
 
 }

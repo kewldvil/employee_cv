@@ -19,9 +19,9 @@ public class PreviousActivityAndPosition {
     private LocalDate fromDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate toDate;
-    private String activityAndAchievement;
+    private String activityAndRank;
 
-    private String department;
+    private String departmentOrUnit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore

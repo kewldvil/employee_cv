@@ -8,6 +8,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 @Data
 @Entity
@@ -16,11 +21,12 @@ public class DegreeLevel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Boolean isChecked;
-    private String education_level;
-    @ManyToOne(fetch = FetchType.LAZY)
+//    private Boolean isChecked;
+    private String educationLevel;
+
+
     @JsonIgnore
-    @JoinColumn(name="employee_id")
-    private Employee employee;
+    @OneToMany(mappedBy ="degreeLevel")
+    private Set<EmployeeDegreeLevel> employeeDegreeLevels= new HashSet<>();
 
 }

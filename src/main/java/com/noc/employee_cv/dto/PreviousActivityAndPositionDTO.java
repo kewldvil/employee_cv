@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class PreviousActivityAndPositionDTO {
+    private Integer id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate fromDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")

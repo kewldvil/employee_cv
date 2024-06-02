@@ -14,4 +14,6 @@ public interface EmployeeService {
     void update(EmployeeDTO employeeDTO);
     void save(EmployeeDTO employeeDTO);
     Employee findByUserIdAndEmployeeId(Integer employeeId,Integer userId);
+
+    long getTotalEmployees();
 }

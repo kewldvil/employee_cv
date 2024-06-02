@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class VocationalTrainingDTO {
+    private Integer id;
     private String trainingCenter;
     private String trainingCourse;
     private int trainingDuration;

@@ -17,8 +17,8 @@ public class SpouseDTO{
     private LocalDate dateOfBirth;
     private String job;
     private Boolean isAlive;
-    private Set<PhoneNumberDTO> phoneNumberList;
+    private String phoneNumber;
     private AddressDTO currentAddress;
     private AddressDTO placeOfBirth;
-    private Set<ChildDTO> childrenList;
+    private List<ChildDTO> children;
 }

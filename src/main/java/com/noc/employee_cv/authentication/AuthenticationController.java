@@ -21,7 +21,6 @@ public class AuthenticationController {
 
             @RequestBody @Valid RegistrationRequest request
     ) throws MessagingException {
-
         service.register(request);
         return ResponseEntity.accepted().build();
     }
@@ -32,6 +31,22 @@ public class AuthenticationController {
             @RequestBody @Valid AuthenticationRequest request
     ) {
         return ResponseEntity.ok(service.authenticate(request));
+    }
+
+    @PostMapping("/forget-password")
+    public ResponseEntity<?> forgetPassword(
+            @RequestBody @Valid ForgetPasswordRequest request
+    ) throws MessagingException {
+        try {
+            service.updatePassword(request);
+            return ResponseEntity.accepted().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (MessagingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error : " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred: " + e.getMessage());
+        }
     }
 
     @GetMapping("/activate-account")

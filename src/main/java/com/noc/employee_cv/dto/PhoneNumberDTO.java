@@ -9,4 +9,5 @@ import lombok.ToString;
 @ToString
 public class PhoneNumberDTO {
     private String phoneNumber;
+    private String phoneType;
 }

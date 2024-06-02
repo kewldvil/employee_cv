@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class AppreciationDTO {
+    private Integer id;
     private String appreciationNumber;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate appreciationDate;

@@ -8,7 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class WeaponDTO {
+    private Integer id;
     private String weaponType;
-    private String weaponName;
-    private String weaponNumber;
+    private String weaponBrand;
+    private String weaponSerialNumber;
 }

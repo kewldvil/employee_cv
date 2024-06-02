@@ -18,4 +18,7 @@ public class AuthenticationRequest {
     @NotBlank(message = "មិនអាចទទេរ!")
     @Size(min = 8, message = "យ៉ាងតិច៨តួរ")
     private String password;
+
+
+
 }

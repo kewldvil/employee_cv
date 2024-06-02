@@ -25,21 +25,47 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Getter
 @Setter
 public class Address {
-    @JsonIgnore
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<EmployeeAddress> employeeAddresses = new HashSet<>();
-
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    public Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Enumerated(EnumType.STRING)
+    private AddressType addressType;
     private String streetNumber;
     private String houseNumber;
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AddressProvinceCity> addressProvinceCities = new ArrayList<>();
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AddressDistrict> addressDistricts= new ArrayList<>();
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AddressCommune>addressCommunes= new ArrayList<>();
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AddressVillage> addressVillages= new ArrayList<>();
-    }
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "address_provinces",
+            joinColumns = @JoinColumn(name = "address_id"),
+            inverseJoinColumns = @JoinColumn(name = "province_id")
+    )
+    private List<ProvinceCity> provinces = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "address_districts",
+            joinColumns = @JoinColumn(name = "address_id"),
+            inverseJoinColumns = @JoinColumn(name = "district_id")
+    )
+    private List<District> districts = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "address_communes",
+            joinColumns = @JoinColumn(name = "address_id"),
+            inverseJoinColumns = @JoinColumn(name = "commune_id")
+    )
+    private List<Commune> communes = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "address_villages",
+            joinColumns = @JoinColumn(name = "address_id"),
+            inverseJoinColumns = @JoinColumn(name = "village_id")
+    )
+    private List<Village> villages = new ArrayList<>();
+
+
+
+}

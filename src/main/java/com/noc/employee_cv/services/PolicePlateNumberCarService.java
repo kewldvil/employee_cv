@@ -1,6 +1,5 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.PhoneNumber;
 import com.noc.employee_cv.models.PolicePlateNumberCar;
 
 import java.util.List;

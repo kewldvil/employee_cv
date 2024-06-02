@@ -1,9 +1,6 @@
 package com.noc.employee_cv.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.noc.employee_cv.provinces.Commune;
-import com.noc.employee_cv.provinces.District;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,16 +12,20 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressCommune {
+public class EmployeeDegreeLevel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id")
-    private Address address;
+    private Boolean isChecked;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "commune_id")
-    private Commune commune;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+
+    @ManyToOne
+    @JoinColumn(name = "degree_level_id")
+    private DegreeLevel degreeLevel;
+
 }

@@ -25,12 +25,12 @@ public class SpouseChildren {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
-    private String childFullName;
-    private String childGender;
+    private Integer id;
+    private String fullName;
+    private String gender;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate childDateOfBirth;
-    private String childJob;
+    private LocalDate dateOfBirth;
+    private String job;
 
 
     @NotNull

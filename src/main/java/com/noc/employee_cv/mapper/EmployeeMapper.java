@@ -9,6 +9,7 @@ import org.mapstruct.MappingTarget;
 public interface EmployeeMapper {
 
     Employee fromEmployeeDto(EmployeeDTO employeeDTO);
+    EmployeeDTO toEmployeeDto(Employee employee);
 
     void fromEmployeeDtoPartially(EmployeeDTO employeeDTO, @MappingTarget Employee employee);
 

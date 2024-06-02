@@ -10,15 +10,18 @@ import com.noc.employee_cv.repositories.TokenRepo;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.security.JwtService;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -119,6 +122,7 @@ public class AuthenticationService {
         claims.put("id",user.getId());
         claims.put("role", user.getRole());
         var jwtToken = jwtService.generateToken(claims, user);
+//        System.out.println(jwtToken);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
 //                .user(user)
@@ -152,5 +156,21 @@ public class AuthenticationService {
                 )
         );
         return (User) auth.getPrincipal();
+    }
+
+    @Transactional
+    public void updatePassword(ForgetPasswordRequest request)  throws MessagingException{
+        // Preparing parameters for delimiter checks
+        String delimiterPhoneNumberStart = request.getPhoneNumber() + "/%";
+        String phoneNumberDelimiterEnd = "%/" + request.getPhoneNumber();
+        try {
+            var user = userRepo.findByUsernameAndPhoneNumberAndDateOfBirth(request.getUsername(), request.getPhoneNumber(), delimiterPhoneNumberStart, phoneNumberDelimiterEnd, request.getDateOfBirth())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            userRepo.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update password: " + e.getMessage(), e);
+        }
     }
 }

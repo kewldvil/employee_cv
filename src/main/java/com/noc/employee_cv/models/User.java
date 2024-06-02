@@ -1,5 +1,6 @@
 package com.noc.employee_cv.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.noc.employee_cv.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -56,6 +57,9 @@ public class User implements UserDetails, Principal {
     protected void onUpdate() {
         updatedDate = LocalDateTime.now();
     }
+
+
+    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private Employee employee;
 

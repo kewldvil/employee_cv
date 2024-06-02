@@ -1,24 +1,21 @@
 package com.noc.employee_cv.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.noc.employee_cv.enums.ForeignLang;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
-public class Language {
+public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String language;
+    private String skillName;
 
     @JsonIgnore
-    @OneToMany(mappedBy ="language")
-    private Set<EmployeeLanguage> employeeLanguages= new HashSet<>();
+    @ManyToMany(mappedBy = "skills")
+    private Set<Employee> employees = new HashSet<>();
 }

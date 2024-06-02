@@ -20,13 +20,13 @@ public class    EmployeeLanguage {
     private Integer id;
     private String level;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
      @JsonIgnore
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne(fetch = FetchType.EAGER)
 
+    @ManyToOne
     @JoinColumn(name = "language_id")
     private Language language;
 }

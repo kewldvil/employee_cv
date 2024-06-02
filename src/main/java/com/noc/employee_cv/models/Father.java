@@ -30,6 +30,16 @@ public class Father {
     private Boolean isAlive;
     @Column(name = "job")
     private String job;
+    private String phoneNumber;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "place_of_birth_id", referencedColumnName = "id")
+    private Address placeOfBirth;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "current_address_id", referencedColumnName = "id")
+    private Address currentAddress;
+
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "employee_id")

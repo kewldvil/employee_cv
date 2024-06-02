@@ -12,8 +12,8 @@ public class PolicePlateNumberCar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String plateNumber;
-    private String carType;
+    private String vehicleNumber;
+    private String vehicleBrand;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
