@@ -16,4 +16,7 @@ public interface EmployeeService {
     Employee findByUserIdAndEmployeeId(Integer employeeId,Integer userId);
 
     long getTotalEmployees();
+    long getTotalEmployeesByWeapon();
+    long getTotalEmployeesByPoliceCar();
+    long getTotalEmployeesByBachelor();
 }

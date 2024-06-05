@@ -1176,6 +1176,27 @@ public class EmployeeServiceImp implements EmployeeService {
       return   employeeRepo.count();
     }
 
+    @Override
+    public long getTotalEmployeesByWeapon() {
+        return employeeRepo.countEmployeesWithWeapons();
+    }
+
+    @Override
+    public long getTotalEmployeesByPoliceCar() {
+        return employeeRepo.countEmployeesWithPoliceCars();
+    }
+
+    @Override
+    public long getTotalEmployeesByBachelor() {
+        return employeeRepo.countEmployeesWithDegreeLevelChecked(5);
+    }
+    public long getTotalEmployeesByMaster() {
+        return employeeRepo.countEmployeesWithDegreeLevelChecked(3);
+    }
+    public long getTotalEmployeesByDoctor() {
+        return employeeRepo.countEmployeesWithDegreeLevelChecked(6);
+    }
+
 
     @Override
     public void saveEmployeeAddress(int employeeId, int addressId, AddressType addressType) {

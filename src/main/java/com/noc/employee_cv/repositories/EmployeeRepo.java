@@ -3,14 +3,35 @@ package com.noc.employee_cv.repositories;
 import com.noc.employee_cv.models.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
-public interface EmployeeRepo extends JpaRepository<Employee,Integer> {
+public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
     Employee findByUserId(Integer userId);
 
-    Employee findByIdAndUserId( Integer employeeId,Integer userId);
+    Employee findByIdAndUserId(Integer employeeId, Integer userId);
 
     long count();
+
+    //    @Query("SELECT COUNT(e) FROM Employee e JOIN e.weapons w")
+//    long countEmployeesWithWeapons();
+    @Query("SELECT COUNT(DISTINCT e) FROM Employee e JOIN e.weapons w WHERE  w.weaponBrand <> '' AND  w.weaponType <> ''  AND w.weaponSerialNumber <> ''")
+    long countEmployeesWithWeapons();
+
+    @Query("SELECT COUNT(DISTINCT e) FROM Employee e JOIN e.policePlateNumberCars p WHERE  p.vehicleBrand <> '' AND p.vehicleNumber <> ''")
+    long countEmployeesWithPoliceCars();
+
+//    @Query("SELECT COUNT(DISTINCT e) FROM Employee e JOIN e.employeeDegreeLevels edl WHERE edl.degreeLevel = 'BACHELOR'")
+//    long countEmployeesWithBachelorDegree();
+
+    @Query(value = "SELECT COUNT(DISTINCT e.id) " +
+            "FROM employee e " +
+            "INNER JOIN employee_degree_level edl ON e.id = edl.employee_id " +
+            "INNER JOIN degree_level dl ON edl.degree_level_id = dl.id " +
+            "WHERE dl.id = :id AND edl.is_checked = true",
+            nativeQuery = true)
+    long countEmployeesWithDegreeLevelChecked(@Param("id") Integer degreeLevelId);
 }
