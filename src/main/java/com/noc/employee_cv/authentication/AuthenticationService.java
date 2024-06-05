@@ -160,6 +160,8 @@ public class AuthenticationService {
 
     @Transactional
     public void updatePassword(ForgetPasswordRequest request)  throws MessagingException{
+        System.out.println("update password");
+        System.out.println(request.toString());
         // Preparing parameters for delimiter checks
         String delimiterPhoneNumberStart = request.getPhoneNumber() + "/%";
         String phoneNumberDelimiterEnd = "%/" + request.getPhoneNumber();

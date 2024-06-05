@@ -107,8 +107,8 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Transactional
     protected void setSpouseAndChildren(Employee employee, SpouseDTO spouseDTO) {
+        Spouse spouse = employee.getSpouse();
         if (employee.getIsMarried()) {
-            Spouse spouse = employee.getSpouse();
             if (spouse == null) {
                 // If the spouse does not exist, create a new instance
                 spouse = new Spouse();
@@ -183,7 +183,6 @@ public class EmployeeServiceImp implements EmployeeService {
             spouseRepo.save(spouse);
         } else {
             // If employee is not married, delete spouse and children
-            Spouse spouse = employee.getSpouse();
             if (spouse != null) {
                 // Delete spouse from repository
                 spouseRepo.delete(spouse);
