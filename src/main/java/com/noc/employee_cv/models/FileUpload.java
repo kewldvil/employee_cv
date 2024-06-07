@@ -1,5 +1,6 @@
 package com.noc.employee_cv.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.noc.employee_cv.enums.FileTYpe;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -26,10 +27,10 @@ public class FileUpload {
     private String fileType;
 
     @NotNull
-    @Lob
-    private byte[] data;
+    private String filePath;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -52,3 +53,4 @@ public class FileUpload {
         updatedAt = LocalDateTime.now();
     }
 }
+

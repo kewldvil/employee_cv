@@ -1,22 +1,68 @@
 package com.noc.employee_cv.services.serviceImp;
 
 import com.noc.employee_cv.models.FileUpload;
+import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.FileUploadRepo;
+import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.FileUploadService;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.ast.tree.expression.Over;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class FileUploadServiceImp implements FileUploadService {
     private final FileUploadRepo fileUploadRepo;
-    @Transactional
+    private final Path fileStorageLocation;
+
+    @Autowired
+    public FileUploadServiceImp(@Value("${file.upload-dir}") String uploadDir, FileUploadRepo fileUploadRepo) {
+        this.fileUploadRepo=fileUploadRepo;
+        this.fileStorageLocation = Paths.get(uploadDir).toAbsolutePath().normalize();
+        try {
+            Files.createDirectories(this.fileStorageLocation);
+        } catch (Exception ex) {
+            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
+        }
+    }
+
     @Override
-    public FileUpload uploadFile(FileUpload fileUpload) {
-        return fileUploadRepo.save(fileUpload);
+    @Transactional
+    public FileUpload uploadFile(MultipartFile fileUpload,User user) {
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(fileUpload.getOriginalFilename()));
+
+        try {
+            if (fileName.contains("..")) {
+                throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
+            }
+
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Files.copy(fileUpload.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            FileUpload file = new FileUpload();
+            file.setUser(user);
+            file.setFileName(fileName);
+            file.setFilePath(targetLocation.toString());
+            file.setFileType(fileUpload.getContentType());
+            fileUploadRepo.save(file);
+            return file;
+        } catch (IOException ex) {
+            throw new RuntimeException("Could not store file " + fileName + ". Please try again!", ex);
+        }
     }
 
     @Override
