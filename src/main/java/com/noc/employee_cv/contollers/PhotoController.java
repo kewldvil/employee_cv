@@ -6,7 +6,9 @@ import com.noc.employee_cv.services.serviceImp.StorageServiceImp;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,16 +59,43 @@ public class PhotoController {
     @GetMapping("/by-user-id/{userId}")
     public ResponseEntity<byte[]> getPhotoByUserId(@PathVariable Integer userId) throws IOException {
         User user = storageService.getPhotoByUserId(userId);
-        if(user.getImageName()!=null) {
-            byte[] fileContent = Files.readAllBytes(Paths.get(this.uploadDir + user.getImageName()));
-            return ResponseEntity.ok(fileContent);
-        }else return null;
+        if (user != null && user.getImageName() != null) {
+            Path filePath = Paths.get(uploadDir + user.getImageName());
+            if (Files.exists(filePath)) {
+                byte[] fileContent = Files.readAllBytes(filePath);
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.IMAGE_JPEG); // Adjust based on your file type
+                headers.setContentLength(fileContent.length);
+                headers.setContentDispositionFormData("attachment", user.getImageName());
+
+                return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping(value = "/by-filename/{filename}")
     public ResponseEntity<byte[]> getImage(@PathVariable String filename) throws IOException {
+        if (filename != null && !filename.trim().isEmpty()) {
+            Path filePath = Paths.get(uploadDir + filename);
+            if (Files.exists(filePath)) {
+                byte[] fileContent = Files.readAllBytes(filePath);
 
-        byte[] fileContent = Files.readAllBytes(Paths.get(this.uploadDir+filename));
-        return ResponseEntity.ok(fileContent);
+                // Set headers
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.IMAGE_JPEG); // Adjust based on your file type
+                headers.setContentLength(fileContent.length);
+                headers.setContentDispositionFormData("attachment", filename);
+
+                return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 }

@@ -29,6 +29,7 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
@@ -38,6 +39,7 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeServiceImp service;
+    private final UserRepo userRepo;
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -45,6 +47,7 @@ public class EmployeeController {
         service.save(req);
         return ResponseEntity.accepted().build();
     }
+
     @PutMapping("/")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Employee> updateEmployee(@RequestBody @Valid EmployeeDTO req) throws MessagingException {
@@ -59,13 +62,14 @@ public class EmployeeController {
         System.out.println("GET EMPLOYEE BY ID");
         Employee employee = service.findById(id);
         if (employee != null) {
-                        // If response body is not null, return it with HTTP status 200 OK
+            // If response body is not null, return it with HTTP status 200 OK
             return ResponseEntity.ok(employee);
         } else {
             // If response body is null, return 404 Not Found status code
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
     @GetMapping("/user/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Employee> getEmployeeByUserId(@PathVariable Integer id) throws MessagingException {
@@ -79,11 +83,12 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
     @GetMapping("/{userId}/{employeeId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<Employee> getEmployeeByUserIdAndEmployeeId(@PathVariable Integer userId,@PathVariable Integer employeeId) throws MessagingException {
+    public ResponseEntity<Employee> getEmployeeByUserIdAndEmployeeId(@PathVariable Integer userId, @PathVariable Integer employeeId) throws MessagingException {
         System.out.println("getEmployeeByUserIdAndEmployeeId");
-        Employee employee = service.findByUserIdAndEmployeeId(employeeId,userId);
+        Employee employee = service.findByUserIdAndEmployeeId(employeeId, userId);
 
         if (employee != null) {
             // If response body is not null, return it with HTTP status 200 OK
@@ -94,5 +99,20 @@ public class EmployeeController {
         }
     }
 
-}
+    @GetMapping("/users")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<User>> getAllUsers() {
+        System.out.println("GET ALL USERS");
+        List<User> users = userRepo.findAll();
+//        System.out.println(users);
+        // Check if users list is not null or empty
+        if (!users.isEmpty()) {
+            // If users list is not empty, return it with HTTP status 200 OK
+            return ResponseEntity.ok(users);
+        } else {
+            // If users list is empty, return 404 Not Found status code
+            return ResponseEntity.notFound().build();
+        }
+    }
 
+}

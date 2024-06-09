@@ -61,7 +61,7 @@ public class User implements UserDetails, Principal {
     }
 
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private Employee employee;
 

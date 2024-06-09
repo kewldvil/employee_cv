@@ -26,6 +26,8 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController
 @RequestMapping("/api/v1/files")
 public class FileUploadController {
@@ -54,16 +56,19 @@ public class FileUploadController {
                         String base64Content = Base64.getEncoder().encodeToString(fileContent);
 
                         FileResponseDTO fileResponse = new FileResponseDTO();
-                        fileResponse.setFileName(file.getFileName());
-                        fileResponse.setFileType(fileType);
+                        fileResponse.setId(file.getId());
+                        fileResponse.setName(file.getFileName());
+                        fileResponse.setType(fileType);
                         fileResponse.setBase64Content(base64Content);
-                        fileResponse.setFileUrl(file.getFilePath());
+                        fileResponse.setUrl(file.getFilePath());
 
                         uploadedFiles.add(fileResponse);
                     } catch (IOException e) {
                         e.printStackTrace();
                         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
                     }
+                }else{
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                 }
             }
             return new ResponseEntity<>(uploadedFiles, HttpStatus.OK);
@@ -116,10 +121,16 @@ public class FileUploadController {
     }
 
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteFile(@PathVariable Integer id) {
-        fileUploadService.deleteFile(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/delete/{userId}/{fileName}")
+    public ResponseEntity<String> deleteFile(@PathVariable Integer userId,@PathVariable String fileName) {
+        fileUploadService.deleteFileByUserIdAndFileName(userId,fileName);
+        try {
+            Path path = Paths.get(uploadDir + fileName);
+            Files.deleteIfExists(path);
+            return ResponseEntity.ok("File deleted successfully");
+        } catch (IOException ex) {
+            return ResponseEntity.status(500).body("Could not delete file " + fileName + ". Please try again!");
+        }
     }
 
 //    @PutMapping("/edit/{id}")

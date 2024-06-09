@@ -4,9 +4,10 @@ import lombok.Data;
 
 @Data
 public class FileResponseDTO {
-    private String fileName;
-    private String fileType;
+    private Integer id;
+    private String name;
+    private String type;
     private String base64Content;
-    private String fileUrl;
+    private String url;
 
 }

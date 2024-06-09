@@ -14,7 +14,7 @@ public interface FileUploadService {
     List<FileUpload> getAllFiles();
     Optional<FileUpload> getFileById(Integer id);
     List<FileUpload> getFilesByUserId(Integer userId);
-
+    void deleteFileByUserIdAndFileName(Integer userId, String fileName);
 
 
 }
