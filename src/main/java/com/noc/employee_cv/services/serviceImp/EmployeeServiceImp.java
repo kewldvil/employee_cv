@@ -1173,7 +1173,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Override
     public long getTotalEmployees() {
-      return   employeeRepo.count();
+      return   userRepo.count();
     }
 
     @Override

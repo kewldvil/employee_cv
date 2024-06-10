@@ -25,7 +25,7 @@ import static org.springframework.http.HttpMethod.*;
 @EnableMethodSecurity
 public class SecurityConfig {
     private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
-
+//            "/photos/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -46,6 +46,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(WHITE_LIST_URL).permitAll()
+                        .requestMatchers("/photos/**").permitAll()
                         .requestMatchers("/api/v1/photo/**","/api/v1/files/**", "/api/v1/employee/**", "/api/v1/address/**", "/api/v1/enum/**").hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
                         .requestMatchers("/api/v1/managements/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                         .requestMatchers(GET, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())

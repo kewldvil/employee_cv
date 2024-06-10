@@ -31,7 +31,8 @@ public class StorageServiceImp {
     @Autowired
     public StorageServiceImp(@Value("${file.upload-dir}") String uploadDir, UserRepo userRepo) {
         this.userRepo = userRepo;
-        this.fileStorageLocation = Paths.get(uploadDir).toAbsolutePath().normalize();
+//        this.fileStorageLocation = Paths.get(uploadDir).toAbsolutePath().normalize();
+        this.fileStorageLocation=Paths.get(uploadDir);
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {

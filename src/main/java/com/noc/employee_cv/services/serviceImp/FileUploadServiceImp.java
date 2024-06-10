@@ -34,7 +34,8 @@ public class FileUploadServiceImp implements FileUploadService {
     @Autowired
     public FileUploadServiceImp(@Value("${file.upload-dir}") String uploadDir, FileUploadRepo fileUploadRepo, UserRepo userRepo) {
         this.fileUploadRepo = fileUploadRepo;
-        this.fileStorageLocation = Paths.get(uploadDir).toAbsolutePath().normalize();
+//        this.fileStorageLocation = Paths.get(uploadDir).toAbsolutePath().normalize();
+        this.fileStorageLocation=Paths.get(uploadDir);
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
