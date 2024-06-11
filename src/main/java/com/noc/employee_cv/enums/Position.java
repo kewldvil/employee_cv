@@ -7,7 +7,8 @@ public enum Position implements CommonEnum{
     DEPUTY_HEAD_OF_BUREAU("នាយរងការិយាល័យ"),
     HEAD_OF_SECTION("នាយផ្នែក"),
     DEPUTY_HEAD_OF_SECTION("នាយរងផ្នែក"),
-    OFFICER( "មន្រ្តី");
+    OFFICER( "មន្រ្តី"),
+    TRAINEE("មន្រ្តីហាត់ការ");
 
 
 

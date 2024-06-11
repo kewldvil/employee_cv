@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 public enum PoliceRank implements CommonEnum {
+    TRAINEE(16,"មន្ត្រីហាត់ការ"),
     CHIEF_CORPORAL(1,"ពលបាលត្រី"), STAFF_SERGEANT(2,"ពលបាលទោ"), MASTER_SERGEANT(3,"ពលបាលឯក"),
     COMMAND_SERGEANT_MAJOR(4,"ព្រឺន្ទបាលទោ"), WARRANT_OFFICER(5,"ព្រឹន្ទបាលឯក"),
     SECOND_LIEUTENANT(6,"អនុសេនីយ៏ត្រី"), FIRST_LIEUTENANT(7,"អនុសេនិយ៏ទោ"), CAPTAIN(8,"អនុសេនីយ៏ឯក"), MAJOR(9,"វរសេនីយ៏ត្រី"),
