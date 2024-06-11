@@ -79,6 +79,7 @@ public class PhotoController {
 
     @GetMapping(value = "/by-filename/{filename}")
     public ResponseEntity<byte[]> getImage(@PathVariable String filename) throws IOException {
+        System.out.println("GET USER PHOTO");
         if (filename != null && !filename.trim().isEmpty()) {
             Path filePath = Paths.get(uploadDir + filename);
             if (Files.exists(filePath)) {

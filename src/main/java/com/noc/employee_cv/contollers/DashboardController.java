@@ -1,12 +1,14 @@
 package com.noc.employee_cv.contollers;
 
+import com.noc.employee_cv.dto.PoliceRankCountProjection;
 import com.noc.employee_cv.services.serviceImp.EmployeeServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 @RestController
@@ -44,5 +46,15 @@ public class DashboardController {
     public ResponseEntity<Long> getTotalEmployeeHaveDoctor() {
         long totalEmployees = employeeService.getTotalEmployeesByDoctor();
         return ResponseEntity.ok(totalEmployees);
+    }
+    @GetMapping("/total-by-female")
+    public ResponseEntity<Long> getTotalFemales() {
+        long totalEmployees = employeeService.getTotalFemales();
+        return ResponseEntity.ok(totalEmployees);
+    }
+    @GetMapping("/count-by-police-rank")
+    public List<PoliceRankCountProjection> getCountByPoliceRank() {
+        System.out.println("getCountByPoliceRank");
+        return employeeService.countByPoliceRanks();
     }
 }

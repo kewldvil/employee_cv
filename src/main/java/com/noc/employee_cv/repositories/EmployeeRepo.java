@@ -1,5 +1,6 @@
 package com.noc.employee_cv.repositories;
 
+import com.noc.employee_cv.dto.PoliceRankCountProjection;
 import com.noc.employee_cv.models.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -34,4 +35,13 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
             "WHERE dl.id = :id AND edl.is_checked = true",
             nativeQuery = true)
     long countEmployeesWithDegreeLevelChecked(@Param("id") Integer degreeLevelId);
+
+    @Query("SELECT COUNT(e) FROM Employee e WHERE e.gender = 'F'")
+    long countFemaleEmployees();
+
+
+    @Query(value = "SELECT e.current_police_rank AS policeRank, COUNT(e.id) AS count " +
+            "FROM employee e " +
+            "GROUP BY e.current_police_rank", nativeQuery = true)
+    List<PoliceRankCountProjection> countEmployeesByPoliceRank();
 }

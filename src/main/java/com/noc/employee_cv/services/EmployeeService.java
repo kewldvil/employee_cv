@@ -1,6 +1,7 @@
 package com.noc.employee_cv.services;
 
 import com.noc.employee_cv.dto.EmployeeDTO;
+import com.noc.employee_cv.dto.PoliceRankCountProjection;
 import com.noc.employee_cv.enums.AddressType;
 import com.noc.employee_cv.models.Employee;
 
@@ -19,4 +20,6 @@ public interface EmployeeService {
     long getTotalEmployeesByWeapon();
     long getTotalEmployeesByPoliceCar();
     long getTotalEmployeesByBachelor();
+    long getTotalFemales();
+    List<PoliceRankCountProjection> countByPoliceRanks();
 }

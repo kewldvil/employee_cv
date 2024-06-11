@@ -3,6 +3,7 @@ package com.noc.employee_cv.authentication;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 //@Tag(name="Authentication")
 public class AuthenticationController {
     private final AuthenticationService service;
+    private final AuthenticationService authenticationService;
 
 
     @PostMapping("/register")
@@ -54,5 +56,17 @@ public class AuthenticationController {
             @RequestParam String token
     ) throws MessagingException {
         service.activateAccount(token);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
+        try {
+            service.changePassword(request.getUserId(), request.getOldPassword(), request.getNewPassword());
+            return ResponseEntity.accepted().build();
+        } catch (ChangeSetPersister.NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        } catch (IncorrectPasswordException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Current password is incorrect");
+        }
     }
 }

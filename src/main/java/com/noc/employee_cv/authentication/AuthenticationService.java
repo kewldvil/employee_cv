@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -174,5 +175,18 @@ public class AuthenticationService {
         } catch (Exception e) {
             throw new RuntimeException("Failed to update password: " + e.getMessage(), e);
         }
+    }
+
+    @Transactional
+    public void changePassword(Integer userId, String oldPassword, String newPassword) throws ChangeSetPersister.NotFoundException {
+        User user = userRepo.findById(userId)
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new IncorrectPasswordException("Current password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepo.save(user);
     }
 }

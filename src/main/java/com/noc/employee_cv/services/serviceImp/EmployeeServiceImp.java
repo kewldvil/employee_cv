@@ -1190,6 +1190,17 @@ public class EmployeeServiceImp implements EmployeeService {
     public long getTotalEmployeesByBachelor() {
         return employeeRepo.countEmployeesWithDegreeLevelChecked(5);
     }
+
+    @Override
+    public long getTotalFemales() {
+        return employeeRepo.countFemaleEmployees();
+    }
+
+    @Override
+    public List<PoliceRankCountProjection> countByPoliceRanks() {
+        return employeeRepo.countEmployeesByPoliceRank();
+    }
+
     public long getTotalEmployeesByMaster() {
         return employeeRepo.countEmployeesWithDegreeLevelChecked(3);
     }
