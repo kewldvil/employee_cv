@@ -26,5 +26,6 @@ public interface UserRepo extends JpaRepository<User,Integer> {
                                                               @Param("delimiterPhoneNumberStart") String delimiterPhoneNumberStart,
                                                               @Param("phoneNumberDelimiterEnd") String phoneNumberDelimiterEnd,
                                                               @Param("dateOfBirth") LocalDate dateOfBirth);
+    Optional<User> findByEmail(String email);
 
 }

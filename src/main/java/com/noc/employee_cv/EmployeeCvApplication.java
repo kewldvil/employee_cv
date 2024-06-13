@@ -1,8 +1,16 @@
 package com.noc.employee_cv;
 
+import com.noc.employee_cv.enums.Role;
+import com.noc.employee_cv.models.User;
+import com.noc.employee_cv.repositories.UserRepo;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.UUID;
 
 @SpringBootApplication
 @EnableAsync
@@ -12,43 +20,23 @@ public class EmployeeCvApplication {
         SpringApplication.run(EmployeeCvApplication.class, args);
     }
 
-    //    @Bean
-//    public CommandLineRunner commandLineRunner(EmployeeRepo repository) {
-//        Set<Address> list = new HashSet<Address>();
+//    @Bean
+//    public CommandLineRunner commandLineRunner(UserRepo userRepo,PasswordEncoder passwordEncoder) {
 //
-//        ProvinceCity pc = new ProvinceCity();
-//        pc.setProvinceCityCode("123");
-//        pc.setProvinceCityNameKh("กรุงเทพมหานคร");
-//        pc.setProvinceCityNameEn("Bangkok");
-//        District ds = new District();
-//        ds.setDistrictCode("123");
-//        ds.setDistrictNameKh("กรุงเทพมหานคร");
-//        ds.setDistrictNameEn("Bangkok");
-//        Commune cm = new Commune();
-//        cm.setCommuneCode("123");
-//        cm.setCommuneNameKh("กรุงเทพมหานคร");
-//        cm.setCommuneNameEn("Bangkok");
-//        Village vl = new Village();
-//        vl.setVillageCode("123");
-//        vl.setVillageNameKh("กรุงเทพมหานคร");
-//        vl.setVillageNameEn("Bangkok");
-//        Address address1 = new Address(new Employee(),null,pc,ds,cm,vl,AddressType.FATHER_ADDRESS.toString());
-//
-//        //Address address2 = new Address(null,null,pc,ds,cm,vl,AddressType.FATHER_ADDRESS.toString());
-//        //list.add(address2);
-//        list.add(address1);
-//
-//        System.out.println(list.toString());
-//        return arg -> {
-//            var employee = Employee.builder()
-//                    .firstName("nem")
-//                    .lastName("sopjhgjhheak")
-//                    .bloodType(BloodType.A_NEGATIVE.bloodType)
-//                    .employeeAddress(list)
-//                    .build();
-//            repository.save(employee);
+//        return args -> {
+//            // Retrieve existing users
+//            Iterable<User> existingUsers = userRepo.findAll();
+//            // Update users with new email addresses
+//            existingUsers.forEach(user -> {
+//                // Update user with new email address
+//                String newPassword = "12345678";
+//                user.setPassword(passwordEncoder.encode(newPassword));
+//                user.setRole(Role.USER);
+//                userRepo.save(user);
+//            });
 //        };
 //    }
+
 //    @Bean
 //    public CommandLineRunner runner(RoleEntityRepo roleRepo) {
 //        return args -> {

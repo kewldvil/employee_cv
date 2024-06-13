@@ -763,40 +763,75 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
 
-    @Transactional
-    protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillDTOList) {
-        Set<Skill> skills = new HashSet<>();
-        if (skillDTOList != null) {
-            for (EmployeeSkillDTO skillDTO : skillDTOList) {
-                Skill skill;
-                Integer skillId = skillDTO.getId();
+//    @Transactional
+//    protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillDTOList) {
+//        Set<Skill> skills = new HashSet<>();
+//        if (skillDTOList != null) {
+//            for (EmployeeSkillDTO skillDTO : skillDTOList) {
+//                Skill skill;
+//                Integer skillId = skillDTO.getId();
+//
+//                if (skillId != null) {
+//                    // Attempt to find the skill by its ID
+//                    skill = skillRepo.findById(skillId).orElse(null);
+//                } else {
+//                    // If ID is null, create a new skill
+//                    skill = new Skill();
+//                }
+//
+//                // Set or update skill properties
+//                skill.setSkillName(skillDTO.getSkillName());
+//
+//                // Save the skill entity before adding it to the set
+//                skillRepo.save(skill);
+//
+//                // Add the skill to the set of skills
+//                skills.add(skill);
+//            }
+//        }
+//
+//        // Set the skills to the employee
+//        employee.setSkills(skills);
+//
+//        // Save the employee entity, which will persist the relationship
+//        employeeRepo.save(employee);
+//    }
+@Transactional
+protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillDTOList) {
+    Set<Skill> skills = new HashSet<>();
+    if (skillDTOList != null) {
+        for (EmployeeSkillDTO skillDTO : skillDTOList) {
+            Skill skill;
+            Integer skillId = skillDTO.getId();
 
-                if (skillId != null) {
-                    // Attempt to find the skill by its ID
-                    skill = skillRepo.findById(skillId).orElse(null);
-                } else {
-                    // If ID is null, create a new skill
+            if (skillId != null) {
+                // Attempt to find the skill by its ID
+                skill = skillRepo.findById(skillId).orElse(null);
+            } else {
+                // Attempt to find the skill by its name to avoid duplicates
+                skill = skillRepo.findSkillBySkillName(skillDTO.getSkillName());
+
+                if (skill == null) {
+                    // If no skill with the given name exists, create a new skill
                     skill = new Skill();
+                    skill.setSkillName(skillDTO.getSkillName());
+
+                    // Save the new skill entity
+                    skillRepo.save(skill);
                 }
-
-                // Set or update skill properties
-                skill.setSkillName(skillDTO.getSkillName());
-
-                // Save the skill entity before adding it to the set
-                skillRepo.save(skill);
-
-                // Add the skill to the set of skills
-                skills.add(skill);
             }
+
+            // Add the skill to the set of skills
+            skills.add(skill);
         }
-
-        // Set the skills to the employee
-        employee.setSkills(skills);
-
-        // Save the employee entity, which will persist the relationship
-        employeeRepo.save(employee);
     }
 
+    // Set the skills to the employee
+    employee.setSkills(skills);
+
+    // Save the employee entity, which will persist the relationship
+    employeeRepo.save(employee);
+}
 
     private void setUserForEmployee(Employee employee, Integer userId) {
         User user = userRepo.findById(userId).orElseThrow();

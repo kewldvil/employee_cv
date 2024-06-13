@@ -28,7 +28,8 @@ public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+
+//    @Column(unique = true)
     private String username;
     private String password;
     private String firstname;
