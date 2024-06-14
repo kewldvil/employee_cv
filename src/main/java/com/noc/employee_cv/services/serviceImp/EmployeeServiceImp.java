@@ -1236,6 +1236,11 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
         return employeeRepo.countEmployeesByPoliceRank();
     }
 
+    @Override
+    public long getTotalTrainee() {
+        return employeeRepo.countEmployeesByTrainee();
+    }
+
     public long getTotalEmployeesByMaster() {
         return employeeRepo.countEmployeesWithDegreeLevelChecked(3);
     }

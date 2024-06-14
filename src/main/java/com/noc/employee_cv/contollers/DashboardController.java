@@ -57,4 +57,10 @@ public class DashboardController {
         System.out.println("getCountByPoliceRank");
         return employeeService.countByPoliceRanks();
     }
+    @GetMapping("/count-by-trainee")
+    public ResponseEntity<Long> getCountByTrainee() {
+        System.out.println("getCountByTrainee");
+        long totalTrainee = employeeService.getTotalTrainee();
+        return ResponseEntity.ok(totalTrainee);
+    }
 }

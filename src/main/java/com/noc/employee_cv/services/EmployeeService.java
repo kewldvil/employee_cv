@@ -22,4 +22,6 @@ public interface EmployeeService {
     long getTotalEmployeesByBachelor();
     long getTotalFemales();
     List<PoliceRankCountProjection> countByPoliceRanks();
+
+     long getTotalTrainee();
 }

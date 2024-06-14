@@ -44,4 +44,8 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
             "FROM employee e " +
             "GROUP BY e.current_police_rank", nativeQuery = true)
     List<PoliceRankCountProjection> countEmployeesByPoliceRank();
+
+
+    @Query("SELECT COUNT(e) FROM Employee e WHERE e.currentPoliceRank = 'មន្ត្រីហាត់ការ'")
+    long countEmployeesByTrainee();
 }
