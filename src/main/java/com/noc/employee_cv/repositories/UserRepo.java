@@ -28,4 +28,6 @@ public interface UserRepo extends JpaRepository<User,Integer> {
                                                               @Param("dateOfBirth") LocalDate dateOfBirth);
     Optional<User> findByEmail(String email);
 
+    @Query("SELECT u FROM User u JOIN u.employee e WHERE e.currentPoliceRank=:rank")
+    List<User> findUsersByRank(String rank);
 }
