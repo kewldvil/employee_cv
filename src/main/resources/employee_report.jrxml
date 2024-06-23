@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Employee" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2b97ad5-a8bb-4e23-9b7b-79141fcee80e">
-
     <style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
         <box>
             <pen lineWidth="0.5" lineColor="#000000"/>
@@ -67,6 +66,7 @@
         <field name="vt_to_date" class="java.lang.String"/>
     </subDataset>
     <parameter name="vocationalTrainingDataset" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="employeeKhmerDOB" class="java.lang.String"/>
     <queryString>
         <![CDATA[select * from employee]]>
     </queryString>
@@ -263,21 +263,21 @@
                 <textElement textAlignment="Center">
                     <font fontName="Khmer Os Siem Reap" size="12"/>
                 </textElement>
-<!--                <textFieldExpression><![CDATA[DATEFORMAT($F{date_of_birth},"dd")]]></textFieldExpression>-->
+                <textFieldExpression><![CDATA[$P{employeeKhmerDOB}.split("-")[0]]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="230" y="32" width="101" height="26" forecolor="#0000CC" uuid="7cebff75-9073-4e3e-88fe-c1593a8035c3"/>
                 <textElement textAlignment="Center">
                     <font fontName="Khmer Os Siem Reap" size="12"/>
                 </textElement>
-<!--                <textFieldExpression><![CDATA[DATEFORMAT($F{date_of_birth},"MM")]]></textFieldExpression>-->
+                <textFieldExpression><![CDATA[$P{employeeKhmerDOB}.split("-")[1]]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="340" y="32" width="70" height="26" forecolor="#0000CC" uuid="11aed458-4aa4-426b-89d1-3c451a88af2b"/>
                 <textElement textAlignment="Center">
                     <font fontName="Khmer Os Siem Reap" size="12"/>
                 </textElement>
-<!--                <textFieldExpression><![CDATA[DATEFORMAT($F{date_of_birth},"yyyy")]]></textFieldExpression>-->
+                <textFieldExpression><![CDATA[$P{employeeKhmerDOB}.split("-")[2]]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="443" y="33" width="110" height="26" forecolor="#0000CC" uuid="df6b90c1-279d-4f99-80c6-19aa0ec4ce9f"/>
@@ -544,7 +544,7 @@
                 <textElement verticalAlignment="Middle">
                     <font fontName="Khmer Os Moul Light" size="12"/>
                 </textElement>
-                <text><![CDATA[៣-ចំណេះដឹងភាសារបរទេស៖]]></text>
+                <text><![CDATA[៤-កម្រិតបណ្ដុះបណ្ដាលវិជ្ជាជីវ៖]]></text>
             </staticText>
             <staticText>
                 <reportElement x="142" y="444" width="413" height="27" uuid="54322291-b9dd-4a28-a90b-fe7af08339d7"/>
@@ -554,118 +554,115 @@
                 <text><![CDATA[(សូមរៀបរាប់វគ្គបណ្ដុះបណ្ដាល និងថ្ងៃ ខែ ឆ្នាំដែលបានសិក្សាកន្លងមក]]></text>
             </staticText>
         </band>
-        <band height="536">
-            <componentElement>
-                <reportElement x="0" y="0" width="555" height="60" uuid="39891d07-0c29-4811-a7ed-e48350df58f9">
-                    <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
-                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
-                    <property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>
-                </reportElement>
-                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-                    <datasetRun subDataset="vocationalTraining" uuid="7085865c-b6d8-4c2b-ab0f-990a72e7c7fe">
-                        <dataSourceExpression><![CDATA[$P{vocationalTrainingDataset}]]></dataSourceExpression>
-                    </datasetRun>
-                    <jr:column width="118" uuid="29b3dbd6-b5c2-4f1a-9517-06ba43f3cb00">
-                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">
-                            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-                            <staticText>
-                                <reportElement x="0" y="0" width="118" height="30" uuid="abd1a609-ca65-491c-a76a-b780db6dde48"/>
-                                <textElement textAlignment="Center" verticalAlignment="Middle">
-                                    <font fontName="Khmer Os Siem Reap" size="12"/>
-                                </textElement>
-                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>
-                            </staticText>
-                        </jr:tableHeader>
-                        <jr:detailCell style="Table 1_TD" height="30">
-                            <textField>
-                                <reportElement x="0" y="0" width="118" height="30" uuid="8c43fc5f-bb59-4145-9275-0ab02587678b">
-                                    <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-                                </reportElement>
-                                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                                <textFieldExpression><![CDATA[$F{vt_start_date}]]></textFieldExpression>
-                            </textField>
-                        </jr:detailCell>
-                    </jr:column>
-                    <jr:column width="108" uuid="f2928de7-603f-4305-b28f-02c0a871debb">
-                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">
-                            <staticText>
-                                <reportElement x="0" y="0" width="108" height="30" uuid="037fde4d-9661-4949-9649-1911d114e261"/>
-                                <textElement textAlignment="Center" verticalAlignment="Middle">
-                                    <font fontName="Khmer Os Siem Reap" size="12"/>
-                                </textElement>
-                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>
-                            </staticText>
-                        </jr:tableHeader>
-                        <jr:detailCell style="Table 1_TD" height="30">
-                            <textField>
-                                <reportElement x="0" y="0" width="108" height="30" uuid="5701a411-644f-4e27-b0ed-b127730c4a75"/>
-                                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                                <textFieldExpression><![CDATA[$F{vt_to_date}]]></textFieldExpression>
-                            </textField>
-                        </jr:detailCell>
-                    </jr:column>
-                    <jr:column width="108" uuid="65e4b98f-78ea-4ce1-8c0c-c23d2f160c4e">
-                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">
-                            <staticText>
-                                <reportElement x="0" y="0" width="108" height="30" uuid="01161bbf-fc97-4a05-ab1c-1a4540588af8"/>
-                                <textElement textAlignment="Center" verticalAlignment="Middle">
-                                    <font fontName="Khmer Os Siem Reap" size="12"/>
-                                </textElement>
-                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>
-                            </staticText>
-                        </jr:tableHeader>
-                        <jr:detailCell style="Table 1_TD" height="30">
-                            <textField>
-                                <reportElement x="0" y="0" width="108" height="30" uuid="50efd05c-a815-4e4e-9dde-b92c07e3f964"/>
-                                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                                <textFieldExpression><![CDATA[$F{vt_duration}]]></textFieldExpression>
-                            </textField>
-                        </jr:detailCell>
-                    </jr:column>
-                    <jr:column width="107" uuid="746be0d7-f7ca-4b21-9310-8da3552e43e0">
-                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">
-                            <staticText>
-                                <reportElement x="0" y="0" width="107" height="30" uuid="e60e4561-259a-4620-81b8-bcb763e33718"/>
-                                <textElement textAlignment="Center" verticalAlignment="Middle">
-                                    <font fontName="Khmer Os Siem Reap" size="12"/>
-                                </textElement>
-                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>
-                            </staticText>
-                        </jr:tableHeader>
-                        <jr:detailCell style="Table 1_TD" height="30">
-                            <textField>
-                                <reportElement x="0" y="0" width="107" height="30" uuid="e73c36d3-2b30-4301-bf4f-c6582241ac12"/>
-                                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                                <textFieldExpression><![CDATA[$F{vt_course}]]></textFieldExpression>
-                            </textField>
-                        </jr:detailCell>
-                    </jr:column>
-                    <jr:column width="114" uuid="c1336279-1377-426e-aa09-9a1d2186d993">
-                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
-                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">
-                            <staticText>
-                                <reportElement x="0" y="0" width="114" height="30" uuid="c8a4fd8c-9327-4564-9621-f0ca1160dc3d"/>
-                                <textElement textAlignment="Center" verticalAlignment="Middle">
-                                    <font fontName="Khmer Os Siem Reap" size="12"/>
-                                </textElement>
-                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>
-                            </staticText>
-                        </jr:tableHeader>
-                        <jr:detailCell style="Table 1_TD" height="30">
-                            <textField>
-                                <reportElement x="0" y="0" width="114" height="30" uuid="5d6aa39d-073e-47c9-a9d1-a33368086fed"/>
-                                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                                <textFieldExpression><![CDATA[$F{vt_center}]]></textFieldExpression>
-                            </textField>
-                        </jr:detailCell>
-                    </jr:column>
-                </jr:table>
-            </componentElement>
-        </band>
+<!--        <band height="536">-->
+<!--            <componentElement>-->
+<!--                <reportElement x="0" y="0" width="555" height="60" uuid="39891d07-0c29-4811-a7ed-e48350df58f9">-->
+<!--                    <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>-->
+<!--                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>-->
+<!--                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>-->
+<!--                    <property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>-->
+<!--                </reportElement>-->
+<!--                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">-->
+<!--                    <jr:column width="118" uuid="29b3dbd6-b5c2-4f1a-9517-06ba43f3cb00">-->
+<!--                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>-->
+<!--                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">-->
+<!--                            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>-->
+<!--                            <staticText>-->
+<!--                                <reportElement x="0" y="0" width="118" height="30" uuid="abd1a609-ca65-491c-a76a-b780db6dde48"/>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle">-->
+<!--                                    <font fontName="Khmer Os Siem Reap" size="12"/>-->
+<!--                                </textElement>-->
+<!--                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>-->
+<!--                            </staticText>-->
+<!--                        </jr:tableHeader>-->
+<!--                        <jr:detailCell style="Table 1_TD" height="30">-->
+<!--                            <textField>-->
+<!--                                <reportElement x="0" y="0" width="118" height="30" uuid="8c43fc5f-bb59-4145-9275-0ab02587678b">-->
+<!--                                    <property name="com.jaspersoft.studio.unit.width" value="pixel"/>-->
+<!--                                </reportElement>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle"/>-->
+<!--                                <textFieldExpression><![CDATA[$F{vt_start_date}]]></textFieldExpression>-->
+<!--                            </textField>-->
+<!--                        </jr:detailCell>-->
+<!--                    </jr:column>-->
+<!--                    <jr:column width="108" uuid="f2928de7-603f-4305-b28f-02c0a871debb">-->
+<!--                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>-->
+<!--                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">-->
+<!--                            <staticText>-->
+<!--                                <reportElement x="0" y="0" width="108" height="30" uuid="037fde4d-9661-4949-9649-1911d114e261"/>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle">-->
+<!--                                    <font fontName="Khmer Os Siem Reap" size="12"/>-->
+<!--                                </textElement>-->
+<!--                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>-->
+<!--                            </staticText>-->
+<!--                        </jr:tableHeader>-->
+<!--                        <jr:detailCell style="Table 1_TD" height="30">-->
+<!--                            <textField>-->
+<!--                                <reportElement x="0" y="0" width="108" height="30" uuid="5701a411-644f-4e27-b0ed-b127730c4a75"/>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle"/>-->
+<!--                                <textFieldExpression><![CDATA[$F{vt_to_date}]]></textFieldExpression>-->
+<!--                            </textField>-->
+<!--                        </jr:detailCell>-->
+<!--                    </jr:column>-->
+<!--                    <jr:column width="108" uuid="65e4b98f-78ea-4ce1-8c0c-c23d2f160c4e">-->
+<!--                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>-->
+<!--                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">-->
+<!--                            <staticText>-->
+<!--                                <reportElement x="0" y="0" width="108" height="30" uuid="01161bbf-fc97-4a05-ab1c-1a4540588af8"/>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle">-->
+<!--                                    <font fontName="Khmer Os Siem Reap" size="12"/>-->
+<!--                                </textElement>-->
+<!--                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>-->
+<!--                            </staticText>-->
+<!--                        </jr:tableHeader>-->
+<!--                        <jr:detailCell style="Table 1_TD" height="30">-->
+<!--                            <textField>-->
+<!--                                <reportElement x="0" y="0" width="108" height="30" uuid="50efd05c-a815-4e4e-9dde-b92c07e3f964"/>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle"/>-->
+<!--                                <textFieldExpression><![CDATA[$F{vt_duration}]]></textFieldExpression>-->
+<!--                            </textField>-->
+<!--                        </jr:detailCell>-->
+<!--                    </jr:column>-->
+<!--                    <jr:column width="107" uuid="746be0d7-f7ca-4b21-9310-8da3552e43e0">-->
+<!--                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>-->
+<!--                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">-->
+<!--                            <staticText>-->
+<!--                                <reportElement x="0" y="0" width="107" height="30" uuid="e60e4561-259a-4620-81b8-bcb763e33718"/>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle">-->
+<!--                                    <font fontName="Khmer Os Siem Reap" size="12"/>-->
+<!--                                </textElement>-->
+<!--                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>-->
+<!--                            </staticText>-->
+<!--                        </jr:tableHeader>-->
+<!--                        <jr:detailCell style="Table 1_TD" height="30">-->
+<!--                            <textField>-->
+<!--                                <reportElement x="0" y="0" width="107" height="30" uuid="e73c36d3-2b30-4301-bf4f-c6582241ac12"/>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle"/>-->
+<!--                                <textFieldExpression><![CDATA[$F{vt_course}]]></textFieldExpression>-->
+<!--                            </textField>-->
+<!--                        </jr:detailCell>-->
+<!--                    </jr:column>-->
+<!--                    <jr:column width="114" uuid="c1336279-1377-426e-aa09-9a1d2186d993">-->
+<!--                        <property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>-->
+<!--                        <jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">-->
+<!--                            <staticText>-->
+<!--                                <reportElement x="0" y="0" width="114" height="30" uuid="c8a4fd8c-9327-4564-9621-f0ca1160dc3d"/>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle">-->
+<!--                                    <font fontName="Khmer Os Siem Reap" size="12"/>-->
+<!--                                </textElement>-->
+<!--                                <text><![CDATA[កាលបរិច្ឆេទ]]></text>-->
+<!--                            </staticText>-->
+<!--                        </jr:tableHeader>-->
+<!--                        <jr:detailCell style="Table 1_TD" height="30">-->
+<!--                            <textField>-->
+<!--                                <reportElement x="0" y="0" width="114" height="30" uuid="5d6aa39d-073e-47c9-a9d1-a33368086fed"/>-->
+<!--                                <textElement textAlignment="Center" verticalAlignment="Middle"/>-->
+<!--                                <textFieldExpression><![CDATA[$F{vt_center}]]></textFieldExpression>-->
+<!--                            </textField>-->
+<!--                        </jr:detailCell>-->
+<!--                    </jr:column>-->
+<!--                </jr:table>-->
+<!--            </componentElement>-->
+<!--        </band>-->
     </detail>
 </jasperReport>
