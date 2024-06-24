@@ -8,6 +8,7 @@ import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.repositories.AppreciationRepo;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImp.EmployeeServiceImp;
+import com.noc.employee_cv.services.serviceImp.ReportServiceImp;
 import com.noc.employee_cv.services.serviceImp.StorageServiceImp;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -15,6 +16,7 @@ import jakarta.mail.MessagingException;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -40,7 +43,7 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 public class EmployeeController {
     private final EmployeeServiceImp service;
     private final UserRepo userRepo;
-
+    private final ReportServiceImp reportService;
     @PostMapping("/")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Employee> createNewEmployee(@RequestBody @Valid EmployeeDTO req) throws MessagingException {
@@ -113,6 +116,10 @@ public class EmployeeController {
             // If users list is empty, return 404 Not Found status code
             return ResponseEntity.notFound().build();
         }
+    }
+    @GetMapping("/report/{format}/{empId}")
+    public String generateReport(@PathVariable String format,@PathVariable Integer empId) throws JRException, IOException {
+        return reportService.exportReport(format,empId);
     }
 
 }

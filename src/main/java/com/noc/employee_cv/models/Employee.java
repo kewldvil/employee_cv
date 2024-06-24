@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -159,5 +160,13 @@ public class Employee {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+
+    public String getFormattedDateOfBirth() {
+        if (dateOfBirth != null) {
+            return dateOfBirth.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        }
+        return "";
     }
 }

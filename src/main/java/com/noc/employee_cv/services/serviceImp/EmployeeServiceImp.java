@@ -1125,7 +1125,8 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
                 }
 
                 vocationalTraining.setTrainingCenter(trainingDTO.getTrainingCenter());
-                vocationalTraining.setTrainingDate(trainingDTO.getTrainingDate());
+                vocationalTraining.setTrainingStartDate(trainingDTO.getTrainingStartDate());
+                vocationalTraining.setTrainingToDate(trainingDTO.getTrainingToDate());
                 vocationalTraining.setTrainingCourse(trainingDTO.getTrainingCourse());
                 vocationalTraining.setTrainingDuration(trainingDTO.getTrainingDuration());
                 updatedVocationalTrainingList.add(vocationalTraining);
