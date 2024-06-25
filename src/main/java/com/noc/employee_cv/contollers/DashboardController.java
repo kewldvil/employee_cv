@@ -3,7 +3,7 @@ package com.noc.employee_cv.contollers;
 import com.noc.employee_cv.dto.PoliceRankCountProjection;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.UserRepo;
-import com.noc.employee_cv.services.serviceImp.EmployeeServiceImp;
+import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,11 +1,10 @@
 package com.noc.employee_cv.contollers;
 
-
 import com.noc.employee_cv.dto.FileResponseDTO;
 import com.noc.employee_cv.models.FileUpload;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.UserRepo;
-import com.noc.employee_cv.services.FileUploadService;
+import com.noc.employee_cv.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -26,14 +23,15 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @RestController
 @RequestMapping("/api/v1/files")
 public class FileUploadController {
-    private static final int MAX_FILE_COUNT = 10; // Limit to 5 files
+
+    private static final int MAX_FILE_COUNT = 10; // Limit to 10 files
+
     @Autowired
-    private FileUploadService fileUploadService;
+    private FileService fileService;
+
     @Autowired
     private UserRepo userRepo;
 
@@ -42,60 +40,47 @@ public class FileUploadController {
 
     @GetMapping("/user-files/{userId}")
     public ResponseEntity<List<FileResponseDTO>> getUserFiles(@PathVariable Integer userId) {
-        List<FileUpload> files = fileUploadService.getFilesByUserId(userId);
-        List<FileResponseDTO> uploadedFiles = new ArrayList<>();
+        List<FileUpload> files = fileService.getFilesByUserId(userId);
         if (files.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            for (FileUpload file : files) {
-                if (file.getFileName() != null) {
-                    try {
-                        Path path = Paths.get(this.uploadDir + file.getFileName());
-                        String fileType = Files.probeContentType(path);
-                        byte[] fileContent = Files.readAllBytes(path);
-                        String base64Content = Base64.getEncoder().encodeToString(fileContent);
-
-                        FileResponseDTO fileResponse = new FileResponseDTO();
-                        fileResponse.setId(file.getId());
-                        fileResponse.setName(file.getFileName());
-                        fileResponse.setType(fileType);
-                        fileResponse.setBase64Content(base64Content);
-                        fileResponse.setUrl(file.getFilePath());
-
-                        uploadedFiles.add(fileResponse);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                    }
-                }else{
-                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                }
-            }
-            return new ResponseEntity<>(uploadedFiles, HttpStatus.OK);
+            return ResponseEntity.noContent().build();
         }
+
+        List<FileResponseDTO> uploadedFiles = new ArrayList<>();
+        for (FileUpload file : files) {
+            try {
+                Path path = Paths.get(this.uploadDir + file.getFileName());
+                String fileType = Files.probeContentType(path);
+                byte[] fileContent = Files.readAllBytes(path);
+                String base64Content = Base64.getEncoder().encodeToString(fileContent);
+
+                FileResponseDTO fileResponse = new FileResponseDTO();
+                fileResponse.setId(file.getId());
+                fileResponse.setName(file.getFileName());
+                fileResponse.setType(fileType);
+                fileResponse.setBase64Content(base64Content);
+                fileResponse.setUrl(file.getFilePath());
+
+                uploadedFiles.add(fileResponse);
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+
+        return ResponseEntity.ok(uploadedFiles);
     }
 
-
-    //    @GetMapping("/file/{fileId}")
-//    public ResponseEntity<byte[]> getPhotoByUserId(@PathVariable Integer fileId) throws IOException {
-//        FileUpload file = fileUploadService.getFileById(fileId).orElseThrow();
-//        if(file.getFileName()!=null) {
-//            byte[] fileContent = Files.readAllBytes(Paths.get(this.uploadDir + user.getImageName()));
-//            return ResponseEntity.ok(fileContent);
-//        }else return null;
-//    }
     @PostMapping("/upload/{userId}")
     public ResponseEntity<?> uploadFiles(@RequestParam("file") MultipartFile[] files,
                                          @PathVariable("userId") Integer userId) {
         // Check file count limit
         if (files.length > MAX_FILE_COUNT) {
-            return new ResponseEntity<>("Maximum file upload limit is " + MAX_FILE_COUNT, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body("Maximum file upload limit is " + MAX_FILE_COUNT);
         }
 
         // Find user by ID
-        User user = userRepo.findUserById(userId);
+        User user = userRepo.findById(userId).orElse(null);
         if (user == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
 
         // List to store URIs of uploaded files
@@ -104,65 +89,44 @@ public class FileUploadController {
         // Process each file
         for (MultipartFile file : files) {
             try {
-                FileUpload fileUpload = fileUploadService.uploadFile(file, user);
+                FileUpload fileUpload = fileService.uploadFile(file, user);
 
                 URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                        .path("/uploads/")
+                        .path("/api/v1/files/")
                         .path(fileUpload.getId().toString())
                         .build()
                         .toUri();
                 fileUris.add(uri);
-            } catch (Exception e) {
-                return new ResponseEntity<>("Failed to upload file: " + file.getOriginalFilename(), HttpStatus.INTERNAL_SERVER_ERROR);
+            } catch (RuntimeException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file: " + file.getOriginalFilename());
             }
         }
 
         return ResponseEntity.created(fileUris.isEmpty() ? null : fileUris.get(0)).body(fileUris);
     }
 
-
     @DeleteMapping("/delete/{userId}/{fileName}")
-    public ResponseEntity<String> deleteFile(@PathVariable Integer userId,@PathVariable String fileName) {
-        fileUploadService.deleteFileByUserIdAndFileName(userId,fileName);
+    public ResponseEntity<String> deleteFile(@PathVariable Integer userId, @PathVariable String fileName) {
+        fileService.deleteFileByUserIdAndFileName(userId, fileName);
         try {
             Path path = Paths.get(uploadDir + fileName);
             Files.deleteIfExists(path);
             return ResponseEntity.ok("File deleted successfully");
         } catch (IOException ex) {
-            return ResponseEntity.status(500).body("Could not delete file " + fileName + ". Please try again!");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not delete file " + fileName + ". Please try again!");
         }
     }
 
-//    @PutMapping("/edit/{id}")
-//    public ResponseEntity<FileUpload> editFile(@PathVariable Integer id, @RequestParam("file") MultipartFile file) {
-//        try {
-//            Optional<FileUpload> existingFile = fileUploadService.getFileById(id);
-//            if (existingFile.isPresent()) {
-//                FileUpload fileUpload = existingFile.get();
-//                fileUpload.setFileName(file.getOriginalFilename());
-//                fileUpload.setFileType(file.getContentType());
-//                fileUpload.setData(file.getBytes());
-//                Optional<FileUpload> updatedFile = fileUploadService.editFile(fileUpload);
-//                return updatedFile.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-//                        .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//            } else {
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            }
-//        } catch (IOException e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-
     @GetMapping("/all")
     public ResponseEntity<List<FileUpload>> getAllFiles() {
-        List<FileUpload> files = fileUploadService.getAllFiles();
-        return new ResponseEntity<>(files, HttpStatus.OK);
+        List<FileUpload> files = fileService.getAllFiles();
+        return ResponseEntity.ok(files);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FileUpload> getFileById(@PathVariable Integer id) {
-        Optional<FileUpload> fileUpload = fileUploadService.getFileById(id);
-        return fileUpload.map(file -> new ResponseEntity<>(file, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<FileUpload> fileUpload = fileService.getFileById(id);
+        return fileUpload.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

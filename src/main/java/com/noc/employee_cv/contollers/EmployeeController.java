@@ -2,39 +2,21 @@ package com.noc.employee_cv.contollers;
 
 
 import com.noc.employee_cv.dto.EmployeeDTO;
-import com.noc.employee_cv.enums.PoliceRank;
-import com.noc.employee_cv.enums.Position;
 import com.noc.employee_cv.models.*;
-import com.noc.employee_cv.repositories.AppreciationRepo;
 import com.noc.employee_cv.repositories.UserRepo;
-import com.noc.employee_cv.services.serviceImp.EmployeeServiceImp;
-import com.noc.employee_cv.services.serviceImp.ReportServiceImp;
-import com.noc.employee_cv.services.serviceImp.StorageServiceImp;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
+import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
+import com.noc.employee_cv.services.serviceImpl.ReportServiceImp;
 import jakarta.mail.MessagingException;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 
 @RestController

@@ -1,12 +1,10 @@
 package com.noc.employee_cv.provinces;
 
-import com.noc.employee_cv.services.serviceImp.CommuneServiceImp;
-import com.noc.employee_cv.services.serviceImp.DistrictServiceImp;
-import com.noc.employee_cv.services.serviceImp.ProvinceCityServiceImp;
-import com.noc.employee_cv.services.serviceImp.VillageServiceImp;
-import jakarta.persistence.EntityManager;
+import com.noc.employee_cv.services.serviceImpl.CommuneServiceImp;
+import com.noc.employee_cv.services.serviceImpl.DistrictServiceImp;
+import com.noc.employee_cv.services.serviceImpl.ProvinceCityServiceImp;
+import com.noc.employee_cv.services.serviceImpl.VillageServiceImp;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

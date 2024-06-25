@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fontFamilies>
-    <fontFamily name="Khmer Os Moul Light">
-        <normal><![CDATA[fonts/KhmerOsMoulLight/KHMMOOL1.ttf]]></normal>
+    <fontFamily name="My Khmer Os Muol Light">
+        <normal><![CDATA[fonts/KhmerOsMuolLight/KHMMOOL1.ttf]]></normal>
         <pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
         <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
     </fontFamily>
-    <fontFamily name="Khmer Os Niroth">
+    <fontFamily name="My Khmer Os Niroth">
         <normal><![CDATA[fonts/KhmerOsNiroth/KhmerOSniroth.ttf]]></normal>
         <pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
         <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
     </fontFamily>
-    <fontFamily name="Khmer Os Siem Reap">
+    <fontFamily name="My Khmer Os Siem Reap">
         <normal><![CDATA[fonts/KhmerOsSiemReap/KhmerOSsiemreap.ttf]]></normal>
         <pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
         <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
     </fontFamily>
-    <fontFamily name="TakTeng">
-        <normal><![CDATA[fonts/Takteng/TACTENG.ttf]]></normal>
+    <fontFamily name="My Takteng">
+        <normal><![CDATA[fonts/Takteng/Takteng.ttf]]></normal>
+        <pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
+        <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+    </fontFamily>
+    <fontFamily name="My Hanuman">
+        <normal><![CDATA[fonts/Hanuman/Hanuman-Regular.ttf]]></normal>
         <pdfEncoding><![CDATA[Identity-H]]></pdfEncoding>
         <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
     </fontFamily>
