@@ -1,11 +1,9 @@
 package com.noc.employee_cv.services.serviceImpl;
 
-import com.noc.employee_cv.models.Appreciation;
-import com.noc.employee_cv.models.Employee;
-import com.noc.employee_cv.models.PreviousActivityAndPosition;
-import com.noc.employee_cv.models.VocationalTraining;
+import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.repositories.EmployeeRepo;
 import com.noc.employee_cv.utils.KhmerNumberUtil;
+import com.noc.employee_cv.utils.PhoneNumberFormatter;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -14,6 +12,8 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -26,6 +26,7 @@ public class ReportServiceImp {
         Employee employee = employeeRepo.findById(empId)
                 .orElseThrow(() -> new RuntimeException("Employee not found with ID: " + empId));
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
+        employee.setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getPhoneNumber()));
 
         // Load file and compile
         File file;
@@ -55,13 +56,40 @@ public class ReportServiceImp {
         JRBeanCollectionDataSource appreciationDataset= new JRBeanCollectionDataSource(appreciations);
         List<PreviousActivityAndPosition>  previousActivityAndPositions= employee.getActivityAndPositions();
         JRBeanCollectionDataSource activityDataset= new JRBeanCollectionDataSource(previousActivityAndPositions);
+//        emp place of birth
+        String empProvince= employee.getPlaceOfBirth().getProvinces().get(0).getProvince_city_name_kh();
+        String empDistrict= employee.getPlaceOfBirth().getDistricts().get(0).getDistrict_name_kh();
+        String empCommune= employee.getPlaceOfBirth().getCommunes().get(0).getCommune_name_kh();
+        String empVillage= employee.getPlaceOfBirth().getVillages().get(0).getVillage_name_kh();
+//end emp place of birth
+//        emp current address
 
+        String empCurrentProvince= employee.getCurrentAddress().getProvinces().get(0).getProvince_city_name_kh();
+        String empCurrentDistrict= employee.getCurrentAddress().getDistricts().get(0).getDistrict_name_kh();
+        String empCurrentCommune= employee.getCurrentAddress().getCommunes().get(0).getCommune_name_kh();
+        String empCurrentVillage= employee.getCurrentAddress().getVillages().get(0).getVillage_name_kh();
+        String empCurrentStreetNumber= employee.getCurrentAddress().getStreetNumber();
+        String empCurrentHouseNumber= employee.getCurrentAddress().getHouseNumber();
+//end emp current address
+//        emp current address
         // Parameters map can be used to pass additional parameters to the report
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("employeeKhmerDOB",KhmerNumberUtil.convertToKhmerDayMonthYear(employee.getFormattedDateOfBirth()));
         parameters.put("VOCATIONAL_TRAINING",vocationalTrainingsDatasource);
         parameters.put("APPRECIATION",appreciationDataset);
         parameters.put("ACTIVITY",activityDataset);
+        parameters.put("empProvince",empProvince);
+        parameters.put("empDistrict",empDistrict);
+        parameters.put("empCommune",empCommune);
+        parameters.put("empVillage",empVillage);
+        parameters.put("empPoliceDocumentKH",KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getPoliceRankDocumentIssueDate())));
+        parameters.put("empPositionKH",KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getPositionDocumentIssueDate())));
+        parameters.put("empCurrentProvince",empCurrentProvince);
+        parameters.put("empCurrentDistrict",empCurrentDistrict);
+        parameters.put("empCurrentCommune",empCurrentCommune);
+        parameters.put("empCurrentVillage",empCurrentVillage);
+        parameters.put("empCurrentStreetNumber",empCurrentStreetNumber);
+        parameters.put("empCurrentHouseNumber",empCurrentHouseNumber);
         // Fill the report
         JasperPrint jasperPrint;
         try {
@@ -86,5 +114,10 @@ public class ReportServiceImp {
 
         return "Report generated in " + reportFormat + " format at: " + filePath;
     }
-
+    public String formatDateToKh(LocalDate localDate) {
+        if (localDate != null) {
+            return localDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        }
+        return "";
+    }
 }
