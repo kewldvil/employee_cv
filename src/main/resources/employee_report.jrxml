@@ -82,33 +82,6 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table 3_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<leftPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-			<rightPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="Table 3_CH" mode="Opaque" backcolor="#BFE1FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<leftPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-			<rightPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="Table 3_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-			<topPen lineWidth="0.5" lineColor="#000000"/>
-			<leftPen lineWidth="0.5" lineColor="#000000"/>
-			<bottomPen lineWidth="0.5" lineColor="#000000"/>
-			<rightPen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
 	<subDataset name="VocationalTraining" uuid="2878c19f-9877-4b0f-b9ef-fbc5e180d3bb">
 		<queryString>
 			<![CDATA[]]>
@@ -136,13 +109,7 @@
 		<field name="departmentOrUnit" class="java.lang.String"/>
 		<field name="toDate" class="java.time.LocalDate"/>
 	</subDataset>
-	<subDataset name="DegreeLevel" uuid="034853a2-5a74-47af-b136-48489374643f">
-		<queryString>
-			<![CDATA[]]>
-		</queryString>
-		<field name="isChecked" class="java.lang.Boolean"/>
-		<field name="educationLevel" class="java.lang.String"/>
-	</subDataset>
+	<parameter name="REPORT_PATH" class="java.lang.String"/>
 	<parameter name="VOCATIONAL_TRAINING" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="APPRECIATION" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="ACTIVITY" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
@@ -161,7 +128,7 @@
 	<parameter name="empCurrentHouseNumber" class="java.lang.String"/>
 	<parameter name="WEAPON_LIST" class="java.util.Collection"/>
 	<parameter name="VEHICLE_LIST" class="java.util.Collection"/>
-	<parameter name="DEGREE_LEVEL_LIST" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="DEGREE_LEVEL_LIST" class="java.util.Collection"/>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="bloodType" class="java.lang.String"/>
 	<field name="createdAt" class="java.sql.Timestamp"/>
@@ -402,14 +369,14 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{gender}.equals("F") ? "C:/Users/MOI/SOPEHAK/web/employee_cv/src/main/resources/static/photos/check.png" : "C:/Users/MOI/SOPEHAK/web/employee_cv/src/main/resources/static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{gender}.equals("F") ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="176" y="52" width="14" height="14" uuid="e6ff5dca-a852-489f-b012-395f1d5313e1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{gender}.equals("M") ? "C:/Users/MOI/SOPEHAK/web/employee_cv/src/main/resources/static/photos/check.png" : "C:/Users/MOI/SOPEHAK/web/employee_cv/src/main/resources/static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{gender}.equals("M") ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="115" y="246" width="440" height="22" uuid="f51e3570-b1f2-4a4b-bcf3-de7db73c65e9"/>
@@ -658,7 +625,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{empVillage}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{empCurrentStreetNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="264" y="222" width="95" height="22" forecolor="#0000CC" uuid="e5da8e77-2ac2-4ad9-ba3e-99ef17b01396">
@@ -667,7 +634,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{empVillage}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{empCurrentHouseNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="377" y="222" width="175" height="22" forecolor="#0000CC" uuid="bdc441ac-53c7-4621-b3c5-b90845da5d39">
@@ -733,7 +700,7 @@
 					<subreportParameterExpression><![CDATA[$P{WEAPON_LIST}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{WEAPON_LIST})]]></dataSourceExpression>
-				<subreportExpression><![CDATA["C:/Users/MOI/JaspersoftWorkspace/MyReports/weapon_report.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{REPORT_PATH}+"weapon_report.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
 				<reportElement x="14" y="0" width="101" height="22" uuid="0793717f-0fad-47c9-8a89-79fce8156dea"/>
@@ -760,53 +727,27 @@
 					<subreportParameterExpression><![CDATA[$P{VEHICLE_LIST}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{VEHICLE_LIST})]]></dataSourceExpression>
-				<subreportExpression><![CDATA["C:/Users/MOI/JaspersoftWorkspace/MyReports/vehicle_report.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{REPORT_PATH}+"vehicle_report.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="236">
+		<band height="66">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="22" uuid="e43a29c2-e6ed-409d-8586-e2f7d15f0b0e"/>
+				<reportElement x="0" y="0" width="555" height="22" uuid="59abe6fa-7dde-4a67-808e-8af409ab77b0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="My Khmer Os Muol Light" size="12"/>
 				</textElement>
-				<text><![CDATA[២-កម្រិតវប្បធម៌]]></text>
+				<text><![CDATA[១-ព័ត៌មានផ្ទាល់ខ្លួន៖]]></text>
 			</staticText>
-			<componentElement>
-				<reportElement x="0" y="36" width="555" height="200" uuid="078a7d6c-5588-471f-94c0-87daf2634a6b">
-					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 3_TH"/>
-					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 3_CH"/>
-					<property name="com.jaspersoft.studio.table.style.detail" value="Table 3_TD"/>
+			<subreport>
+				<reportElement x="0" y="22" width="555" height="44" uuid="f721a0f4-3b3b-413d-8824-164d9421374a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="DegreeLevel" uuid="a9c25f1b-27fe-41bd-9eab-24be409f5ed6">
-						<dataSourceExpression><![CDATA[$P{DEGREE_LEVEL_LIST}]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="150" uuid="969aac6c-63b6-400a-a929-f488fb71128d">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:detailCell style="Table 3_TD" height="30">
-							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
-							<textField>
-								<reportElement x="0" y="0" width="150" height="30" uuid="90a18d89-7b89-456e-af51-276cd1626655"/>
-								<textFieldExpression><![CDATA[$F{isChecked}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="140" uuid="cbb690dd-dd72-4bd8-91a6-5387031b4b9b">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-						<jr:detailCell style="Table 3_TD" height="30">
-							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-							<textField>
-								<reportElement x="0" y="0" width="140" height="30" uuid="2f5261b9-11d9-4cce-96d8-0cca6d375d5d"/>
-								<textElement>
-									<font fontName="My Khmer Os Siem Reap" size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{educationLevel}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{DEGREE_LEVEL_LIST})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{REPORT_PATH}+"degree_level_report.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 		<band height="131">
 			<staticText>
@@ -822,6 +763,20 @@
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
 				<text><![CDATA[បញ្ជាក់ជំនាញឯកទេសដែលបានរៀន៖......................................................................................................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="44" width="368" height="22" uuid="b452d389-842d-474e-96a8-5ad11c220b6d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<text><![CDATA[(សូមរៀបរាប់វគ្គបណ្ដុះបណ្ដាល និងថ្ងៃ ខែ ឆ្នាំដែលបានសិក្សាកន្លងមក)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="44" width="196" height="27" uuid="a7ae7016-b00e-4df5-8acd-c9e6707832bd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="My Khmer Os Muol Light" size="12"/>
+				</textElement>
+				<text><![CDATA[៤-កម្រិតបណ្ដុះបណ្ដាលវិជ្ជាជីវ៖]]></text>
 			</staticText>
 			<componentElement>
 				<reportElement x="0" y="71" width="555" height="60" uuid="5f724fa4-a262-4139-8636-87ffb374cb3a">
@@ -868,7 +823,9 @@
 								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="139" height="30" forecolor="#0000CC" uuid="71e07a94-e181-43ae-ac27-5eeb867e0674"/>
+								<reportElement x="0" y="0" width="139" height="30" forecolor="#0000CC" uuid="71e07a94-e181-43ae-ac27-5eeb867e0674">
+									<printWhenExpression><![CDATA[$F{trainingStartDate}!=null && $F{trainingToDate}!=null]]></printWhenExpression>
+								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -909,7 +866,9 @@
 								<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="47" height="30" forecolor="#0000CC" uuid="144f277b-8a8e-4beb-8afa-68d7cf253727"/>
+								<reportElement x="0" y="0" width="47" height="30" forecolor="#0000CC" uuid="144f277b-8a8e-4beb-8afa-68d7cf253727">
+									<printWhenExpression><![CDATA[$F{trainingDuration} > 0]]></printWhenExpression>
+								</reportElement>
 								<box>
 									<pen lineColor="#000000"/>
 								</box>
@@ -1004,24 +963,13 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
-			<staticText>
-				<reportElement x="187" y="44" width="368" height="22" uuid="b452d389-842d-474e-96a8-5ad11c220b6d"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="My Khmer Os Siem Reap" size="12"/>
-				</textElement>
-				<text><![CDATA[(សូមរៀបរាប់វគ្គបណ្ដុះបណ្ដាល និងថ្ងៃ ខែ ឆ្នាំដែលបានសិក្សាកន្លងមក)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="44" width="196" height="27" uuid="a7ae7016-b00e-4df5-8acd-c9e6707832bd"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="My Khmer Os Muol Light" size="12"/>
-				</textElement>
-				<text><![CDATA[៤-កម្រិតបណ្ដុះបណ្ដាលវិជ្ជាជីវ៖]]></text>
-			</staticText>
 		</band>
 		<band height="84" splitType="Immediate">
 			<staticText>
-				<reportElement x="-1" y="1" width="92" height="22" uuid="3c33c8a5-3822-4611-bb38-13cd481eb295"/>
+				<reportElement x="0" y="0" width="92" height="22" uuid="3c33c8a5-3822-4611-bb38-13cd481eb295">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="My Khmer Os Muol Light" size="12"/>
 				</textElement>
@@ -1113,85 +1061,6 @@
 			</componentElement>
 		</band>
 		<band height="235" splitType="Immediate">
-			<componentElement>
-				<reportElement x="-1" y="155" width="555" height="80" uuid="8d992c94-d909-4811-8e25-bebc85b05d73">
-					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 2_TH"/>
-					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 2_CH"/>
-					<property name="com.jaspersoft.studio.table.style.detail" value="Table 2_TD"/>
-				</reportElement>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="ActivityDataset" uuid="5e582f19-f9ed-4cbf-8864-72a319a00995">
-						<dataSourceExpression><![CDATA[$P{ACTIVITY}]]></dataSourceExpression>
-					</datasetRun>
-					<jr:column width="185" uuid="103f83a9-f893-4e58-9b16-aea2b929628e">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:tableHeader style="Table 2_TH" height="50" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="185" height="50" uuid="9ab78c1d-ac3e-44b0-bead-fe8216f06d70"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="My Khmer Os Siem Reap" size="12"/>
-								</textElement>
-								<text><![CDATA[កាលបរិច្ឆេទ
-ពីថ្ងៃ ខែ ឆ្នាំ ដល់ ថ្ងៃ ខែ ឆ្នាំ]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="Table 2_TD" height="30">
-							<textField textAdjust="StretchHeight">
-								<reportElement x="0" y="0" width="185" height="30" forecolor="#0000CC" uuid="cd26bc8c-793b-472e-b8d9-10c658644f78"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="My Khmer Os Siem Reap" size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{fromDate}+" ដល់ "+$F{toDate}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="186" uuid="435cb688-4569-4552-b92a-94937d883e70">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-						<jr:tableHeader style="Table 2_TH" height="50" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="186" height="50" uuid="8bd3aade-8545-4e0a-a13d-8cd74bb3eed1"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="My Khmer Os Siem Reap" size="12"/>
-								</textElement>
-								<text><![CDATA[សកម្មភាពការងារ និងមុខតំណែង
-ដែលធ្លាប់ទទួលបាន
-]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="Table 2_TD" height="30">
-							<textField textAdjust="StretchHeight">
-								<reportElement x="0" y="0" width="186" height="30" forecolor="#0000CC" uuid="e4923e7d-266a-47da-b13f-de0e200e682d"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="My Khmer Os Siem Reap" size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{activityAndRank}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="184" uuid="ca449323-b802-4a7f-9299-7a673d9f5426">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-						<jr:tableHeader style="Table 2_TH" height="50" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="184" height="50" uuid="e4c451bd-19a4-4018-808e-5353b8b7429c"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="My Khmer Os Siem Reap" size="12"/>
-								</textElement>
-								<text><![CDATA[នាយកដ្ឋាន-អង្គភាព]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="Table 2_TD" height="30">
-							<textField textAdjust="StretchHeight">
-								<reportElement x="0" y="0" width="184" height="30" forecolor="#0000CC" uuid="53a987d2-b044-4e32-80eb-5dd2b59e0ccc"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="My Khmer Os Siem Reap" size="12"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{departmentOrUnit}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="22" uuid="157bf282-deb8-42b5-a2a8-0957bda6787f"/>
 				<textElement verticalAlignment="Middle">
@@ -1241,6 +1110,87 @@
 				</textElement>
 				<text><![CDATA[សូមរៀបរាប់អំពីសកម្មភាពការងារ និងមុខតំណែងបានទទួលកន្លងមក(ឆ្នាំ..................... ដល់បច្ចុប្បន្ន)]]></text>
 			</staticText>
+			<componentElement>
+				<reportElement x="-1" y="155" width="555" height="80" uuid="8d992c94-d909-4811-8e25-bebc85b05d73">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 2_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 2_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 2_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ActivityDataset" uuid="5e582f19-f9ed-4cbf-8864-72a319a00995">
+						<dataSourceExpression><![CDATA[$P{ACTIVITY}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="185" uuid="103f83a9-f893-4e58-9b16-aea2b929628e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableHeader style="Table 2_TH" height="50" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="185" height="50" uuid="9ab78c1d-ac3e-44b0-bead-fe8216f06d70"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="My Khmer Os Siem Reap" size="12"/>
+								</textElement>
+								<text><![CDATA[កាលបរិច្ឆេទ
+ពីថ្ងៃ ខែ ឆ្នាំ ដល់ ថ្ងៃ ខែ ឆ្នាំ]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="185" height="30" forecolor="#0000CC" uuid="cd26bc8c-793b-472e-b8d9-10c658644f78">
+									<printWhenExpression><![CDATA[$F{fromDate} !=null && $F{toDate} !=null]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="My Khmer Os Siem Reap" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fromDate}+" ដល់ "+$F{toDate}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="186" uuid="435cb688-4569-4552-b92a-94937d883e70">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableHeader style="Table 2_TH" height="50" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="186" height="50" uuid="8bd3aade-8545-4e0a-a13d-8cd74bb3eed1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="My Khmer Os Siem Reap" size="12"/>
+								</textElement>
+								<text><![CDATA[សកម្មភាពការងារ និងមុខតំណែង
+ដែលធ្លាប់ទទួលបាន
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="186" height="30" forecolor="#0000CC" uuid="e4923e7d-266a-47da-b13f-de0e200e682d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="My Khmer Os Siem Reap" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{activityAndRank}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="184" uuid="ca449323-b802-4a7f-9299-7a673d9f5426">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableHeader style="Table 2_TH" height="50" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="184" height="50" uuid="e4c451bd-19a4-4018-808e-5353b8b7429c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="My Khmer Os Siem Reap" size="12"/>
+								</textElement>
+								<text><![CDATA[នាយកដ្ឋាន-អង្គភាព]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 2_TD" height="30">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="184" height="30" forecolor="#0000CC" uuid="53a987d2-b044-4e32-80eb-5dd2b59e0ccc"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="My Khmer Os Siem Reap" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{departmentOrUnit}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 		<band height="661" splitType="Immediate">
 			<staticText>
@@ -1505,14 +1455,14 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{isMarried}.equals(true) ? "C:/Users/MOI/SOPEHAK/web/employee_cv/src/main/resources/static/photos/check.png" : "C:/Users/MOI/SOPEHAK/web/employee_cv/src/main/resources/static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{isMarried}.equals(true) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="219" y="6" width="14" height="14" uuid="43622b49-7670-4d09-b2fa-65f366f13198">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{isMarried}.equals(false) ? "C:/Users/MOI/SOPEHAK/web/employee_cv/src/main/resources/static/photos/check.png" : "C:/Users/MOI/SOPEHAK/web/employee_cv/src/main/resources/static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{isMarried}.equals(false) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="115" y="463" width="440" height="22" uuid="c1dc670d-516d-47a0-a97f-e53efeda1597"/>

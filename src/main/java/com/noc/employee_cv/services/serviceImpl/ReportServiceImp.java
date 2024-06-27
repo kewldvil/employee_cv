@@ -8,6 +8,7 @@ import com.noc.employee_cv.utils.PhoneNumberFormatter;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -22,7 +23,8 @@ import java.util.*;
 public class ReportServiceImp {
 
     private final EmployeeRepo employeeRepo;
-
+    @Value("${file.report-dir}")
+    private String REPORT_DIR;
     public String exportReport(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
         Employee employee = employeeRepo.findById(empId)
                 .orElseThrow(() -> new RuntimeException("Employee not found with ID: " + empId));
@@ -59,7 +61,6 @@ public class ReportServiceImp {
         JRBeanCollectionDataSource activityDataset= new JRBeanCollectionDataSource(previousActivityAndPositions);
 
         List<DegreeLevelInfoDTO> employeeDegreeLevels= extractDegreeLevels(employee);
-        JRBeanCollectionDataSource empDegreeDataset= new JRBeanCollectionDataSource(employeeDegreeLevels);
         List<Weapon>  empWeapons= employee.getWeapons();
         List<PolicePlateNumberCar>  empVehicle= employee.getPolicePlateNumberCars();
 
@@ -81,13 +82,14 @@ public class ReportServiceImp {
 //        emp current address
         // Parameters map can be used to pass additional parameters to the report
         Map<String, Object> parameters = new HashMap<>();
+        parameters.put("REPORT_PATH",REPORT_DIR);
         parameters.put("employeeKhmerDOB",KhmerNumberUtil.convertToKhmerDayMonthYear(employee.getFormattedDateOfBirth()));
         parameters.put("VOCATIONAL_TRAINING",vocationalTrainingsDatasource);
         parameters.put("APPRECIATION",appreciationDataset);
         parameters.put("ACTIVITY",activityDataset);
         parameters.put("WEAPON_LIST",empWeapons);
         parameters.put("VEHICLE_LIST",empVehicle);
-        parameters.put("DEGREE_LEVEL_LIST",empDegreeDataset);
+        parameters.put("DEGREE_LEVEL_LIST",employeeDegreeLevels);
         parameters.put("empProvince",empProvince);
         parameters.put("empDistrict",empDistrict);
         parameters.put("empCommune",empCommune);
