@@ -1,5 +1,6 @@
 package com.noc.employee_cv.services.serviceImpl;
 
+import com.noc.employee_cv.dto.DegreeLevelInfoDTO;
 import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.repositories.EmployeeRepo;
 import com.noc.employee_cv.utils.KhmerNumberUtil;
@@ -56,6 +57,12 @@ public class ReportServiceImp {
         JRBeanCollectionDataSource appreciationDataset= new JRBeanCollectionDataSource(appreciations);
         List<PreviousActivityAndPosition>  previousActivityAndPositions= employee.getActivityAndPositions();
         JRBeanCollectionDataSource activityDataset= new JRBeanCollectionDataSource(previousActivityAndPositions);
+
+        List<DegreeLevelInfoDTO> employeeDegreeLevels= extractDegreeLevels(employee);
+        JRBeanCollectionDataSource empDegreeDataset= new JRBeanCollectionDataSource(employeeDegreeLevels);
+        List<Weapon>  empWeapons= employee.getWeapons();
+        List<PolicePlateNumberCar>  empVehicle= employee.getPolicePlateNumberCars();
+
 //        emp place of birth
         String empProvince= employee.getPlaceOfBirth().getProvinces().get(0).getProvince_city_name_kh();
         String empDistrict= employee.getPlaceOfBirth().getDistricts().get(0).getDistrict_name_kh();
@@ -78,6 +85,9 @@ public class ReportServiceImp {
         parameters.put("VOCATIONAL_TRAINING",vocationalTrainingsDatasource);
         parameters.put("APPRECIATION",appreciationDataset);
         parameters.put("ACTIVITY",activityDataset);
+        parameters.put("WEAPON_LIST",empWeapons);
+        parameters.put("VEHICLE_LIST",empVehicle);
+        parameters.put("DEGREE_LEVEL_LIST",empDegreeDataset);
         parameters.put("empProvince",empProvince);
         parameters.put("empDistrict",empDistrict);
         parameters.put("empCommune",empCommune);
@@ -120,4 +130,22 @@ public class ReportServiceImp {
         }
         return "";
     }
+    public List<DegreeLevelInfoDTO> extractDegreeLevels(Employee employee) {
+        Set<EmployeeDegreeLevel> employeeDegreeLevels = employee.getEmployeeDegreeLevels();
+        List<DegreeLevelInfoDTO> degreeLevelDTOList = new ArrayList<>();
+
+        for (EmployeeDegreeLevel degreeLevel : employeeDegreeLevels) {
+            int id = degreeLevel.getDegreeLevel().getId();
+            boolean isChecked = degreeLevel.getIsChecked();
+            String educationLevel = degreeLevel.getDegreeLevel().getEducationLevel();
+
+            // Create a DTO object and add to the list
+            DegreeLevelInfoDTO dto = new DegreeLevelInfoDTO(id,isChecked, educationLevel);
+            degreeLevelDTOList.add(dto);
+        }
+        // Sort the list by id using Comparator
+        degreeLevelDTOList.sort(Comparator.comparingInt(DegreeLevelInfoDTO::getId));
+        return degreeLevelDTOList;
+    }
+
 }

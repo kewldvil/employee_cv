@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vehicle_report" pageWidth="400" pageHeight="842" columnWidth="400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="14911ef6-e8a4-4138-927b-d6c1d0283a18">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="VEHICLE_LIST" class="java.util.Collection"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="vehicleNumber" class="java.lang.String"/>
+	<field name="vehicleBrand" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="400" height="22" forecolor="#000000" uuid="4d197cbc-c03f-4b31-a405-05862c907608">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<text><![CDATA[៖រថយន្ដម៉ាក......................................................ស្លាកលេខ៖..............................]]></text>
+			</staticText>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement x="59" y="-2" width="181" height="22" forecolor="#0000CC" uuid="b26944b6-e78d-45f9-912f-b8dbba69eb7c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicleBrand}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement x="293" y="-2" width="107" height="22" forecolor="#0000CC" uuid="cd1852fe-478a-4ffa-8eac-4d85a53f2095">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["នប-"+$F{vehicleNumber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
