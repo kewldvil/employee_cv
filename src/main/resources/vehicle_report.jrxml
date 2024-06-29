@@ -34,11 +34,12 @@
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="293" y="-2" width="107" height="22" forecolor="#0000CC" uuid="cd1852fe-478a-4ffa-8eac-4d85a53f2095">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{vehicleNumber}!=""]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["នប-"+$F{vehicleNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{vehicleNumber} != null && $F{vehicleNumber}.length() >= 5 ?"នគរបាល​ 2-" + $F{vehicleNumber}.substring(1, 5) : ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

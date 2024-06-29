@@ -48,4 +48,7 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
 
     @Query("SELECT COUNT(e) FROM Employee e WHERE e.currentPoliceRank = 'មន្ត្រីហាត់ការ'")
     long countEmployeesByTrainee();
+
+    @Query("SELECT e,u.imageName FROM Employee e JOIN e.user u WHERE e.id = :id")
+    Employee findEmployeeAndUserById(@Param("id") Integer id);
 }

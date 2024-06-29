@@ -107,7 +107,7 @@ public class Employee {
     private Mother mother;
 
     @OneToOne
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
