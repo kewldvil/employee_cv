@@ -100,8 +100,8 @@ public class EmployeeController {
         }
     }
     @GetMapping("/report/{format}/{empId}")
-    public String generateReport(@PathVariable String format,@PathVariable Integer empId) throws JRException, IOException {
-        return reportService.exportReport(format,empId);
+    public ResponseEntity<byte[]> generateReport(@PathVariable String format,@PathVariable Integer empId) throws JRException, IOException {
+        return reportService.exportReportToFrontEnd(format,empId);
     }
 
 }

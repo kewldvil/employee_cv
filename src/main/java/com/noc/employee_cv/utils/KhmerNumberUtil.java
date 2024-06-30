@@ -4,6 +4,7 @@ public class KhmerNumberUtil {
     private static final char[] KHMER_DIGITS = {'០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'};
 
     public static String convertToKhmerNumber(int number) {
+        if (number==0) return null;
         StringBuilder khmerNumber = new StringBuilder();
         String numberString = String.format("%02d", number); // Format with leading zero if necessary
         for (char digit : numberString.toCharArray()) {
@@ -13,6 +14,7 @@ public class KhmerNumberUtil {
                 khmerNumber.append(digit);
             }
         }
+
         return khmerNumber.toString();
     }
 

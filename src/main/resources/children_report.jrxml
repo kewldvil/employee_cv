@@ -11,7 +11,7 @@
 	</queryString>
 	<field name="fullName" class="java.lang.String"/>
 	<field name="gender" class="java.lang.String"/>
-	<field name="dateOfBirth" class="java.time.LocalDate"/>
+	<field name="dateOfBirth" class="java.lang.String"/>
 	<field name="job" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -63,7 +63,7 @@
 				</textElement>
 				<text><![CDATA[-ឈ្មោះ.....................................ភេទ.........ថ្ងៃខែឆ្នាំកំណើត................................មុខរបរ.................................]]></text>
 			</staticText>
-			<textField textAdjust="ScaleFont">
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="54" y="-2" width="122" height="22" forecolor="#0000CC" uuid="9ef6e1cb-7427-4015-a6dd-bec286c250a0">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dd2111a-9531-47cf-99a4-4403a44ff88b"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -73,7 +73,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fullName}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="ScaleFont">
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="197" y="-2" width="31" height="22" forecolor="#0000CC" uuid="deddc087-d926-4e04-8453-7a6a79b163db">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dd2111a-9531-47cf-99a4-4403a44ff88b"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -83,7 +83,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gender}.equals("M") ? "ប្រុស" : "ស្រី"]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="ScaleFont">
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="301" y="-2" width="106" height="22" forecolor="#0000CC" uuid="2b274d73-69f2-4c1f-8a5f-51387a67c4fe">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dd2111a-9531-47cf-99a4-4403a44ff88b"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -93,7 +93,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dateOfBirth}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="ScaleFont">
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="439" y="-2" width="111" height="22" forecolor="#0000CC" uuid="84955543-abd4-45cf-8cb0-962ec857f30f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dd2111a-9531-47cf-99a4-4403a44ff88b"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -104,13 +104,28 @@
 				<textFieldExpression><![CDATA[$F{job}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="-4" y="0" width="41" height="22" uuid="d27f4ebf-79d0-4b8e-a51d-fe3ab6aa2412">
+				<reportElement x="-5" y="0" width="41" height="22" uuid="d27f4ebf-79d0-4b8e-a51d-fe3ab6aa2412">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06fb8ae6-05cf-4f77-9af6-bfdbc85ea96f"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[
+new StringBuilder()
+    .append("\u17E0")  // Replace with "Page" in Khmer if needed
+    .append($V{REPORT_COUNT})
+    .toString()
+    .replace('0', '\u17E0')
+    .replace('1', '\u17E1')
+    .replace('2', '\u17E2')
+    .replace('3', '\u17E3')
+    .replace('4', '\u17E4')
+    .replace('5', '\u17E5')
+    .replace('6', '\u17E6')
+    .replace('7', '\u17E7')
+    .replace('8', '\u17E8')
+    .replace('9', '\u17E9')
+]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
