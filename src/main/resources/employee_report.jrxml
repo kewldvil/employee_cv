@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" uuid="a86ecedf-66ce-442e-a674-5e22621fefa5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a86ecedf-66ce-442e-a674-5e22621fefa5">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table 2_TH" mode="Opaque" backcolor="#F2F2F2">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -86,9 +95,9 @@
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="trainingStartDate" class="java.time.LocalDate"/>
-		<field name="trainingToDate" class="java.time.LocalDate"/>
-		<field name="trainingDuration" class="java.lang.Integer"/>
+		<field name="trainingStartDate" class="java.lang.String"/>
+		<field name="trainingToDate" class="java.lang.String"/>
+		<field name="trainingDuration" class="java.lang.String"/>
 		<field name="trainingCourse" class="java.lang.String"/>
 		<field name="trainingCenter" class="java.lang.String"/>
 	</subDataset>
@@ -97,19 +106,22 @@
 			<![CDATA[]]>
 		</queryString>
 		<field name="appreciation" class="java.lang.String"/>
-		<field name="appreciationDate" class="java.time.LocalDate"/>
+		<field name="appreciationDate" class="java.lang.String"/>
 		<field name="appreciationNumber" class="java.lang.String"/>
 	</subDataset>
 	<subDataset name="ActivityDataset" uuid="a136cdfb-5ba6-46fa-b979-962a17aaa538">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="fromDate" class="java.time.LocalDate"/>
+		<field name="fromDate" class="java.lang.String"/>
 		<field name="activityAndRank" class="java.lang.String"/>
 		<field name="departmentOrUnit" class="java.lang.String"/>
-		<field name="toDate" class="java.time.LocalDate"/>
+		<field name="toDate" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="REPORT_PATH" class="java.lang.String"/>
+	<parameter name="START_YEAR" class="java.lang.String"/>
+	<parameter name="KHMER_LUNAR_DATE" class="java.lang.String"/>
+	<parameter name="KHMER_YEAR_STRING" class="java.lang.String"/>
 	<parameter name="VOCATIONAL_TRAINING" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="APPRECIATION" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="ACTIVITY" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
@@ -165,10 +177,12 @@
 	<parameter name="SPOUSE_DOB" class="java.lang.String"/>
 	<parameter name="FATHER_DOB" class="java.lang.String"/>
 	<parameter name="MOTHER_DOB" class="java.lang.String"/>
-	<parameter name="CHILD_NUMBER" class="java.lang.Integer"/>
+	<parameter name="CHILD_NUMBER" class="java.lang.String"/>
 	<parameter name="CHILDREN_LIST" class="java.util.Collection"/>
-	<parameter name="TOTAL_MALE_CHILD" class="java.lang.Long"/>
-	<parameter name="TOTAL_FEMALE_CHILD" class="java.lang.Long"/>
+	<parameter name="TOTAL_MALE_CHILD" class="java.lang.String"/>
+	<parameter name="TOTAL_FEMALE_CHILD" class="java.lang.String"/>
+	<parameter name="DATE_JOIN_GOV" class="java.lang.String"/>
+	<parameter name="DATE_JOIN_POLICE" class="java.lang.String"/>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="bloodType" class="java.lang.String"/>
 	<field name="createdAt" class="java.sql.Timestamp"/>
@@ -498,7 +512,7 @@
 				<textFieldExpression><![CDATA[$F{nationality}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="22" width="130" height="22" forecolor="#0000CC" uuid="f470da5f-e477-4bb1-ba77-86cec8386340">
+				<reportElement x="120" y="23" width="130" height="22" forecolor="#0000CC" uuid="f470da5f-e477-4bb1-ba77-86cec8386340">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -507,7 +521,7 @@
 				<textFieldExpression><![CDATA[$F{lastname}+" "+$F{firstname}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement x="316" y="22" width="130" height="22" forecolor="#0000CC" uuid="3c7ee994-9062-4e55-89f4-7ff0fbcdf6d5">
+				<reportElement x="316" y="23" width="130" height="22" forecolor="#0000CC" uuid="3c7ee994-9062-4e55-89f4-7ff0fbcdf6d5">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -871,11 +885,11 @@
 					<datasetRun subDataset="VocationalTraining" uuid="6bd8000f-5740-471d-b090-102f3e94e405">
 						<dataSourceExpression><![CDATA[$P{VOCATIONAL_TRAINING}]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="96" uuid="9f084088-1b81-45ab-aa44-f63c30f7130c">
+					<jr:column width="139" uuid="9f084088-1b81-45ab-aa44-f63c30f7130c">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="96" height="30" uuid="4bba1358-f96e-44cf-938c-a72a3d67af4f"/>
+								<reportElement x="0" y="0" width="139" height="30" uuid="4bba1358-f96e-44cf-938c-a72a3d67af4f"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -883,9 +897,10 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="96" height="30" forecolor="#0000CC" uuid="7ae6a556-ce7d-4f82-a495-0d12a6721cbf">
-									<printWhenExpression><![CDATA[$F{trainingStartDate}!=null && $F{trainingToDate}!=null]]></printWhenExpression>
+							<box padding="4"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="131" height="22" forecolor="#0000CC" uuid="7ae6a556-ce7d-4f82-a495-0d12a6721cbf">
+									<printWhenExpression><![CDATA[$F{trainingStartDate}!="" && $F{trainingToDate}!=""]]></printWhenExpression>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
@@ -894,11 +909,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="94" uuid="66f65706-4a75-43d2-81c1-2c14272883c2">
+					<jr:column width="139" uuid="66f65706-4a75-43d2-81c1-2c14272883c2">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="94" height="30" uuid="594255a4-af99-44d9-8a27-93676e00e6b8"/>
+								<reportElement x="0" y="0" width="139" height="30" uuid="594255a4-af99-44d9-8a27-93676e00e6b8"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -906,9 +921,10 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="94" height="30" forecolor="#0000CC" uuid="261c54ea-97fc-440f-bae3-7983d9d4c474">
-									<printWhenExpression><![CDATA[$F{trainingDuration}>0]]></printWhenExpression>
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="129" height="20" forecolor="#0000CC" uuid="261c54ea-97fc-440f-bae3-7983d9d4c474">
+									<printWhenExpression><![CDATA[$F{trainingStartDate}!=""]]></printWhenExpression>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
@@ -917,11 +933,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="160" uuid="c07bd3b3-7d64-4264-bf64-0c503306648a">
+					<jr:column width="138" uuid="c07bd3b3-7d64-4264-bf64-0c503306648a">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="160" height="30" uuid="e8d32886-37aa-412d-89c9-427d2bcb20a0"/>
+								<reportElement x="0" y="0" width="138" height="30" uuid="e8d32886-37aa-412d-89c9-427d2bcb20a0"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -929,8 +945,9 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="160" height="30" forecolor="#0000CC" uuid="0ccb6b4d-6486-4f2e-9ec7-de0d670e1df8"/>
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="128" height="20" forecolor="#0000CC" uuid="0ccb6b4d-6486-4f2e-9ec7-de0d670e1df8"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -938,11 +955,11 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="205" uuid="ae37a1b1-12ff-4db2-9370-7b7f1558ab69">
+					<jr:column width="139" uuid="ae37a1b1-12ff-4db2-9370-7b7f1558ab69">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="205" height="30" uuid="c28b9a94-7634-4e53-9dbf-4240035d3dd6"/>
+								<reportElement x="0" y="0" width="139" height="30" uuid="c28b9a94-7634-4e53-9dbf-4240035d3dd6"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -951,8 +968,9 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="205" height="30" forecolor="#0000CC" uuid="fe14613c-ec17-48dd-9608-d2b05f104fd1"/>
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="129" height="20" forecolor="#0000CC" uuid="fe14613c-ec17-48dd-9608-d2b05f104fd1"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -1009,8 +1027,11 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table 1_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="170" height="30" forecolor="#0000CC" uuid="45bf3698-94da-4235-83de-c5b44a89d8f8"/>
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="160" height="20" forecolor="#0000CC" uuid="45bf3698-94da-4235-83de-c5b44a89d8f8">
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -1030,8 +1051,9 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table 1_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="115" height="30" forecolor="#0000CC" uuid="0831e3a9-dbcc-437f-94de-735c6c2f279a"/>
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="105" height="20" forecolor="#0000CC" uuid="0831e3a9-dbcc-437f-94de-735c6c2f279a"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -1051,8 +1073,9 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table 1_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="270" height="30" forecolor="#0000CC" uuid="23bb6890-5705-41df-8750-0383db60c9be"/>
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="260" height="20" forecolor="#0000CC" uuid="23bb6890-5705-41df-8750-0383db60c9be"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -1120,7 +1143,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dateJoinGov}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{DATE_JOIN_GOV}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="267" y="42" width="287" height="22" forecolor="#0000CC" uuid="eb12d0a2-251c-4a14-ac79-1b15699ed5bc">
@@ -1129,7 +1152,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{dateJoinPolice}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{DATE_JOIN_POLICE}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="96" y="64" width="459" height="22" forecolor="#0000CC" uuid="0d92cd23-515e-4b60-b0bd-24c282993bf7">
@@ -1161,12 +1184,12 @@
 			<textField>
 				<reportElement x="342" y="130" width="74" height="22" forecolor="#0000CC" uuid="f7f4491c-0ecf-49c4-8591-b23175c1c47b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<printWhenExpression><![CDATA[$F{previousActivityAndPositionStartYear}>0]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{START_YEAR}!=""]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{previousActivityAndPositionStartYear}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{START_YEAR}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="80">
@@ -1196,9 +1219,10 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table 2_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="185" height="30" forecolor="#0000CC" uuid="cd26bc8c-793b-472e-b8d9-10c658644f78">
-									<printWhenExpression><![CDATA[$F{fromDate} !=null && $F{toDate} !=null]]></printWhenExpression>
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="175" height="20" forecolor="#0000CC" uuid="cd26bc8c-793b-472e-b8d9-10c658644f78">
+									<printWhenExpression><![CDATA[$F{fromDate} !="" && $F{toDate} !=""]]></printWhenExpression>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
@@ -1221,8 +1245,11 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table 2_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="186" height="30" forecolor="#0000CC" uuid="e4923e7d-266a-47da-b13f-de0e200e682d"/>
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="176" height="20" forecolor="#0000CC" uuid="e4923e7d-266a-47da-b13f-de0e200e682d">
+									<printWhenExpression><![CDATA[$F{fromDate} !="" && $F{toDate} !=""]]></printWhenExpression>
+								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -1242,8 +1269,11 @@
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table 2_TD" height="30">
-							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="184" height="30" forecolor="#0000CC" uuid="53a987d2-b044-4e32-80eb-5dd2b59e0ccc"/>
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="174" height="20" forecolor="#0000CC" uuid="53a987d2-b044-4e32-80eb-5dd2b59e0ccc">
+									<printWhenExpression><![CDATA[$F{fromDate} !="" && $F{toDate} !=""]]></printWhenExpression>
+								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -1476,7 +1506,7 @@
 			</textField>
 		</band>
 		<band height="66">
-			<printWhenExpression><![CDATA[$P{CHILD_NUMBER}==0]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$P{CHILD_NUMBER}=="00"]]></printWhenExpression>
 			<frame>
 				<reportElement x="0" y="0" width="555" height="66" uuid="b780b5bf-d88e-451f-8a92-14186a1921e6"/>
 				<staticText>
@@ -1503,7 +1533,7 @@
 			</frame>
 		</band>
 		<band height="22">
-			<printWhenExpression><![CDATA[$P{CHILD_NUMBER}>0]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$P{CHILD_NUMBER}!="00"]]></printWhenExpression>
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="22" uuid="946bd0d6-363e-4f1f-ba07-e82801252bcc">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1521,7 +1551,16 @@
 				<subreportExpression><![CDATA[$P{REPORT_PATH}+"children_report.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="666" splitType="Immediate">
+		<band height="441" splitType="Immediate">
+			<staticText>
+				<reportElement x="115" y="221" width="440" height="22" uuid="7129a2d5-cd2b-4e50-b047-9f584e7811b5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<text><![CDATA[ផ្លូវលេខ.......................ផ្ទះលេខ............................ភូមិ..................................................]]></text>
+			</staticText>
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="22" uuid="17fe3e67-6d42-4c32-9070-c65896962340"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -1850,15 +1889,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{motherCurrentStreetNumber}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="115" y="221" width="440" height="22" uuid="7129a2d5-cd2b-4e50-b047-9f584e7811b5">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Top">
-					<font fontName="My Khmer Os Siem Reap" size="12"/>
-				</textElement>
-				<text><![CDATA[ផ្លូវលេខ.......................ផ្ទះលេខ............................ភូមិ..................................................]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="264" y="219" width="95" height="22" forecolor="#0000CC" uuid="6233f9ac-a6c4-4876-8057-465e5b8a686b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1928,18 +1958,18 @@
 					<text><![CDATA[ខ្ញុំ/នាងខ្ញុំ សូមធានាអះអាងចំពោះមុខច្បាប់ថា សេចក្ដីរាយការណ៍ក្នុងជីវប្រវត្តិនេះ សុទ្ធតែពិតប្រាកដទាំងអស់។ ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="0" y="22" width="555" height="22" uuid="6c905c5d-9978-4932-b33c-6e300540d33d"/>
+					<reportElement x="269" y="22" width="158" height="22" uuid="6c905c5d-9978-4932-b33c-6e300540d33d"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="My Khmer Os Siem Reap" size="12"/>
 					</textElement>
-					<text><![CDATA[ថ្ងៃ..........................ខែ..............ឆ្នាំថោះ បញ្ចស័ក ព.ស.២៥៦៧  ]]></text>
+					<text><![CDATA[ថ្ងៃ..........................ខែ..............]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="0" y="44" width="555" height="22" uuid="20b9126d-b7ee-4520-8bd6-fbdb085c0099"/>
+					<reportElement x="0" y="44" width="514" height="22" uuid="20b9126d-b7ee-4520-8bd6-fbdb085c0099"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="My Khmer Os Siem Reap" size="12"/>
 					</textElement>
-					<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី...........ខែ............ឆ្នាំ២០២៤]]></text>
+					<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី...........ខែ............ឆ្នាំ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="321" y="66" width="233" height="22" uuid="17ef7c7c-c14b-4b6d-a22a-9d468a549405"/>
@@ -1972,18 +2002,18 @@
 						<text><![CDATA[..................................................................................]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="0" y="66" width="318" height="22" uuid="b088b6de-33ec-41a8-a9b2-c3ada92d9616"/>
-						<textElement textAlignment="Center" verticalAlignment="Middle">
+						<reportElement x="17" y="66" width="194" height="22" uuid="b088b6de-33ec-41a8-a9b2-c3ada92d9616"/>
+						<textElement textAlignment="Left" verticalAlignment="Middle">
 							<font fontName="My Khmer Os Siem Reap" size="12"/>
 						</textElement>
-						<text><![CDATA[ថ្ងៃ.................................ខែ..........ឆ្នាំថោះ បញ្ចស័ក ព.ស.២៥៦៧]]></text>
+						<text><![CDATA[ថ្ងៃ.........................ខែ..................]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="0" y="88" width="318" height="22" uuid="3fd33409-217b-431d-a40c-aa461f2f7f64"/>
+						<reportElement x="15" y="88" width="282" height="22" uuid="3fd33409-217b-431d-a40c-aa461f2f7f64"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font fontName="My Khmer Os Siem Reap" size="12"/>
 						</textElement>
-						<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី..........ខែ..............ឆ្នាំ២០២៤]]></text>
+						<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី..........ខែ..............]]></text>
 					</staticText>
 					<staticText>
 						<reportElement x="0" y="110" width="318" height="22" uuid="03053920-d47a-4201-afe4-f0267d49c12d"/>
@@ -1993,6 +2023,42 @@
 						<text><![CDATA[ប្រធាននាយកដ្ឋាន]]></text>
 					</staticText>
 				</frame>
+				<textField>
+					<reportElement x="182" y="110" width="152" height="22" uuid="6e9bf9b2-bab4-42ec-9dd9-6d687e0d01ee">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="My Khmer Os Siem Reap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{KHMER_LUNAR_DATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="406" y="21" width="146" height="22" uuid="f72e30f8-7e89-4f87-a162-d963df22fd35">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="My Khmer Os Siem Reap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{KHMER_LUNAR_DATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="246" y="132" width="174" height="22" uuid="982f1f12-a83f-44e7-80ab-8006c9771621">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="My Khmer Os Siem Reap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["ឆ្នាំ"+$P{KHMER_YEAR_STRING}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="514" y="43" width="40" height="22" uuid="55121310-d331-4eaa-b511-0f3c318ccc40">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="My Khmer Os Siem Reap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{KHMER_YEAR_STRING}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</detail>

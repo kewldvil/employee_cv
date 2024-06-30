@@ -1,6 +1,9 @@
 package com.noc.employee_cv.services.serviceImpl;
 
+import com.noc.employee_cv.dto.AppreciationPDFDTO;
 import com.noc.employee_cv.dto.DegreeLevelInfoDTO;
+import com.noc.employee_cv.dto.PrevActivityPDFDTO;
+import com.noc.employee_cv.dto.VTTrainingPDFDTO;
 import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.provinces.Commune;
 import com.noc.employee_cv.provinces.District;
@@ -10,6 +13,9 @@ import com.noc.employee_cv.repositories.EmployeeRepo;
 import com.noc.employee_cv.utils.EmployeeUtil;
 import com.noc.employee_cv.utils.KhmerNumberUtil;
 import com.noc.employee_cv.utils.PhoneNumberFormatter;
+import io.github.metheax.Chhankitek;
+import io.github.metheax.domain.KhmerLunarDate;
+import io.github.metheax.utils.ChhankitekUtils;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -20,6 +26,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -32,6 +39,9 @@ public class ReportServiceImp {
     private String REPORT_DIR;
 
     public String exportReport(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
+        KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
+        String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
+        String khmerLunarDateString ="ឆ្នាំ"+khmerLunarDate.getLunarZodiac()+" "+khmerLunarDate.getLunarEra()+"ព.ស."+khmerLunarDate.getLunarYear();
         Employee employee = employeeRepo.findEmployeeAndUserById(empId);
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
         employee.setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getPhoneNumber()));
@@ -40,7 +50,7 @@ public class ReportServiceImp {
         if(employee.getSpouse()!=null)employee.getSpouse().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getSpouse().getPhoneNumber()));
         if(employee.getFather()!=null)employee.getFather().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getFather().getPhoneNumber()));
         if(employee.getMother()!=null)employee.getMother().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getMother().getPhoneNumber()));
-        int childNumber= getNumberOfChildren(employee);
+        String childNumber= KhmerNumberUtil.convertToKhmerNumber(getNumberOfChildren(employee));
         String imageName = employee.getUser().getImageName();
 
         // Load file and compile
@@ -65,13 +75,13 @@ public class ReportServiceImp {
         // Create a list containing the single employee
         List<Employee> employees = Collections.singletonList(employee);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employees);
-        List<VocationalTraining> vocationalTrainings = employee.getVocationalTrainings();
+        List<VTTrainingPDFDTO> vocationalTrainings = updateVocationalTrainingKH(employee.getVocationalTrainings());
         JRBeanCollectionDataSource vocationalTrainingsDatasource = new JRBeanCollectionDataSource(vocationalTrainings);
-        List<Appreciation> appreciations = employee.getAppreciations();
+        System.out.println("vocational training"+vocationalTrainings);
+        List<AppreciationPDFDTO> appreciations = updateAppreciationKH(employee.getAppreciations());
         JRBeanCollectionDataSource appreciationDataset = new JRBeanCollectionDataSource(appreciations);
-        List<PreviousActivityAndPosition> previousActivityAndPositions = employee.getActivityAndPositions();
+        List<PrevActivityPDFDTO> previousActivityAndPositions = updateActivityKH(employee.getActivityAndPositions());
         JRBeanCollectionDataSource activityDataset = new JRBeanCollectionDataSource(previousActivityAndPositions);
-
         List<DegreeLevelInfoDTO> employeeDegreeLevels = extractDegreeLevels(employee);
         List<Weapon> empWeapons = employee.getWeapons();
         List<PolicePlateNumberCar> empVehicle = employee.getPolicePlateNumberCars();
@@ -146,8 +156,8 @@ public class ReportServiceImp {
         String spouseCurrentVillage = "";
         String spouseCurrentStreetNumber = "";
         String spouseCurrentHouseNumber = "";
-        long totalFemaleChildren=countChildrenByGender("M",employee);
-        long totalMaleChildren =countChildrenByGender("F",employee);
+        String totalFemaleChildren=KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("M",employee));
+        String totalMaleChildren =KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("F",employee));
         if (employee.getSpouse() != null && employee.getSpouse().getCurrentAddress() != null) {
             List<ProvinceCity> spouseCurrentProvinces = employee.getSpouse().getCurrentAddress().getProvinces();
             List<District> spouseCurrentDistricts = employee.getSpouse().getCurrentAddress().getDistricts();
@@ -191,6 +201,10 @@ public class ReportServiceImp {
 //end mother current address
 
 //        emp current address
+
+        String updateDateJoinGov = KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getDateJoinGov()));
+        String updateDateJoinPolice = KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getDateJoinPolice()));
+        String updateStartYear = KhmerNumberUtil.convertToKhmerNumber(employee.getPreviousActivityAndPositionStartYear());
         // Parameters map can be used to pass additional parameters to the report
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("REPORT_PATH", REPORT_DIR);
@@ -253,6 +267,11 @@ public class ReportServiceImp {
         parameters.put("CHILDREN_LIST", childrenList);
         parameters.put("TOTAL_FEMALE_CHILD", totalFemaleChildren);
         parameters.put("TOTAL_MALE_CHILD", totalMaleChildren);
+        parameters.put("KHMER_LUNAR_DATE", khmerLunarDateString);
+        parameters.put("KHMER_YEAR_STRING", khmerYearString);
+        parameters.put("DATE_JOIN_POLICE", updateDateJoinPolice);
+        parameters.put("DATE_JOIN_GOV", updateDateJoinGov);
+        parameters.put("START_YEAR", updateStartYear);
         // Fill the report
         JasperPrint jasperPrint;
         try {
@@ -314,12 +333,76 @@ public class ReportServiceImp {
         if (e.getSpouse() == null) return Set.of();
         return e.getSpouse().getChildren() != null ? e.getSpouse().getChildren() : Set.of();
     }
-    public long countChildrenByGender(String gender,Employee e) {
+    public int countChildrenByGender(String gender,Employee e) {
         if(e.getSpouse().getChildren()==null) return 0;
-        return e.getSpouse().getChildren().stream()
+        return (int) e.getSpouse().getChildren().stream()
                 .filter(child -> gender.equalsIgnoreCase(child.getGender()))
                 .count();
     }
+    public List<VTTrainingPDFDTO> updateVocationalTrainingKH(List<VocationalTraining> vocationalTrainingList) {
+        if (vocationalTrainingList == null || vocationalTrainingList.isEmpty()) {
+            return null;
+        }
 
+        List<VTTrainingPDFDTO> list = new ArrayList<>();
+        for (VocationalTraining vocationalTraining : vocationalTrainingList) {
+            try {
+                VTTrainingPDFDTO dto = new VTTrainingPDFDTO();
+                dto.setTrainingStartDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(vocationalTraining.getTrainingStartDate())));
+                dto.setTrainingToDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(vocationalTraining.getTrainingToDate())));
+                dto.setTrainingDuration(KhmerNumberUtil.convertToKhmerNumber(vocationalTraining.getTrainingDuration()));
+                dto.setTrainingCourse(vocationalTraining.getTrainingCourse());
+                dto.setTrainingCenter(vocationalTraining.getTrainingCenter());
+                list.add(dto);
+            } catch (Exception e) {
+                System.err.println("Error processing vocational training entry: " + e.getMessage());
+            }
+        }
+
+        return list;
+    }
+    public List<AppreciationPDFDTO> updateAppreciationKH(List<Appreciation> appreciationList) {
+
+        if (appreciationList == null || appreciationList.isEmpty()) {
+            return List.of(new AppreciationPDFDTO());
+        }
+
+        List<AppreciationPDFDTO> list = new ArrayList<>();
+        for (Appreciation appreciation : appreciationList) {
+            try {
+                AppreciationPDFDTO dto = new AppreciationPDFDTO();
+                dto.setAppreciationDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(appreciation.getAppreciationDate())));
+                dto.setAppreciationNumber(appreciation.getAppreciationNumber());
+                dto.setAppreciation(appreciation.getAppreciation());
+
+                list.add(dto);
+            } catch (Exception e) {
+                System.err.println("Error processing vocational training entry: " + e.getMessage());
+            }
+        }
+
+        return list;
+    }
+    public List<PrevActivityPDFDTO> updateActivityKH(List<PreviousActivityAndPosition> activityList) {
+        if (activityList == null || activityList.isEmpty()) {
+            return null;
+        }
+
+        List<PrevActivityPDFDTO> list = new ArrayList<>();
+        for (PreviousActivityAndPosition activity : activityList) {
+            try {
+                PrevActivityPDFDTO dto = new PrevActivityPDFDTO();
+                dto.setFromDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(activity.getFromDate())));
+                dto.setToDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(activity.getToDate())));
+                dto.setActivityAndRank(activity.getActivityAndRank());
+                dto.setDepartmentOrUnit(activity.getDepartmentOrUnit());
+                list.add(dto);
+            } catch (Exception e) {
+                System.err.println("Error processing vocational training entry: " + e.getMessage());
+            }
+        }
+
+        return list;
+    }
 
 }

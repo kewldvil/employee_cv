@@ -3,9 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="children_report" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="0" rightMargin="20" topMargin="0" bottomMargin="0" uuid="b088c322-c506-4a0b-bdde-1fff09f9b05e">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="CHILDREN_LIST" class="java.util.Collection"/>
-	<parameter name="CHILD_NUMBER" class="java.lang.Integer"/>
-	<parameter name="TOTAL_MALE_CHILD" class="java.lang.Long"/>
-	<parameter name="TOTAL_FEMALE_CHILD" class="java.lang.Long"/>
+	<parameter name="CHILD_NUMBER" class="java.lang.String"/>
+	<parameter name="TOTAL_MALE_CHILD" class="java.lang.String"/>
+	<parameter name="TOTAL_FEMALE_CHILD" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -25,7 +25,7 @@
 				</textElement>
 				<text><![CDATA[ខ-មានកូនចំនួន៖..................នាក់, ស្រី....................នាក់, ប្រុស....................នាក់]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="80" y="-3" width="61" height="22" forecolor="#0000CC" uuid="75dd5bfd-6b9f-4f21-9b13-48d9c8c84752">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06fb8ae6-05cf-4f77-9af6-bfdbc85ea96f"/>
 				</reportElement>
@@ -34,7 +34,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CHILD_NUMBER}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="182" y="-2" width="68" height="22" forecolor="#0000CC" uuid="933f80db-2130-4451-88a1-dd4ba18cb9a9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06fb8ae6-05cf-4f77-9af6-bfdbc85ea96f"/>
 				</reportElement>
@@ -43,7 +43,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TOTAL_FEMALE_CHILD}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="300" y="-2" width="67" height="22" forecolor="#0000CC" uuid="ba264e17-598d-4b6f-bad7-b68e3d6bdf47">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06fb8ae6-05cf-4f77-9af6-bfdbc85ea96f"/>
 				</reportElement>
