@@ -4,6 +4,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="DEGREE_LEVEL_LIST" class="java.util.Collection"/>
 	<parameter name="REPORT_PATH" class="java.lang.String"/>
+	<parameter name="REPORT_PHOTO_PATH" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -28,7 +29,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{isChecked}.equals(true) ? "C:/Users/Sopheak/IdeaProjects/employee_cv/src/main/resources/static/photos/check.png" : "C:/Users/Sopheak/IdeaProjects/employee_cv/src/main/resources/static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{isChecked}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 		</band>
 	</detail>

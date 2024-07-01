@@ -37,6 +37,8 @@ public class FileUploadController {
 
     @Value("${file.upload-dir}")
     private String uploadDir;
+    @Value("${file.file-max-size}")
+    private long MAX_FILE_SIZE;
 
     @GetMapping("/user-files/{userId}")
     public ResponseEntity<List<FileResponseDTO>> getUserFiles(@PathVariable Integer userId) {
@@ -47,6 +49,7 @@ public class FileUploadController {
 
         List<FileResponseDTO> uploadedFiles = new ArrayList<>();
         for (FileUpload file : files) {
+
             try {
                 Path path = Paths.get(this.uploadDir + file.getFileName());
                 String fileType = Files.probeContentType(path);
@@ -88,6 +91,15 @@ public class FileUploadController {
 
         // Process each file
         for (MultipartFile file : files) {
+            // Check if the file is empty
+            if (file.isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            // Check file size
+            if (file.getSize() > MAX_FILE_SIZE) {
+                return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).build();
+            }
             try {
                 FileUpload fileUpload = fileService.uploadFile(file, user);
 

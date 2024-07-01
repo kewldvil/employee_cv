@@ -2,7 +2,8 @@ package com.noc.employee_cv.contollers;
 
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.UserRepo;
-import com.noc.employee_cv.services.serviceImpl.StorageServiceImpl;
+import com.noc.employee_cv.services.serviceImpl.FileStorageServiceImpl;
+import com.noc.employee_cv.services.serviceImpl.PhotoStorageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,10 +26,14 @@ import java.nio.file.Paths;
 @RequiredArgsConstructor
 public class PhotoController {
     private final UserRepo userRepo;
-    private final StorageServiceImpl storageService;
+    private final PhotoStorageServiceImpl storageService;
 
-    @Value("${file.upload-dir}")
+    @Value("${file.photo-dir}")
     private String uploadDir;
+
+    @Value("${file.photo-max-size}")
+    private long MAX_PHOTO_SIZE;
+
 
     @PostMapping("/upload/")
     public ResponseEntity<Void> uploadPhoto(@RequestParam("photo") MultipartFile photo) {
@@ -50,6 +56,15 @@ public class PhotoController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<String> updatePhoto(@PathVariable Integer id,
                                               @RequestParam MultipartFile file) {
+        // Check if the file is empty
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Check file size
+        if (file.getSize() > MAX_PHOTO_SIZE) {
+            return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).build();
+        }
         try {
             User updatedPhoto = storageService.updateFile(file, id);
             userRepo.save(updatedPhoto);
@@ -88,7 +103,10 @@ public class PhotoController {
     public ResponseEntity<byte[]> getImage(@PathVariable String filename) {
         try {
             if (filename != null && !filename.trim().isEmpty()) {
-                Path filePath = Paths.get(uploadDir).resolve(filename);
+                // Decode the filename to handle Unicode characters properly
+                String decodedFilename = new String(filename.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+
+                Path filePath = Paths.get(uploadDir).resolve(decodedFilename);
                 if (Files.exists(filePath)) {
                     byte[] fileContent = Files.readAllBytes(filePath);
 
@@ -96,7 +114,7 @@ public class PhotoController {
                     HttpHeaders headers = new HttpHeaders();
                     headers.setContentType(MediaType.IMAGE_JPEG); // Adjust based on your file type
                     headers.setContentLength(fileContent.length);
-                    headers.setContentDispositionFormData("attachment", filename);
+                    headers.setContentDispositionFormData("attachment", decodedFilename);
 
                     return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
                 } else {

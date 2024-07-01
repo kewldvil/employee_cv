@@ -30,4 +30,5 @@ public interface UserRepo extends JpaRepository<User,Integer> {
 
     @Query("SELECT u FROM User u JOIN u.employee e WHERE e.currentPoliceRank=:rank")
     List<User> findUsersByRank(String rank);
+
 }

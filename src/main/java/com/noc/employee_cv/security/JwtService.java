@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
-    @Value("8600000")
+    @Value("${jwt.expiration}")
     private long jwtExpiration;
     @Value("${jwt.secret-key}")
     private String SECRET_KEY;

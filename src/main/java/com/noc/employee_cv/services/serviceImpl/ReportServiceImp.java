@@ -38,6 +38,8 @@ public class ReportServiceImp {
     private final EmployeeRepo employeeRepo;
     @Value("${file.report-dir}")
     private String REPORT_DIR;
+    @Value("${file.photo-dir}")
+    private String REPORT_PHOTO_PATH;
 
     public String exportReport(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
         KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
@@ -594,7 +596,9 @@ public class ReportServiceImp {
         String updateStartYear = KhmerNumberUtil.convertToKhmerNumber(employee.getPreviousActivityAndPositionStartYear());
         // Parameters map can be used to pass additional parameters to the report
         Map<String, Object> parameters = new HashMap<>();
+
         parameters.put("REPORT_PATH", REPORT_DIR);
+        parameters.put("REPORT_PHOTO_PATH", REPORT_PHOTO_PATH);
         parameters.put("employeeKhmerDOB", KhmerNumberUtil.convertToKhmerDayMonthYear(employee.getFormattedDateOfBirth()));
         parameters.put("VOCATIONAL_TRAINING", vocationalTrainingsDatasource);
         parameters.put("APPRECIATION", appreciationDataset);

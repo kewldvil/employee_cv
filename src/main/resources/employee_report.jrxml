@@ -119,6 +119,7 @@
 		<field name="toDate" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="REPORT_PATH" class="java.lang.String"/>
+	<parameter name="REPORT_PHOTO_PATH" class="java.lang.String"/>
 	<parameter name="START_YEAR" class="java.lang.String"/>
 	<parameter name="KHMER_LUNAR_DATE" class="java.lang.String"/>
 	<parameter name="KHMER_YEAR_STRING" class="java.lang.String"/>
@@ -183,6 +184,7 @@
 	<parameter name="TOTAL_FEMALE_CHILD" class="java.lang.String"/>
 	<parameter name="DATE_JOIN_GOV" class="java.lang.String"/>
 	<parameter name="DATE_JOIN_POLICE" class="java.lang.String"/>
+	<parameter name="REPORT_IMAGE_PATH" class="java.lang.String"/>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="bloodType" class="java.lang.String"/>
 	<field name="createdAt" class="java.sql.Timestamp"/>
@@ -311,7 +313,7 @@
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
-					<imageExpression><![CDATA[$P{IMAGE_NAME}==null?$P{REPORT_PATH}+"static/photos/avatar.png":$P{REPORT_PATH}+"static/photos/"+$P{IMAGE_NAME}]]></imageExpression>
+					<imageExpression><![CDATA[$P{IMAGE_NAME}==null?$P{REPORT_PHOTO_PATH}+"avatar.png":$P{REPORT_PHOTO_PATH}+$P{IMAGE_NAME}]]></imageExpression>
 				</image>
 			</frame>
 			<staticText>
@@ -442,14 +444,14 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{gender}.equals("F") ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{gender}.equals("F") ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="176" y="52" width="14" height="14" uuid="e6ff5dca-a852-489f-b012-395f1d5313e1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{gender}.equals("M") ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{gender}.equals("M") ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="115" y="246" width="440" height="22" uuid="f51e3570-b1f2-4a4b-bcf3-de7db73c65e9"/>
@@ -818,6 +820,12 @@
 				<reportElement x="0" y="22" width="555" height="22" uuid="f721a0f4-3b3b-413d-8824-164d9421374a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<subreportParameter name="REPORT_PATH">
+					<subreportParameterExpression><![CDATA[$P{REPORT_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_PHOTO_PATH">
+					<subreportParameterExpression><![CDATA[$P{REPORT_PHOTO_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{DEGREE_LEVEL_LIST})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{REPORT_PATH}+"degree_level_report.jasper"]]></subreportExpression>
 			</subreport>
@@ -1102,7 +1110,7 @@
 				<text><![CDATA[-  ថ្ងៃ ខែ ឆ្នាំចូលបម្រើការងារក្របខណ្ឌរដ្ឋ...........................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="44" width="555" height="22" uuid="a56ffe37-44c6-4282-b137-1a053dcfcbf9"/>
+				<reportElement x="-2" y="44" width="555" height="22" uuid="a56ffe37-44c6-4282-b137-1a053dcfcbf9"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
@@ -1348,14 +1356,14 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{isMarried}.equals(true) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{isMarried}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="227" y="6" width="14" height="14" uuid="43622b49-7670-4d09-b2fa-65f366f13198">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{isMarried}.equals(false) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{isMarried}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="114" y="133" width="440" height="22" uuid="2501e8a7-989f-4fd8-bd25-98fb15366c6c"/>
@@ -1369,14 +1377,14 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{spouse.isAlive}.equals(true) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{spouse.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="291" y="27" width="14" height="14" uuid="13a0f53f-ef45-4f81-b8a0-054a955a99b4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{spouse.isAlive}.equals(false) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{spouse.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="93" y="21" width="140" height="22" forecolor="#0000CC" uuid="fdc041c0-6d19-4785-9f32-55c0d59c48a5">
@@ -1589,14 +1597,14 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{father.isAlive}.equals(true) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{father.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="293" y="4" width="14" height="14" uuid="0633fdf4-ca90-4e64-9388-e4af3fe2536f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{father.isAlive}.equals(false) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{father.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="383" y="-1" width="172" height="22" forecolor="#0000CC" uuid="030f2c7a-3630-4369-9ea4-5b9efc438053">
@@ -1780,14 +1788,14 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{mother.isAlive}.equals(true) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{mother.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="295" y="137" width="14" height="14" uuid="5768bb7d-dc5c-4d31-86fa-896764fc33bc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[$F{mother.isAlive}.equals(false) ? $P{REPORT_PATH}+"static/photos/check.png" : $P{REPORT_PATH}+"static/photos/unchecked.png"]]></imageExpression>
+				<imageExpression><![CDATA[$F{mother.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="384" y="132" width="172" height="22" forecolor="#0000CC" uuid="822ccf46-0db4-4e79-9f1e-b6e1f2e67619">
@@ -2084,8 +2092,7 @@
     .replace('6', '\u17E6')
     .replace('7', '\u17E7')
     .replace('8', '\u17E8')
-    .replace('9', '\u17E9')
-]]></textFieldExpression>
+    .replace('9', '\u17E9')]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
