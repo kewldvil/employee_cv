@@ -13,7 +13,8 @@ public enum GeneralDepartment implements CommonEnum{
     NATIONAL_SCHOOL_OF_LOCAL_ADMINISTRATION("សាលាជាតិរដ្ឋបាលមូលដ្ឋាន"),
     GENERAL_SECRETARIAT("អគ្គលេខាធិការដ្ឋាន"),
     GENERAL_DEPARTMENT_OF_ADMINISTRATION("អគ្គនាយកដ្ឋានរដ្ឋបាល"),
-    GENERAL_DEPARTMENT_OF_DIGITAL_TECHNOLOGY_AND_MEDIA("អគ្គនាយកដ្ឋានបច្ចេកវិទ្យាឌីជីថល និងផ្សព្វផ្សាយអប់រំ");
+    GENERAL_DEPARTMENT_OF_DIGITAL_TECHNOLOGY_AND_MEDIA("អគ្គនាយកដ្ឋានបច្ចេកវិទ្យាឌីជីថល និងផ្សព្វផ្សាយអប់រំ"),
+    DEPARTMENT_OF_IT("នាយកដ្ឋានព័ត៌មានវិទ្យា");
 
     public final String departmentName;
 

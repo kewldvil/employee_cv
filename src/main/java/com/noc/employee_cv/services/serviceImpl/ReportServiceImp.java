@@ -1,5 +1,5 @@
 package com.noc.employee_cv.services.serviceImpl;
-
+import net.sf.jasperreports.engine.util.JRFontNotFoundException;
 import com.noc.employee_cv.dto.*;
 import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.provinces.Commune;
@@ -16,7 +16,10 @@ import io.github.metheax.utils.ChhankitekUtils;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +29,8 @@ import org.springframework.util.ResourceUtils;
 import javax.print.attribute.standard.Media;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -41,6 +46,8 @@ public class ReportServiceImp {
     @Value("${file.photo-dir}")
     private String REPORT_PHOTO_PATH;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
     public String exportReport(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
         KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
         String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
@@ -431,7 +438,7 @@ public class ReportServiceImp {
     public ResponseEntity<byte[]> exportReportToFrontEnd(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
         KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
         String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
-        String khmerLunarDateString ="ឆ្នាំ"+khmerLunarDate.getLunarZodiac()+" "+khmerLunarDate.getLunarEra()+"ព.ស."+khmerLunarDate.getLunarYear();
+        String khmerLunarDateString ="ឆ្នាំ"+khmerLunarDate.getLunarZodiac()+" "+khmerLunarDate.getLunarEra()+" ព.ស."+khmerLunarDate.getLunarYear();
         Employee employee = employeeRepo.findEmployeeAndUserById(empId);
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
         employee.setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getPhoneNumber()));
@@ -444,22 +451,17 @@ public class ReportServiceImp {
         String imageName = employee.getUser().getImageName();
 
         // Load file and compile
-        File file;
-        try {
-            file = ResourceUtils.getFile("classpath:employee_report.jrxml");
-            System.out.println("Report file path: " + file.getAbsolutePath()); // Log the file path
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("The report file was not found in the classpath: employee_report.jrxml");
-        }
-
         JasperReport jasperReport;
-        try {
-            jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        String reportPath = REPORT_DIR + "employee_report.jrxml";
+        Resource resource = resourceLoader.getResource(reportPath);
+        try (InputStream inputStream = resource.getInputStream()) {
+            jasperReport = JasperCompileManager.compileReport(inputStream);
+        } catch (IOException e) {
+            throw new FileNotFoundException("The report file was not found: " + reportPath);
         } catch (JRException e) {
-            // Instead of rethrowing the exception immediately, log the error and handle it gracefully
-            String errorMsg = "Unable to compile the report file: " + file.getAbsolutePath();
-            System.err.println(errorMsg); // Log the error message
-            throw new JRException(errorMsg, e); // Rethrow the exception for further handling
+            String errorMsg = "Unable to compile the report file: " + reportPath;
+            System.err.println(errorMsg);
+            throw new JRException(errorMsg, e);
         }
 
         // Create a list containing the single employee
@@ -545,8 +547,8 @@ public class ReportServiceImp {
         String spouseCurrentVillage = "";
         String spouseCurrentStreetNumber = "";
         String spouseCurrentHouseNumber = "";
-        String totalFemaleChildren=KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("M",employee));
-        String totalMaleChildren =KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("F",employee));
+        String totalFemaleChildren=KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("F",employee));
+        String totalMaleChildren =KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("M",employee));
         if (employee.getSpouse() != null && employee.getSpouse().getCurrentAddress() != null) {
             List<ProvinceCity> spouseCurrentProvinces = employee.getSpouse().getCurrentAddress().getProvinces();
             List<District> spouseCurrentDistricts = employee.getSpouse().getCurrentAddress().getDistricts();
