@@ -23,12 +23,26 @@ public class KhmerNumberUtil {
             String day = dateString.substring(0, 2);
             String month = dateString.substring(3, 5);
             String year = dateString.substring(6);
-
             return latinToKhmer(day) + "-" + convertDigitMonthToKhmer(month) + "-" + latinToKhmer(year);
         } else {
             return "";
         }
     }
+    public static String convertToKhmerDayMonthYearAndOnlyYear(String dateString,Boolean isOnlyYear) {
+        if (dateString != null && dateString.length() >= 10) {
+            String day = dateString.substring(0, 2);
+            String month = dateString.substring(3, 5);
+            String year = dateString.substring(6);
+            if(isOnlyYear) {
+                return latinToKhmer(year);
+            }else{
+                return latinToKhmer(day) + "-" + convertDigitMonthToKhmer(month) + "-" + latinToKhmer(year);
+            }
+        } else {
+            return "";
+        }
+    }
+
 
     private static String latinToKhmer(String latinString) {
         // Implement your logic to convert Latin digits to Khmer digits here

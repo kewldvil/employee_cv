@@ -18,4 +18,6 @@ public class PreviousActivityAndPositionDTO {
     private LocalDate toDate;
     private String activityAndRank;
     private String departmentOrUnit;
+    private Boolean isNoStartDayMonth;
+    private Boolean isNoEndDayMonth;
 }

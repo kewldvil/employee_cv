@@ -22,7 +22,8 @@ public class PreviousActivityAndPosition {
     private String activityAndRank;
 
     private String departmentOrUnit;
-
+    private Boolean isNoStartDayMonth;
+    private Boolean isNoEndDayMonth;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = "employee_id")

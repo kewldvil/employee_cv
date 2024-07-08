@@ -908,12 +908,12 @@
 							<box padding="4"/>
 							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="131" height="22" forecolor="#0000CC" uuid="7ae6a556-ce7d-4f82-a495-0d12a6721cbf">
-									<printWhenExpression><![CDATA[$F{trainingStartDate}!="" && $F{trainingToDate}!=""]]></printWhenExpression>
+									<printWhenExpression><![CDATA[$F{trainingStartDate}!=""]]></printWhenExpression>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{trainingStartDate}+"​ ដល់​ "+$F{trainingToDate}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{trainingStartDate}+($F{trainingToDate}==null || $F{trainingToDate}.isEmpty()?"":"​ ដល់​ "+$F{trainingToDate})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -932,7 +932,7 @@
 							<box padding="5"/>
 							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="129" height="20" forecolor="#0000CC" uuid="261c54ea-97fc-440f-bae3-7983d9d4c474">
-									<printWhenExpression><![CDATA[$F{trainingDuration}!=null]]></printWhenExpression>
+									<printWhenExpression><![CDATA[$F{trainingDuration} != null && !$F{trainingDuration}.isEmpty()]]></printWhenExpression>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
@@ -986,6 +986,8 @@
 							</textField>
 						</jr:detailCell>
 					</jr:column>
+					<jr:tableHeader/>
+					<jr:detail/>
 				</jr:table>
 			</componentElement>
 		</band>
@@ -1230,13 +1232,12 @@
 							<box padding="5"/>
 							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="175" height="20" forecolor="#0000CC" uuid="cd26bc8c-793b-472e-b8d9-10c658644f78">
-									<printWhenExpression><![CDATA[$F{fromDate} !=""]]></printWhenExpression>
+									<printWhenExpression><![CDATA[$F{fromDate}!=""]]></printWhenExpression>
 								</reportElement>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{fromDate} + " ដល់ " + ($F{toDate} == null || $F{toDate}.isEmpty() ? "បច្ចុប្បន្ន" : $F{toDate})
-]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{fromDate} + " ដល់ " + ($F{toDate} == null || $F{toDate}.isEmpty() ? "បច្ចុប្បន្ន" : $F{toDate})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -1256,9 +1257,7 @@
 						<jr:detailCell style="Table 2_TD" height="30">
 							<box padding="5"/>
 							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="176" height="20" forecolor="#0000CC" uuid="e4923e7d-266a-47da-b13f-de0e200e682d">
-									<printWhenExpression><![CDATA[$F{activityAndRank}!=""]]></printWhenExpression>
-								</reportElement>
+								<reportElement x="0" y="0" width="176" height="20" forecolor="#0000CC" uuid="e4923e7d-266a-47da-b13f-de0e200e682d"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
@@ -1280,9 +1279,7 @@
 						<jr:detailCell style="Table 2_TD" height="30">
 							<box padding="5"/>
 							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="174" height="20" forecolor="#0000CC" uuid="53a987d2-b044-4e32-80eb-5dd2b59e0ccc">
-									<printWhenExpression><![CDATA[$F{departmentOrUnit}!=""]]></printWhenExpression>
-								</reportElement>
+								<reportElement x="0" y="0" width="174" height="20" forecolor="#0000CC" uuid="53a987d2-b044-4e32-80eb-5dd2b59e0ccc"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>

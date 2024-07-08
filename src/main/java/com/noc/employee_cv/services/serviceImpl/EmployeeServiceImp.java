@@ -1127,6 +1127,8 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
                 vocationalTraining.setTrainingToDate(trainingDTO.getTrainingToDate());
                 vocationalTraining.setTrainingCourse(trainingDTO.getTrainingCourse());
                 vocationalTraining.setTrainingDuration(trainingDTO.getTrainingDuration());
+                vocationalTraining.setIsNoStartDayMonth(trainingDTO.getIsNoStartDayMonth());
+                vocationalTraining.setIsNoEndDayMonth(trainingDTO.getIsNoEndDayMonth());
                 updatedVocationalTrainingList.add(vocationalTraining);
             }
 
@@ -1179,6 +1181,8 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
                 activity.setToDate(activityDTO.getToDate());
                 activity.setActivityAndRank(activityDTO.getActivityAndRank());
                 activity.setDepartmentOrUnit(activityDTO.getDepartmentOrUnit());
+                activity.setIsNoStartDayMonth(activityDTO.getIsNoStartDayMonth());
+                activity.setIsNoEndDayMonth(activityDTO.getIsNoEndDayMonth());
                 updatedActivityList.add(activity);
             }
 

@@ -11,4 +11,6 @@ public class PrevActivityPDFDTO {
     private String toDate;
     private String activityAndRank;
     private String departmentOrUnit;
+    private Boolean isNoStartDayMonth;
+    private Boolean isNoEndDayMonth;
 }

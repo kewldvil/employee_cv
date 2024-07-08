@@ -358,11 +358,13 @@ public class ReportServiceImp {
         for (VocationalTraining vocationalTraining : vocationalTrainingList) {
             try {
                 VTTrainingPDFDTO dto = new VTTrainingPDFDTO();
-                dto.setTrainingStartDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(vocationalTraining.getTrainingStartDate())));
-                dto.setTrainingToDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(vocationalTraining.getTrainingToDate())));
+                dto.setTrainingStartDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(vocationalTraining.getTrainingStartDate()),vocationalTraining.getIsNoStartDayMonth()));
+                dto.setTrainingToDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(vocationalTraining.getTrainingToDate()),vocationalTraining.getIsNoEndDayMonth()));
                 dto.setTrainingDuration(KhmerNumberUtil.convertToKhmerNumber(vocationalTraining.getTrainingDuration()));
                 dto.setTrainingCourse(vocationalTraining.getTrainingCourse());
                 dto.setTrainingCenter(vocationalTraining.getTrainingCenter());
+                dto.setIsNoStartDayMonth(vocationalTraining.getIsNoStartDayMonth());
+                dto.setIsNoEndDayMonth(vocationalTraining.getIsNoEndDayMonth());
                 list.add(dto);
             } catch (Exception e) {
                 System.err.println("Error processing vocational training entry: " + e.getMessage());
@@ -402,10 +404,12 @@ public class ReportServiceImp {
         for (PreviousActivityAndPosition activity : activityList) {
             try {
                 PrevActivityPDFDTO dto = new PrevActivityPDFDTO();
-                dto.setFromDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(activity.getFromDate())));
-                dto.setToDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(activity.getToDate())));
+                dto.setFromDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(activity.getFromDate()),activity.getIsNoStartDayMonth()));
+                dto.setToDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(activity.getToDate()),activity.getIsNoEndDayMonth()));
                 dto.setActivityAndRank(activity.getActivityAndRank());
                 dto.setDepartmentOrUnit(activity.getDepartmentOrUnit());
+                dto.setIsNoStartDayMonth(activity.getIsNoStartDayMonth());
+                dto.setIsNoEndDayMonth(activity.getIsNoEndDayMonth());
                 list.add(dto);
             } catch (Exception e) {
                 System.err.println("Error processing vocational training entry: " + e.getMessage());
@@ -517,18 +521,56 @@ public class ReportServiceImp {
 
 //end spouse place of birth
         //        father place of birth
-        assert employee.getFather() != null;
-        String fatherProvince = employee.getFather().getPlaceOfBirth().getProvinces().get(0).getProvince_city_name_kh();
-        String fatherDistrict = employee.getFather().getPlaceOfBirth().getDistricts().get(0).getDistrict_name_kh();
-        String fatherCommune = employee.getFather().getPlaceOfBirth().getCommunes().get(0).getCommune_name_kh();
-        String fatherVillage = employee.getFather().getPlaceOfBirth().getVillages().get(0).getVillage_name_kh();
+        String fatherProvince = "";
+        String fatherDistrict = "";
+        String fatherCommune = "";
+        String fatherVillage = "";
+
+        if (employee.getFather() != null && employee.getFather().getPlaceOfBirth() != null) {
+            List<ProvinceCity> fatherProvinces = employee.getFather().getPlaceOfBirth().getProvinces();
+            List<District> fatherDistricts = employee.getFather().getPlaceOfBirth().getDistricts();
+            List<Commune> fatherCommunes = employee.getFather().getPlaceOfBirth().getCommunes();
+            List<Village> fatherVillages = employee.getFather().getPlaceOfBirth().getVillages();
+
+            if (!fatherProvinces.isEmpty()) {
+                fatherProvince = fatherProvinces.get(0).getProvince_city_name_kh();
+            }
+            if (!fatherDistricts.isEmpty()) {
+                fatherDistrict = fatherDistricts.get(0).getDistrict_name_kh();
+            }
+            if (!fatherCommunes.isEmpty()) {
+                fatherCommune = fatherCommunes.get(0).getCommune_name_kh();
+            }
+            if (!fatherVillages.isEmpty()) {
+                fatherVillage = fatherVillages.get(0).getVillage_name_kh();
+            }
+        }
 //end father place of birth
         //        mother place of birth
-        assert employee.getMother() != null;
-        String motherProvince = employee.getMother().getPlaceOfBirth().getProvinces().get(0).getProvince_city_name_kh();
-        String motherDistrict = employee.getMother().getPlaceOfBirth().getDistricts().get(0).getDistrict_name_kh();
-        String motherCommune = employee.getMother().getPlaceOfBirth().getCommunes().get(0).getCommune_name_kh();
-        String motherVillage = employee.getMother().getPlaceOfBirth().getVillages().get(0).getVillage_name_kh();
+        String motherProvince = "";
+        String motherDistrict = "";
+        String motherCommune = "";
+        String motherVillage = "";
+
+        if (employee.getMother() != null && employee.getMother().getPlaceOfBirth() != null) {
+            List<ProvinceCity> motherProvinces = employee.getMother().getPlaceOfBirth().getProvinces();
+            List<District> motherDistricts = employee.getMother().getPlaceOfBirth().getDistricts();
+            List<Commune> motherCommunes = employee.getMother().getPlaceOfBirth().getCommunes();
+            List<Village> motherVillages = employee.getMother().getPlaceOfBirth().getVillages();
+
+            if (!motherProvinces.isEmpty()) {
+                motherProvince = motherProvinces.get(0).getProvince_city_name_kh();
+            }
+            if (!motherDistricts.isEmpty()) {
+                motherDistrict = motherDistricts.get(0).getDistrict_name_kh();
+            }
+            if (!motherCommunes.isEmpty()) {
+                motherCommune = motherCommunes.get(0).getCommune_name_kh();
+            }
+            if (!motherVillages.isEmpty()) {
+                motherVillage = motherVillages.get(0).getVillage_name_kh();
+            }
+        }
 //end mother place of birth
 //        emp current address
 
@@ -574,21 +616,63 @@ public class ReportServiceImp {
 //end spouse current address
         //        father current address
 
-        String fatherCurrentProvince = employee.getFather().getCurrentAddress().getProvinces().get(0).getProvince_city_name_kh();
-        String fatherCurrentDistrict = employee.getFather().getCurrentAddress().getDistricts().get(0).getDistrict_name_kh();
-        String fatherCurrentCommune = employee.getFather().getCurrentAddress().getCommunes().get(0).getCommune_name_kh();
-        String fatherCurrentVillage = employee.getFather().getCurrentAddress().getVillages().get(0).getVillage_name_kh();
-        String fatherCurrentStreetNumber = employee.getFather().getCurrentAddress().getStreetNumber();
-        String fatherCurrentHouseNumber = employee.getFather().getCurrentAddress().getHouseNumber();
+        String fatherCurrentProvince = "";
+        String fatherCurrentDistrict = "";
+        String fatherCurrentCommune = "";
+        String fatherCurrentVillage = "";
+        String fatherCurrentStreetNumber = "";
+        String fatherCurrentHouseNumber = "";
+        if (employee.getFather() != null && employee.getFather().getCurrentAddress() != null) {
+            List<ProvinceCity> fatherCurrentProvinces = employee.getFather().getCurrentAddress().getProvinces();
+            List<District> fatherCurrentDistricts = employee.getFather().getCurrentAddress().getDistricts();
+            List<Commune> fatherCurrentCommunes = employee.getFather().getCurrentAddress().getCommunes();
+            List<Village> fatherCurrentVillages = employee.getFather().getCurrentAddress().getVillages();
+
+            if (!fatherCurrentProvinces.isEmpty()) {
+                fatherCurrentProvince = fatherCurrentProvinces.get(0).getProvince_city_name_kh();
+            }
+            if (!fatherCurrentDistricts.isEmpty()) {
+                fatherCurrentDistrict = fatherCurrentDistricts.get(0).getDistrict_name_kh();
+            }
+            if (!fatherCurrentCommunes.isEmpty()) {
+                fatherCurrentCommune = fatherCurrentCommunes.get(0).getCommune_name_kh();
+            }
+            if (!fatherCurrentVillages.isEmpty()) {
+                fatherCurrentVillage = fatherCurrentVillages.get(0).getVillage_name_kh();
+            }
+            fatherCurrentStreetNumber = employee.getFather().getCurrentAddress().getStreetNumber();
+            fatherCurrentHouseNumber = employee.getFather().getCurrentAddress().getHouseNumber();
+        }
 //end father current address
         //        mother current address
 
-        String motherCurrentProvince = employee.getMother().getCurrentAddress().getProvinces().get(0).getProvince_city_name_kh();
-        String motherCurrentDistrict = employee.getMother().getCurrentAddress().getDistricts().get(0).getDistrict_name_kh();
-        String motherCurrentCommune = employee.getMother().getCurrentAddress().getCommunes().get(0).getCommune_name_kh();
-        String motherCurrentVillage = employee.getMother().getCurrentAddress().getVillages().get(0).getVillage_name_kh();
-        String motherCurrentStreetNumber = employee.getMother().getCurrentAddress().getStreetNumber();
-        String motherCurrentHouseNumber = employee.getMother().getCurrentAddress().getHouseNumber();
+        String motherCurrentProvince = "";
+        String motherCurrentDistrict = "";
+        String motherCurrentCommune = "";
+        String motherCurrentVillage = "";
+        String motherCurrentStreetNumber = "";
+        String motherCurrentHouseNumber = "";
+        if (employee.getMother() != null && employee.getMother().getCurrentAddress() != null) {
+            List<ProvinceCity> motherCurrentProvinces = employee.getMother().getCurrentAddress().getProvinces();
+            List<District> motherCurrentDistricts = employee.getMother().getCurrentAddress().getDistricts();
+            List<Commune> motherCurrentCommunes = employee.getMother().getCurrentAddress().getCommunes();
+            List<Village> motherCurrentVillages = employee.getMother().getCurrentAddress().getVillages();
+
+            if (!motherCurrentProvinces.isEmpty()) {
+                motherCurrentProvince = motherCurrentProvinces.get(0).getProvince_city_name_kh();
+            }
+            if (!motherCurrentDistricts.isEmpty()) {
+                motherCurrentDistrict = motherCurrentDistricts.get(0).getDistrict_name_kh();
+            }
+            if (!motherCurrentCommunes.isEmpty()) {
+                motherCurrentCommune = motherCurrentCommunes.get(0).getCommune_name_kh();
+            }
+            if (!motherCurrentVillages.isEmpty()) {
+                motherCurrentVillage = motherCurrentVillages.get(0).getVillage_name_kh();
+            }
+            motherCurrentStreetNumber = employee.getMother().getCurrentAddress().getStreetNumber();
+            motherCurrentHouseNumber = employee.getMother().getCurrentAddress().getHouseNumber();
+        }
 //end mother current address
 
 //        emp current address

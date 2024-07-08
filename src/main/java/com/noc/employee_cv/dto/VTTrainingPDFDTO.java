@@ -10,4 +10,6 @@ public class VTTrainingPDFDTO {
     private String trainingDuration;
     private String trainingStartDate;
     private String trainingToDate;
+    private Boolean isNoStartDayMonth;
+    private Boolean isNoEndDayMonth;
 }
