@@ -4,6 +4,8 @@ import com.noc.employee_cv.dto.EmployeeDTO;
 import com.noc.employee_cv.dto.PoliceRankCountProjection;
 import com.noc.employee_cv.enums.AddressType;
 import com.noc.employee_cv.models.Employee;
+import com.noc.employee_cv.models.User;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -24,4 +26,10 @@ public interface EmployeeService {
     List<PoliceRankCountProjection> countByPoliceRanks();
 
      long getTotalTrainee();
+    List<User> finderUsersByGender(String gender);
+
+    List<User> findUsersByDynamicParameter(String parameter,String value);
+    List<User> findAllUsersWithEmployeeAndWeapons();
+    List<User> findAllUsersWithEmployeeAndPoliceCar();
+    List<User> findEmployeeAndUserByDegree(int degreeLevelId);
 }

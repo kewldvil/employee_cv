@@ -30,5 +30,27 @@ public interface UserRepo extends JpaRepository<User,Integer> {
 
     @Query("SELECT u FROM User u JOIN u.employee e WHERE e.currentPoliceRank=:rank")
     List<User> findUsersByRank(String rank);
+    @Query("SELECT u FROM User u JOIN u.employee e WHERE e.gender=:gender")
+    List<User> findUsersByGender(String gender);
 
+    @Query("SELECT DISTINCT u FROM User u " +
+            "JOIN FETCH u.employee e " +
+            "LEFT JOIN FETCH e.weapons w " +
+            "WHERE (w.weaponBrand IS NOT NULL AND w.weaponBrand != '') " +
+            "   OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '') " +
+            "   OR (w.weaponType IS NOT NULL AND w.weaponType != '')")
+    List<User> findAllUsersWithEmployeeAndWeapons();
+    @Query("SELECT DISTINCT u FROM User u " +
+            "JOIN FETCH u.employee e " +
+            "LEFT JOIN FETCH e.policePlateNumberCars p " +
+            "WHERE (p.vehicleNumber IS NOT NULL AND p.vehicleNumber != '') " +
+            "   OR (p.vehicleBrand IS NOT NULL AND p.vehicleBrand != '') " )
+    List<User> findAllUsersWithEmployeeAndPoliceCar();
+
+    @Query("SELECT DISTINCT u FROM User u " +
+            "JOIN FETCH u.employee e " +
+            "JOIN FETCH e.employeeDegreeLevels ed " +
+            "JOIN FETCH ed.degreeLevel dl " +
+            "WHERE dl.id = :degreeLevelId AND ed.isChecked = true")
+    List<User> findEmployeeAndUserByDegree(@Param("degreeLevelId") Integer degreeLevelId);
 }

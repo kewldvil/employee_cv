@@ -1244,6 +1244,32 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
         return employeeRepo.countEmployeesByTrainee();
     }
 
+    @Override
+    public List<User> finderUsersByGender(String gender) {
+        return userRepo.findUsersByGender(gender);
+    }
+
+    @Override
+    public List<User> findUsersByDynamicParameter(String parameter, String value) {
+        return List.of();
+    }
+
+    @Override
+    public List<User> findAllUsersWithEmployeeAndWeapons() {
+        return userRepo.findAllUsersWithEmployeeAndWeapons();
+    }
+
+    @Override
+    public List<User> findAllUsersWithEmployeeAndPoliceCar() {
+        return userRepo.findAllUsersWithEmployeeAndPoliceCar();
+    }
+
+    @Override
+    public List<User> findEmployeeAndUserByDegree(int degreeLevelId) {
+        return userRepo.findEmployeeAndUserByDegree(degreeLevelId);
+    }
+
+
     public long getTotalEmployeesByMaster() {
         return employeeRepo.countEmployeesWithDegreeLevelChecked(3);
     }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -66,12 +67,19 @@ public class DashboardController {
         return ResponseEntity.ok(totalTrainee);
     }
 
-    @GetMapping("/filter-users/{rank}")
+    @GetMapping("/filter-users/{filter}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<User>> listUsersByFilter( @PathVariable String rank) {
-        System.out.println("GET USERS BY "+rank);
-        List<User> users = userRepo.findUsersByRank(rank);
-//        System.out.println(users);
+    public ResponseEntity<List<User>> listUsersByFilter( @PathVariable String filter) {
+        System.out.println("GET USERS BY "+filter);
+        List<User> users = switch (filter) {
+            case "F" -> employeeService.finderUsersByGender(filter);
+            case "WEAPON" -> employeeService.findAllUsersWithEmployeeAndWeapons();
+            case "POLICE_CAR" -> employeeService.findAllUsersWithEmployeeAndPoliceCar();
+            case "BACHELOR" -> employeeService.findEmployeeAndUserByDegree(5);
+            case "MASTER" -> employeeService.findEmployeeAndUserByDegree(3);
+            case "DOCTOR" -> employeeService.findEmployeeAndUserByDegree(6);
+            default -> userRepo.findUsersByRank(filter);
+        };
         // Check if users list is not null or empty
         if (!users.isEmpty()) {
             // If users list is not empty, return it with HTTP status 200 OK
@@ -81,5 +89,6 @@ public class DashboardController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
 }
