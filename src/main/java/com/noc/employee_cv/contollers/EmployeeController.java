@@ -115,13 +115,13 @@ public class EmployeeController {
         userEmployeeDTO.setId(user.getId());
         userEmployeeDTO.setImageName(user.getImageName());
         userEmployeeDTO.setImagePath(user.getImagePath());
-
+        userEmployeeDTO.setFirstname(user.getFirstname());
+        userEmployeeDTO.setLastname(user.getLastname());
+        userEmployeeDTO.getFullName();
         if (user.getEmployee() != null) {
-            userEmployeeDTO.setFirstname(user.getEmployee().getFirstname());
-            userEmployeeDTO.setLastname(user.getEmployee().getLastname());
             userEmployeeDTO.setGender(user.getEmployee().getGender());
             userEmployeeDTO.setIsMarried(user.getEmployee().getIsMarried());
-            userEmployeeDTO.getFullName();
+
             userEmployeeDTO.setCurrentPosition(user.getEmployee().getCurrentPosition());
             userEmployeeDTO.setCurrentPoliceRank(user.getEmployee().getCurrentPoliceRank());
             userEmployeeDTO.setDegreeLevels(user.getEmployee().getEmployeeDegreeLevels());
