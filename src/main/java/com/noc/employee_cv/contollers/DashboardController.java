@@ -1,6 +1,7 @@
 package com.noc.employee_cv.contollers;
 
 import com.noc.employee_cv.dto.PoliceRankCountProjection;
+import com.noc.employee_cv.dto.UserEmployeeDTO;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
@@ -69,7 +70,7 @@ public class DashboardController {
 
     @GetMapping("/filter-users/{filter}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<User>> listUsersByFilter( @PathVariable String filter) {
+    public ResponseEntity<List<UserEmployeeDTO>> listUsersByFilter(@PathVariable String filter) {
         System.out.println("GET USERS BY "+filter);
         List<User> users = switch (filter) {
             case "F" -> employeeService.finderUsersByGender(filter);
@@ -83,7 +84,8 @@ public class DashboardController {
         // Check if users list is not null or empty
         if (!users.isEmpty()) {
             // If users list is not empty, return it with HTTP status 200 OK
-            return ResponseEntity.ok(users);
+            List<UserEmployeeDTO> employees = users.stream().map(EmployeeController::convertToDTO).toList();
+            return ResponseEntity.ok(employees);
         } else {
             // If users list is empty, return 404 Not Found status code
             return ResponseEntity.notFound().build();

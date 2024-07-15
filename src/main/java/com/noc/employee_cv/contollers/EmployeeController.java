@@ -2,6 +2,7 @@ package com.noc.employee_cv.contollers;
 
 
 import com.noc.employee_cv.dto.EmployeeDTO;
+import com.noc.employee_cv.dto.UserEmployeeDTO;
 import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -26,6 +28,7 @@ public class EmployeeController {
     private final EmployeeServiceImp service;
     private final UserRepo userRepo;
     private final ReportServiceImp reportService;
+
     @PostMapping("/")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Employee> createNewEmployee(@RequestBody @Valid EmployeeDTO req) throws MessagingException {
@@ -86,22 +89,44 @@ public class EmployeeController {
 
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserEmployeeDTO>> getAllUsers() {
         System.out.println("GET ALL USERS");
         List<User> users = userRepo.findAll();
+        System.out.println(users.get(95));
 //        System.out.println(users);
         // Check if users list is not null or empty
         if (!users.isEmpty()) {
+            List<UserEmployeeDTO> employees = users.stream().map(EmployeeController::convertToDTO).toList();
             // If users list is not empty, return it with HTTP status 200 OK
-            return ResponseEntity.ok(users);
+            return ResponseEntity.ok(employees);
         } else {
             // If users list is empty, return 404 Not Found status code
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/report/{format}/{empId}")
-    public ResponseEntity<byte[]> generateReport(@PathVariable String format,@PathVariable Integer empId) throws JRException, IOException {
-        return reportService.exportReportToFrontEnd(format,empId);
+    public ResponseEntity<byte[]> generateReport(@PathVariable String format, @PathVariable Integer empId) throws JRException, IOException {
+        return reportService.exportReportToFrontEnd(format, empId);
     }
 
+    public static UserEmployeeDTO convertToDTO(User user) {
+        UserEmployeeDTO userEmployeeDTO = new UserEmployeeDTO();
+        userEmployeeDTO.setId(user.getId());
+        userEmployeeDTO.setImageName(user.getImageName());
+        userEmployeeDTO.setImagePath(user.getImagePath());
+
+        if (user.getEmployee() != null) {
+            userEmployeeDTO.setFirstname(user.getEmployee().getFirstname());
+            userEmployeeDTO.setLastname(user.getEmployee().getLastname());
+            userEmployeeDTO.setGender(user.getEmployee().getGender());
+            userEmployeeDTO.setIsMarried(user.getEmployee().getIsMarried());
+            userEmployeeDTO.getFullName();
+            userEmployeeDTO.setCurrentPosition(user.getEmployee().getCurrentPosition());
+            userEmployeeDTO.setCurrentPoliceRank(user.getEmployee().getCurrentPoliceRank());
+            userEmployeeDTO.setDegreeLevels(user.getEmployee().getEmployeeDegreeLevels());
+        }
+
+        return userEmployeeDTO;
+    }
 }

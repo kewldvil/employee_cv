@@ -61,4 +61,49 @@ public class SecurityConfig {
         return http.build();
 
     }
+//SIMPLE WAY EXPLANATION
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        // Enable CORS with default settings
+//        http.cors(Customizer.withDefaults());
+//
+//        // Disable CSRF protection
+//        http.csrf(AbstractHttpConfigurer::disable);
+//
+//        // Configure authorization for different URL patterns
+//        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests = http.authorizeRequests();
+//
+//        // Allow all requests to URLs in the whitelist and /photos/**
+//        authorizeRequests.requestMatchers(WHITE_LIST_URL).permitAll();
+//        authorizeRequests.requestMatchers("/photos/**").permitAll();
+//
+//        // Require specific roles for /api/v1/photo/** and other similar endpoints
+//        authorizeRequests
+//                .requestMatchers("/api/v1/photo/**", "/api/v1/files/**", "/api/v1/employee/**", "/api/v1/address/**", "/api/v1/enum/**")
+//                .hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name());
+//
+//        // Require ADMIN or MANAGER roles for /api/v1/managements/**
+//        authorizeRequests.requestMatchers("/api/v1/managements/**").hasAnyRole(ADMIN.name(), MANAGER.name());
+//
+//        // Require specific authorities for different HTTP methods on /api/v1/managements/**
+//        authorizeRequests.requestMatchers(HttpMethod.GET, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name());
+//        authorizeRequests.requestMatchers(HttpMethod.POST, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ.name());
+//        authorizeRequests.requestMatchers(HttpMethod.PUT, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ.name());
+//        authorizeRequests.requestMatchers(HttpMethod.DELETE, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ.name());
+//
+//        // Require authentication for any other requests
+//        authorizeRequests.anyRequest().authenticated();
+//
+//        // Configure session management as stateless
+//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//
+//        // Set the custom authentication provider
+//        http.authenticationProvider(authenticationProvider);
+//
+//        // Add the JWT authentication filter before the UsernamePasswordAuthenticationFilter
+//        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//        // Build and return the configured SecurityFilterChain
+//        return http.build();
+//    }
+
 }
