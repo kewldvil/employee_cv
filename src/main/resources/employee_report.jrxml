@@ -836,7 +836,7 @@
 				<text><![CDATA[បញ្ជាក់ជំនាញឯកទេសដែលបានរៀន៖......................................................................................................................................................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="149" y="47" width="419" height="22" uuid="b452d389-842d-474e-96a8-5ad11c220b6d"/>
+				<reportElement x="186" y="47" width="369" height="22" uuid="b452d389-842d-474e-96a8-5ad11c220b6d"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
@@ -993,7 +993,7 @@
 		</band>
 		<band height="23" splitType="Immediate">
 			<staticText>
-				<reportElement x="0" y="0" width="92" height="22" uuid="3c33c8a5-3822-4611-bb38-13cd481eb295">
+				<reportElement x="0" y="0" width="111" height="22" uuid="3c33c8a5-3822-4611-bb38-13cd481eb295">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -1003,7 +1003,7 @@
 				<text><![CDATA[៥-ការលើកសរសើរ ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="90" y="1" width="462" height="22" uuid="9de2b442-a5b8-4ae0-9056-95c3661d95b2"/>
+				<reportElement x="111" y="1" width="444" height="22" uuid="9de2b442-a5b8-4ae0-9056-95c3661d95b2"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
@@ -1353,14 +1353,14 @@
 				<text><![CDATA[ផ្លូវលេខ.......................ផ្ទះលេខ............................ភូមិ..................................................]]></text>
 			</staticText>
 			<image>
-				<reportElement x="165" y="6" width="12" height="12" uuid="e080bc60-0b83-4289-b52c-8cb6352dcbaa">
+				<reportElement x="197" y="6" width="12" height="12" uuid="e080bc60-0b83-4289-b52c-8cb6352dcbaa">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA[$F{isMarried}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="227" y="6" width="12" height="12" uuid="43622b49-7670-4d09-b2fa-65f366f13198"/>
+				<reportElement x="265" y="6" width="12" height="12" uuid="43622b49-7670-4d09-b2fa-65f366f13198"/>
 				<imageExpression><![CDATA[$F{isMarried}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<staticText>

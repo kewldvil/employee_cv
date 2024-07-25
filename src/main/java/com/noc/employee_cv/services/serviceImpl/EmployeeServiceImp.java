@@ -761,7 +761,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
 
-//    @Transactional
+    //    @Transactional
 //    protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillDTOList) {
 //        Set<Skill> skills = new HashSet<>();
 //        if (skillDTOList != null) {
@@ -794,42 +794,42 @@ public class EmployeeServiceImp implements EmployeeService {
 //        // Save the employee entity, which will persist the relationship
 //        employeeRepo.save(employee);
 //    }
-@Transactional
-protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillDTOList) {
-    Set<Skill> skills = new HashSet<>();
-    if (skillDTOList != null) {
-        for (EmployeeSkillDTO skillDTO : skillDTOList) {
-            Skill skill;
-            Integer skillId = skillDTO.getId();
+    @Transactional
+    protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillDTOList) {
+        Set<Skill> skills = new HashSet<>();
+        if (skillDTOList != null) {
+            for (EmployeeSkillDTO skillDTO : skillDTOList) {
+                Skill skill;
+                Integer skillId = skillDTO.getId();
 
-            if (skillId != null) {
-                // Attempt to find the skill by its ID
-                skill = skillRepo.findById(skillId).orElse(null);
-            } else {
-                // Attempt to find the skill by its name to avoid duplicates
-                skill = skillRepo.findSkillBySkillName(skillDTO.getSkillName());
+                if (skillId != null) {
+                    // Attempt to find the skill by its ID
+                    skill = skillRepo.findById(skillId).orElse(null);
+                } else {
+                    // Attempt to find the skill by its name to avoid duplicates
+                    skill = skillRepo.findSkillBySkillName(skillDTO.getSkillName());
 
-                if (skill == null) {
-                    // If no skill with the given name exists, create a new skill
-                    skill = new Skill();
-                    skill.setSkillName(skillDTO.getSkillName());
+                    if (skill == null) {
+                        // If no skill with the given name exists, create a new skill
+                        skill = new Skill();
+                        skill.setSkillName(skillDTO.getSkillName());
 
-                    // Save the new skill entity
-                    skillRepo.save(skill);
+                        // Save the new skill entity
+                        skillRepo.save(skill);
+                    }
                 }
+
+                // Add the skill to the set of skills
+                skills.add(skill);
             }
-
-            // Add the skill to the set of skills
-            skills.add(skill);
         }
+
+        // Set the skills to the employee
+        employee.setSkills(skills);
+
+        // Save the employee entity, which will persist the relationship
+        employeeRepo.save(employee);
     }
-
-    // Set the skills to the employee
-    employee.setSkills(skills);
-
-    // Save the employee entity, which will persist the relationship
-    employeeRepo.save(employee);
-}
 
     private void setUserForEmployee(Employee employee, Integer userId) {
         User user = userRepo.findById(userId).orElseThrow();
@@ -1073,7 +1073,7 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
 
                 appreciation.setAppreciationNumber(appreciationDTO.getAppreciationNumber());
                 appreciation.setAppreciationDate(appreciationDTO.getAppreciationDate());
-                appreciation.setAppreciation(appreciationDTO.getAppreciation());
+                appreciation.setAppreciation(appreciationDTO.getAppreciation().trim());
                 updatedAppreciationList.add(appreciation);
             }
 
@@ -1122,10 +1122,10 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
                     System.out.println("Creating new vocational training");
                 }
 
-                vocationalTraining.setTrainingCenter(trainingDTO.getTrainingCenter());
+                vocationalTraining.setTrainingCenter(trainingDTO.getTrainingCenter().trim());
                 vocationalTraining.setTrainingStartDate(trainingDTO.getTrainingStartDate());
                 vocationalTraining.setTrainingToDate(trainingDTO.getTrainingToDate());
-                vocationalTraining.setTrainingCourse(trainingDTO.getTrainingCourse());
+                vocationalTraining.setTrainingCourse(trainingDTO.getTrainingCourse().trim());
                 vocationalTraining.setTrainingDuration(trainingDTO.getTrainingDuration());
                 vocationalTraining.setIsNoStartDayMonth(trainingDTO.getIsNoStartDayMonth());
                 vocationalTraining.setIsNoEndDayMonth(trainingDTO.getIsNoEndDayMonth());
@@ -1179,8 +1179,8 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
 
                 activity.setFromDate(activityDTO.getFromDate());
                 activity.setToDate(activityDTO.getToDate());
-                activity.setActivityAndRank(activityDTO.getActivityAndRank());
-                activity.setDepartmentOrUnit(activityDTO.getDepartmentOrUnit());
+                activity.setActivityAndRank(activityDTO.getActivityAndRank().trim());
+                activity.setDepartmentOrUnit(activityDTO.getDepartmentOrUnit().trim());
                 activity.setIsNoStartDayMonth(activityDTO.getIsNoStartDayMonth());
                 activity.setIsNoEndDayMonth(activityDTO.getIsNoEndDayMonth());
                 updatedActivityList.add(activity);
@@ -1211,7 +1211,7 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
 
     @Override
     public long getTotalEmployees() {
-      return   userRepo.count();
+        return userRepo.count();
     }
 
     @Override
@@ -1269,10 +1269,26 @@ protected void setEmployeeSkill(Employee employee, List<EmployeeSkillDTO> skillD
         return userRepo.findEmployeeAndUserByDegree(degreeLevelId);
     }
 
+    @Override
+    public List<User> findUserByTrainee(String trainee) {
+        return userRepo.findUsersByTrainee(trainee);
+    }
+
+    @Override
+    public long getTotalMaleTrainee() {
+        return employeeRepo.countEmployeesByMaleTrainee();
+    }
+
+    @Override
+    public long getTotalFemaleTrainee() {
+        return employeeRepo.countEmployeesByFemaleTrainee();
+    }
+
 
     public long getTotalEmployeesByMaster() {
         return employeeRepo.countEmployeesWithDegreeLevelChecked(3);
     }
+
     public long getTotalEmployeesByDoctor() {
         return employeeRepo.countEmployeesWithDegreeLevelChecked(6);
     }

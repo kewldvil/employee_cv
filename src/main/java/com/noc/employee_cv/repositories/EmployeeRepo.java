@@ -19,8 +19,13 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
 
     //    @Query("SELECT COUNT(e) FROM Employee e JOIN e.weapons w")
 //    long countEmployeesWithWeapons();
-    @Query("SELECT COUNT(DISTINCT e) FROM Employee e JOIN e.weapons w WHERE  w.weaponBrand <> '' AND  w.weaponType <> ''  AND w.weaponSerialNumber <> ''")
+    @Query("SELECT COUNT(DISTINCT e) FROM Employee e " +
+            "JOIN e.weapons w " +
+            "WHERE (w.weaponBrand IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') " +
+            "   OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន') " +
+            "   OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A')")
     long countEmployeesWithWeapons();
+
 
     @Query("SELECT COUNT(DISTINCT e) FROM Employee e JOIN e.policePlateNumberCars p WHERE  p.vehicleBrand <> '' AND p.vehicleNumber <> ''")
     long countEmployeesWithPoliceCars();
@@ -48,7 +53,13 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
 
     @Query("SELECT COUNT(e) FROM Employee e WHERE e.currentPoliceRank = 'មន្ត្រីហាត់ការ'")
     long countEmployeesByTrainee();
+    @Query("SELECT COUNT(e) FROM Employee e WHERE e.currentPoliceRank = 'មន្ត្រីហាត់ការ' AND e.gender='M'")
+    long countEmployeesByMaleTrainee();
+    @Query("SELECT COUNT(e) FROM Employee e WHERE e.currentPoliceRank = 'មន្ត្រីហាត់ការ' AND e.gender='F'")
+    long countEmployeesByFemaleTrainee();
 
     @Query("SELECT e,u.imageName FROM Employee e JOIN e.user u WHERE e.id = :id")
     Employee findEmployeeAndUserById(@Param("id") Integer id);
+
+
 }

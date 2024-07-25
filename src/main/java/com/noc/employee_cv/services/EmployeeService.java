@@ -32,4 +32,10 @@ public interface EmployeeService {
     List<User> findAllUsersWithEmployeeAndWeapons();
     List<User> findAllUsersWithEmployeeAndPoliceCar();
     List<User> findEmployeeAndUserByDegree(int degreeLevelId);
+
+    List<User> findUserByTrainee(String trainee);
+
+    long getTotalMaleTrainee();
+
+    long getTotalFemaleTrainee();
 }

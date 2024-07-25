@@ -67,6 +67,18 @@ public class DashboardController {
         long totalTrainee = employeeService.getTotalTrainee();
         return ResponseEntity.ok(totalTrainee);
     }
+    @GetMapping("/count-by-male-trainee")
+    public ResponseEntity<Long> getCountByMaleTrainee() {
+        System.out.println("getCountByTrainee");
+        long totalTrainee = employeeService.getTotalMaleTrainee();
+        return ResponseEntity.ok(totalTrainee);
+    }
+    @GetMapping("/count-by-female-trainee")
+    public ResponseEntity<Long> getCountByFemaleTrainee() {
+        System.out.println("getCountByTrainee");
+        long totalTrainee = employeeService.getTotalFemaleTrainee();
+        return ResponseEntity.ok(totalTrainee);
+    }
 
     @GetMapping("/filter-users/{filter}")
     @ResponseStatus(HttpStatus.OK)
@@ -75,6 +87,7 @@ public class DashboardController {
         List<User> users = switch (filter) {
             case "F" -> employeeService.finderUsersByGender(filter);
             case "WEAPON" -> employeeService.findAllUsersWithEmployeeAndWeapons();
+            case "មន្ត្រីហាត់ការ" -> employeeService.findUserByTrainee(filter);
             case "POLICE_CAR" -> employeeService.findAllUsersWithEmployeeAndPoliceCar();
             case "BACHELOR" -> employeeService.findEmployeeAndUserByDegree(5);
             case "MASTER" -> employeeService.findEmployeeAndUserByDegree(3);
