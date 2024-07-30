@@ -681,16 +681,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{empPositionKH}.split("-")[2]]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="176" y="199" width="134" height="22" forecolor="#0000CC" uuid="13975c9c-1343-45ae-bf68-453fe9625d2f">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font fontName="My Khmer Os Siem Reap" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{positionDocumentNumber}]]></textFieldExpression>
-			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="221" width="76" height="22" forecolor="#0000CC" uuid="129cde80-3aae-4a14-8730-351db886aa4b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -699,7 +690,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{empCurrentStreetNumber}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="264" y="222" width="95" height="22" forecolor="#0000CC" uuid="e5da8e77-2ac2-4ad9-ba3e-99ef17b01396">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -707,6 +698,15 @@
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{empCurrentHouseNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="199" width="134" height="22" forecolor="#0000CC" uuid="13975c9c-1343-45ae-bf68-453fe9625d2f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{positionDocumentNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="377" y="222" width="175" height="22" forecolor="#0000CC" uuid="bdc441ac-53c7-4621-b3c5-b90845da5d39">
@@ -1441,16 +1441,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{spouse.job}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-				<reportElement x="320" y="86" width="234" height="22" forecolor="#0000CC" uuid="427e7a1a-a91f-4cf0-9ba6-eccd6512178d">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font fontName="My Khmer Os Siem Reap" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{spouse.phoneNumber}]]></textFieldExpression>
-			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="149" y="109" width="76" height="22" forecolor="#0000CC" uuid="41bace1f-9883-48bd-ae41-7ea6fd8aafd2">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1459,7 +1450,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{spouseCurrentStreetNumber}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="263" y="109" width="95" height="22" forecolor="#0000CC" uuid="9d4f828b-609d-4176-a36a-fa1e20f6f86c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1467,6 +1458,15 @@
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{spouseCurrentHouseNumber}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement x="320" y="86" width="234" height="22" forecolor="#0000CC" uuid="427e7a1a-a91f-4cf0-9ba6-eccd6512178d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{spouse.phoneNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="376" y="109" width="175" height="22" forecolor="#0000CC" uuid="2583f00d-e46d-4825-b83b-811c48d3062f">
@@ -1683,15 +1683,6 @@
 				</textElement>
 				<text><![CDATA[- អាសយដ្ឋានបច្ចុប្បន្ន]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="149" y="87" width="76" height="22" forecolor="#0000CC" uuid="365ca632-972a-41b8-88ae-86f7c3ebeb45">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center">
-					<font fontName="My Khmer Os Siem Reap" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{fatherCurrentStreetNumber}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="114" y="88" width="440" height="22" uuid="212eb3b7-3198-4a79-a05f-feef4dd69656">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1701,7 +1692,16 @@
 				</textElement>
 				<text><![CDATA[ផ្លូវលេខ.......................ផ្ទះលេខ............................ភូមិ..................................................]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="149" y="87" width="76" height="22" forecolor="#0000CC" uuid="365ca632-972a-41b8-88ae-86f7c3ebeb45">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fatherCurrentStreetNumber}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="263" y="87" width="95" height="22" forecolor="#0000CC" uuid="bbcfa8b6-e2e7-4fb5-bd19-5b59f9fe55d1">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1875,7 +1875,7 @@
 				</textElement>
 				<text><![CDATA[- អាសយដ្ឋានបច្ចុប្បន្ន]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="150" y="218" width="76" height="22" forecolor="#0000CC" uuid="bf8366bc-671a-4945-8934-529577af21e6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1884,7 +1884,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{motherCurrentStreetNumber}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="264" y="218" width="95" height="22" forecolor="#0000CC" uuid="6233f9ac-a6c4-4876-8057-465e5b8a686b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
