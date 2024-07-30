@@ -14,7 +14,8 @@ public enum GeneralDepartment implements CommonEnum{
     GENERAL_SECRETARIAT("អគ្គលេខាធិការដ្ឋាន"),
     GENERAL_DEPARTMENT_OF_ADMINISTRATION("អគ្គនាយកដ្ឋានរដ្ឋបាល"),
     GENERAL_DEPARTMENT_OF_DIGITAL_TECHNOLOGY_AND_MEDIA("អគ្គនាយកដ្ឋានបច្ចេកវិទ្យាឌីជីថល និងផ្សព្វផ្សាយអប់រំ"),
-    DEPARTMENT_OF_IT("នាយកដ្ឋានព័ត៌មានវិទ្យា");
+    DEPARTMENT_OF_IT("នាយកដ្ឋានព័ត៌មានវិទ្យា"),
+    DEPARTMENT_OF_PERSONNEL("នាយកដ្ឋានបុគ្គលិក");
 
     public final String departmentName;
 

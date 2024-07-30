@@ -372,6 +372,12 @@ public class EmployeeServiceImp implements EmployeeService {
 
     private void setSpousePlaceOfBirth(Spouse spouse, AddressDTO addressDTO, AddressType addressType) {
         if (addressDTO != null) {
+            if (addressDTO.getProvince() == 0 && addressDTO.getDistrict() == 0 && addressDTO.getCommune() == 0 && addressDTO.getVillage() == 0) {
+                spouse.setPlaceOfBirth(null);
+                // Save the spouse entity to update the current address
+//            spouseRepo.save(spouse);
+                return;
+            }
             Address address = new Address();
             address.setAddressType(addressType);
             address.setStreetNumber(addressDTO.getStreetNumber());
@@ -425,6 +431,13 @@ public class EmployeeServiceImp implements EmployeeService {
 
     private void setSpouseCurrentAddress(Spouse spouse, AddressDTO addressDTO, AddressType addressType) {
         if (addressDTO != null) {
+            // Check if all IDs are 0 and delete current address if they are
+            if (addressDTO.getProvince() == 0 && addressDTO.getDistrict() == 0 && addressDTO.getCommune() == 0 && addressDTO.getVillage() == 0) {
+                spouse.setCurrentAddress(null);
+                // Save the spouse entity to update the current address
+//            spouseRepo.save(spouse);
+                return;
+            }
             Address address = new Address();
             address.setAddressType(addressType);
             address.setStreetNumber(addressDTO.getStreetNumber());
@@ -478,6 +491,12 @@ public class EmployeeServiceImp implements EmployeeService {
 
     private void setFatherPlaceOfBirth(Father father, AddressDTO addressDTO, AddressType addressType) {
         if (addressDTO != null) {
+            if (addressDTO.getProvince() == 0 && addressDTO.getDistrict() == 0 && addressDTO.getCommune() == 0 && addressDTO.getVillage() == 0) {
+                father.setPlaceOfBirth(null);
+                // Save the spouse entity to update the current address
+//            spouseRepo.save(spouse);
+                return;
+            }
             Address address = new Address();
             address.setAddressType(addressType);
             address.setStreetNumber(addressDTO.getStreetNumber());
@@ -531,6 +550,12 @@ public class EmployeeServiceImp implements EmployeeService {
 
     private void setFatherCurrentAddress(Father father, AddressDTO addressDTO, AddressType addressType) {
         if (addressDTO != null) {
+            if (addressDTO.getProvince() == 0 && addressDTO.getDistrict() == 0 && addressDTO.getCommune() == 0 && addressDTO.getVillage() == 0) {
+                father.setCurrentAddress(null);
+                // Save the spouse entity to update the current address
+//            spouseRepo.save(spouse);
+                return;
+            }
             Address address = new Address();
             address.setAddressType(addressType);
             address.setStreetNumber(addressDTO.getStreetNumber());
@@ -584,6 +609,12 @@ public class EmployeeServiceImp implements EmployeeService {
 
     private void setMotherPlaceOfBirth(Mother mother, AddressDTO addressDTO, AddressType addressType) {
         if (addressDTO != null) {
+            if (addressDTO.getProvince() == 0 && addressDTO.getDistrict() == 0 && addressDTO.getCommune() == 0 && addressDTO.getVillage() == 0) {
+                mother.setPlaceOfBirth(null);
+                // Save the spouse entity to update the current address
+//            spouseRepo.save(spouse);
+                return;
+            }
             Address address = new Address();
             address.setAddressType(addressType);
             address.setStreetNumber(addressDTO.getStreetNumber());
@@ -637,6 +668,12 @@ public class EmployeeServiceImp implements EmployeeService {
 
     private void setMotherCurrentAddress(Mother mother, AddressDTO addressDTO, AddressType addressType) {
         if (addressDTO != null) {
+            if (addressDTO.getProvince() == 0 && addressDTO.getDistrict() == 0 && addressDTO.getCommune() == 0 && addressDTO.getVillage() == 0) {
+                mother.setCurrentAddress(null);
+                // Save the spouse entity to update the current address
+//            spouseRepo.save(spouse);
+                return;
+            }
             Address address = new Address();
             address.setAddressType(addressType);
             address.setStreetNumber(addressDTO.getStreetNumber());
