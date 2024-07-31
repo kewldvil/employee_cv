@@ -83,12 +83,18 @@ public class FileServiceImp implements FileService {
         }
     }
 
-    private String generateUniqueFileName(String originalFilename) {
-        String uniqueID = UUID.randomUUID().toString();
+    //    private String generateUniqueFileName(String originalFilename) {
+//        String uniqueID = UUID.randomUUID().toString();
+//        String cleanedFilename = StringUtils.cleanPath(originalFilename);
+//        String filenameWithoutSpaces = StringUtils.replace(cleanedFilename, " ", "_");
+//        return uniqueID + "_" + filenameWithoutSpaces;
+//    }
+    private static String generateUniqueFileName(String originalFilename) {
         String cleanedFilename = StringUtils.cleanPath(originalFilename);
-        String filenameWithoutSpaces = StringUtils.replace(cleanedFilename, " ", "_");
-        return uniqueID + "_" + filenameWithoutSpaces;
+        // Replace single quotes and spaces with underscores using regex
+        return cleanedFilename.replaceAll("[ ']", "_");
     }
+
 
     @Override
     @Transactional

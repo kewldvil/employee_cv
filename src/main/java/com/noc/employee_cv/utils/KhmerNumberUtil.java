@@ -82,5 +82,30 @@ public class KhmerNumberUtil {
             default -> month; // Return the original month if no conversion is needed
         };
     }
+    // Mapping of Khmer numerals to Latin numerals
+    private static final char[] KHMER_NUMERALS = {'០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'};
+    private static final char[] LATIN_NUMERALS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+    public static String convertKhmerToLatin(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (char ch : input.toCharArray()) {
+            boolean isReplaced = false;
+            for (int i = 0; i < KHMER_NUMERALS.length; i++) {
+                if (ch == KHMER_NUMERALS[i]) {
+                    result.append(LATIN_NUMERALS[i]);
+                    isReplaced = true;
+                    break;
+                }
+            }
+            if (!isReplaced) {
+                result.append(ch); // Append the character as is if it's not a Khmer numeral
+            }
+        }
+        return result.toString();
+    }
 
 }

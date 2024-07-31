@@ -8,6 +8,7 @@ import com.noc.employee_cv.provinces.*;
 import com.noc.employee_cv.repositories.*;
 import com.noc.employee_cv.security.UserDetailServiceImpl;
 import com.noc.employee_cv.services.EmployeeService;
+import com.noc.employee_cv.utils.KhmerNumberUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -58,8 +59,7 @@ public class EmployeeServiceImp implements EmployeeService {
         System.out.println("Saving employee.....");
         Employee employee = employeeMapper.fromEmployeeDto(employeeDTO);
         setUserForEmployee(employee, employeeDTO.getUserId());
-        employee.setPhoneNumber(employeeDTO.getPhoneNumber());
-
+        employee.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(employeeDTO.getPhoneNumber()));
         setSpouseAndChildren(employee, employeeDTO.getSpouse());
         setPolicePlateNumberCars(employee, employeeDTO.getPolicePlateNumberCars());
         setWeapons(employee, employeeDTO.getWeapons());
@@ -119,7 +119,7 @@ public class EmployeeServiceImp implements EmployeeService {
             spouse.setDateOfBirth(spouseDTO.getDateOfBirth());
             spouse.setJob(spouseDTO.getJob());
             spouse.setIsAlive(spouseDTO.getIsAlive());
-            spouse.setPhoneNumber(spouseDTO.getPhoneNumber());
+            spouse.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(spouseDTO.getPhoneNumber()));
             spouse.setEmployee(employee);
 
             // Save or update the spouse entity to ensure it's managed and has an ID
@@ -218,7 +218,7 @@ public class EmployeeServiceImp implements EmployeeService {
                 employee.setMother(mother);
             }
 
-            mother.setPhoneNumber(motherDTO.getPhoneNumber());
+            mother.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(motherDTO.getPhoneNumber()));
 
             // Handle mother's place of birth and current address
             setMotherPlaceOfBirth(mother, motherDTO.getPlaceOfBirth(), AddressType.MOTHER_POB);
@@ -244,7 +244,7 @@ public class EmployeeServiceImp implements EmployeeService {
                 employee.setFather(father);
             }
 
-            father.setPhoneNumber(fatherDTO.getPhoneNumber());
+            father.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(fatherDTO.getPhoneNumber()));
 
             // Handle father's place of birth and current address
             setFatherPlaceOfBirth(father, fatherDTO.getPlaceOfBirth(), AddressType.FATHER_POB);
@@ -1364,7 +1364,7 @@ public class EmployeeServiceImp implements EmployeeService {
         System.out.println(employeeDTO.toString());
         Employee employee = employeeRepo.findById(employeeDTO.getId())
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
-
+        employeeDTO.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(employeeDTO.getPhoneNumber()));
 //        setEmployeeDegreeLevels(employee,employeeDTO.getDegreeLevels());
         // Map partial update from DTO to entity
         employeeMapper.fromEmployeeDtoPartially(employeeDTO, employee);
