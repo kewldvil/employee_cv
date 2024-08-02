@@ -118,6 +118,7 @@ public class EmployeeController {
         userEmployeeDTO.setFirstname(user.getFirstname());
         userEmployeeDTO.setLastname(user.getLastname());
         userEmployeeDTO.getFullName();
+        userEmployeeDTO.setEnabled(user.isEnabled());
         if (user.getEmployee() != null) {
             userEmployeeDTO.setGender(user.getEmployee().getGender());
             userEmployeeDTO.setIsMarried(user.getEmployee().getIsMarried());

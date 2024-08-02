@@ -1,5 +1,6 @@
 package com.noc.employee_cv.contollers;
 
+import com.noc.employee_cv.authentication.AuthenticationService;
 import com.noc.employee_cv.dto.PoliceRankCountProjection;
 import com.noc.employee_cv.dto.UserEmployeeDTO;
 import com.noc.employee_cv.models.User;
@@ -20,6 +21,7 @@ import java.util.Objects;
 public class DashboardController {
     private final EmployeeServiceImp employeeService;
     private final UserRepo userRepo;
+    private final AuthenticationService service;
     @GetMapping("/total-employee")
     public ResponseEntity<Long> getTotalEmployees() {
         long totalEmployees = employeeService.getTotalEmployees();
@@ -105,5 +107,20 @@ public class DashboardController {
         }
     }
 
+    @PutMapping("/user/status/{userId}/{status}")
+    public ResponseEntity<String> updateUserAccountStatus(
+            @PathVariable Integer userId,
+            @PathVariable boolean status) {
+        System.out.println(userId);
+        System.out.println(status);
+        try {
+            // Call the service to update the user's status
+            service.updateUserByEnabled(userId, status);
+            return ResponseEntity.ok("User status updated successfully.");
+        } catch (Exception e) {
+            // Handle exceptions and return an appropriate response
+            return ResponseEntity.status(500).body("Error updating user status: " + e.getMessage());
+        }
+    }
 
 }

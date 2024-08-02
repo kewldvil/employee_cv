@@ -14,6 +14,7 @@ public class UserEmployeeDTO {
     private String lastname;
     private String gender;
     private Boolean isMarried;
+    private Boolean enabled;
     private String CurrentPoliceRank;
     private String CurrentPosition;
     private Set<EmployeeDegreeLevel> degreeLevels;

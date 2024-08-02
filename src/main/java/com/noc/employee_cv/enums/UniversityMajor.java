@@ -1,7 +1,7 @@
 package com.noc.employee_cv.enums;
 
 public enum UniversityMajor implements CommonEnum{
-    IT("ព័ត៍មានវិទ្យា"),
+    IT("ព័ត៌មានវិទ្យា"),
     MECHANIC("មេកានិច"),
     LAW("ច្បាប់"),
     MARKETING("ទីផ្សារ"),
