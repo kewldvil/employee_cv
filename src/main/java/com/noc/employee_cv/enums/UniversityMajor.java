@@ -9,7 +9,7 @@ public enum UniversityMajor implements CommonEnum{
     CIVIL_ENGINEER("វិស្វករសំណង់ស៊ីវិល"),
     ACCOUNTING("គណនេយ្យ"),
     ELECTRIC_ENGINEER("វិស្វករអគ្គិសនី"),
-    ARCHITECTURE("ស្ថាបតិយ្យករ"),
+    ARCHITECTURE("ស្ថាបត្យករ"),
     BANK("ធនាគារ"),
     ECONOMIC("សេដ្ឋកិច្ច"),
     AGRICULTURE("កសិកម្ម"),

@@ -1294,13 +1294,27 @@
 			</componentElement>
 		</band>
 		<band height="155" splitType="Immediate">
-			<staticText>
-				<reportElement x="0" y="1" width="555" height="22" uuid="174df3ce-6f06-4eff-b571-d45a7b4b1e36"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="My Khmer Os Muol Light" size="12"/>
-				</textElement>
-				<text><![CDATA[៧-ព័ត៌មានគ្រួសារ៖ មានប្រពន្ធ ឫប្តី   ​​  នៅលីវ ]]></text>
-			</staticText>
+			<frame>
+				<reportElement x="0" y="0" width="555" height="22" uuid="b5a4b67d-17b7-4fb3-8af7-cac3439b63c7"/>
+				<staticText>
+					<reportElement x="0" y="1" width="555" height="22" uuid="174df3ce-6f06-4eff-b571-d45a7b4b1e36"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="My Khmer Os Muol Light" size="12"/>
+					</textElement>
+					<text><![CDATA[៧-ព័ត៌មានគ្រួសារ៖ មានប្រពន្ធ ឫប្តី   ​​  នៅលីវ ]]></text>
+				</staticText>
+				<image>
+					<reportElement x="197" y="5" width="12" height="12" uuid="e080bc60-0b83-4289-b52c-8cb6352dcbaa">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<imageExpression><![CDATA[$F{isMarried}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="265" y="5" width="12" height="12" uuid="43622b49-7670-4d09-b2fa-65f366f13198"/>
+					<imageExpression><![CDATA[$F{isMarried}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+			</frame>
 			<staticText>
 				<reportElement x="0" y="23" width="555" height="22" uuid="d78ac9de-9a88-4a3c-9b22-e06490da8294"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -1352,17 +1366,6 @@
 				</textElement>
 				<text><![CDATA[ផ្លូវលេខ.......................ផ្ទះលេខ............................ភូមិ..................................................]]></text>
 			</staticText>
-			<image>
-				<reportElement x="197" y="6" width="12" height="12" uuid="e080bc60-0b83-4289-b52c-8cb6352dcbaa">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<imageExpression><![CDATA[$F{isMarried}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="265" y="6" width="12" height="12" uuid="43622b49-7670-4d09-b2fa-65f366f13198"/>
-				<imageExpression><![CDATA[$F{isMarried}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="114" y="133" width="440" height="22" uuid="2501e8a7-989f-4fd8-bd25-98fb15366c6c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
