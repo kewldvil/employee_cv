@@ -1,4 +1,5 @@
 package com.noc.employee_cv.services.serviceImpl;
+
 import net.sf.jasperreports.engine.util.JRFontNotFoundException;
 import com.noc.employee_cv.dto.*;
 import com.noc.employee_cv.models.*;
@@ -48,19 +49,23 @@ public class ReportServiceImp {
 
     @Autowired
     private ResourceLoader resourceLoader;
+
     public String exportReport(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
         KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
         String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
-        String khmerLunarDateString ="ឆ្នាំ"+khmerLunarDate.getLunarZodiac()+" "+khmerLunarDate.getLunarEra()+"ព.ស."+khmerLunarDate.getLunarYear();
+        String khmerLunarDateString = "ឆ្នាំ" + khmerLunarDate.getLunarZodiac() + " " + khmerLunarDate.getLunarEra() + "ព.ស." + khmerLunarDate.getLunarYear();
         Employee employee = employeeRepo.findEmployeeAndUserById(empId);
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
         employee.setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getPhoneNumber()));
 
 
-        if(employee.getSpouse()!=null)employee.getSpouse().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getSpouse().getPhoneNumber()));
-        if(employee.getFather()!=null)employee.getFather().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getFather().getPhoneNumber()));
-        if(employee.getMother()!=null)employee.getMother().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getMother().getPhoneNumber()));
-        String childNumber= KhmerNumberUtil.convertToKhmerNumber(getNumberOfChildren(employee));
+        if (employee.getSpouse() != null)
+            employee.getSpouse().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getSpouse().getPhoneNumber()));
+        if (employee.getFather() != null)
+            employee.getFather().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getFather().getPhoneNumber()));
+        if (employee.getMother() != null)
+            employee.getMother().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getMother().getPhoneNumber()));
+        String childNumber = KhmerNumberUtil.convertToKhmerNumber(getNumberOfChildren(employee));
         String imageName = employee.getUser().getImageName();
 
         // Load file and compile
@@ -94,12 +99,12 @@ public class ReportServiceImp {
         List<DegreeLevelInfoDTO> employeeDegreeLevels = extractDegreeLevels(employee);
         List<Weapon> empWeapons = employee.getWeapons();
         List<PolicePlateNumberCar> empVehicle = employee.getPolicePlateNumberCars();
-        Set<ChildrenPDFDTO> childrenList=updateChildrenList(getChildrenList(employee));
+        Set<ChildrenPDFDTO> childrenList = updateChildrenList(getChildrenList(employee));
         String universitySkill = EmployeeUtil.updateUniversitySkill(employee);
         String foreignLanguage = EmployeeUtil.updateForeignLanguage(employee);
-        String spouseDOB =employee.getSpouse()==null?"": KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getSpouse().getDateOfBirth()));
-        String fatherDOB = employee.getFather()==null?"": KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getFather().getDateOfBirth()));
-        String motherDOB = employee.getMother()==null?"": KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getMother().getDateOfBirth()));
+        String spouseDOB = employee.getSpouse() == null ? "" : KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getSpouse().getDateOfBirth()));
+        String fatherDOB = employee.getFather() == null ? "" : KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getFather().getDateOfBirth()));
+        String motherDOB = employee.getMother() == null ? "" : KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getMother().getDateOfBirth()));
 //        emp place of birth
         String empProvince = employee.getPlaceOfBirth().getProvinces().get(0).getProvince_city_name_kh();
         String empDistrict = employee.getPlaceOfBirth().getDistricts().get(0).getDistrict_name_kh();
@@ -165,8 +170,8 @@ public class ReportServiceImp {
         String spouseCurrentVillage = "";
         String spouseCurrentStreetNumber = "";
         String spouseCurrentHouseNumber = "";
-        String totalFemaleChildren=KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("M",employee));
-        String totalMaleChildren =KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("F",employee));
+        String totalFemaleChildren = KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("M", employee));
+        String totalMaleChildren = KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("F", employee));
         if (employee.getSpouse() != null && employee.getSpouse().getCurrentAddress() != null) {
             List<ProvinceCity> spouseCurrentProvinces = employee.getSpouse().getCurrentAddress().getProvinces();
             List<District> spouseCurrentDistricts = employee.getSpouse().getCurrentAddress().getDistricts();
@@ -330,6 +335,7 @@ public class ReportServiceImp {
         degreeLevelDTOList.sort(Comparator.comparingInt(DegreeLevelInfoDTO::getId));
         return degreeLevelDTOList;
     }
+
     private int getNumberOfChildren(Employee e) {
         if (e != null && e.getSpouse() != null) {
             if (e.getSpouse().getChildren() != null) {
@@ -338,17 +344,20 @@ public class ReportServiceImp {
         }
         return 0;
     }
+
     private Set<SpouseChildren> getChildrenList(Employee e) {
         if (e.getSpouse() == null) return Set.of();
         return e.getSpouse().getChildren() != null ? e.getSpouse().getChildren() : Set.of();
     }
-    public int countChildrenByGender(String gender,Employee e) {
-        if(e.getSpouse()==null) return 0;
-        if(e.getSpouse().getChildren()==null) return 0;
+
+    public int countChildrenByGender(String gender, Employee e) {
+        if (e.getSpouse() == null) return 0;
+        if (e.getSpouse().getChildren() == null) return 0;
         return (int) e.getSpouse().getChildren().stream()
                 .filter(child -> gender.equalsIgnoreCase(child.getGender()))
                 .count();
     }
+
     public List<VTTrainingPDFDTO> updateVocationalTrainingKH(List<VocationalTraining> vocationalTrainingList) {
         if (vocationalTrainingList == null || vocationalTrainingList.isEmpty()) {
             return null;
@@ -358,8 +367,8 @@ public class ReportServiceImp {
         for (VocationalTraining vocationalTraining : vocationalTrainingList) {
             try {
                 VTTrainingPDFDTO dto = new VTTrainingPDFDTO();
-                dto.setTrainingStartDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(vocationalTraining.getTrainingStartDate()),vocationalTraining.getIsNoStartDayMonth()));
-                dto.setTrainingToDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(vocationalTraining.getTrainingToDate()),vocationalTraining.getIsNoEndDayMonth()));
+                dto.setTrainingStartDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(vocationalTraining.getTrainingStartDate()), vocationalTraining.getIsNoStartDayMonth()));
+                dto.setTrainingToDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(vocationalTraining.getTrainingToDate()), vocationalTraining.getIsNoEndDayMonth()));
                 dto.setTrainingDuration(KhmerNumberUtil.convertToKhmerNumber(vocationalTraining.getTrainingDuration()));
                 dto.setTrainingCourse(vocationalTraining.getTrainingCourse());
                 dto.setTrainingCenter(vocationalTraining.getTrainingCenter());
@@ -373,6 +382,7 @@ public class ReportServiceImp {
 
         return list;
     }
+
     public List<AppreciationPDFDTO> updateAppreciationKH(List<Appreciation> appreciationList) {
 
         if (appreciationList == null || appreciationList.isEmpty()) {
@@ -395,17 +405,19 @@ public class ReportServiceImp {
 
         return list;
     }
+
     public List<PrevActivityPDFDTO> updateActivityKH(List<PreviousActivityAndPosition> activityList) {
         if (activityList == null || activityList.isEmpty()) {
             return null;
         }
-
+// Sort the list by fromDate in ascending order
+        activityList.sort(Comparator.comparing(PreviousActivityAndPosition::getFromDate));
         List<PrevActivityPDFDTO> list = new ArrayList<>();
         for (PreviousActivityAndPosition activity : activityList) {
             try {
                 PrevActivityPDFDTO dto = new PrevActivityPDFDTO();
-                dto.setFromDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(activity.getFromDate()),activity.getIsNoStartDayMonth()));
-                dto.setToDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(activity.getToDate()),activity.getIsNoEndDayMonth()));
+                dto.setFromDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(activity.getFromDate()), activity.getIsNoStartDayMonth()));
+                dto.setToDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(activity.getToDate()), activity.getIsNoEndDayMonth()));
                 dto.setActivityAndRank(activity.getActivityAndRank());
                 dto.setDepartmentOrUnit(activity.getDepartmentOrUnit());
                 dto.setIsNoStartDayMonth(activity.getIsNoStartDayMonth());
@@ -418,40 +430,50 @@ public class ReportServiceImp {
 
         return list;
     }
+
     public Set<ChildrenPDFDTO> updateChildrenList(Set<SpouseChildren> childrenList) {
         if (childrenList == null || childrenList.isEmpty()) {
             return null;
         }
 
-        Set<ChildrenPDFDTO> list = new HashSet<>();
+        // Create a List to enable sorting
+        List<ChildrenPDFDTO> list = new ArrayList<>();
+
         for (SpouseChildren spouseChildren : childrenList) {
             try {
                 ChildrenPDFDTO dto = new ChildrenPDFDTO();
+                dto.setRealDateOfBirth(spouseChildren.getDateOfBirth());
                 dto.setDateOfBirth(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(spouseChildren.getDateOfBirth())));
                 dto.setGender(spouseChildren.getGender());
                 dto.setFullName(spouseChildren.getFullName());
                 dto.setJob(spouseChildren.getJob());
                 list.add(dto);
             } catch (Exception e) {
-                System.err.println("Error processing vocational training entry: " + e.getMessage());
+                System.err.println("Error processing children entry: " + e.getMessage());
             }
         }
-        return list;
+        // Sort the list by id in ascending order
+        list.sort(Comparator.comparing(ChildrenPDFDTO::getRealDateOfBirth));
+        // Convert back to LinkedHashSet to maintain the sorted order in a Set
+        return new LinkedHashSet<>(list);
     }
 
     public ResponseEntity<byte[]> exportReportToFrontEnd(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
         KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
         String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
-        String khmerLunarDateString ="ឆ្នាំ"+khmerLunarDate.getLunarZodiac()+" "+khmerLunarDate.getLunarEra()+" ព.ស."+khmerLunarDate.getLunarYear();
+        String khmerLunarDateString = "ឆ្នាំ" + khmerLunarDate.getLunarZodiac() + " " + khmerLunarDate.getLunarEra() + " ព.ស." + khmerLunarDate.getLunarYear();
         Employee employee = employeeRepo.findEmployeeAndUserById(empId);
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
         employee.setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getPhoneNumber()));
 
 
-        if(employee.getSpouse()!=null)employee.getSpouse().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getSpouse().getPhoneNumber()));
-        if(employee.getFather()!=null)employee.getFather().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getFather().getPhoneNumber()));
-        if(employee.getMother()!=null)employee.getMother().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getMother().getPhoneNumber()));
-        String childNumber= KhmerNumberUtil.convertToKhmerNumber(getNumberOfChildren(employee));
+        if (employee.getSpouse() != null)
+            employee.getSpouse().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getSpouse().getPhoneNumber()));
+        if (employee.getFather() != null)
+            employee.getFather().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getFather().getPhoneNumber()));
+        if (employee.getMother() != null)
+            employee.getMother().setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getMother().getPhoneNumber()));
+        String childNumber = KhmerNumberUtil.convertToKhmerNumber(getNumberOfChildren(employee));
         String imageName = employee.getUser().getImageName();
 
         // Load file and compile
@@ -480,12 +502,12 @@ public class ReportServiceImp {
         List<DegreeLevelInfoDTO> employeeDegreeLevels = extractDegreeLevels(employee);
         List<Weapon> empWeapons = employee.getWeapons();
         List<PolicePlateNumberCar> empVehicle = employee.getPolicePlateNumberCars();
-        Set<ChildrenPDFDTO> childrenList=updateChildrenList(getChildrenList(employee));
+        Set<ChildrenPDFDTO> childrenList = updateChildrenList(getChildrenList(employee));
         String universitySkill = EmployeeUtil.updateUniversitySkill(employee);
         String foreignLanguage = EmployeeUtil.updateForeignLanguage(employee);
-        String spouseDOB =employee.getSpouse()==null?"": KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getSpouse().getDateOfBirth()));
-        String fatherDOB = employee.getFather()==null?"": KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getFather().getDateOfBirth()));
-        String motherDOB = employee.getMother()==null?"": KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getMother().getDateOfBirth()));
+        String spouseDOB = employee.getSpouse() == null ? "" : KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getSpouse().getDateOfBirth()));
+        String fatherDOB = employee.getFather() == null ? "" : KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getFather().getDateOfBirth()));
+        String motherDOB = employee.getMother() == null ? "" : KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getMother().getDateOfBirth()));
 //        emp place of birth
         String empProvince = employee.getPlaceOfBirth().getProvinces().get(0).getProvince_city_name_kh();
         String empDistrict = employee.getPlaceOfBirth().getDistricts().get(0).getDistrict_name_kh();
@@ -589,8 +611,8 @@ public class ReportServiceImp {
         String spouseCurrentVillage = "";
         String spouseCurrentStreetNumber = "";
         String spouseCurrentHouseNumber = "";
-        String totalFemaleChildren=KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("F",employee));
-        String totalMaleChildren =KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("M",employee));
+        String totalFemaleChildren = KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("F", employee));
+        String totalMaleChildren = KhmerNumberUtil.convertToKhmerNumber(countChildrenByGender("M", employee));
         if (employee.getSpouse() != null && employee.getSpouse().getCurrentAddress() != null) {
             List<ProvinceCity> spouseCurrentProvinces = employee.getSpouse().getCurrentAddress().getProvinces();
             List<District> spouseCurrentDistricts = employee.getSpouse().getCurrentAddress().getDistricts();
@@ -767,7 +789,7 @@ public class ReportServiceImp {
             } else if (reportFormat.equalsIgnoreCase("pdf")) {
 //                JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
 
-               data=JasperExportManager.exportReportToPdf(jasperPrint);
+                data = JasperExportManager.exportReportToPdf(jasperPrint);
 
                 headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline:filename=employee_report.pdf");
             } else {

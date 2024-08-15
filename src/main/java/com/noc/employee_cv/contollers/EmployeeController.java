@@ -17,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,16 +47,30 @@ public class EmployeeController {
         return ResponseEntity.accepted().build();
     }
 
+    //    @GetMapping("/{id}")
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+//    public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) throws MessagingException {
+//        System.out.println("GET EMPLOYEE BY ID");
+//        Employee employee = service.findById(id);
+//        if (employee != null) {
+//            // If response body is not null, return it with HTTP status 200 OK
+//            return ResponseEntity.ok(employee);
+//        } else {
+//            // If response body is null, return 404 Not Found status code
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//        }
+//    }
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) throws MessagingException {
         System.out.println("GET EMPLOYEE BY ID");
         Employee employee = service.findById(id);
+
         if (employee != null) {
-            // If response body is not null, return it with HTTP status 200 OK
+            // Return the employee object with HTTP status 200 OK
             return ResponseEntity.ok(employee);
         } else {
-            // If response body is null, return 404 Not Found status code
+            // If employee not found, return 404 Not Found status
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
@@ -64,6 +81,19 @@ public class EmployeeController {
         System.out.println("GET EMPLOYEE BY USER ID");
         Employee employee = service.findByUserId(id);
         if (employee != null) {
+            // Check if the spouse and children are not null
+            if (employee.getSpouse() != null && employee.getSpouse().getChildren() != null) {
+                // Convert Set to List for sorting
+                List<SpouseChildren> childrenList = new ArrayList<>(employee.getSpouse().getChildren());
+
+                // Sort the list by date of birth in descending order
+                childrenList.sort(Comparator.comparing(SpouseChildren::getDateOfBirth));
+
+                // Optionally, if you need to store the sorted list back into a Set
+                employee.getSpouse().setChildren(new LinkedHashSet<>(childrenList));
+            } else {
+                System.out.println("No spouse or children found for the employee.");
+            }
             // If response body is not null, return it with HTTP status 200 OK
             return ResponseEntity.ok(employee);
         } else {

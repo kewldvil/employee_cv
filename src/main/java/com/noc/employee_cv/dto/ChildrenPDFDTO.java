@@ -11,4 +11,5 @@ public class ChildrenPDFDTO {
     private String gender;
     private String dateOfBirth;
     private String job;
+    private LocalDate RealDateOfBirth;
 }
