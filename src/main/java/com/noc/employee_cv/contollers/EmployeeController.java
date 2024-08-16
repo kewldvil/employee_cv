@@ -85,14 +85,31 @@ public class EmployeeController {
             if (employee.getSpouse() != null && employee.getSpouse().getChildren() != null) {
                 // Convert Set to List for sorting
                 List<SpouseChildren> childrenList = new ArrayList<>(employee.getSpouse().getChildren());
-
+                System.out.println("Sorted Children details by Date of Birth (DESC):");
+                for (SpouseChildren child : childrenList) {
+                    System.out.println("Full Name: " + child.getFullName());
+                    System.out.println("Date of Birth: " + child.getDateOfBirth());
+                    System.out.println("Gender: " + child.getGender());
+                    System.out.println("Job: " + child.getJob());
+                }
                 // Sort the list by date of birth in descending order
                 childrenList.sort(Comparator.comparing(SpouseChildren::getDateOfBirth));
 
                 // Optionally, if you need to store the sorted list back into a Set
                 employee.getSpouse().setChildren(new LinkedHashSet<>(childrenList));
+
+                // Print sorted children details
+
             } else {
                 System.out.println("No spouse or children found for the employee.");
+            }
+            //sort vocational training by training start date ascending
+            if (employee.getVocationalTrainings() != null) {
+                employee.getVocationalTrainings().sort(Comparator.comparing(VocationalTraining::getTrainingStartDate));
+            }
+            //sort appreciation by appreciation date ascending
+            if (employee.getAppreciations() != null) {
+                employee.getAppreciations().sort(Comparator.comparing(Appreciation::getAppreciationDate));
             }
             // If response body is not null, return it with HTTP status 200 OK
             return ResponseEntity.ok(employee);

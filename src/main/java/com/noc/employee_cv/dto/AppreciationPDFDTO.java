@@ -10,4 +10,5 @@ public class AppreciationPDFDTO {
     private String appreciationNumber;
     private String appreciationDate;
     private String appreciation;
+    private LocalDate realAppreciationDate;
 }

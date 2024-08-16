@@ -2,6 +2,8 @@ package com.noc.employee_cv.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class VTTrainingPDFDTO {
     private Integer id;
@@ -12,4 +14,5 @@ public class VTTrainingPDFDTO {
     private String trainingToDate;
     private Boolean isNoStartDayMonth;
     private Boolean isNoEndDayMonth;
+    private LocalDate realTrainingStartDate;
 }

@@ -374,12 +374,13 @@ public class ReportServiceImp {
                 dto.setTrainingCenter(vocationalTraining.getTrainingCenter());
                 dto.setIsNoStartDayMonth(vocationalTraining.getIsNoStartDayMonth());
                 dto.setIsNoEndDayMonth(vocationalTraining.getIsNoEndDayMonth());
+                dto.setRealTrainingStartDate(vocationalTraining.getTrainingStartDate());
                 list.add(dto);
             } catch (Exception e) {
                 System.err.println("Error processing vocational training entry: " + e.getMessage());
             }
         }
-
+        list.sort(Comparator.comparing(VTTrainingPDFDTO::getRealTrainingStartDate));
         return list;
     }
 
@@ -396,6 +397,7 @@ public class ReportServiceImp {
                 dto.setAppreciationDate(KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(appreciation.getAppreciationDate())));
                 dto.setAppreciationNumber(appreciation.getAppreciationNumber());
                 dto.setAppreciation(appreciation.getAppreciation());
+                dto.setRealAppreciationDate(appreciation.getAppreciationDate());
 
                 list.add(dto);
             } catch (Exception e) {
@@ -403,6 +405,7 @@ public class ReportServiceImp {
             }
         }
 
+        list.sort(Comparator.comparing(AppreciationPDFDTO::getRealAppreciationDate));
         return list;
     }
 
