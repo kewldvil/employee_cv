@@ -111,6 +111,10 @@ public class EmployeeController {
             if (employee.getAppreciations() != null) {
                 employee.getAppreciations().sort(Comparator.comparing(Appreciation::getAppreciationDate));
             }
+            // sort job histrory by job start date ascending
+            if(employee.getActivityAndPositions()!=null) {
+                employee.getActivityAndPositions().sort(Comparator.comparing(PreviousActivityAndPosition::getFromDate));
+            }
             // If response body is not null, return it with HTTP status 200 OK
             return ResponseEntity.ok(employee);
         } else {
