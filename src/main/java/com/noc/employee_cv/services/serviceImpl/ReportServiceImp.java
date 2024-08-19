@@ -380,7 +380,8 @@ public class ReportServiceImp {
                 System.err.println("Error processing vocational training entry: " + e.getMessage());
             }
         }
-        list.sort(Comparator.comparing(VTTrainingPDFDTO::getRealTrainingStartDate));
+//        list.sort(Comparator.comparing(VTTrainingPDFDTO::getRealTrainingStartDate));
+        list.sort(Comparator.nullsLast(Comparator.comparing(VTTrainingPDFDTO::getRealTrainingStartDate, Comparator.nullsLast(Comparator.naturalOrder()))));
         return list;
     }
 
@@ -405,7 +406,8 @@ public class ReportServiceImp {
             }
         }
 
-        list.sort(Comparator.comparing(AppreciationPDFDTO::getRealAppreciationDate));
+//        list.sort(Comparator.comparing(AppreciationPDFDTO::getRealAppreciationDate));
+        list.sort(Comparator.nullsLast(Comparator.comparing(AppreciationPDFDTO::getRealAppreciationDate, Comparator.nullsLast(Comparator.naturalOrder()))));
         return list;
     }
 
