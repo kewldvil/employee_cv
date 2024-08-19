@@ -92,29 +92,32 @@ public class EmployeeController {
                     System.out.println("Gender: " + child.getGender());
                     System.out.println("Job: " + child.getJob());
                 }
-                // Sort the list by date of birth in descending order
-                childrenList.sort(Comparator.comparing(SpouseChildren::getDateOfBirth));
+                // Sort the list by date of birth in descending order, handling nulls
+                childrenList.sort(Comparator.nullsLast(Comparator.comparing(SpouseChildren::getDateOfBirth, Comparator.nullsLast(Comparator.naturalOrder()))));
 
                 // Optionally, if you need to store the sorted list back into a Set
                 employee.getSpouse().setChildren(new LinkedHashSet<>(childrenList));
 
                 // Print sorted children details
-
             } else {
                 System.out.println("No spouse or children found for the employee.");
             }
-            //sort vocational training by training start date ascending
+
+            // Sort vocational trainings by training start date ascending, handling nulls
             if (employee.getVocationalTrainings() != null) {
-                employee.getVocationalTrainings().sort(Comparator.comparing(VocationalTraining::getTrainingStartDate));
+                employee.getVocationalTrainings().sort(Comparator.nullsLast(Comparator.comparing(VocationalTraining::getTrainingStartDate, Comparator.nullsLast(Comparator.naturalOrder()))));
             }
-            //sort appreciation by appreciation date ascending
+
+            // Sort appreciations by appreciation date ascending, handling nulls
             if (employee.getAppreciations() != null) {
-                employee.getAppreciations().sort(Comparator.comparing(Appreciation::getAppreciationDate));
+                employee.getAppreciations().sort(Comparator.nullsLast(Comparator.comparing(Appreciation::getAppreciationDate, Comparator.nullsLast(Comparator.naturalOrder()))));
             }
-            // sort job histrory by job start date ascending
-            if(employee.getActivityAndPositions()!=null) {
-                employee.getActivityAndPositions().sort(Comparator.comparing(PreviousActivityAndPosition::getFromDate));
+
+            // Sort job history by job start date ascending, handling nulls
+            if (employee.getActivityAndPositions() != null) {
+                employee.getActivityAndPositions().sort(Comparator.nullsLast(Comparator.comparing(PreviousActivityAndPosition::getFromDate, Comparator.nullsLast(Comparator.naturalOrder()))));
             }
+
             // If response body is not null, return it with HTTP status 200 OK
             return ResponseEntity.ok(employee);
         } else {
@@ -122,6 +125,7 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
 
     @GetMapping("/{userId}/{employeeId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
