@@ -5,7 +5,6 @@ import com.noc.employee_cv.email.EmailTemplateName;
 import com.noc.employee_cv.enums.Role;
 import com.noc.employee_cv.models.Token;
 import com.noc.employee_cv.models.User;
-import com.noc.employee_cv.repositories.StorageRepo;
 import com.noc.employee_cv.repositories.TokenRepo;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.security.JwtService;
@@ -16,14 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -121,7 +117,7 @@ public class AuthenticationService {
 //                .build();
         claims.put("firstname", user.getFirstname());
         claims.put("lastname", user.getLastname());
-        claims.put("id",user.getId());
+        claims.put("id", user.getId());
         claims.put("role", user.getRole());
         var jwtToken = jwtService.generateToken(claims, user);
 //        System.out.println(jwtToken);
@@ -161,7 +157,7 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public void updatePassword(ForgetPasswordRequest request)  throws MessagingException{
+    public void forgetPassword(ForgetPasswordRequest request) throws MessagingException {
         System.out.println("update password");
         System.out.println(request.toString());
         // Preparing parameters for delimiter checks
@@ -180,16 +176,32 @@ public class AuthenticationService {
 
     @Transactional
     public void changePassword(Integer userId, String oldPassword, String newPassword) throws ChangeSetPersister.NotFoundException {
-        User user = userRepo.findById(userId)
-                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+        try {
+            User user = userRepo.findById(userId)
+                    .orElseThrow(ChangeSetPersister.NotFoundException::new);
 
-        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new IncorrectPasswordException("Current password is incorrect");
+            if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+                throw new IncorrectPasswordException("Current password is incorrect");
+            }
+
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepo.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to change password: " + e.getMessage(), e);
         }
-
-        user.setPassword(passwordEncoder.encode(newPassword));
-        userRepo.save(user);
     }
+
+    @Transactional
+    public void resetPassword(Integer userId) throws ChangeSetPersister.NotFoundException {
+        try {
+            User user = userRepo.findById(userId).orElseThrow(ChangeSetPersister.NotFoundException::new);
+            user.setPassword(passwordEncoder.encode("12345678"));
+            userRepo.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to reset password: " + e.getMessage(), e);
+        }
+    }
+
 
     @Transactional
     public void updateUserByEnabled(Integer userId, boolean enabled) {

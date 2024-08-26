@@ -40,7 +40,7 @@ public class AuthenticationController {
             @RequestBody @Valid ForgetPasswordRequest request
     ) throws MessagingException {
         try {
-            service.updatePassword(request);
+            service.forgetPassword(request);
             return ResponseEntity.accepted().build();
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

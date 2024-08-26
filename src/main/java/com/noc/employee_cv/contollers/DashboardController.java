@@ -1,12 +1,14 @@
 package com.noc.employee_cv.contollers;
 
 import com.noc.employee_cv.authentication.AuthenticationService;
+import com.noc.employee_cv.authentication.IncorrectPasswordException;
 import com.noc.employee_cv.dto.PoliceRankCountProjection;
 import com.noc.employee_cv.dto.UserEmployeeDTO;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -122,5 +124,16 @@ public class DashboardController {
             return ResponseEntity.status(500).body("Error updating user status: " + e.getMessage());
         }
     }
-
+    @PutMapping("/user/reset-password/{userId}")
+    public ResponseEntity<String> resetUserPassword(@PathVariable Integer userId) {
+        System.out.println("reset password");
+        try {
+            service.resetPassword(userId);
+            return ResponseEntity.accepted().build();
+        } catch (ChangeSetPersister.NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        } catch (IncorrectPasswordException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Current password is incorrect");
+        }
+    }
 }
