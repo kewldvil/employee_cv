@@ -111,6 +111,10 @@ public class Employee {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bureau_id")
+    private Bureau bureau;
+
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PolicePlateNumberCar> policePlateNumberCars = new ArrayList<>();
 

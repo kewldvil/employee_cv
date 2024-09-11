@@ -416,7 +416,7 @@ public class ReportServiceImp {
             return null;
         }
 // Sort the list by fromDate in ascending order
-        activityList.sort(Comparator.comparing(PreviousActivityAndPosition::getFromDate));
+//        activityList.sort(Comparator.comparing(PreviousActivityAndPosition::getFromDate));
         List<PrevActivityPDFDTO> list = new ArrayList<>();
         for (PreviousActivityAndPosition activity : activityList) {
             try {
@@ -427,12 +427,13 @@ public class ReportServiceImp {
                 dto.setDepartmentOrUnit(activity.getDepartmentOrUnit());
                 dto.setIsNoStartDayMonth(activity.getIsNoStartDayMonth());
                 dto.setIsNoEndDayMonth(activity.getIsNoEndDayMonth());
+                dto.setRealFromDate(activity.getFromDate());
                 list.add(dto);
             } catch (Exception e) {
                 System.err.println("Error processing vocational training entry: " + e.getMessage());
             }
         }
-
+        list.sort(Comparator.nullsLast(Comparator.comparing(PrevActivityPDFDTO::getRealFromDate, Comparator.nullsLast(Comparator.naturalOrder()))));
         return list;
     }
 

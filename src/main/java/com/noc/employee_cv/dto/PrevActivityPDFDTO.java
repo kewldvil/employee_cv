@@ -13,4 +13,6 @@ public class PrevActivityPDFDTO {
     private String departmentOrUnit;
     private Boolean isNoStartDayMonth;
     private Boolean isNoEndDayMonth;
+
+    private LocalDate realFromDate;
 }

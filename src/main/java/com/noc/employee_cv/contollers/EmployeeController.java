@@ -168,6 +168,7 @@ public class EmployeeController {
     public static UserEmployeeDTO convertToDTO(User user) {
         UserEmployeeDTO userEmployeeDTO = new UserEmployeeDTO();
         userEmployeeDTO.setId(user.getId());
+        userEmployeeDTO.setUsername(user.getUsername());
         userEmployeeDTO.setImageName(user.getImageName());
         userEmployeeDTO.setImagePath(user.getImagePath());
         userEmployeeDTO.setFirstname(user.getFirstname());
@@ -177,7 +178,6 @@ public class EmployeeController {
         if (user.getEmployee() != null) {
             userEmployeeDTO.setGender(user.getEmployee().getGender());
             userEmployeeDTO.setIsMarried(user.getEmployee().getIsMarried());
-
             userEmployeeDTO.setCurrentPosition(user.getEmployee().getCurrentPosition());
             userEmployeeDTO.setCurrentPoliceRank(user.getEmployee().getCurrentPoliceRank());
             userEmployeeDTO.setDegreeLevels(user.getEmployee().getEmployeeDegreeLevels());

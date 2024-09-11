@@ -8,6 +8,7 @@ import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/api/v1/managements")
 @RequiredArgsConstructor
+@Slf4j
 public class DashboardController {
     private final EmployeeServiceImp employeeService;
     private final UserRepo userRepo;
