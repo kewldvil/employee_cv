@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface DepartmentRepo extends JpaRepository<Department,Integer> {
     List<Department> findAllByEnabledTrue();
+    List<Department> findAllByGeneralDepartmentIdAndEnabledTrue(Integer id);
 
 }

@@ -26,6 +26,7 @@ public class DashboardController {
     private final EmployeeServiceImp employeeService;
     private final UserRepo userRepo;
     private final AuthenticationService service;
+
     @GetMapping("/total-employee")
     public ResponseEntity<Long> getTotalEmployees() {
         long totalEmployees = employeeService.getTotalEmployees();
@@ -37,48 +38,57 @@ public class DashboardController {
         long totalEmployees = employeeService.getTotalEmployeesByWeapon();
         return ResponseEntity.ok(totalEmployees);
     }
+
     @GetMapping("/total-by-police-car")
     public ResponseEntity<Long> getTotalEmployeeUsePoliceCars() {
         long totalEmployees = employeeService.getTotalEmployeesByPoliceCar();
         return ResponseEntity.ok(totalEmployees);
     }
+
     @GetMapping("/total-by-bachelor")
     public ResponseEntity<Long> getTotalEmployeeHaveBachelor() {
         long totalEmployees = employeeService.getTotalEmployeesByBachelor();
         return ResponseEntity.ok(totalEmployees);
     }
+
     @GetMapping("/total-by-master")
     public ResponseEntity<Long> getTotalEmployeeHaveMaster() {
         long totalEmployees = employeeService.getTotalEmployeesByMaster();
         return ResponseEntity.ok(totalEmployees);
     }
+
     @GetMapping("/total-by-doctor")
     public ResponseEntity<Long> getTotalEmployeeHaveDoctor() {
         long totalEmployees = employeeService.getTotalEmployeesByDoctor();
         return ResponseEntity.ok(totalEmployees);
     }
+
     @GetMapping("/total-by-female")
     public ResponseEntity<Long> getTotalFemales() {
         long totalEmployees = employeeService.getTotalFemales();
         return ResponseEntity.ok(totalEmployees);
     }
+
     @GetMapping("/count-by-police-rank")
     public List<PoliceRankCountProjection> getCountByPoliceRank() {
         System.out.println("getCountByPoliceRank");
         return employeeService.countByPoliceRanks();
     }
+
     @GetMapping("/count-by-trainee")
     public ResponseEntity<Long> getCountByTrainee() {
         System.out.println("getCountByTrainee");
         long totalTrainee = employeeService.getTotalTrainee();
         return ResponseEntity.ok(totalTrainee);
     }
+
     @GetMapping("/count-by-male-trainee")
     public ResponseEntity<Long> getCountByMaleTrainee() {
         System.out.println("getCountByTrainee");
         long totalTrainee = employeeService.getTotalMaleTrainee();
         return ResponseEntity.ok(totalTrainee);
     }
+
     @GetMapping("/count-by-female-trainee")
     public ResponseEntity<Long> getCountByFemaleTrainee() {
         System.out.println("getCountByTrainee");
@@ -89,7 +99,7 @@ public class DashboardController {
     @GetMapping("/filter-users/{filter}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<UserEmployeeDTO>> listUsersByFilter(@PathVariable String filter) {
-        System.out.println("GET USERS BY "+filter);
+        System.out.println("GET USERS BY " + filter);
         List<User> users = switch (filter) {
             case "F" -> employeeService.finderUsersByGender(filter);
             case "WEAPON" -> employeeService.findAllUsersWithEmployeeAndWeapons();
@@ -126,6 +136,7 @@ public class DashboardController {
             return ResponseEntity.status(500).body("Error updating user status: " + e.getMessage());
         }
     }
+
     @PutMapping("/user/reset-password/{userId}")
     public ResponseEntity<String> resetUserPassword(@PathVariable Integer userId) {
         System.out.println("reset password");
@@ -137,5 +148,15 @@ public class DashboardController {
         } catch (IncorrectPasswordException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Current password is incorrect");
         }
+    }
+
+    @GetMapping("employee-stats-by-department")
+    public ResponseEntity<List<Object[]>> getEmployeeState() {
+        return ResponseEntity.ok(userRepo.getUserStatsByDepartment());
+    }
+
+    @GetMapping("employee-stats")
+    public ResponseEntity<Object[]> getAllEmployeeState() {
+        return ResponseEntity.ok(userRepo.getAllUserStats());
     }
 }

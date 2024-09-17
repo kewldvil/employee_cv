@@ -19,7 +19,8 @@ public enum UniversityMajor implements CommonEnum{
     ENG_LANG("អក្សរសាស្ត្រអង់គ្លេស"),
     FRANCE_LANG("អក្សរសាស្ត្របារាំង"),
     FINANCE("ហិរញ្ញវត្ថុ"),
-    FOREIGN_AFFAIR("ទំនាក់ទំនងការបរទេស");
+    FOREIGN_AFFAIR("ទំនាក់ទំនងការបរទេស"),
+    HOTEL_AND_HOSPITALITY_MANAGEMENT("គ្រប់គ្រងសណ្ឋាគារ និងបដិសណ្ខារកិច្ច");
 
     public final String majorSkill;
 

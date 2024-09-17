@@ -54,6 +54,21 @@ public class DepartmentController {
         // Return the map wrapped in a ResponseEntity
         return ResponseEntity.ok(result);
     }
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Department>> getByGeneralDepartmentId(@PathVariable("id") Integer generalDepartmentId) {
+        System.out.println("Fetching departments by General Department ID: " + generalDepartmentId);
+
+        // Fetch departments by general department ID
+        List<Department> departments = departmentService.findAllByGeneralDepartmentId(generalDepartmentId);
+
+        // Check if the list is empty and respond accordingly
+        if (departments.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Returns 204 No Content
+        }
+
+        return ResponseEntity.ok(departments); // Returns 200 OK with the list of departments
+    }
 
 
 

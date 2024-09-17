@@ -91,7 +91,9 @@ public class Employee {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "place_of_birth_id", referencedColumnName = "id")
     private Address placeOfBirth;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    private Department department;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "current_address_id", referencedColumnName = "id")
     private Address currentAddress;
@@ -136,7 +138,6 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     private Set<EmployeeLanguage> employeeLanguages = new HashSet<>();
-
 
 
     @ManyToMany

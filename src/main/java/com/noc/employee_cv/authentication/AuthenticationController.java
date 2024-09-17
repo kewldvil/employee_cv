@@ -20,12 +20,17 @@ public class AuthenticationController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> register(
-
             @RequestBody @Valid RegistrationRequest request
     ) throws MessagingException {
-        service.register(request);
-        return ResponseEntity.accepted().build();
+        try {
+            service.register(request);
+            return ResponseEntity.accepted().build();
+        } catch (IllegalArgumentException e) {
+            // Return a conflict response with the error message if a username is taken
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
+
 
     //    user login
     @PostMapping("/login")

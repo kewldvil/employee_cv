@@ -50,6 +50,7 @@ public class EmployeeServiceImp implements EmployeeService {
     private final WeaponRepo weaponRepo;
     private final AppreciationRepo appreciationRepo;
     private final VocationalTrainingRepo vocationalTrainingRepo;
+    private final DepartmentRepo departmentRepo;
 
 
     @Override
@@ -58,8 +59,10 @@ public class EmployeeServiceImp implements EmployeeService {
         System.out.println(employeeDTO.toString());
         System.out.println("Saving employee.....");
         Employee employee = employeeMapper.fromEmployeeDto(employeeDTO);
+        Department dp = departmentRepo.findById(employeeDTO.getDepartmentId()).orElseThrow();
         setUserForEmployee(employee, employeeDTO.getUserId());
         employee.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(employeeDTO.getPhoneNumber()));
+        employee.setDepartment(dp);
         setSpouseAndChildren(employee, employeeDTO.getSpouse());
         setPolicePlateNumberCars(employee, employeeDTO.getPolicePlateNumberCars());
         setWeapons(employee, employeeDTO.getWeapons());
@@ -1321,6 +1324,16 @@ public class EmployeeServiceImp implements EmployeeService {
         return employeeRepo.countEmployeesByFemaleTrainee();
     }
 
+    @Override
+    public List<Object[]> getEmployeeStatsByDepartment() {
+        return userRepo.getUserStatsByDepartment();
+    }
+
+    @Override
+    public Object[] getAllEmployeeStats() {
+        return userRepo.getAllUserStats();
+    }
+
 
     public long getTotalEmployeesByMaster() {
         return employeeRepo.countEmployeesWithDegreeLevelChecked(3);
@@ -1368,7 +1381,8 @@ public class EmployeeServiceImp implements EmployeeService {
 //        setEmployeeDegreeLevels(employee,employeeDTO.getDegreeLevels());
         // Map partial update from DTO to entity
         employeeMapper.fromEmployeeDtoPartially(employeeDTO, employee);
-
+        Department dp = departmentRepo.findById(employeeDTO.getDepartmentId()).orElseThrow();
+        employee.setDepartment(dp);
         setPolicePlateNumberCars(employee, employeeDTO.getPolicePlateNumberCars());
         setWeapons(employee, employeeDTO.getWeapons());
         setAppreciation(employee, employeeDTO.getAppreciations());

@@ -41,9 +41,13 @@ public class AuthenticationService {
 
 
     public void register(RegistrationRequest request) throws MessagingException {
-//        var userRole = roleRepo.findByName(request.getRoles())
-//                // todo - better exception handling
-//                .orElseThrow(() -> new IllegalStateException("ROLE USER was not initiated"));
+        // Check if the username already exists
+        if (userRepo.existsByUsername(request.getUsername())) {
+            // Throw a custom exception or handle the error accordingly
+            throw new IllegalArgumentException("Username '" + request.getUsername() + "' is already taken.");
+        }
+
+        // Create the user object
         var user = User.builder()
                 .username(request.getUsername())
                 .firstname(request.getFirstname())
@@ -52,16 +56,18 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(true)
-//                .roles(Set.of(userRole))
                 .role(Role.valueOf(request.getRole()))
                 .createdDate(LocalDateTime.now())
                 .updatedDate(LocalDateTime.now())
                 .build();
-        System.out.println(user.toString());
-        userRepo.save(user);
-//        sendValidationEmail(user);
 
+        // Save the user to the repository
+        userRepo.save(user);
+
+        // Optionally send validation email
+        // sendValidationEmail(user);
     }
+
 
     private String generateAndSaveToken(User user) {
         String generatedToken = generateActivationCode(6);

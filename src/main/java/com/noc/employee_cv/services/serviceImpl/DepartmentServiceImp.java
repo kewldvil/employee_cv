@@ -27,6 +27,11 @@ public class DepartmentServiceImp implements DepartmentService {
     }
 
     @Override
+    public List<Department> findAllByGeneralDepartmentId(Integer id) {
+        return departmentRepo.findAllByGeneralDepartmentIdAndEnabledTrue(id);
+    }
+
+    @Override
     public void deleteById(Integer id) {
 
     }

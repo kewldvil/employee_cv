@@ -219,6 +219,8 @@ public class ReportServiceImp {
         String updateDateJoinGov = KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getDateJoinGov()));
         String updateDateJoinPolice = KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getDateJoinPolice()));
         String updateStartYear = KhmerNumberUtil.convertToKhmerNumber(employee.getPreviousActivityAndPositionStartYear());
+        String employeeDepartment=employee.getDepartment().getName();
+        System.out.println(employeeDepartment);
         // Parameters map can be used to pass additional parameters to the report
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("REPORT_PATH", REPORT_DIR);
@@ -229,6 +231,7 @@ public class ReportServiceImp {
         parameters.put("WEAPON_LIST", empWeapons);
         parameters.put("VEHICLE_LIST", empVehicle);
         parameters.put("DEGREE_LEVEL_LIST", employeeDegreeLevels);
+        parameters.put("DEPARTMENT",employeeDepartment);
         parameters.put("empProvince", empProvince);
         parameters.put("empDistrict", empDistrict);
         parameters.put("empCommune", empCommune);
@@ -708,6 +711,7 @@ public class ReportServiceImp {
         String updateDateJoinGov = KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getDateJoinGov()));
         String updateDateJoinPolice = KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getDateJoinPolice()));
         String updateStartYear = KhmerNumberUtil.convertToKhmerNumber(employee.getPreviousActivityAndPositionStartYear());
+        String empDepartment=employee.getDepartment().getName();
         // Parameters map can be used to pass additional parameters to the report
         Map<String, Object> parameters = new HashMap<>();
 
@@ -717,6 +721,7 @@ public class ReportServiceImp {
         parameters.put("VOCATIONAL_TRAINING", vocationalTrainingsDatasource);
         parameters.put("APPRECIATION", appreciationDataset);
         parameters.put("ACTIVITY", activityDataset);
+        parameters.put("DEPARTMENT", empDepartment);
         parameters.put("WEAPON_LIST", empWeapons);
         parameters.put("VEHICLE_LIST", empVehicle);
         parameters.put("DEGREE_LEVEL_LIST", employeeDegreeLevels);

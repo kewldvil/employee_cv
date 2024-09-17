@@ -3,7 +3,10 @@ package com.noc.employee_cv.mapper;
 import com.noc.employee_cv.dto.EmployeeDTO;
 import com.noc.employee_cv.models.Employee;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+
+
 
 @Mapper(componentModel = "spring")
 public interface EmployeeMapper {

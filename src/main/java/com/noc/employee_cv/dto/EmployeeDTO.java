@@ -34,7 +34,7 @@ public class EmployeeDTO {
     private String currentPosition;
     private String policeRankDocumentNumber;
     private String positionDocumentNumber;
-
+    private int departmentId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate policeRankDocumentIssueDate;
 

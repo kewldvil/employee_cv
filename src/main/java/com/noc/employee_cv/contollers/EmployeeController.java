@@ -142,23 +142,37 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/users")
+    @GetMapping("/users/{filter}/{departmentId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<UserEmployeeDTO>> getAllUsers() {
-        System.out.println("GET ALL USERS");
-        List<User> users = userRepo.findAll();
-        System.out.println(users.get(95));
-//        System.out.println(users);
+    public ResponseEntity<List<UserEmployeeDTO>> getAllUsers(@PathVariable String filter, @PathVariable Integer departmentId) {
+        List<User> users = switch (filter) {
+            case "employee":
+                if (departmentId == 0) {
+                    System.out.println("GET ALL ACTIVE USERS");
+                    yield userRepo.findAll();
+                } else {
+                    System.out.println("GET ALL USERS BY DEPARTMENT");
+                    yield userRepo.findByDepartmentId(departmentId);
+                }
+            case "weapon":
+                yield userRepo.findAllUsersWithEmployeeAndWeaponsByDepartment(departmentId);
+            default:
+                yield userRepo.findAllUsersWithEmployeeAndPoliceCarByDepartment(departmentId);
+        };
         // Check if users list is not null or empty
         if (!users.isEmpty()) {
-            List<UserEmployeeDTO> employees = users.stream().map(EmployeeController::convertToDTO).toList();
-            // If users list is not empty, return it with HTTP status 200 OK
+            List<UserEmployeeDTO> employees = users.stream()
+                    .map(EmployeeController::convertToDTO)
+                    .toList();
+
+            // Return the list with HTTP status 200 OK
             return ResponseEntity.ok(employees);
         } else {
-            // If users list is empty, return 404 Not Found status code
+            // Return 404 Not Found if the list is empty
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @GetMapping("/report/{format}/{empId}")
     public ResponseEntity<byte[]> generateReport(@PathVariable String format, @PathVariable Integer empId) throws JRException, IOException {
@@ -181,6 +195,7 @@ public class EmployeeController {
             userEmployeeDTO.setCurrentPosition(user.getEmployee().getCurrentPosition());
             userEmployeeDTO.setCurrentPoliceRank(user.getEmployee().getCurrentPoliceRank());
             userEmployeeDTO.setDegreeLevels(user.getEmployee().getEmployeeDegreeLevels());
+            userEmployeeDTO.setDepartmentName(user.getEmployee().getDepartment().getName());
         }
 
         return userEmployeeDTO;

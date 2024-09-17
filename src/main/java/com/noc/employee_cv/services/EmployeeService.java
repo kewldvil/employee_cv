@@ -38,4 +38,7 @@ public interface EmployeeService {
     long getTotalMaleTrainee();
 
     long getTotalFemaleTrainee();
+    List<Object[]> getEmployeeStatsByDepartment();
+    Object[] getAllEmployeeStats();
+
 }

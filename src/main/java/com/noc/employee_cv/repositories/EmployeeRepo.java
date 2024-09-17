@@ -52,7 +52,7 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
 //    long countFemaleEmployees();
     @Query("SELECT COUNT(e) FROM Employee e " +
             "JOIN e.user u " +
-            "WHERE e.gender = 'F' AND u.enabled = true")
+            "WHERE e.gender = 'F' AND e.currentPoliceRank != 'មន្ត្រីហាត់ការ' AND u.enabled = true")
     long countFemaleEmployees();
 
 

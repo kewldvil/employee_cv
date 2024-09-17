@@ -1,5 +1,6 @@
 package com.noc.employee_cv.dto;
 
+import com.noc.employee_cv.models.Department;
 import com.noc.employee_cv.models.EmployeeDegreeLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class UserEmployeeDTO {
     private Boolean enabled;
     private String CurrentPoliceRank;
     private String CurrentPosition;
+    private String departmentName;
     private Set<EmployeeDegreeLevel> degreeLevels;
     private String ImagePath;
     public String ImageName;

@@ -48,6 +48,15 @@ public interface UserRepo extends JpaRepository<User, Integer> {
             "   OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A'))")
     List<User> findAllUsersWithEmployeeAndWeapons();
 
+    @Query("SELECT DISTINCT u FROM User u " +
+            "JOIN FETCH u.employee e " +
+            "LEFT JOIN FETCH e.weapons w " +
+            "WHERE u.enabled = true AND " +
+            "e.department.id = :departmentId AND " +  // Filter by department ID
+            "((w.weaponBrand IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') " +
+            "   OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន') " +
+            "   OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A'))")
+    List<User> findAllUsersWithEmployeeAndWeaponsByDepartment(@Param("departmentId") Integer departmentId);
 
 
     @Query("SELECT DISTINCT u FROM User u " +
@@ -57,6 +66,15 @@ public interface UserRepo extends JpaRepository<User, Integer> {
             "(p.vehicleNumber != '') AND " +
             "(p.vehicleBrand != '')")
     List<User> findAllUsersWithEmployeeAndPoliceCar();
+
+    @Query("SELECT DISTINCT u FROM User u " +
+            "JOIN FETCH u.employee e " +
+            "LEFT JOIN FETCH e.policePlateNumberCars p " +
+            "WHERE u.enabled = true AND " +
+            "e.department.id = :departmentId AND " +  // Filter by department ID
+            "(p.vehicleNumber != '') AND " +
+            "(p.vehicleBrand != '')")
+    List<User> findAllUsersWithEmployeeAndPoliceCarByDepartment(@Param("departmentId") Integer departmentId);
 
 
     @Query("SELECT DISTINCT u FROM User u " +
@@ -75,4 +93,44 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     @Modifying
     @Query("UPDATE User u SET u.enabled = :enabled WHERE u.id = :id")
     void updateUserByEnabled(Integer id, boolean enabled);
+
+    boolean existsByUsername(String username);
+
+    @Query("SELECT e.department.name, " +
+            "e.department.id, " +
+            "COUNT(DISTINCT u) AS totalUsers, " +  // Count distinct users to avoid duplicates
+            "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
+            "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
+            "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END) AS totalMaleTrainees, " +
+            "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END) AS totalFemaleTrainees, " +
+            "COUNT(DISTINCT e.id) FILTER (WHERE( w.id IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន')OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A')) AS totalEmployeesWithWeapons, " +  // Count distinct employees with at least one weapon
+            "COUNT(DISTINCT e.id) FILTER (WHERE p.vehicleBrand <> '' AND p.vehicleNumber <> '') AS totalEmployeesWithPoliceCars " +  // Count distinct employees with at least one police carce car
+            "FROM User u " +
+            "LEFT JOIN u.employee e " +  // Join Employee entity
+            "LEFT JOIN e.weapons w " +  // Join Weapons entity (one-to-many)
+            "LEFT JOIN e.policePlateNumberCars p " +  // Join PoliceCars entity (one-to-many)
+            "WHERE u.enabled = true " +  // Filter for enabled users
+            "GROUP BY e.department.name, e.department.id")
+    List<Object[]> getUserStatsByDepartment();
+
+
+    @Query("SELECT  " +
+            "COUNT(DISTINCT u) AS totalUsers, " +  // Count distinct users to avoid duplicates
+            "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
+            "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
+            "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END) AS totalMaleTrainees, " +
+            "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END) AS totalFemaleTrainees, " +
+            "COUNT(DISTINCT e.id) FILTER (WHERE( w.id IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន')OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A')) AS totalEmployeesWithWeapons, " +  // Count distinct employees with at least one weapon
+            "COUNT(DISTINCT e.id) FILTER (WHERE p.vehicleBrand <> '' AND p.vehicleNumber <> '') AS totalEmployeesWithPoliceCars " +  // Count distinct employees with at least one police car
+            "FROM User u " +
+            "LEFT JOIN u.employee e " +  // Join Employee entity
+            "LEFT JOIN e.weapons w " +  // Join Weapons entity (one-to-many)
+            "LEFT JOIN e.policePlateNumberCars p " +  // Join PoliceCars entity (one-to-many)
+            "WHERE u.enabled = true ")
+    Object[] getAllUserStats();
+
+
+    @Query("SELECT u FROM User u JOIN u.employee e WHERE e.department.id = :id")
+    List<User> findByDepartmentId(@Param("id") Integer departmentId);
+
 }
