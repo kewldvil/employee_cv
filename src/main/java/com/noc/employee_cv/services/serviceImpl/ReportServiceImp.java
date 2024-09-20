@@ -372,7 +372,7 @@ public class ReportServiceImp {
                 VTTrainingPDFDTO dto = new VTTrainingPDFDTO();
                 dto.setTrainingStartDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(vocationalTraining.getTrainingStartDate()), vocationalTraining.getIsNoStartDayMonth()));
                 dto.setTrainingToDate(KhmerNumberUtil.convertToKhmerDayMonthYearAndOnlyYear(formatDateToKh(vocationalTraining.getTrainingToDate()), vocationalTraining.getIsNoEndDayMonth()));
-                dto.setTrainingDuration(KhmerNumberUtil.convertToKhmerNumber(vocationalTraining.getTrainingDuration()));
+                dto.setTrainingDuration(vocationalTraining.getTrainingDuration());
                 dto.setTrainingCourse(vocationalTraining.getTrainingCourse());
                 dto.setTrainingCenter(vocationalTraining.getTrainingCenter());
                 dto.setIsNoStartDayMonth(vocationalTraining.getIsNoStartDayMonth());

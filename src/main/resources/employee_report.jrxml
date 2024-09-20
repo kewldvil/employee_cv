@@ -942,7 +942,7 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="My Khmer Os Siem Reap" size="12"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{trainingDuration}+"ខែ"]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{trainingDuration}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

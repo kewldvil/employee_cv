@@ -14,7 +14,7 @@ public class VocationalTrainingDTO {
     private Integer id;
     private String trainingCenter;
     private String trainingCourse;
-    private int trainingDuration;
+    private String trainingDuration;
     private Boolean isNoStartDayMonth;
     private Boolean isNoEndDayMonth;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
