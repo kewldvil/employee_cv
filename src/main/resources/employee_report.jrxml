@@ -316,11 +316,11 @@
 					<text><![CDATA[ព្រះរាជាណាចក្រកម្ពុជា]]></text>
 				</staticText>
 				<image>
-					<reportElement x="439" y="47" width="75" height="90" uuid="8bf87484-c065-486b-b95d-9265e001fcc5">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<reportElement x="439" y="47" width="85" height="105" uuid="8bf87484-c065-486b-b95d-9265e001fcc5">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<imageExpression><![CDATA[$P{IMAGE_NAME}==null?$P{REPORT_PHOTO_PATH}+"avatar.png":$P{REPORT_PHOTO_PATH}+$P{IMAGE_NAME}]]></imageExpression>
+					<imageExpression><![CDATA[$P{IMAGE_NAME}==null?$P{REPORT_PHOTO_PATH}+"4x6.png":$P{REPORT_PHOTO_PATH}+$P{IMAGE_NAME}]]></imageExpression>
 				</image>
 			</frame>
 			<staticText>
@@ -584,8 +584,7 @@
 			<textField>
 				<reportElement x="352" y="90" width="199" height="22" forecolor="#0000CC" uuid="4a9eac42-3403-4cb1-a42e-ef1092d91fde">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<printWhenExpression><![CDATA[!$P{empCommune}.equals("ផ្សេងៗ")
-]]></printWhenExpression>
+					<printWhenExpression><![CDATA[!$P{empCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
