@@ -83,13 +83,23 @@ public class PhotoController {
             if (user != null && user.getImageName() != null) {
                 Path filePath = Paths.get(uploadDir).resolve(user.getImageName());
                 if (Files.exists(filePath)) {
-                    byte[] fileContent = Files.readAllBytes(filePath);
+                    // Read original image bytes
+                    byte[] originalImageBytes = Files.readAllBytes(filePath);
+
+                    // Generate thumbnail using Thumbnalator
+                    ByteArrayOutputStream thumbnailOutputStream = new ByteArrayOutputStream();
+                    Thumbnails.of(filePath.toFile())
+                            .size(150, 150) // Adjust size for thumbnail
+                            .toOutputStream(thumbnailOutputStream);
+
+                    byte[] thumbnailBytes = thumbnailOutputStream.toByteArray();
+
                     HttpHeaders headers = new HttpHeaders();
                     headers.setContentType(MediaType.IMAGE_JPEG); // Adjust based on your file type
-                    headers.setContentLength(fileContent.length);
-                    headers.setContentDispositionFormData("attachment", user.getImageName());
+                    headers.setContentLength(thumbnailBytes.length);
+                    headers.setContentDispositionFormData("attachment", "thumbnail_" + user.getImageName());
 
-                    return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+                    return new ResponseEntity<>(thumbnailBytes, headers, HttpStatus.OK);
                 } else {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
                 }
@@ -100,6 +110,40 @@ public class PhotoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+//    @GetMapping("/by-user-id/{userId}")
+//    public ResponseEntity<byte[]> getPhotoByUserId(@PathVariable Integer userId) {
+//        try {
+//            User user = storageService.getPhotoByUserId(userId);
+//            if (user != null && user.getImageName() != null) {
+//                Path filePath = Paths.get(uploadDir).resolve(user.getImageName());
+//                if (Files.exists(filePath)) {
+//                    // Read original image bytes
+//                    byte[] originalImageBytes = Files.readAllBytes(filePath);
+//
+//                    // Generate thumbnail using Thumbnalator
+//                    ByteArrayOutputStream thumbnailOutputStream = new ByteArrayOutputStream();
+//                    Thumbnails.of(filePath.toFile())
+//                            .size(150, 150) // Adjust size for thumbnail
+//                            .toOutputStream(thumbnailOutputStream);
+//
+//                    byte[] thumbnailBytes = thumbnailOutputStream.toByteArray();
+//
+//                    HttpHeaders headers = new HttpHeaders();
+//                    headers.setContentType(MediaType.IMAGE_JPEG); // Adjust based on your file type
+//                    headers.setContentLength(thumbnailBytes.length);
+//                    headers.setContentDispositionFormData("attachment", "thumbnail_" + user.getImageName());
+//
+//                    return new ResponseEntity<>(thumbnailBytes, headers, HttpStatus.OK);
+//                } else {
+//                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//                }
+//            } else {
+//                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+//            }
+//        } catch (IOException ex) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
 
 //    @GetMapping(value = "/by-filename/{filename}")
 //    public ResponseEntity<byte[]> getImage(@PathVariable String filename) {
@@ -149,14 +193,18 @@ public class PhotoController {
                     String imageFormat = mimeType.substring(mimeType.lastIndexOf('/') + 1);
 
                     // Compress and resize the image
-                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//                    Thumbnails.of(filePath.toFile())
+//                            .size(150, 150) // Adjust the size as needed
+//                            .outputFormat(imageFormat) // Output in the same format
+//                            .outputQuality(1) // Adjust the compression quality (0.0 to 1.0)
+//                            .toOutputStream(outputStream);
+                    // Generate thumbnail using Thumbnalator
+                    ByteArrayOutputStream thumbnailOutputStream = new ByteArrayOutputStream();
                     Thumbnails.of(filePath.toFile())
-                            .size(100, 50) // Adjust the size as needed
-                            .outputFormat(imageFormat) // Output in the same format
-                            .outputQuality(1) // Adjust the compression quality (0.0 to 1.0)
-                            .toOutputStream(outputStream);
-
-                    byte[] compressedImage = outputStream.toByteArray();
+                            .size(150, 150) // Adjust size for thumbnail
+                            .toOutputStream(thumbnailOutputStream);
+                    byte[] compressedImage = thumbnailOutputStream.toByteArray();
 
                     // Set headers
                     HttpHeaders headers = new HttpHeaders();
