@@ -462,7 +462,7 @@ public class ReportServiceImp {
             }
         }
         // Sort the list by id in ascending order
-        list.sort(Comparator.comparing(ChildrenPDFDTO::getRealDateOfBirth));
+        list.sort(Comparator.nullsLast(Comparator.comparing(ChildrenPDFDTO::getRealDateOfBirth, Comparator.nullsLast(Comparator.naturalOrder()))));
         // Convert back to LinkedHashSet to maintain the sorted order in a Set
         return new LinkedHashSet<>(list);
     }

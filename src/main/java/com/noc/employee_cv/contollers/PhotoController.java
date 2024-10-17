@@ -5,6 +5,7 @@ import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.FileStorageServiceImpl;
 import com.noc.employee_cv.services.serviceImpl.PhotoStorageServiceImpl;
 import lombok.RequiredArgsConstructor;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -99,6 +101,35 @@ public class PhotoController {
         }
     }
 
+//    @GetMapping(value = "/by-filename/{filename}")
+//    public ResponseEntity<byte[]> getImage(@PathVariable String filename) {
+//        try {
+//            if (filename != null && !filename.trim().isEmpty()) {
+//                // Decode the filename to handle Unicode characters properly
+//                String decodedFilename = new String(filename.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+//
+//                Path filePath = Paths.get(uploadDir).resolve(decodedFilename);
+//                if (Files.exists(filePath)) {
+//                    byte[] fileContent = Files.readAllBytes(filePath);
+//
+//                    // Set headers
+//                    HttpHeaders headers = new HttpHeaders();
+//                    headers.setContentType(MediaType.IMAGE_JPEG); // Adjust based on your file type
+//                    headers.setContentLength(fileContent.length);
+//                    headers.setContentDispositionFormData("attachment", decodedFilename);
+//
+//                    return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+//                } else {
+//                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//                }
+//            } else {
+//                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+//            }
+//        } catch (IOException ex) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
+
     @GetMapping(value = "/by-filename/{filename}")
     public ResponseEntity<byte[]> getImage(@PathVariable String filename) {
         try {
@@ -108,15 +139,32 @@ public class PhotoController {
 
                 Path filePath = Paths.get(uploadDir).resolve(decodedFilename);
                 if (Files.exists(filePath)) {
-                    byte[] fileContent = Files.readAllBytes(filePath);
+                    // Detect MIME type dynamically
+                    String mimeType = Files.probeContentType(filePath);
+                    if (mimeType == null || !mimeType.startsWith("image/")) {
+                        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).build();
+                    }
+
+                    // Extract the image format (e.g., png, jpeg) from the MIME type
+                    String imageFormat = mimeType.substring(mimeType.lastIndexOf('/') + 1);
+
+                    // Compress and resize the image
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    Thumbnails.of(filePath.toFile())
+                            .size(100, 50) // Adjust the size as needed
+                            .outputFormat(imageFormat) // Output in the same format
+                            .outputQuality(1) // Adjust the compression quality (0.0 to 1.0)
+                            .toOutputStream(outputStream);
+
+                    byte[] compressedImage = outputStream.toByteArray();
 
                     // Set headers
                     HttpHeaders headers = new HttpHeaders();
-                    headers.setContentType(MediaType.IMAGE_JPEG); // Adjust based on your file type
-                    headers.setContentLength(fileContent.length);
+                    headers.setContentType(MediaType.parseMediaType(mimeType)); // Set dynamically based on MIME type
+                    headers.setContentLength(compressedImage.length);
                     headers.setContentDispositionFormData("attachment", decodedFilename);
 
-                    return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+                    return new ResponseEntity<>(compressedImage, headers, HttpStatus.OK);
                 } else {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
                 }
