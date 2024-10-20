@@ -2,9 +2,12 @@ package com.noc.employee_cv.repositories;
 
 import com.noc.employee_cv.models.Employee;
 import com.noc.employee_cv.models.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -51,12 +54,20 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     @Query("SELECT DISTINCT u FROM User u " +
             "JOIN FETCH u.employee e " +
             "LEFT JOIN FETCH e.weapons w " +
-            "WHERE u.enabled = true AND " +
-            "e.department.id = :departmentId AND " +  // Filter by department ID
-            "((w.weaponBrand IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') " +
+            "WHERE u.enabled = true " +
+            "AND e.department.id = :departmentId " +  // Filter by department ID
+            "AND ( " +
+            "   (w.weaponBrand IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') " +
             "   OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន') " +
-            "   OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A'))")
-    List<User> findAllUsersWithEmployeeAndWeaponsByDepartment(@Param("departmentId") Integer departmentId);
+            "   OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A') " +
+            ") " +
+            "AND (CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%)")
+        // Add search functionality
+    Page<User> findAllUsersWithEmployeeAndWeaponsByDepartment(
+            @Param("departmentId") Integer departmentId,
+            @Param("search") String search,
+            Pageable pageable
+    );
 
 
     @Query("SELECT DISTINCT u FROM User u " +
@@ -70,11 +81,17 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     @Query("SELECT DISTINCT u FROM User u " +
             "JOIN FETCH u.employee e " +
             "LEFT JOIN FETCH e.policePlateNumberCars p " +
-            "WHERE u.enabled = true AND " +
-            "e.department.id = :departmentId AND " +  // Filter by department ID
-            "(p.vehicleNumber != '') AND " +
-            "(p.vehicleBrand != '')")
-    List<User> findAllUsersWithEmployeeAndPoliceCarByDepartment(@Param("departmentId") Integer departmentId);
+            "WHERE u.enabled = true " +
+            "AND e.department.id = :departmentId " +  // Filter by department ID
+            "AND (p.vehicleNumber <> '' AND p.vehicleNumber <> '') " + // Ensure vehicleNumber is not empty
+            "AND (p.vehicleBrand <> '' AND p.vehicleNumber <> '') " +   // Ensure vehicleBrand is not empty
+            "AND (CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%)")
+        // Add search functionality
+    Page<User> findAllUsersWithEmployeeAndPoliceCarByDepartment(
+            @Param("departmentId") Integer departmentId,
+            @Param("search") String search,
+            Pageable pageable
+    );
 
 
     @Query("SELECT DISTINCT u FROM User u " +
@@ -130,7 +147,15 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     Object[] getAllUserStats();
 
 
-    @Query("SELECT u FROM User u JOIN u.employee e WHERE e.department.id = :id")
-    List<User> findByDepartmentId(@Param("id") Integer departmentId);
+    @Query("SELECT u FROM User u JOIN u.employee e WHERE e.department.id = :departmentId " +
+            "AND (CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%)")
+    Page<User> findByDepartmentIdAndSearch(
+            @Param("departmentId") Integer departmentId,
+            @Param("search") String search,
+            Pageable pageable
+    );
+
+    @Query("SELECT u FROM User u WHERE CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%")
+    Page<User> findAllByNameOrUsername(@Param("search") String search, Pageable pageable);
 
 }
