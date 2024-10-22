@@ -110,40 +110,40 @@ public class PhotoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-//    @GetMapping("/by-user-id/{userId}")
-//    public ResponseEntity<byte[]> getPhotoByUserId(@PathVariable Integer userId) {
-//        try {
-//            User user = storageService.getPhotoByUserId(userId);
-//            if (user != null && user.getImageName() != null) {
-//                Path filePath = Paths.get(uploadDir).resolve(user.getImageName());
-//                if (Files.exists(filePath)) {
-//                    // Read original image bytes
-//                    byte[] originalImageBytes = Files.readAllBytes(filePath);
-//
-//                    // Generate thumbnail using Thumbnalator
-//                    ByteArrayOutputStream thumbnailOutputStream = new ByteArrayOutputStream();
-//                    Thumbnails.of(filePath.toFile())
-//                            .size(150, 150) // Adjust size for thumbnail
-//                            .toOutputStream(thumbnailOutputStream);
-//
-//                    byte[] thumbnailBytes = thumbnailOutputStream.toByteArray();
-//
-//                    HttpHeaders headers = new HttpHeaders();
-//                    headers.setContentType(MediaType.IMAGE_JPEG); // Adjust based on your file type
-//                    headers.setContentLength(thumbnailBytes.length);
-//                    headers.setContentDispositionFormData("attachment", "thumbnail_" + user.getImageName());
-//
-//                    return new ResponseEntity<>(thumbnailBytes, headers, HttpStatus.OK);
-//                } else {
-//                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//                }
-//            } else {
-//                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-//            }
-//        } catch (IOException ex) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+    @GetMapping("/photo-full-size/{userId}")
+    public ResponseEntity<byte[]> getActualSizePhotoByUserId(@PathVariable Integer userId) {
+        try {
+            User user = storageService.getPhotoByUserId(userId);
+            if (user != null && user.getImageName() != null) {
+                Path filePath = Paths.get(uploadDir).resolve(user.getImageName());
+                if (Files.exists(filePath)) {
+                    // Read original image file
+                    ByteArrayOutputStream compressedOutputStream = new ByteArrayOutputStream();
+
+                    // Compress the image by reducing its quality to 50%
+                    Thumbnails.of(filePath.toFile())
+                            .scale(1) // Keep original dimensions
+                            .outputQuality(0.6) // 50% quality
+                            .toOutputStream(compressedOutputStream);
+
+                    byte[] compressedImageBytes = compressedOutputStream.toByteArray();
+
+                    HttpHeaders headers = new HttpHeaders();
+                    headers.setContentType(MediaType.IMAGE_JPEG); // Adjust this based on your image type
+                    headers.setContentLength(compressedImageBytes.length);
+                    headers.setContentDispositionFormData("attachment", "compressed_" + user.getImageName());
+
+                    return new ResponseEntity<>(compressedImageBytes, headers, HttpStatus.OK);
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            }
+        } catch (IOException ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 //    @GetMapping(value = "/by-filename/{filename}")
 //    public ResponseEntity<byte[]> getImage(@PathVariable String filename) {

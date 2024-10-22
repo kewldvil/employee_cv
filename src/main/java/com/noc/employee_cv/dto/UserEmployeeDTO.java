@@ -15,11 +15,14 @@ public class UserEmployeeDTO {
     private String username;
     private String firstname;
     private String lastname;
+    private String email;
+    private String role;
     private String gender;
     private Boolean isMarried;
     private Boolean enabled;
     private String CurrentPoliceRank;
     private String CurrentPosition;
+    private int departmentId;
     private String departmentName;
     private Set<EmployeeDegreeLevel> degreeLevels;
     private String ImagePath;

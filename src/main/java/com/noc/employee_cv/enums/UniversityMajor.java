@@ -3,7 +3,7 @@ package com.noc.employee_cv.enums;
 public enum UniversityMajor implements CommonEnum{
     IT("ព័ត៌មានវិទ្យា"),
     MECHANIC("មេកានិច"),
-    LAW("ច្បាប់"),
+    LAW("នីតិសាស្រ្ត"),
     MARKETING("ទីផ្សារ"),
     MANAGEMENT("គ្រប់គ្រង"),
     CIVIL_ENGINEER("វិស្វករសំណង់ស៊ីវិល"),
@@ -20,7 +20,8 @@ public enum UniversityMajor implements CommonEnum{
     FRANCE_LANG("អក្សរសាស្ត្របារាំង"),
     FINANCE("ហិរញ្ញវត្ថុ"),
     FOREIGN_AFFAIR("ទំនាក់ទំនងការបរទេស"),
-    HOTEL_AND_HOSPITALITY_MANAGEMENT("គ្រប់គ្រងសណ្ឋាគារ និងបដិសណ្ខារកិច្ច");
+    HOTEL_AND_HOSPITALITY_MANAGEMENT("គ្រប់គ្រងសណ្ឋាគារ និងបដិសណ្ខារកិច្ច"),
+    COMMERCE("ពាណិជ្ជកម្ម");
 
     public final String majorSkill;
 

@@ -4,7 +4,13 @@ import com.noc.employee_cv.authentication.AuthenticationService;
 import com.noc.employee_cv.authentication.IncorrectPasswordException;
 import com.noc.employee_cv.dto.PoliceRankCountProjection;
 import com.noc.employee_cv.dto.UserEmployeeDTO;
+import com.noc.employee_cv.dto.UserProfileDTO;
+import com.noc.employee_cv.enums.Role;
+import com.noc.employee_cv.models.Department;
+import com.noc.employee_cv.models.Employee;
 import com.noc.employee_cv.models.User;
+import com.noc.employee_cv.repositories.DepartmentRepo;
+import com.noc.employee_cv.repositories.EmployeeRepo;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +19,12 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @RestController
@@ -26,6 +35,8 @@ public class DashboardController {
     private final EmployeeServiceImp employeeService;
     private final UserRepo userRepo;
     private final AuthenticationService service;
+    private final DepartmentRepo departmentRepo;
+    private final EmployeeRepo employeeRepo;
 
     @GetMapping("/total-employee")
     public ResponseEntity<Long> getTotalEmployees() {
@@ -149,6 +160,75 @@ public class DashboardController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Current password is incorrect");
         }
     }
+
+    @PutMapping("/user/profile/{userId}")
+    public ResponseEntity<String> updateUserProfile(@PathVariable Integer userId, @RequestBody UserProfileDTO userProfile) {
+        System.out.println("Updating user " + userId);
+        try {
+            // Find the user by userId, or throw an exception if not found
+            User user = userRepo.findUserById(userId);
+
+            // Update the user details
+            user.setFirstname(userProfile.getFirstname());
+            user.setLastname(userProfile.getLastname());
+            user.setEmail(userProfile.getEmail());
+            user.setUsername(userProfile.getUsername());
+
+            try {
+                // Ensure role is valid
+                user.setRole(Role.valueOf(userProfile.getRole()));
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role specified");
+            }
+
+            // Save the updated user
+            userRepo.save(user);
+
+            // Return 202 Accepted response
+            return ResponseEntity.accepted().body("User profile updated successfully");
+
+        } catch (ResponseStatusException e) {
+            // Handle specific errors, like "User not found"
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        } catch (Exception e) {
+            // Handle any other unexpected errors
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating user profile");
+        }
+    }
+
+    @PutMapping("/user/department/{userId}/{departmentId}")
+    public ResponseEntity<String> changeUserDepartment(@PathVariable Integer userId, @PathVariable Integer departmentId) {
+        System.out.println(userId);
+        System.out.println("change department");
+        try {
+
+
+            Optional<User> optionalUser = Optional.ofNullable(userRepo.findUserById(userId));
+            if (optionalUser.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+            Optional<Employee> optionalEmployee = Optional.ofNullable(employeeRepo.findByUserId(optionalUser.get().getId()));
+            if (optionalEmployee.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
+            }
+            Employee employee = optionalEmployee.get();
+            Department department = departmentRepo.findById(departmentId)
+                    .orElseThrow(() -> new NoSuchElementException("Department not found"));
+
+            employee.setDepartment(department);
+            employeeRepo.save(employee);
+//            System.out.println(employee.getUser());
+//            System.out.println(employee.getDepartment().getName());
+
+
+            return ResponseEntity.accepted().body("Department changed successfully");
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while changing department");
+        }
+    }
+
 
     @GetMapping("employee-stats-by-department")
     public ResponseEntity<List<Object[]>> getEmployeeState() {
