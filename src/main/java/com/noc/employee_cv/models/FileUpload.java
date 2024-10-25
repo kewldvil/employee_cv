@@ -1,7 +1,6 @@
 package com.noc.employee_cv.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.noc.employee_cv.enums.FileTYpe;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

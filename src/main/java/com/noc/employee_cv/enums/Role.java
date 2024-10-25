@@ -22,8 +22,12 @@ public enum Role {
             Permission.MANAGER_UPDATE,
             Permission.MANAGER_DELETE
 
-    ))
-    ,MANAGER(Set.of(
+    )), MANAGER(Set.of(
+            Permission.MANAGER_CREATE,
+            Permission.MANAGER_READ,
+            Permission.MANAGER_UPDATE,
+            Permission.MANAGER_DELETE
+    )), HEAD_OF_BUREAU(Set.of(
             Permission.MANAGER_CREATE,
             Permission.MANAGER_READ,
             Permission.MANAGER_UPDATE,
@@ -33,11 +37,11 @@ public enum Role {
     private final Set<Permission> permissions;
 
     public List<SimpleGrantedAuthority> getAuthorities() {
-        var authorities= new java.util.ArrayList<>(getPermissions()
+        var authorities = new java.util.ArrayList<>(getPermissions()
                 .stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.name()))
                 .toList());
-        authorities.add(new SimpleGrantedAuthority("ROLE_"+this.name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
         return authorities;
     }
 }

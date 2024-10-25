@@ -1,5 +1,5 @@
 package com.noc.employee_cv.enums;
 
-public enum FileTYpe {
+public enum FileType {
     UNIVERSITY_FILE, PROFESSION_FILE, APPRECIATION_FILE, POLICE_RANKING_FILE, POLICE_POSITION_FILE,
 }

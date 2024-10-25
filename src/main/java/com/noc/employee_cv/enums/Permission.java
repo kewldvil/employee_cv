@@ -16,7 +16,10 @@ public enum Permission {
     MANAGER_CREATE("management:create"),
     MANAGER_DELETE("management:delete");
 
-
+//    HEAD_OF_BUREAU_READ("management:read"),
+//    HEAD_OF_BUREAU_UPDATE("management:update"),
+//    HEAD_OF_BUREAU_CREATE("management:create"),
+//    HEAD_OF_BUREAU_DELETE("management:delete");
 
     private final String permission;
 }

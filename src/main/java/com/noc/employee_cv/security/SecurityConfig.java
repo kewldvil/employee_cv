@@ -38,24 +38,41 @@ public class SecurityConfig {
             "/swagger-ui.html"};
     private final AuthenticationProvider authenticationProvider;
     private final JwtFilter jwtAuthFilter;
-
+    // Define common roles and authorities
+    String[] COMMON_ROLES = {ADMIN.name(), MANAGER.name(), USER.name(), HEAD_OF_BUREAU.name()};
+    String[] ADMIN_ONLY = {ADMIN.name()};
+    String[] READ_AUTHORITIES = {ADMIN_READ.name(), MANAGER_READ.name(), HEAD_OF_BUREAU.name()};
+    String[] ADMIN_READ_ONLY = {ADMIN_READ.name()};
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
+                        // Permit all to specific paths
                         .requestMatchers(WHITE_LIST_URL).permitAll()
                         .requestMatchers("/photos/**").permitAll()
-                        .requestMatchers("/api/v1/photo/**","/api/v1/files/**", "/api/v1/employee/**", "/api/v1/address/**", "/api/v1/enum/**").hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
-                        .requestMatchers("/api/v1/general-department/**").hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
-                        .requestMatchers("/api/v1/department/**").hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
-                        .requestMatchers("/api/v1/bureau").hasAnyRole(ADMIN.name())
-                        .requestMatchers("/api/v1/managements/**").hasAnyRole(ADMIN.name(), MANAGER.name())
-                        .requestMatchers(GET, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                        .requestMatchers(POST, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ.name())
-                        .requestMatchers(PUT, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ.name())
-                        .requestMatchers(DELETE, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ.name())
+
+                        // Common roles for multiple endpoints
+                        .requestMatchers("/api/v1/photo/**", "/api/v1/files/**", "/api/v1/employee/**", "/api/v1/address/**", "/api/v1/enum/**")
+                        .hasAnyRole(COMMON_ROLES)
+                        .requestMatchers("/api/v1/general-department/**", "/api/v1/department/**")
+                        .hasAnyRole(COMMON_ROLES)
+
+                        // Bureau endpoint restricted to ADMIN only
+                        .requestMatchers("/api/v1/bureau").hasAnyRole(ADMIN_ONLY)
+
+                        // Management endpoint role-based access
+                        .requestMatchers("/api/v1/managements/**")
+                        .hasAnyRole(ADMIN.name(), MANAGER.name(), HEAD_OF_BUREAU.name())
+
+                        // Management endpoint with method-specific authority checks
+                        .requestMatchers(GET, "/api/v1/managements/**").hasAnyAuthority(READ_AUTHORITIES)
+                        .requestMatchers(POST, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ_ONLY)
+                        .requestMatchers(PUT, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ_ONLY)
+                        .requestMatchers(DELETE, "/api/v1/managements/**").hasAnyAuthority(ADMIN_READ_ONLY)
+
+                        // All other requests require authentication
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
