@@ -120,15 +120,20 @@ public interface UserRepo extends JpaRepository<User, Integer> {
             "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
             "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END) AS totalMaleTrainees, " +
             "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END) AS totalFemaleTrainees, " +
-            "COUNT(DISTINCT e.id) FILTER (WHERE( w.id IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន')OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A')) AS totalEmployeesWithWeapons, " +  // Count distinct employees with at least one weapon
-            "COUNT(DISTINCT e.id) FILTER (WHERE p.vehicleBrand <> '' AND p.vehicleNumber <> '') AS totalEmployeesWithPoliceCars " +  // Count distinct employees with at least one police carce car
+            "SUM(CASE WHEN (w.id IS NOT NULL AND w.weaponBrand IS NOT NULL AND w.weaponBrand <> '' AND w.weaponBrand <> 'គ្មាន') " +
+            "OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber <> '' AND w.weaponSerialNumber <> 'គ្មាន') " +
+            "OR (w.weaponType IS NOT NULL AND w.weaponType <> '' AND w.weaponType <> 'គ្មាន' AND w.weaponType <> 'N/A') THEN 1 ELSE 0 END) AS totalEmployeesWithWeapons, " +
+            "SUM(CASE WHEN (p.vehicleBrand IS NOT NULL AND p.vehicleBrand <> '') " +
+            "AND (p.vehicleNumber IS NOT NULL AND p.vehicleNumber <> '') THEN 1 ELSE 0 END) AS totalEmployeesWithPoliceCars " +
             "FROM User u " +
             "LEFT JOIN u.employee e " +  // Join Employee entity
-            "LEFT JOIN e.weapons w " +  // Join Weapons entity (one-to-many)
+            "LEFT JOIN e.weapons w " +   // Join Weapons entity (one-to-many)
             "LEFT JOIN e.policePlateNumberCars p " +  // Join PoliceCars entity (one-to-many)
             "WHERE u.enabled = true " +  // Filter for enabled users
-            "GROUP BY e.department.name, e.department.id")
+            "GROUP BY e.department.name, e.department.id " +
+            "ORDER BY e.department.id ASC")
     List<Object[]> getUserStatsByDepartment();
+
 
 
     @Query("SELECT  " +

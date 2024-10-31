@@ -3,8 +3,10 @@ package com.noc.employee_cv.authentication;
 import com.noc.employee_cv.email.EmailService;
 import com.noc.employee_cv.email.EmailTemplateName;
 import com.noc.employee_cv.enums.Role;
+import com.noc.employee_cv.models.Employee;
 import com.noc.employee_cv.models.Token;
 import com.noc.employee_cv.models.User;
+import com.noc.employee_cv.repositories.EmployeeRepo;
 import com.noc.employee_cv.repositories.TokenRepo;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.security.JwtService;
@@ -32,7 +34,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final TokenRepo tokenRepo;
-    @Autowired
+    private final EmployeeRepo employeeRepo;
     private UserRepo userRepo;
     private final EmailService emailService;
 
@@ -107,31 +109,37 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        var auth = authenticationManager.authenticate(
+        var authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()
                 )
         );
+
+        var user = (User) authentication.getPrincipal();
         var claims = new HashMap<String, Object>();
-        var user = (User) auth.getPrincipal();
-//        var user = User.builder()
-//                .id(loggedInUser.getId())
-//                .firstname(loggedInUser.getFirstname())
-//                .lastname(loggedInUser.getLastname())
-//                .role(loggedInUser.getRole())
-//                .build();
+        Employee employee = employeeRepo.findByUserId(user.getId());
+
+        // Add user details to claims
         claims.put("firstname", user.getFirstname());
         claims.put("lastname", user.getLastname());
         claims.put("id", user.getId());
         claims.put("role", user.getRole());
+
+        // Add department ID if available
+        if (employee != null && employee.getDepartment() != null) {
+            claims.put("depId", employee.getDepartment().getId());
+        } else {
+            System.out.println("Employee or Department is null");
+        }
+
         var jwtToken = jwtService.generateToken(claims, user);
-//        System.out.println(jwtToken);
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-//                .user(user)
                 .build();
     }
+
 
     //    @Transactional
     public void activateAccount(String token) throws MessagingException {
