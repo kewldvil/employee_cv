@@ -1,5 +1,6 @@
 package com.noc.employee_cv.services.serviceImpl;
 
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.util.JRFontNotFoundException;
 import com.noc.employee_cv.dto.*;
 import com.noc.employee_cv.models.*;
@@ -17,6 +18,9 @@ import io.github.metheax.utils.ChhankitekUtils;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.export.SimpleDocxReportConfiguration;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -28,10 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import javax.print.attribute.standard.Media;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -795,14 +796,30 @@ public class ReportServiceImp {
         HttpHeaders headers = new HttpHeaders();
         byte[] data = new byte[0];
         try {
-            if (reportFormat.equalsIgnoreCase("html")) {
-                JasperExportManager.exportReportToHtmlFile(jasperPrint, filePath);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            if (reportFormat.equalsIgnoreCase("docx")) {
+                JRDocxExporter exporter = new JRDocxExporter();
+                exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+                exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+
+                SimpleDocxReportConfiguration config = new SimpleDocxReportConfiguration();
+                exporter.setConfiguration(config);
+                exporter.exportReport();
+
+                headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=employee_report.docx");
+                return ResponseEntity.ok()
+                        .headers(headers)
+                        .contentType(MediaType.APPLICATION_OCTET_STREAM)  // Use APPLICATION_OCTET_STREAM for DOCX
+                        .body(outputStream.toByteArray());
+
             } else if (reportFormat.equalsIgnoreCase("pdf")) {
-//                JasperExportManager.exportReportToPdfFile(jasperPrint, filePath);
-
                 data = JasperExportManager.exportReportToPdf(jasperPrint);
+                headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=employee_report.pdf");
+                return ResponseEntity.ok()
+                        .headers(headers)
+                        .contentType(MediaType.APPLICATION_PDF)
+                        .body(data);
 
-                headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline:filename=employee_report.pdf");
             } else {
                 throw new RuntimeException("Unknown report format: " + reportFormat);
             }
@@ -810,6 +827,6 @@ public class ReportServiceImp {
             throw new JRException("Unable to export the report to the specified format: " + reportFormat, e);
         }
 
-        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
+
     }
 }
