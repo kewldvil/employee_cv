@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="children_report" pageWidth="551" pageHeight="842" columnWidth="551" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b088c322-c506-4a0b-bdde-1fff09f9b05e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="CHILDREN_LIST" class="java.util.Collection"/>
+	<parameter name="CHILD_NUMBER" class="java.lang.String"/>
+	<parameter name="TOTAL_MALE_CHILD" class="java.lang.String"/>
+	<parameter name="TOTAL_FEMALE_CHILD" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="fullName" class="java.lang.String"/>
+	<field name="gender" class="java.lang.String"/>
+	<field name="dateOfBirth" class="java.lang.String"/>
+	<field name="job" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="7" width="551" height="22" uuid="3fa9a514-d7dd-45f6-adb6-417f058988ce">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="81" height="22" uuid="24836caf-7398-4513-aae5-33d3c903383e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខ-មានកូនចំនួន៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="152" y="0" width="43" height="22" uuid="0586a69b-4348-4910-958d-6cacb1af3ec0"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[នាក់, ស្រី]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="273" y="0" width="58" height="22" uuid="185fca40-f44e-43bf-9982-b3508df34615"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[នាក់, ប្រុស]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="408" y="0" width="23" height="22" uuid="efc3eb97-7ba4-4c81-8108-ffb4d5e59f8d"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[នាក់]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="86" y="0" width="61" height="22" forecolor="#0000CC" uuid="75dd5bfd-6b9f-4f21-9b13-48d9c8c84752">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06fb8ae6-05cf-4f77-9af6-bfdbc85ea96f"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{CHILD_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="200" y="0" width="68" height="22" forecolor="#0000CC" uuid="933f80db-2130-4451-88a1-dd4ba18cb9a9">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06fb8ae6-05cf-4f77-9af6-bfdbc85ea96f"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{TOTAL_FEMALE_CHILD}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="336" y="0" width="67" height="22" forecolor="#0000CC" uuid="ba264e17-598d-4b6f-bad7-b68e3d6bdf47">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06fb8ae6-05cf-4f77-9af6-bfdbc85ea96f"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{TOTAL_MALE_CHILD}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<frame>
+				<reportElement x="24" y="0" width="527" height="22" uuid="3ecc7c51-460a-4a82-bcfb-13558c11095a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textField>
+					<reportElement x="0" y="0" width="22" height="22" uuid="d27f4ebf-79d0-4b8e-a51d-fe3ab6aa2412">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06fb8ae6-05cf-4f77-9af6-bfdbc85ea96f"/>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new StringBuilder()
+    .append("\u17E0")  // Replace with "Page" in Khmer if needed
+    .append($V{REPORT_COUNT})
+    .toString()
+    .replace('0', '\u17E0')
+    .replace('1', '\u17E1')
+    .replace('2', '\u17E2')
+    .replace('3', '\u17E3')
+    .replace('4', '\u17E4')
+    .replace('5', '\u17E5')
+    .replace('6', '\u17E6')
+    .replace('7', '\u17E7')
+    .replace('8', '\u17E8')
+    .replace('9', '\u17E9')]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="22" y="0" width="35" height="22" uuid="7240702e-5706-461a-822e-39546b99252f"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[-ឈ្មោះ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="169" y="0" width="21" height="22" uuid="88c2f501-fde3-462d-8bf3-f3f0b0fd3d1b"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភេទ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="221" y="0" width="75" height="22" uuid="32647bcb-89db-4e14-9029-503e81b02e56"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ថ្ងៃខែឆ្នាំកំណើត]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="389" y="0" width="33" height="22" uuid="d3e17e64-497e-4c4a-8534-b02f21c97750"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[មុខរបរ]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="57" y="0" width="112" height="22" forecolor="#0000CC" uuid="50d4f710-d2bc-485b-b7c9-4728800ab0e5">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dd2111a-9531-47cf-99a4-4403a44ff88b"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fullName}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="190" y="0" width="31" height="22" forecolor="#0000CC" uuid="97caf217-93da-4a9e-9739-21c93be63b66">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dd2111a-9531-47cf-99a4-4403a44ff88b"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{gender}.equals("M") ? "ប្រុស" : "ស្រី"]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="296" y="0" width="93" height="22" forecolor="#0000CC" uuid="40086bad-6bbf-428d-8ecb-089a3b00510d">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dd2111a-9531-47cf-99a4-4403a44ff88b"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dateOfBirth}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="422" y="0" width="103" height="22" forecolor="#0000CC" uuid="7595628a-6f1d-4760-8b95-0dd11b5b3a77">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dd2111a-9531-47cf-99a4-4403a44ff88b"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{job}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

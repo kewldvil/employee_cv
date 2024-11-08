@@ -812,7 +812,7 @@
 					<subreportParameterExpression><![CDATA[$P{VEHICLE_LIST}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{VEHICLE_LIST})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{REPORT_PATH}+"vehicle_report.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{REPORT_PATH}+"vehicle_report_docx.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="44">

@@ -72,10 +72,10 @@ public class ReportServiceImp {
         // Load file and compile
         File file;
         try {
-            file = ResourceUtils.getFile("classpath:employee_report.jrxml");
+            file = ResourceUtils.getFile("classpath:employee_report_docx.jrxml");
             System.out.println("Report file path: " + file.getAbsolutePath()); // Log the file path
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("The report file was not found in the classpath: employee_report.jrxml");
+            throw new FileNotFoundException("The report file was not found in the classpath: employee_report_docx.jrxml");
         }
 
         JasperReport jasperReport;
@@ -488,7 +488,7 @@ public class ReportServiceImp {
 
         // Load file and compile
         JasperReport jasperReport;
-        String reportPath = REPORT_DIR + "employee_report.jrxml";
+        String reportPath = REPORT_DIR + "employee_report_"+reportFormat+".jrxml";
         Resource resource = resourceLoader.getResource(reportPath);
         try (InputStream inputStream = resource.getInputStream()) {
             jasperReport = JasperCompileManager.compileReport(inputStream);

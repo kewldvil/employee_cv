@@ -1,0 +1,3082 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" pageWidth="595" pageHeight="842" columnWidth="577" leftMargin="9" rightMargin="9" topMargin="9" bottomMargin="0" uuid="a86ecedf-66ce-442e-a674-5e22621fefa5">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Table 2_TH" mode="Opaque" backcolor="#F2F2F2">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#F2F2F2">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#F2F2F2">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="VocationalTraining" uuid="2878c19f-9877-4b0f-b9ef-fbc5e180d3bb">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="trainingStartDate" class="java.lang.String"/>
+		<field name="trainingToDate" class="java.lang.String"/>
+		<field name="trainingDuration" class="java.lang.String"/>
+		<field name="trainingCourse" class="java.lang.String"/>
+		<field name="trainingCenter" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="AppreciationDataset" uuid="3f9da1fe-8c77-4cf2-b836-3f60a709dc2e">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="appreciation" class="java.lang.String"/>
+		<field name="appreciationDate" class="java.lang.String"/>
+		<field name="appreciationNumber" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="ActivityDataset" uuid="a136cdfb-5ba6-46fa-b979-962a17aaa538">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="fromDate" class="java.lang.String"/>
+		<field name="activityAndRank" class="java.lang.String"/>
+		<field name="departmentOrUnit" class="java.lang.String"/>
+		<field name="toDate" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="REPORT_PATH" class="java.lang.String"/>
+	<parameter name="REPORT_PHOTO_PATH" class="java.lang.String"/>
+	<parameter name="START_YEAR" class="java.lang.String"/>
+	<parameter name="KHMER_LUNAR_DATE" class="java.lang.String"/>
+	<parameter name="KHMER_YEAR_STRING" class="java.lang.String"/>
+	<parameter name="VOCATIONAL_TRAINING" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="APPRECIATION" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="ACTIVITY" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="employeeKhmerDOB" class="java.lang.String"/>
+	<parameter name="empPoliceDocumentKH" class="java.lang.String"/>
+	<parameter name="empPositionKH" class="java.lang.String"/>
+	<parameter name="IMAGE_NAME" class="java.lang.String"/>
+	<parameter name="UNIVERSITY_SKILL" class="java.lang.String"/>
+	<parameter name="FOREIGN_LANGUAGE" class="java.lang.String"/>
+	<parameter name="empProvince" class="java.lang.String"/>
+	<parameter name="empDistrict" class="java.lang.String"/>
+	<parameter name="empCommune" class="java.lang.String"/>
+	<parameter name="empVillage" class="java.lang.String"/>
+	<parameter name="empCurrentProvince" class="java.lang.String"/>
+	<parameter name="empCurrentDistrict" class="java.lang.String"/>
+	<parameter name="empCurrentCommune" class="java.lang.String"/>
+	<parameter name="empCurrentVillage" class="java.lang.String"/>
+	<parameter name="empCurrentStreetNumber" class="java.lang.String"/>
+	<parameter name="empCurrentHouseNumber" class="java.lang.String"/>
+	<parameter name="spouseProvince" class="java.lang.String"/>
+	<parameter name="spouseDistrict" class="java.lang.String"/>
+	<parameter name="spouseCommune" class="java.lang.String"/>
+	<parameter name="spouseVillage" class="java.lang.String"/>
+	<parameter name="spouseCurrentProvince" class="java.lang.String"/>
+	<parameter name="spouseCurrentDistrict" class="java.lang.String"/>
+	<parameter name="spouseCurrentCommune" class="java.lang.String"/>
+	<parameter name="spouseCurrentVillage" class="java.lang.String"/>
+	<parameter name="spouseCurrentStreetNumber" class="java.lang.String"/>
+	<parameter name="spouseCurrentHouseNumber" class="java.lang.String"/>
+	<parameter name="fatherProvince" class="java.lang.String"/>
+	<parameter name="fatherDistrict" class="java.lang.String"/>
+	<parameter name="fatherCommune" class="java.lang.String"/>
+	<parameter name="fatherVillage" class="java.lang.String"/>
+	<parameter name="fatherCurrentProvince" class="java.lang.String"/>
+	<parameter name="fatherCurrentDistrict" class="java.lang.String"/>
+	<parameter name="fatherCurrentCommune" class="java.lang.String"/>
+	<parameter name="fatherCurrentVillage" class="java.lang.String"/>
+	<parameter name="fatherCurrentStreetNumber" class="java.lang.String"/>
+	<parameter name="fatherCurrentHouseNumber" class="java.lang.String"/>
+	<parameter name="motherProvince" class="java.lang.String"/>
+	<parameter name="motherDistrict" class="java.lang.String"/>
+	<parameter name="motherCommune" class="java.lang.String"/>
+	<parameter name="motherVillage" class="java.lang.String"/>
+	<parameter name="motherCurrentProvince" class="java.lang.String"/>
+	<parameter name="motherCurrentDistrict" class="java.lang.String"/>
+	<parameter name="motherCurrentCommune" class="java.lang.String"/>
+	<parameter name="motherCurrentVillage" class="java.lang.String"/>
+	<parameter name="motherCurrentStreetNumber" class="java.lang.String"/>
+	<parameter name="motherCurrentHouseNumber" class="java.lang.String"/>
+	<parameter name="WEAPON_LIST" class="java.util.Collection"/>
+	<parameter name="VEHICLE_LIST" class="java.util.Collection"/>
+	<parameter name="DEGREE_LEVEL_LIST" class="java.util.Collection"/>
+	<parameter name="SPOUSE_DOB" class="java.lang.String"/>
+	<parameter name="FATHER_DOB" class="java.lang.String"/>
+	<parameter name="MOTHER_DOB" class="java.lang.String"/>
+	<parameter name="CHILD_NUMBER" class="java.lang.String"/>
+	<parameter name="CHILDREN_LIST" class="java.util.Collection"/>
+	<parameter name="TOTAL_MALE_CHILD" class="java.lang.String"/>
+	<parameter name="TOTAL_FEMALE_CHILD" class="java.lang.String"/>
+	<parameter name="DATE_JOIN_GOV" class="java.lang.String"/>
+	<parameter name="DATE_JOIN_POLICE" class="java.lang.String"/>
+	<parameter name="DEPARTMENT" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{DEPARTMENT}]]></defaultValueExpression>
+	</parameter>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="bloodType" class="java.lang.String"/>
+	<field name="createdAt" class="java.sql.Timestamp"/>
+	<field name="currentPoliceRank" class="java.lang.String"/>
+	<field name="currentPosition" class="java.lang.String"/>
+	<field name="dateJoinGov" class="java.time.LocalDate"/>
+	<field name="dateJoinPolice" class="java.time.LocalDate"/>
+	<field name="dateOfBirth" class="java.sql.Date"/>
+	<field name="firstname" class="java.lang.String"/>
+	<field name="gender" class="java.lang.String"/>
+	<field name="generalDepartment" class="java.lang.String"/>
+	<field name="isMarried" class="java.lang.Boolean"/>
+	<field name="lastname" class="java.lang.String"/>
+	<field name="latinName" class="java.lang.String"/>
+	<field name="nationality" class="java.lang.String"/>
+	<field name="phoneNumber" class="java.lang.String"/>
+	<field name="policeId" class="java.lang.String"/>
+	<field name="policeRankDocumentIssueDate" class="java.sql.Date"/>
+	<field name="policeRankDocumentNumber" class="java.lang.String"/>
+	<field name="positionDocumentIssueDate" class="java.sql.Date"/>
+	<field name="positionDocumentNumber" class="java.lang.String"/>
+	<field name="prevPoliceRank" class="java.lang.String"/>
+	<field name="prevPosition" class="java.lang.String"/>
+	<field name="previousActivityAndPositionStartYear" class="java.lang.Integer"/>
+	<field name="updatedAt" class="java.sql.Timestamp"/>
+	<field name="currentAddress.id" class="java.lang.Integer"/>
+	<field name="placeOfBirth.id" class="java.lang.Integer"/>
+	<field name="user.id" class="java.lang.Integer"/>
+	<field name="spouse.fullName" class="java.lang.String"/>
+	<field name="spouse.isAlive" class="java.lang.Boolean"/>
+	<field name="spouse.job" class="java.lang.String"/>
+	<field name="spouse.phoneNumber" class="java.lang.String"/>
+	<field name="father.fullName" class="java.lang.String"/>
+	<field name="father.isAlive" class="java.lang.Boolean"/>
+	<field name="father.job" class="java.lang.String"/>
+	<field name="father.phoneNumber" class="java.lang.String"/>
+	<field name="mother.fullName" class="java.lang.String"/>
+	<field name="mother.isAlive" class="java.lang.Boolean"/>
+	<field name="mother.job" class="java.lang.String"/>
+	<field name="mother.phoneNumber" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="220" splitType="Immediate">
+			<property name="com.jaspersoft.studio.layout"/>
+			<staticText>
+				<reportElement x="243" y="55" width="88" height="28" forecolor="#0000CC" uuid="4c79409d-43bb-4c04-b04c-e0700775174a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tacteing" size="22"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="34" width="153" height="20" forecolor="#0000CC" uuid="7827ecc9-a0b3-4f7e-a999-74d05467b6df">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Khmer OS Niroth" size="13"/>
+				</textElement>
+				<text><![CDATA[ជាតិ  សាសនា  ព្រះមហាក្សត្រ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="577" height="32" forecolor="#0000CC" uuid="ae046276-a891-437a-8446-05fb3f098318">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Khmer OS Muol" size="14"/>
+				</textElement>
+				<text><![CDATA[ព្រះរាជាណាចក្រកម្ពុជា]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="440" y="70" width="85" height="105" uuid="8bf87484-c065-486b-b95d-9265e001fcc5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{IMAGE_NAME}==null?$P{REPORT_PHOTO_PATH}+"4x6.png":$P{REPORT_PHOTO_PATH}+$P{IMAGE_NAME}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="42" width="200" height="32" forecolor="#0000CC" uuid="c20de3ff-a539-4053-b58f-c2927cf4528c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Khmer OS Muol" size="14"/>
+				</textElement>
+				<text><![CDATA[ក្រសួងមហាផ្ទៃ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="130" width="200" height="44" forecolor="#0000CC" uuid="0cdc9f87-bd0d-4374-9d02-4a8fd6688ec4">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Khmer OS Siemreap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DEPARTMENT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="72" y="174" width="56" height="15" forecolor="#0000CC" uuid="2d4f5c5b-2dc6-4336-bbca-4e9dd69264a0">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tacteing" size="12"/>
+				</textElement>
+				<text><![CDATA[ris]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="74" width="200" height="56" forecolor="#0000CC" uuid="c533d3f6-158d-424a-a84d-1641ea2ac7ab">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Khmer OS Niroth" size="13"/>
+				</textElement>
+				<text><![CDATA[អគ្គនាយកដ្ឋានបច្ចេកវិទ្យាឌីជីថល
+និងផ្សព្វផ្សាយអប់រំ
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="189" width="577" height="31" forecolor="#0000CC" uuid="157b8ea3-0989-4939-b545-468637ca8df2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Khmer OS Muol" size="13"/>
+				</textElement>
+				<text><![CDATA[ជីវប្រវត្តិមន្រ្ដីនគរបាលជាតិ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="232">
+			<staticText>
+				<reportElement x="0" y="0" width="577" height="26" uuid="57bc7fea-7fe7-41e7-b2b1-8da2051f69fc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Khmer OS Muol" size="12"/>
+				</textElement>
+				<text><![CDATA[១-ព័ត៌មានផ្ទាល់ខ្លួន៖]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="10" y="27" width="567" height="22" uuid="4266c78a-1094-471c-8ba1-78d7bc36f594">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="a36a4280-53c9-42b5-bb75-22e9aacd8a9a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[នាម និងគោត្តនាម]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="e3558f70-6aba-4511-9e72-557b7867af60">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="120" y="0" width="130" height="22" forecolor="#0000CC" uuid="462cf8a1-e1aa-4d83-8481-934a474411d1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lastname}+" "+$F{firstname}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="255" y="0" width="68" height="22" uuid="17873d51-b220-4f3e-a528-14fd7774a36c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[អក្សរឡាតាំង៖]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont">
+					<reportElement x="328" y="0" width="112" height="22" forecolor="#0000CC" uuid="3c5e7f25-96ca-4b02-8e48-ad7c6c2cc0fd">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{latinName}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="445" y="0" width="48" height="22" uuid="535381b4-0437-46b9-9df6-2b57e4a8659a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[អត្តលេខ៖]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="498" y="0" width="64" height="22" forecolor="#0000CC" uuid="1e2e68ce-35e4-404f-a2eb-8e94e6ad6b63">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{policeId}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="50" width="104" height="22" uuid="e6d37f7e-5ad0-46d5-9ff0-74f2cb2b1187">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="54" height="22" uuid="1a3db5f4-4b66-4f87-8194-a3e75d46074f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភេទ៖ប្រុស]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="68" y="0" width="19" height="22" uuid="3fabdfe5-41cf-4bdb-b588-2b7baabdeca1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្រី]]></text>
+				</staticText>
+				<image>
+					<reportElement x="55" y="5" width="12" height="12" uuid="cc6d3f58-11db-4ed1-8fe7-88a9d281535a">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<imageExpression><![CDATA[$F{gender}.equals("M") ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="89" y="5" width="12" height="12" uuid="a48ad269-001c-44b3-ac1b-ef2400b60d0c">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<imageExpression><![CDATA[$F{gender}.equals("F") ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement x="10" y="72" width="567" height="22" uuid="4e63b480-d301-40d1-b4c1-48f1abe8769c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="0aba5558-b5a9-4437-ac47-7e186952412a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ថ្ងៃខែឆ្នាំកំណើត]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="daadba4c-dace-4d72-a602-994d0bffb97b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="0" width="41" height="22" uuid="80d10455-278c-4075-97cb-54989e51390a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[កើតថ្ងៃទី]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="245" y="0" width="14" height="22" uuid="24c70582-2bde-45e4-83fe-e51f15acf090">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខែ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="346" y="0" width="16" height="22" uuid="77fd79fb-c358-4af7-938e-906deaa79a4b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឆ្នាំ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="448" y="0" width="38" height="22" uuid="556ad825-dcff-4bda-a8c2-7594ced7c13a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[សញ្ជាតិ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="166" y="0" width="74" height="22" forecolor="#0000CC" uuid="2c126cbf-f1a4-49a3-b776-e919a8c91f66">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{employeeKhmerDOB}.split("-")[0]]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="264" y="0" width="77" height="22" forecolor="#0000CC" uuid="2eb0d8c2-2062-428d-ac94-b84fb38dc5be">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{employeeKhmerDOB}.split("-")[1]]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="367" y="0" width="76" height="22" forecolor="#0000CC" uuid="7175cd1f-2e06-4e1c-b525-dfc5b0504ef7">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{employeeKhmerDOB}.split("-")[2]]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="491" y="0" width="60" height="22" forecolor="#0000CC" uuid="9c653f36-bca0-4ce2-a04e-5519aebe888d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nationality}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="94" width="567" height="22" uuid="a44216d6-ad5d-4417-899b-3c3a8a6b63a2">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="a3a00b1d-48b0-4b74-9e66-f4cc9cd7118b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ទីកន្លែងកំណើត]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="c9119ae0-7152-442f-8e41-af73a15de0de">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="0" width="20" height="22" uuid="59e6b737-55ce-4789-b2a0-9b640e186fba">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភូមិ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="314" y="0" width="48" height="22" uuid="5816a59d-6ada-47d7-a3ec-abd0bdbc58b4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឃុំ/សង្កាត់]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="145" y="0" width="164" height="22" forecolor="#0000CC" uuid="e1adbd1b-615c-4b1f-bcc1-24db9e58c1de">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{empVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empVillage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="367" y="0" width="199" height="22" forecolor="#0000CC" uuid="f8c6309c-1653-4610-893d-b50680ea9ade">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{empCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empCommune}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="117" width="460" height="22" uuid="f7895588-dfea-4f5f-9f62-0b5674f80f3c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="56" height="22" uuid="686ec1bb-cb53-4e91-9ac8-a61440de243a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្រុក/ខណ្ឌ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="230" y="0" width="63" height="22" uuid="ac73d86c-191a-409f-847a-2da3d2f962ee">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខេត្ត/រាជធានី]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="61" y="0" width="164" height="22" forecolor="#0000CC" uuid="563b2653-4c1c-468a-a78c-485d76ee1eba">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{empDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empDistrict}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="298" y="0" width="160" height="22" forecolor="#0000CC" uuid="92e1868e-b7c0-4676-b163-b11d0d67a4ba">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empProvince}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="139" width="567" height="22" uuid="a2bc262d-ff78-4c6a-8c87-6e3067555c53">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="d52a885e-bd37-4589-83b8-5a82fad354eb">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឋានន្ដរស័ក្តិ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="fba13ab7-8616-4963-b858-18ac53a9671f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="120" y="0" width="432" height="22" forecolor="#0000CC" uuid="54578637-228f-4acb-a97c-1d608de4978c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{currentPoliceRank}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="161" width="461" height="22" uuid="2eeb9c20-cc2d-46d2-8b68-1680d54107e9">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="62" height="22" uuid="e68a006c-e42c-4618-9107-8796dbdacc10">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[លេខឯកសារ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="264" y="0" width="14" height="22" uuid="bbfa767e-84e2-4d24-a3c5-97655ac8b68c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខែ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="382" y="0" width="16" height="22" uuid="c17b94ec-46e6-4a37-91ba-2987428c8385">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឆ្នាំ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="173" y="0" width="38" height="22" uuid="3dc4960a-2e5a-46a8-9a76-eea906d746e5">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ចុះថ្ងៃទី]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="67" y="0" width="101" height="22" forecolor="#0000CC" uuid="6cd3d7c5-7fd8-4fa5-9fba-f3c139af24dd">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{policeRankDocumentNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="216" y="0" width="43" height="22" forecolor="#0000CC" uuid="d0c325dd-27aa-42b5-8d6c-9b590b770708">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empPoliceDocumentKH}.split("-")[0]]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="283" y="0" width="94" height="22" forecolor="#0000CC" uuid="40b5dd82-e57a-4c35-86dd-1ea06d85bc6e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empPoliceDocumentKH}.split("-")[1]]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="403" y="0" width="55" height="22" forecolor="#0000CC" uuid="0668cde6-d2af-416a-a3bf-9ee87350e352">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empPoliceDocumentKH}.split("-")[2]]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="184" width="567" height="22" uuid="9bb6ebf3-08ff-4837-85a3-c526fb6b8967">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="5802d99f-27c2-4a4e-94c4-ad5c60fda877">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[មុខតំណែង]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="a81b361f-f512-4407-81de-15aec46cf188">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="120" y="0" width="432" height="22" forecolor="#0000CC" uuid="9c68e40e-88a1-4a16-a2c0-5c4b414d54ea">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{currentPosition}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="206" width="461" height="22" uuid="8bd1f607-06ff-4ba0-af02-349ecc173c11">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="62" height="22" uuid="81867c27-e046-455f-9267-6aef32142638">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[លេខឯកសារ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="266" y="0" width="14" height="22" uuid="bd1518f4-3fa3-4aa0-8085-132ac096db0d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខែ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="377" y="0" width="16" height="22" uuid="af1dde0b-3a53-49b2-8358-bcd3db0c7c84">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឆ្នាំ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="175" y="0" width="38" height="22" uuid="ce535988-6c88-4a6e-bfbc-f52ae6d608fe">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ចុះថ្ងៃទី]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="67" y="0" width="103" height="22" forecolor="#0000CC" uuid="bcc8bfa4-3b37-432d-a62f-ec8dfe87ac25">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{positionDocumentNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="218" y="0" width="43" height="22" forecolor="#0000CC" uuid="fa7cd023-17c3-4c14-a0e4-81d710bb97c2">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empPositionKH}.split("-")[0]]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="285" y="0" width="87" height="22" forecolor="#0000CC" uuid="7b8e8653-3fe8-4cdd-aa13-8d974133b10c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empPositionKH}.split("-")[1]]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="398" y="0" width="55" height="22" forecolor="#0000CC" uuid="02fe80a6-cf0d-400e-920b-9cbe52eee544">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empPositionKH}.split("-")[2]]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+		<band height="112">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<frame>
+				<reportElement x="10" y="-1" width="567" height="22" uuid="bc96433d-7832-44a7-95fc-9a4648fb7d06">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="-1" width="101" height="22" uuid="864a13a9-a644-40cb-b7b9-a9ab04d7792f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[អាសយដ្ឋានបច្ចុប្បន្ន]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="-1" width="9" height="22" uuid="b7a62b71-5cb0-451e-a473-504563fedfcb">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="-1" width="39" height="22" uuid="4f63a891-ad65-492c-907e-1fadec8bcd72">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ផ្លូវលេខ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="381" y="-1" width="20" height="22" uuid="220a11c8-0d70-4297-880e-bd77e0a8a51a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភូមិ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="253" y="-1" width="40" height="22" uuid="4c9ce196-50c0-4b69-9f33-3db0a0201726">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ផ្ទះលេខ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="164" y="-1" width="84" height="22" forecolor="#0000CC" uuid="69cb3341-ae8d-4491-881f-7c87b8d5b810">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empCurrentStreetNumber}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="298" y="-1" width="78" height="22" forecolor="#0000CC" uuid="988fe1a9-edda-40b1-a264-2d0e0c5d7dae">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empCurrentHouseNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="406" y="-1" width="158" height="22" forecolor="#0000CC" uuid="4bdb03ac-6b02-4325-baa3-5f588bd3de82">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{empCurrentVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empCurrentVillage}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="22" width="460" height="22" uuid="97f557bb-6b67-4f0a-87ee-d6699e4281f7">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="56" height="22" uuid="3d22a421-e785-4fef-9b54-b234ad8d138e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្រុក/ខណ្ឌ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="309" y="0" width="63" height="22" uuid="9faf7728-2614-4471-b18c-d366b8faa3ca">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខេត្ត/រាជធានី]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="167" y="0" width="48" height="22" uuid="d24f4d91-c4ba-4060-a3d1-26ef00036d1b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឃុំ/សង្កាត់]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="61" y="0" width="101" height="22" forecolor="#0000CC" uuid="a80a0900-46ad-4140-ba49-f780cc4166dd">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{empCurrentCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empCurrentCommune}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="220" y="0" width="84" height="22" forecolor="#0000CC" uuid="d483b0dc-df4b-46af-812c-b3dae03e8a43">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{empCurrentDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empCurrentDistrict}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="377" y="0" width="76" height="22" forecolor="#0000CC" uuid="ae9976a0-cd29-4cd0-8017-dae98a217e18">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{empCurrentProvince}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="46" width="567" height="22" uuid="1aa169a9-b6e9-4f48-a947-245128b34646">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="061662f1-245a-4288-bd00-216b183079f3">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[លេខទូរសព្ទ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="d0b92d66-b617-4a11-89ad-35d84ba16248">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="120" y="0" width="434" height="22" forecolor="#0000CC" uuid="4bdf8ce2-455f-4ca5-af75-60048497d4f3">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{phoneNumber}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="68" width="567" height="22" uuid="7baa6640-5ca6-4085-9fd7-6cb6ada9469e">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="771b01c2-acfa-4e37-8cb1-059b69f7d890">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ប្រភេទឈាម]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="05bf99a9-c8b5-4acb-a795-8c0454084249">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="120" y="0" width="434" height="22" forecolor="#0000CC" uuid="2c58c2f9-d2ab-4ec3-a0fd-829c676680ae">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{bloodType}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="90" width="567" height="22" uuid="98bc9fb4-7338-4afe-b88b-18b0a71c3562">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="fbd1876f-a225-4716-9640-65067a1b5c14">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ប្រើប្រាស់អាវុធ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="a4f5c31c-032c-43f6-9a70-4ee747b2ef06">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<subreport>
+					<reportElement x="115" y="0" width="451" height="22" uuid="aab4c2b3-a0fa-47d2-9c91-92c3a304ddf5">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<subreportParameter name="WEAPON_LIST">
+						<subreportParameterExpression><![CDATA[$P{WEAPON_LIST}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{WEAPON_LIST})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{REPORT_PATH}+"weapon_report_docx.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+		<band height="22">
+			<frame>
+				<reportElement x="10" y="0" width="567" height="22" uuid="2cb7a128-8e81-465f-b728-7c96857e5d36">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="150" height="22" uuid="dba8aebd-adae-49e8-bead-c36583b73948">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ប្រើប្រាស់យានយន្ដនគរបាល៖ ]]></text>
+				</staticText>
+				<subreport>
+					<reportElement x="153" y="0" width="413" height="22" uuid="553e638e-8e2b-4e99-8b0d-298cd822e1cc">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<subreportParameter name="VEHICLE_LIST">
+						<subreportParameterExpression><![CDATA[$P{VEHICLE_LIST}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{VEHICLE_LIST})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{REPORT_PATH}+"vehicle_report_docx.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+		<band height="48">
+			<staticText>
+				<reportElement x="0" y="0" width="577" height="26" uuid="4ca35a6f-c922-4617-ba45-6eb1e2006809">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Khmer OS Muol" size="12"/>
+				</textElement>
+				<text><![CDATA[២-កម្រិតវប្បធម៌]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="26" width="577" height="22" uuid="202ec6d4-1a0a-4535-99f8-22084d1102a3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="REPORT_PATH">
+					<subreportParameterExpression><![CDATA[$P{REPORT_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_PHOTO_PATH">
+					<subreportParameterExpression><![CDATA[$P{REPORT_PHOTO_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{DEGREE_LEVEL_LIST})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{REPORT_PATH}+"degree_level_report_docx.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="22">
+			<frame>
+				<reportElement x="0" y="0" width="577" height="22" uuid="a76de261-c408-4fc0-a080-10a6f67287de">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="180" height="22" uuid="fb7b52c3-400e-459d-8ee8-df8cdd6800a4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[បញ្ជាក់ជំនាញឯកទេសដែលបានរៀន៖]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="185" y="0" width="380" height="22" forecolor="#0000CC" uuid="47a79648-1eac-46da-ac8b-4ff6b867f6b8">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{UNIVERSITY_SKILL}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+		<band height="26">
+			<frame>
+				<reportElement x="0" y="0" width="577" height="26" uuid="20989f13-f5e6-4362-b59a-8ba9727426c9">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="180" height="26" uuid="ed5bd947-9937-4d90-986c-471957df8486">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Muol" size="12"/>
+					</textElement>
+					<text><![CDATA[៣-ចំណេះដឹងភាសារបរទេស៖]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="185" y="0" width="375" height="26" forecolor="#0000CC" uuid="7198e6d8-8e7d-42a3-a8f0-028bf9ad812c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{FOREIGN_LANGUAGE}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+		<band height="87">
+			<frame>
+				<reportElement x="0" y="0" width="577" height="26" uuid="d9f0ed74-e55f-4a24-a8c5-cc0256c7a644">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="190" height="26" uuid="fe660123-8cdb-4f1d-94dc-dcee368f2525">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Muol" size="12"/>
+					</textElement>
+					<text><![CDATA[៤-កម្រិតបណ្ដុះបណ្ដាលវិជ្ជាជីវ៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="195" y="0" width="369" height="26" uuid="53bb10cb-01dc-437c-a2bc-4ace0f55fd97"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[(សូមរៀបរាប់វគ្គបណ្ដុះបណ្ដាល និងថ្ងៃ ខែ ឆ្នាំដែលបានសិក្សាកន្លងមក)]]></text>
+				</staticText>
+			</frame>
+			<componentElement>
+				<reportElement stretchType="ContainerHeight" x="0" y="27" width="577" height="60" uuid="92749fe5-960d-4507-8372-8141cc3a2a46">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
+					<property name="com.jaspersoft.studio.components.autoresize.next" value="true"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="VocationalTraining" uuid="bb609503-0a60-4469-9909-d4e3473526de">
+						<dataSourceExpression><![CDATA[$P{VOCATIONAL_TRAINING}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="145" uuid="25bd1c16-5f67-4084-b09f-6b16bc54e048">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="145" height="30" uuid="dbf5709b-6915-4a42-a4ec-d2375b67c893"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[កាលបរិច្ឆេទ]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<box padding="4"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="137" height="22" forecolor="#0000CC" uuid="8a9295e0-1df3-451d-897d-436e34254efb">
+									<printWhenExpression><![CDATA[$F{trainingStartDate}!=""]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+									<paragraph lineSpacing="Single" lineSpacingSize="1.0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{trainingStartDate}+($F{trainingToDate}==null || $F{trainingToDate}.isEmpty()?"":"​ ដល់​ "+$F{trainingToDate})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="78" uuid="7e33eb2f-e772-4dfa-8d97-44522e32764d">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="78" height="30" uuid="e1f8fa48-1509-49b2-b287-66be8792bb24"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[រយៈពេលសិក្សា]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<box padding="5"/>
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="68" height="20" forecolor="#0000CC" uuid="114281c4-e8ca-48f3-99ab-14782e0e6735">
+									<printWhenExpression><![CDATA[$F{trainingDuration} != null && !$F{trainingDuration}.isEmpty() && !$F{trainingDuration}.equals("0")]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{trainingDuration}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="188" uuid="15b6330a-883e-4d3b-b6ca-32d26bb68b6b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="188" height="30" uuid="a5e1ed61-4bb7-40f8-baa8-92c62d946c3a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[ជំនាញនៃវគ្គបណ្ដុះបណ្ដាល]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<box padding="5"/>
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="178" height="20" forecolor="#0000CC" uuid="8070626e-a865-4269-a1cc-201ef05b174e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+									<paragraph lineSpacing="Proportional" lineSpacingSize="0.8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{trainingCourse}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="166" uuid="ae9833a5-2638-49c2-a517-dc36ddb82ad5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="166" height="30" uuid="419fec58-f559-4565-b528-3af669a4e036"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[គ្រឹះស្ថានសិក្សាបណ្ដុះបណ្ដាល
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<box padding="5"/>
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="156" height="20" forecolor="#0000CC" uuid="ea1ceef4-80ee-4f19-9f67-ee6dc5af9bf8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+									<paragraph lineSpacing="Proportional" lineSpacingSize="0.8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{trainingCenter}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:tableHeader/>
+					<jr:detail/>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="87">
+			<frame>
+				<reportElement x="0" y="0" width="577" height="26" uuid="fb4bee29-ac52-4b96-8866-8f0a7ac25ef6">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="112" height="26" uuid="35de46b6-b0e9-49bc-9b37-c56fffa09384">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Muol" size="12"/>
+					</textElement>
+					<text><![CDATA[៥-ការលើកសរសើរ ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="113" y="0" width="451" height="26" uuid="ec36b86d-3586-411a-8eb1-47858776f7d2"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[(លិខិតសរសើរ-ប័ណ្ណសរសើរ-ឥស្សរិយយស)]]></text>
+				</staticText>
+			</frame>
+			<componentElement>
+				<reportElement x="0" y="26" width="577" height="61" uuid="0861ed1e-fa5b-4255-9c2b-fb4fe9675003">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.components.autoresize.next" value="true"/>
+					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="AppreciationDataset" uuid="a90d40ce-af4c-4dd7-b070-51aadaf75aac">
+						<dataSourceExpression><![CDATA[$P{APPRECIATION}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="185" uuid="2923d8dc-08f7-40dd-b942-02ea73dc27d5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="185" height="30" uuid="7b6f32b3-c2af-4671-9770-c1c16928602e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[លេខ]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<box padding="5"/>
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="175" height="20" forecolor="#0000CC" uuid="ca1ff91c-cde5-4d11-865f-d907b792894b">
+									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{appreciationNumber}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="185" uuid="14975fb0-49e1-4ff4-873a-dc753046594b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="185" height="30" uuid="c44f0cb8-12f4-466d-9ca9-4a1b77ad2432"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[ថ្ងៃ ខែ ឆ្នាំ]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<box padding="5"/>
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="175" height="20" forecolor="#0000CC" uuid="523435a6-9d8c-4382-9c3f-9ecb1985b4ea"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{appreciationDate}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="207" uuid="c0624e90-9884-4ddf-b311-7633b0c1aaec">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="207" height="30" uuid="a576fe19-2b36-407e-9f11-89064da1a114"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[ការលើកសរសើរ]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="30">
+							<box padding="5"/>
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="197" height="20" forecolor="#0000CC" uuid="32f21416-63e4-41ae-b0f5-fa44e7bddd8b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+									<paragraph lineSpacing="Proportional" lineSpacingSize="0.8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{appreciation}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="239">
+			<staticText>
+				<reportElement x="0" y="0" width="577" height="26" uuid="513cdaac-a056-493b-931c-38fdfe7f5570">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Khmer OS Muol" size="12"/>
+				</textElement>
+				<text><![CDATA[៦-ប្រវត្តិការងារ]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="0" y="26" width="577" height="22" uuid="346478cb-9a0b-4de9-987c-0e9cca05355a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="188" height="22" uuid="f988cded-5133-4de9-93fa-b9bc8e8becaf">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[-  ថ្ងៃ ខែ ឆ្នាំចូលបម្រើការងារក្របខណ្ឌរដ្ឋ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="193" y="0" width="355" height="22" forecolor="#0000CC" uuid="9c676282-76eb-4c69-b5db-786ab52c628c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{DATE_JOIN_GOV}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="48" width="577" height="22" uuid="4c258740-21b8-4b34-a8f3-aa7e0e41e2a7">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="256" height="22" uuid="92bdcb77-9f15-401a-bca2-9012278c94cb">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[-  ថ្ងៃ ខែ ឆ្នាំចូលបម្រើការងារក្នុងក្របខណ្ឌនគរបាលជាតិ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="261" y="0" width="287" height="22" forecolor="#0000CC" uuid="7450b79c-ca26-439c-a8b3-d85aae94a203">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{DATE_JOIN_POLICE}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="70" width="577" height="22" uuid="4b6095c8-2c1a-4ef2-8afd-6478e17c9ec7">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="88" height="22" uuid="e8346366-d52f-46ff-98d7-5fd1b7b0d682">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[-  ឋានន្តរស័ក្តិៈ  	:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="93" y="0" width="459" height="22" forecolor="#0000CC" uuid="48ccde03-c5e7-4cbc-a6ed-1b0c1a5b08cd">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{prevPoliceRank}]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="0" y="22" width="577" height="22" uuid="0a1a68e2-e9c3-47c9-9901-479cbc5eeb23">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<staticText>
+						<reportElement x="0" y="0" width="88" height="22" uuid="e4870232-c128-4115-a715-a97d4062fea7">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Left" verticalAlignment="Middle">
+							<font fontName="Khmer OS Siemreap" size="12"/>
+						</textElement>
+						<text><![CDATA[-  មុខតំណែងៈ 	:]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="93" y="0" width="459" height="22" forecolor="#0000CC" uuid="ca1b1d90-e8de-4496-a7dd-1c5ffb8ff188">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center">
+							<font fontName="Khmer OS Siemreap" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{prevPosition}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+			<frame>
+				<reportElement x="0" y="114" width="577" height="22" uuid="e3528c1f-ffed-4f5d-ae43-919cd402b68f">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="88" height="22" uuid="0a778e76-3d47-498c-82df-9ef8c36dba47">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[-  អង្គភាពៈ       	:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="93" y="0" width="459" height="22" forecolor="#0000CC" uuid="7d2eeb30-9f85-4216-bf0b-ede5ccaaf30f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{generalDepartment}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="137" width="577" height="22" uuid="36de8a7c-02a2-4980-b86b-9ac4442c9fbb">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="338" height="22" uuid="9d2b5e54-9442-4a38-8556-9e0c89e8f580">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[សូមរៀបរាប់អំពីសកម្មភាពការងារ និងមុខតំណែងបានទទួលកន្លងមក(ឆ្នាំ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="422" y="0" width="74" height="22" uuid="d73c3b74-6542-4710-8fc2-12aab0f39341">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ ដល់បច្ចុប្បន្ន)]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="343" y="0" width="74" height="22" forecolor="#0000CC" uuid="2431fec6-4b34-4782-ab4e-f97073a01641">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[$P{START_YEAR}!=""]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{START_YEAR}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<componentElement>
+				<reportElement x="0" y="159" width="577" height="80" uuid="9d90b2ea-999f-4dc5-b2ed-58668868e850">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 2_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 2_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 2_TD"/>
+					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
+					<property name="com.jaspersoft.studio.components.autoresize.next" value="true"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="ActivityDataset" uuid="7151121f-8817-4f03-9058-78de9e673c60">
+						<dataSourceExpression><![CDATA[$P{ACTIVITY}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="193" uuid="eaa46a92-3b24-476d-a1cf-b96c2bf96601">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableHeader style="Table 2_TH" height="50" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="193" height="50" uuid="6527e6f6-0de1-483b-8a2d-bccbcdff44df"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[កាលបរិច្ឆេទ
+ពីថ្ងៃ ខែ ឆ្នាំ ដល់ ថ្ងៃ ខែ ឆ្នាំ]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 2_TD" height="30">
+							<box padding="5"/>
+							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="183" height="20" forecolor="#0000CC" uuid="03a8fd31-c546-4630-9325-910fe316961a">
+									<printWhenExpression><![CDATA[$F{fromDate}!=""]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fromDate} + " ដល់ " + ($F{toDate} == null || $F{toDate}.isEmpty() ? "បច្ចុប្បន្ន" : $F{toDate})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="193" uuid="3f593ef3-a12c-46df-a067-734da51689c5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableHeader style="Table 2_TH" height="50" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="193" height="50" uuid="e569bc61-2596-4527-bd5b-78ecc529c13e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[សកម្មភាពការងារ និងមុខតំណែង
+ដែលធ្លាប់ទទួលបាន
+]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 2_TD" height="30">
+							<box padding="5"/>
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="183" height="20" forecolor="#0000CC" uuid="14d58a53-02bf-4fd2-84f5-cf2ed01e8562"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+									<paragraph lineSpacing="Proportional" lineSpacingSize="0.8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{activityAndRank}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="191" uuid="8792e03f-d03c-4cb0-ab68-319d34b0bac4">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableHeader style="Table 2_TH" height="50" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="191" height="50" uuid="0605ec8c-212a-4a94-8c7f-4e4bf6a50179"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+								</textElement>
+								<text><![CDATA[នាយកដ្ឋាន-អង្គភាព]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 2_TD" height="30">
+							<box padding="5"/>
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+								<reportElement stretchType="ContainerHeight" x="0" y="0" width="181" height="20" forecolor="#0000CC" uuid="406a012a-9762-44ca-a023-74cecfa428f4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+									<font fontName="Khmer OS Siemreap" size="12"/>
+									<paragraph lineSpacing="Proportional" lineSpacingSize="0.8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{departmentOrUnit}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="162">
+			<frame>
+				<reportElement x="0" y="0" width="577" height="26" uuid="e707d3cb-a573-41d5-a46d-a606d57295a1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="200" height="26" uuid="9901c934-deed-421a-8c5f-e9663b22ffe7">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Khmer OS Muol" size="12"/>
+					</textElement>
+					<text><![CDATA[៧-ព័ត៌មានគ្រួសារ៖ មានប្រពន្ធ ឫប្តី]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="212" y="0" width="50" height="26" uuid="08decd7a-7f5c-465e-89fd-837832dcd82e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Khmer OS Muol" size="12"/>
+					</textElement>
+					<text><![CDATA[នៅលីវ ]]></text>
+				</staticText>
+				<image>
+					<reportElement x="200" y="7" width="12" height="12" uuid="e55f85ec-b3cf-439e-bf97-7cf0d8e96dba">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<imageExpression><![CDATA[$F{isMarried}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="262" y="7" width="12" height="12" uuid="f32ef2a4-6f18-4bbc-b3b9-6170c0f211a3"/>
+					<imageExpression><![CDATA[$F{isMarried}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement x="0" y="27" width="577" height="22" uuid="fb51f5d5-ca08-4309-b4a6-82591e46b8b7">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="96" height="22" uuid="b79b80c2-f22c-427f-be58-ae02f301d3cc">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ក-ប្រពន្ធ ឬ ប្ដីឈ្មោះ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="246" y="0" width="19" height="22" uuid="3acef694-7142-49ee-a862-91296ac559f5">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[រស់]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="0" width="26" height="22" uuid="9ca01d4f-efbf-476d-829b-c50be1f30e94">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្លាប់]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="323" y="0" width="76" height="22" uuid="ba508285-1d9f-4efe-9b06-2bd0f19910b2">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ថ្ងៃខែឆ្នាំកំណើត]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="101" y="0" width="140" height="22" forecolor="#0000CC" uuid="40770f0a-4505-4802-a23e-1ab8d52f2771">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{spouse.fullName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="404" y="0" width="172" height="22" forecolor="#0000CC" uuid="fdb4e66f-07fb-4b2c-bb28-8dae09a4f0b9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{SPOUSE_DOB}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="266" y="5" width="12" height="12" uuid="9bd6de76-6fbf-4c18-93e9-275cffede064"/>
+					<imageExpression><![CDATA[$F{spouse.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="306" y="6" width="12" height="12" uuid="b80bd262-d1fc-4c00-a91e-74ea23e759c2"/>
+					<imageExpression><![CDATA[$F{spouse.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement x="10" y="50" width="567" height="22" uuid="f14871f3-4e4e-4b95-94c4-3e6f3c7d0073">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="4f4e6df5-c934-4325-86bc-60915330e0ad">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[- ទីកន្លែងកំណើត]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="2d3ae4bb-b6ea-43ee-9be7-1cf282c73df7">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="0" width="20" height="22" uuid="03e2b6e3-11c3-45ae-85fa-1377fa234501">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភូមិ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="314" y="0" width="48" height="22" uuid="c3b7bd04-e700-492b-8b31-20b3a5c1d862">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឃុំ/សង្កាត់]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="142" y="0" width="164" height="22" forecolor="#0000CC" uuid="ccf0add8-e0f0-4b92-8ac3-3e14aaf21939">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{spouseVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseVillage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="363" y="0" width="199" height="22" forecolor="#0000CC" uuid="17904c30-7ec5-44d8-baed-f34411f31f15">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{spouseCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseCommune}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="73" width="460" height="22" uuid="32100db8-0f8e-4c3a-b4b2-716e4a82f5be">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="56" height="22" uuid="6d5f6794-5f38-46e2-b3a4-565be8a8aec9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្រុក/ខណ្ឌ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="230" y="0" width="63" height="22" uuid="02339326-109c-423b-b2f2-d28c6cf98de7">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខេត្ត/រាជធានី]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="60" y="0" width="164" height="22" forecolor="#0000CC" uuid="ea69184d-d515-4a93-8442-78aab26e1cff">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{spouseDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseDistrict}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="295" y="0" width="160" height="22" forecolor="#0000CC" uuid="3415023e-8ab5-4c15-95aa-bdf105eae238">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseProvince}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="95" width="567" height="22" uuid="cde3bf4a-853f-4a38-8719-fa91a2da2ebb">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="79" height="22" uuid="f9c86571-cacc-4bfc-93fa-73bc9370698b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[- មុខរបរបច្ចុប្បន្ន]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="267" y="0" width="57" height="22" uuid="c8ce4f87-12b1-406b-8cb9-93d6b000c9eb">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[លេខទូរសព្ទ]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="80" y="0" width="184" height="22" forecolor="#0000CC" uuid="f43b85c0-cee5-4c0f-9c76-dd6fffb97428">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{spouse.job}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="327" y="0" width="234" height="22" forecolor="#0000CC" uuid="9d4ab5d7-fd75-4e24-b6ef-4dca260122c1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{spouse.phoneNumber}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="117" width="567" height="22" uuid="9ca0ae99-bbad-4d15-9b09-064e883186eb">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="045ce385-3cd5-408c-b96c-ce581a79224f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[- អាសយដ្ឋានបច្ចុប្បន្ន]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="3ffb897e-78ee-404f-ba4e-2a50a35ff82d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="0" width="39" height="22" uuid="ce820e27-e67f-413e-b871-3032d497ec38">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ផ្លូវលេខ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="369" y="0" width="20" height="22" uuid="54ab380b-ce74-4b3c-b3a1-b7e443ad0783">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភូមិ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="239" y="0" width="40" height="22" uuid="071b3922-beaa-486e-8bc3-cbca83c123c1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ផ្ទះលេខ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="161" y="0" width="76" height="22" forecolor="#0000CC" uuid="7325879d-2aec-4e0e-96dd-49c4519b7c37">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="My Khmer Os Siem Reap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseCurrentStreetNumber}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="282" y="0" width="86" height="22" forecolor="#0000CC" uuid="a6b3f1fc-e4d0-4b33-98be-ce7bf711d1e4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="My Khmer Os Siem Reap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseCurrentHouseNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="391" y="0" width="175" height="22" forecolor="#0000CC" uuid="1f3167b9-f535-4d32-b3d4-bb123489b750">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{spouseCurrentVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseCurrentVillage}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="140" width="460" height="22" uuid="542023d6-3663-481e-92a2-53eefa0db5f2">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="56" height="22" uuid="7a50e669-5002-4f29-87e5-5653a538bead">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្រុក/ខណ្ឌ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="316" y="0" width="63" height="22" uuid="88d80cbd-0bf6-48ea-9356-aa003bf396af">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខេត្ត/រាជធានី]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="178" y="0" width="48" height="22" uuid="2d403da9-eb34-471f-991d-c3dccb32bddb">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឃុំ/សង្កាត់]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="57" y="0" width="118" height="22" forecolor="#0000CC" uuid="6d2e9624-1659-4e6a-ad41-10f292eaa745">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{spouseCurrentCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseCurrentCommune}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="230" y="0" width="84" height="22" forecolor="#0000CC" uuid="1103c9b7-590a-4c75-8668-77a12e3fd6f0">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{spouseCurrentDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseCurrentDistrict}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="382" y="0" width="76" height="22" forecolor="#0000CC" uuid="82baa849-168c-47b4-b323-7f1baa575b5c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{spouseCurrentProvince}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+		<band height="66">
+			<printWhenExpression><![CDATA[$P{CHILD_NUMBER}==null]]></printWhenExpression>
+			<frame>
+				<reportElement x="0" y="0" width="577" height="66" uuid="7e511b1d-2fa0-4bf3-bb07-2bd10f6442f3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="555" height="22" uuid="f6ed75b8-0407-4bba-a4b3-ee83f87ec66f"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខ-មានកូនចំនួន៖..................នាក់, ស្រី....................នាក់, ប្រុស....................នាក់]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="26" y="22" width="528" height="22" uuid="599d974b-ba1b-459d-b9e1-111475f6091e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[១-ឈ្មោះ..................................ភេទ..........ថ្ងៃខែឆ្នាំកំណើត...................................មុខរបរ............................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="26" y="44" width="528" height="22" uuid="6a453f36-300a-42b1-9fd6-8f987a89f570"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[២-ឈ្មោះ..................................ភេទ..........ថ្ងៃខែឆ្នាំកំណើត...................................មុខរបរ............................]]></text>
+				</staticText>
+			</frame>
+		</band>
+		<band height="22">
+			<printWhenExpression><![CDATA[$P{CHILD_NUMBER}!=null]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="577" height="22" uuid="137f2229-153c-46dc-909a-09c9ad5f9b6e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="CHILD_NUMBER">
+					<subreportParameterExpression><![CDATA[$P{CHILD_NUMBER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TOTAL_FEMALE_CHILD">
+					<subreportParameterExpression><![CDATA[$P{TOTAL_FEMALE_CHILD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TOTAL_MALE_CHILD">
+					<subreportParameterExpression><![CDATA[$P{TOTAL_MALE_CHILD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{CHILDREN_LIST})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{REPORT_PATH}+"children_report_docx.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="135">
+			<frame>
+				<reportElement x="0" y="0" width="577" height="22" uuid="b6116b25-a89e-4a67-8523-b4859a69536c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="96" height="22" uuid="788d5e75-9f41-439e-b5a5-0d75a7c8da6c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[គ-ឪពុកបង្កើតឈ្មោះ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="246" y="0" width="19" height="22" uuid="056864d4-a7fa-461d-9560-73b4648c74d3">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[រស់]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="0" width="26" height="22" uuid="99cdcf8e-b1f0-482d-b23d-8ee220c94235">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្លាប់]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="323" y="0" width="76" height="22" uuid="1982ac10-eeb6-4df2-a9ee-3fab73aca9dd">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ថ្ងៃខែឆ្នាំកំណើត]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="101" y="0" width="140" height="22" forecolor="#0000CC" uuid="ca5e3bbe-e3fb-4d08-a640-2b0ec257d5e5">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{father.fullName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="404" y="0" width="172" height="22" forecolor="#0000CC" uuid="61c1c46f-8836-4207-a16c-c0915376e8f4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{FATHER_DOB}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="266" y="5" width="12" height="12" uuid="9e31afa2-c0d1-46d6-be49-dc417c76a0ee"/>
+					<imageExpression><![CDATA[$F{father.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="306" y="6" width="12" height="12" uuid="9f914e5f-242e-46f1-979f-837109dfe103"/>
+					<imageExpression><![CDATA[$F{father.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement x="10" y="23" width="567" height="22" uuid="58cd814e-101c-45e6-b600-176d379f403a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="7ff1e788-bfba-4118-ac68-536185c1524b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[- ទីកន្លែងកំណើត]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="0cd4db9e-8995-467c-bb18-2873791e400b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="0" width="20" height="22" uuid="44923a3d-1c81-4651-aad9-2063c889fff8">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភូមិ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="314" y="0" width="48" height="22" uuid="b9ea8901-962f-48f7-92d6-fb0d9fca9e29">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឃុំ/សង្កាត់]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="142" y="0" width="164" height="22" forecolor="#0000CC" uuid="cccec44c-f752-4532-8179-42284c2d6980">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{fatherVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherVillage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="363" y="0" width="199" height="22" forecolor="#0000CC" uuid="9c580bc6-6888-4de0-b8ee-51320af03dbc">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{fatherCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherCommune}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="46" width="460" height="22" uuid="8e70fc46-2f7e-4003-adef-672e99bcb2a1">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="56" height="22" uuid="4cffadc6-efd3-48e4-9c90-447aa4ddc9b9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្រុក/ខណ្ឌ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="230" y="0" width="63" height="22" uuid="9a9433a5-066d-408f-9fb2-431136f23645">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខេត្ត/រាជធានី]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="60" y="0" width="164" height="22" forecolor="#0000CC" uuid="65ed2cfe-e822-486c-a723-900e90d00603">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{fatherDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherDistrict}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="295" y="0" width="160" height="22" forecolor="#0000CC" uuid="5914ed2b-a78c-4959-9823-937eae694779">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherProvince}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="68" width="567" height="22" uuid="6b38dad3-4c21-417a-90e3-bdacdd636da5">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="79" height="22" uuid="c3e4dcb8-54eb-4927-9833-211202a0ca4e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[- មុខរបរបច្ចុប្បន្ន]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="267" y="0" width="57" height="22" uuid="f1b0e5d5-45e5-4ae7-837b-2d10d45cd9c9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[លេខទូរសព្ទ]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="80" y="0" width="184" height="22" forecolor="#0000CC" uuid="9cd8fac6-c245-4039-8477-46c2c28a0745">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{father.job}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="327" y="0" width="234" height="22" forecolor="#0000CC" uuid="8a16b8d5-e347-4b99-aa0d-d30dc5ce7a15">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{father.phoneNumber}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="90" width="567" height="22" uuid="9e1c9df4-bb0e-437f-85c9-d086b1910531">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="15f92aa5-f5bc-484f-a12b-f7a117f1308a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[- អាសយដ្ឋានបច្ចុប្បន្ន]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="b462cdfe-d582-4c3e-8dd2-6a9e3df454d8">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="0" width="39" height="22" uuid="e1da82f0-05aa-400d-b6bd-a6455a0d5988">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ផ្លូវលេខ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="369" y="0" width="20" height="22" uuid="df41fb3c-28ce-4cd0-9bff-f153caaa670a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភូមិ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="239" y="0" width="40" height="22" uuid="b8ae4524-4bf0-4953-83a5-f634838c55ab">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ផ្ទះលេខ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="161" y="0" width="76" height="22" forecolor="#0000CC" uuid="b7a16446-1d02-4f73-a3ac-751ce9c5b25d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherCurrentStreetNumber}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="282" y="0" width="86" height="22" forecolor="#0000CC" uuid="2c631f32-d435-4913-bc09-27150510517e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherCurrentHouseNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="391" y="0" width="175" height="22" forecolor="#0000CC" uuid="12f4fce3-63d8-46ef-8ea1-a7a3f70daeee">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{fatherCurrentVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherCurrentVillage}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="113" width="460" height="22" uuid="ca1e581f-15f1-4324-b948-db6919472405">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="56" height="22" uuid="a2d2193e-755e-4700-97a6-2382a52631e2">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្រុក/ខណ្ឌ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="316" y="0" width="63" height="22" uuid="9101c885-4481-42f0-94ae-a123246746b1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខេត្ត/រាជធានី]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="178" y="0" width="48" height="22" uuid="82f4d157-b5be-4279-84ba-826a816b1f89">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឃុំ/សង្កាត់]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="57" y="0" width="118" height="22" forecolor="#0000CC" uuid="6dc33483-36c4-4406-b062-ea21261eb8f4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{fatherCurrentCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherCurrentCommune}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="230" y="0" width="84" height="22" forecolor="#0000CC" uuid="dd6a8e98-22a7-4589-b47c-5d83c232f676">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{fatherCurrentDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherCurrentDistrict}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="382" y="0" width="76" height="22" forecolor="#0000CC" uuid="f5becc87-225c-4d2f-ac78-bb8d2e131000">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{fatherCurrentProvince}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+		<band height="319">
+			<frame>
+				<reportElement x="0" y="1" width="577" height="22" uuid="fcbfc7ed-e877-4ef3-b87b-c62c43eeea55">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="22" uuid="c1a30789-942e-4a21-9b5a-ced414d6f30e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឃ-ម្តាយបង្កើតឈ្មោះ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="246" y="0" width="19" height="22" uuid="c8991b89-6841-420e-81f0-3d797e37354a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[រស់]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="279" y="0" width="26" height="22" uuid="ee1672d2-d93b-401d-a9fd-387f9e928546">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្លាប់]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="323" y="0" width="76" height="22" uuid="70bd2bf3-9f9a-4061-8054-861a73ab6167">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ថ្ងៃខែឆ្នាំកំណើត]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="101" y="0" width="140" height="22" forecolor="#0000CC" uuid="b9d88975-f894-4666-8bd5-83b6fa5f90af">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mother.fullName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="404" y="0" width="172" height="22" forecolor="#0000CC" uuid="b6832909-a744-49a0-8db2-b2f5404ae5f9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{MOTHER_DOB}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="266" y="5" width="12" height="12" uuid="b80468f6-1df4-4758-ae4a-089272f2816a"/>
+					<imageExpression><![CDATA[$F{mother.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+				<image>
+					<reportElement x="306" y="6" width="12" height="12" uuid="90d07cd6-d352-4587-8dab-c9f382e41dde"/>
+					<imageExpression><![CDATA[$F{mother.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement x="10" y="24" width="567" height="22" uuid="e87761d6-0c4e-4438-929d-36a6d30812a6">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="12265b84-d85b-4ec0-8fdb-87b694864e5c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[- ទីកន្លែងកំណើត]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="fb0d4bb5-976e-4c56-a718-5f66e59c8227">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="0" width="20" height="22" uuid="bbc60d95-0be0-43b0-9a88-448af5f2593f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភូមិ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="314" y="0" width="48" height="22" uuid="edf9cf3e-ac43-421f-b7ee-dfb9027f63dd">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឃុំ/សង្កាត់]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="142" y="0" width="164" height="22" forecolor="#0000CC" uuid="0cf571c4-beb4-490d-a705-bab2b6da0da1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{motherVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherVillage}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="363" y="0" width="199" height="22" forecolor="#0000CC" uuid="093ca7c8-d66e-48e8-8961-eee3bf6e412e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{motherCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherCommune}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="47" width="460" height="22" uuid="9c5d4c33-d0b1-4ad8-a373-2c81532c4d64">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="56" height="22" uuid="1704a64a-4000-4e6c-9e76-626f12373cf0">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្រុក/ខណ្ឌ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="230" y="0" width="63" height="22" uuid="f7484026-cbec-4973-9803-6b7af3106440">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខេត្ត/រាជធានី]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="60" y="0" width="164" height="22" forecolor="#0000CC" uuid="0ea1c19b-2ee9-4a6f-95ec-94cb71e02acd">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{motherDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherDistrict}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="295" y="0" width="160" height="22" forecolor="#0000CC" uuid="0ea3a8a1-db51-4ecc-8219-928fcc5175ec">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherProvince}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="69" width="567" height="22" uuid="edbb7d8a-3e1e-4aa0-a10f-61ab23812a3e">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="79" height="22" uuid="5c619608-dcea-4d76-90c6-a7ab43e12b3a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[- មុខរបរបច្ចុប្បន្ន]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="267" y="0" width="57" height="22" uuid="37936ac3-1110-4e89-bb1a-5bab27d65c9f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[លេខទូរសព្ទ]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="80" y="0" width="184" height="22" forecolor="#0000CC" uuid="5044f871-2005-4cf4-abb7-a16ee1de2065">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mother.job}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+					<reportElement x="327" y="0" width="234" height="22" forecolor="#0000CC" uuid="38ad2515-25c3-47b2-ad7e-890910aede33">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{mother.phoneNumber}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="10" y="91" width="567" height="22" uuid="78724438-bb45-4b1e-9004-c184a3a6a327">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="101" height="22" uuid="f6a915f4-42f8-4abe-bab8-b39cac16b13e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[- អាសយដ្ឋានបច្ចុប្បន្ន]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="106" y="0" width="9" height="22" uuid="af833613-20b5-415b-a8ab-200915189ce4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[៖]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="0" width="39" height="22" uuid="f32dc832-ab47-4716-ad4d-16ddf277c04e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ផ្លូវលេខ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="369" y="0" width="20" height="22" uuid="53b8f2f5-3e94-4bcb-9b16-f85706443301">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ភូមិ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="239" y="0" width="40" height="22" uuid="d99e817a-3688-4767-b50d-68ddeae0f974">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ផ្ទះលេខ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="161" y="0" width="76" height="22" forecolor="#0000CC" uuid="86644bce-4187-4d5f-8a18-27e0f4cde2c4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherCurrentStreetNumber}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="282" y="0" width="86" height="22" forecolor="#0000CC" uuid="18662d16-b79a-44e8-9d3e-1bcd5398912b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherCurrentHouseNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="391" y="0" width="175" height="22" forecolor="#0000CC" uuid="9df88699-442d-4256-8707-a9a392f1d533">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{motherCurrentVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherCurrentVillage}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="116" y="114" width="460" height="22" uuid="563d2a08-8b6d-419b-8de1-27ffba925b6f">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="56" height="22" uuid="d874f98e-4be8-4bee-94fd-f4772546378d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ស្រុក/ខណ្ឌ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="316" y="0" width="63" height="22" uuid="d6200abf-6dde-4f00-a8af-0b35328cfe00">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខេត្ត/រាជធានី]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="178" y="0" width="48" height="22" uuid="fdb451d0-4935-4d86-8104-d98adf04a2c1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ឃុំ/សង្កាត់]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="57" y="0" width="118" height="22" forecolor="#0000CC" uuid="be9d0081-cad7-46ef-a2e9-319a84f3ca25">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{motherCurrentCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherCurrentCommune}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="230" y="0" width="84" height="22" forecolor="#0000CC" uuid="c968e023-3c56-4363-bc97-976c7d3fa61a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[!$P{motherCurrentDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherCurrentDistrict}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="382" y="0" width="76" height="22" forecolor="#0000CC" uuid="c5cb111d-e5c1-4494-80bc-97e7d24b2e2e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{motherCurrentProvince}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement x="0" y="137" width="577" height="182" uuid="d856a9b9-655f-4ae6-8d15-b9eb9f92ed65"/>
+				<staticText>
+					<reportElement x="0" y="0" width="577" height="22" uuid="788612ce-7be9-47cd-a21c-7de72f800f2c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ខ្ញុំ/នាងខ្ញុំ សូមធានាអះអាងចំពោះមុខច្បាប់ថា សេចក្ដីរាយការណ៍ក្នុងជីវប្រវត្តិនេះ សុទ្ធតែពិតប្រាកដទាំងអស់។ ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="375" y="66" width="170" height="26" uuid="a12051fb-448b-4f95-9eba-919d097a0eb1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Muol" size="12"/>
+					</textElement>
+					<text><![CDATA[ហត្ថលេខា និងឈ្មោះសាមីខ្លួន]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="242" y="132" width="152" height="22" uuid="1da219a6-82f3-4703-ba6b-e7a80d028114">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{KHMER_LUNAR_DATE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="190" y="110" width="174" height="22" uuid="da90a49d-4a26-4a0f-ac12-e771b0b1ee89">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["ឆ្នាំ"+$P{KHMER_YEAR_STRING}]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="0" y="22" width="577" height="22" uuid="9d3031b3-4513-4a99-b80a-a9d6ad17e086">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textField>
+						<reportElement x="431" y="0" width="146" height="22" uuid="656a1b93-846f-4676-a4c4-97b34ed042ed">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Khmer OS Siemreap" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{KHMER_LUNAR_DATE}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="273" y="0" width="158" height="22" uuid="c93ea91b-ba42-4f70-9fc6-cc9eba407d69"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Khmer OS Siemreap" size="12"/>
+						</textElement>
+						<text><![CDATA[ថ្ងៃ..........................ខែ..............]]></text>
+					</staticText>
+				</frame>
+				<frame>
+					<reportElement x="0" y="44" width="577" height="22" uuid="a101353d-4240-4453-b07d-7c6c297fd0df">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<staticText>
+						<reportElement x="0" y="0" width="318" height="22" uuid="4da8ff58-d89c-4f8b-b79c-e4d00c9b6249"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Khmer OS Siemreap" size="12"/>
+						</textElement>
+						<text><![CDATA[(សេចក្ដីបញ្ជាក់របស់ប្រធានអង្គភាព)]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="343" y="0" width="194" height="22" uuid="9fd1fa94-bf59-443c-bb34-c93a71a3d411"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Khmer OS Siemreap" size="12"/>
+						</textElement>
+						<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី...........ខែ............ឆ្នាំ]]></text>
+					</staticText>
+					<textField>
+						<reportElement x="537" y="0" width="40" height="22" uuid="7bba16c3-ee66-44a0-ba67-7f0dec245558">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Khmer OS Siemreap" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{KHMER_YEAR_STRING}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<staticText>
+					<reportElement x="0" y="66" width="318" height="22" uuid="db7d8af0-342f-44e8-acc5-eca76b493c33"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[..................................................................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="88" width="318" height="22" uuid="a670c031-ce17-4635-8633-98e3d4a13d78"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[..................................................................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="22" y="110" width="168" height="22" uuid="abc9b620-a67c-4dee-91f8-7daa61126f13"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[ថ្ងៃ.........................ខែ..................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="54" y="132" width="188" height="22" uuid="751a2364-9c8c-4341-9a64-7a750c4dbcef"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី..........ខែ..............]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="93" y="154" width="122" height="26" uuid="00842db5-ed26-4f57-b491-22d0a517df0e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Muol" size="12"/>
+					</textElement>
+					<text><![CDATA[ប្រធាននាយកដ្ឋាន]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="48">
+			<textField>
+				<reportElement x="227" y="10" width="100" height="20" uuid="58964f7a-ed1f-4a99-9c92-9933accb9805">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Khmer OS Siemreap"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new StringBuilder()
+    .append("\u17E0")  // Replace with "Page" in Khmer if needed
+    .append($V{PAGE_NUMBER})
+    .toString()
+    .replace('0', '\u17E0')
+    .replace('1', '\u17E1')
+    .replace('2', '\u17E2')
+    .replace('3', '\u17E3')
+    .replace('4', '\u17E4')
+    .replace('5', '\u17E5')
+    .replace('6', '\u17E6')
+    .replace('7', '\u17E7')
+    .replace('8', '\u17E8')
+    .replace('9', '\u17E9')]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
