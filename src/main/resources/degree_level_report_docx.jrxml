@@ -15,22 +15,28 @@
 	</background>
 	<detail>
 		<band height="24" splitType="Stretch">
-			<textField>
-				<reportElement x="40" y="2" width="140" height="22" uuid="cb8b4bec-de93-4522-a62b-2ac5882e0ed7">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement>
-					<font fontName="Khmer OS Siemreap" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{educationLevel}]]></textFieldExpression>
-			</textField>
-			<image>
-				<reportElement x="22" y="6" width="12" height="12" uuid="57542ff5-477e-4d05-aff6-490395ead7ad">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-				<imageExpression><![CDATA[$F{isChecked}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-			</image>
+			<frame>
+				<reportElement x="18" y="0" width="162" height="24" uuid="4abc4e98-798c-4579-8bd4-e2ffdd0775f4"/>
+				<textField>
+					<reportElement x="22" y="0" width="140" height="24" uuid="cb8b4bec-de93-4522-a62b-2ac5882e0ed7">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{educationLevel}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="22" height="24" forecolor="#0000CC" uuid="2298241a-a27c-46c8-82b7-4c05ae419144">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{isChecked}.equals(true) ?"\u2611" : "\u2610"]]></textFieldExpression>
+				</textField>
+			</frame>
 		</band>
 	</detail>
 </jasperReport>

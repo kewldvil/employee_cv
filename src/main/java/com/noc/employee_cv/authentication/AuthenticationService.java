@@ -35,7 +35,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final TokenRepo tokenRepo;
     private final EmployeeRepo employeeRepo;
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
     private final EmailService emailService;
 
     @Value("${activation_url}")

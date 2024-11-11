@@ -408,7 +408,7 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="116" y="50" width="104" height="22" uuid="e6d37f7e-5ad0-46d5-9ff0-74f2cb2b1187">
+				<reportElement x="116" y="50" width="125" height="22" uuid="e6d37f7e-5ad0-46d5-9ff0-74f2cb2b1187">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -423,7 +423,7 @@
 					<text><![CDATA[ភេទ៖ប្រុស]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="68" y="0" width="19" height="22" uuid="3fabdfe5-41cf-4bdb-b588-2b7baabdeca1">
+					<reportElement x="75" y="0" width="19" height="22" uuid="3fabdfe5-41cf-4bdb-b588-2b7baabdeca1">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -431,20 +431,24 @@
 					</textElement>
 					<text><![CDATA[ស្រី]]></text>
 				</staticText>
-				<image>
-					<reportElement x="55" y="5" width="12" height="12" uuid="cc6d3f58-11db-4ed1-8fe7-88a9d281535a">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<textField>
+					<reportElement x="94" y="0" width="17" height="22" forecolor="#0000CC" uuid="09216f25-c6d9-4aa0-be90-7e0a1329dd83">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<imageExpression><![CDATA[$F{gender}.equals("M") ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
-				<image>
-					<reportElement x="89" y="5" width="12" height="12" uuid="a48ad269-001c-44b3-ac1b-ef2400b60d0c">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{gender}.equals("F") ? "\u2611" : "\u2610"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="56" y="0" width="17" height="22" forecolor="#0000CC" uuid="5551c799-003e-49e4-8f56-2368cb11b886">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<imageExpression><![CDATA[$F{gender}.equals("F") ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{gender}.equals("M") ? "\u2611" : "\u2610"]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement x="10" y="72" width="567" height="22" uuid="4e63b480-d301-40d1-b4c1-48f1abe8769c">
@@ -1764,7 +1768,7 @@
 					<text><![CDATA[៧-ព័ត៌មានគ្រួសារ៖ មានប្រពន្ធ ឫប្តី]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="212" y="0" width="50" height="26" uuid="08decd7a-7f5c-465e-89fd-837832dcd82e">
+					<reportElement x="219" y="0" width="50" height="26" uuid="08decd7a-7f5c-465e-89fd-837832dcd82e">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -1772,17 +1776,24 @@
 					</textElement>
 					<text><![CDATA[នៅលីវ ]]></text>
 				</staticText>
-				<image>
-					<reportElement x="200" y="7" width="12" height="12" uuid="e55f85ec-b3cf-439e-bf97-7cf0d8e96dba">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<textField>
+					<reportElement x="201" y="2" width="17" height="22" forecolor="#000000" uuid="ac2c1d27-f25c-4538-858d-1439c60dd67c">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
-					<imageExpression><![CDATA[$F{isMarried}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
-				<image>
-					<reportElement x="262" y="7" width="12" height="12" uuid="f32ef2a4-6f18-4bbc-b3b9-6170c0f211a3"/>
-					<imageExpression><![CDATA[$F{isMarried}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{isMarried}.equals(true) ? "\u2611" : "\u2610"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="270" y="2" width="20" height="22" forecolor="#000000" uuid="6eb28315-f186-4b86-b8ef-0919a987a358">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{isMarried}.equals(false) ? "\u2611" : "\u2610"]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement x="0" y="27" width="577" height="22" uuid="fb51f5d5-ca08-4309-b4a6-82591e46b8b7">
@@ -1810,7 +1821,7 @@
 					<text><![CDATA[រស់]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="279" y="0" width="26" height="22" uuid="9ca01d4f-efbf-476d-829b-c50be1f30e94">
+					<reportElement x="285" y="0" width="26" height="22" uuid="9ca01d4f-efbf-476d-829b-c50be1f30e94">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -1819,7 +1830,7 @@
 					<text><![CDATA[ស្លាប់]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="323" y="0" width="76" height="22" uuid="ba508285-1d9f-4efe-9b06-2bd0f19910b2">
+					<reportElement x="340" y="0" width="76" height="22" uuid="ba508285-1d9f-4efe-9b06-2bd0f19910b2">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -1837,7 +1848,7 @@
 					<textFieldExpression><![CDATA[$F{spouse.fullName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="404" y="0" width="172" height="22" forecolor="#0000CC" uuid="fdb4e66f-07fb-4b2c-bb28-8dae09a4f0b9">
+					<reportElement x="419" y="0" width="157" height="22" forecolor="#0000CC" uuid="fdb4e66f-07fb-4b2c-bb28-8dae09a4f0b9">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center">
@@ -1845,14 +1856,26 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{SPOUSE_DOB}]]></textFieldExpression>
 				</textField>
-				<image>
-					<reportElement x="266" y="5" width="12" height="12" uuid="9bd6de76-6fbf-4c18-93e9-275cffede064"/>
-					<imageExpression><![CDATA[$F{spouse.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
-				<image>
-					<reportElement x="306" y="6" width="12" height="12" uuid="b80bd262-d1fc-4c00-a91e-74ea23e759c2"/>
-					<imageExpression><![CDATA[$F{spouse.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
+				<textField isBlankWhenNull="true">
+					<reportElement x="267" y="0" width="17" height="22" forecolor="#0000CC" uuid="d6ae5fa7-8feb-4591-ad4c-ae169840a984">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{spouse.isAlive} && $F{isMarried}) ? "\u2611" : "\u2610"
+]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="313" y="0" width="17" height="22" forecolor="#0000CC" uuid="bbb921e6-94aa-4085-b9d0-8245dd37a633">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(!$F{spouse.isAlive} && $F{isMarried}) ? "\u2611" : "\u2610"
+]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement x="10" y="50" width="567" height="22" uuid="f14871f3-4e4e-4b95-94c4-3e6f3c7d0073">
@@ -2224,7 +2247,7 @@
 					<text><![CDATA[រស់]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="279" y="0" width="26" height="22" uuid="99cdcf8e-b1f0-482d-b23d-8ee220c94235">
+					<reportElement x="284" y="0" width="26" height="22" uuid="99cdcf8e-b1f0-482d-b23d-8ee220c94235">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -2233,7 +2256,7 @@
 					<text><![CDATA[ស្លាប់]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="323" y="0" width="76" height="22" uuid="1982ac10-eeb6-4df2-a9ee-3fab73aca9dd">
+					<reportElement x="335" y="0" width="76" height="22" uuid="1982ac10-eeb6-4df2-a9ee-3fab73aca9dd">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -2251,7 +2274,7 @@
 					<textFieldExpression><![CDATA[$F{father.fullName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="404" y="0" width="172" height="22" forecolor="#0000CC" uuid="61c1c46f-8836-4207-a16c-c0915376e8f4">
+					<reportElement x="415" y="0" width="160" height="22" forecolor="#0000CC" uuid="61c1c46f-8836-4207-a16c-c0915376e8f4">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center">
@@ -2259,14 +2282,24 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{FATHER_DOB}]]></textFieldExpression>
 				</textField>
-				<image>
-					<reportElement x="266" y="5" width="12" height="12" uuid="9e31afa2-c0d1-46d6-be49-dc417c76a0ee"/>
-					<imageExpression><![CDATA[$F{father.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
-				<image>
-					<reportElement x="306" y="6" width="12" height="12" uuid="9f914e5f-242e-46f1-979f-837109dfe103"/>
-					<imageExpression><![CDATA[$F{father.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
+				<textField>
+					<reportElement x="267" y="0" width="17" height="22" forecolor="#0000CC" uuid="6b9b7134-8590-4746-83c6-4d3f6e909c61">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{father.isAlive}.equals(true) ? "\u2611" : "\u2610"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="313" y="0" width="17" height="22" forecolor="#0000CC" uuid="47393dbd-e0e8-4e22-b92e-82a0163239ea">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{father.isAlive}.equals(false) ? "\u2611" : "\u2610"]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement x="10" y="23" width="567" height="22" uuid="58cd814e-101c-45e6-b600-176d379f403a">
@@ -2590,7 +2623,7 @@
 					<text><![CDATA[រស់]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="279" y="0" width="26" height="22" uuid="ee1672d2-d93b-401d-a9fd-387f9e928546">
+					<reportElement x="286" y="0" width="26" height="22" uuid="ee1672d2-d93b-401d-a9fd-387f9e928546">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -2599,7 +2632,7 @@
 					<text><![CDATA[ស្លាប់]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="323" y="0" width="76" height="22" uuid="70bd2bf3-9f9a-4061-8054-861a73ab6167">
+					<reportElement x="332" y="0" width="76" height="22" uuid="70bd2bf3-9f9a-4061-8054-861a73ab6167">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -2617,7 +2650,7 @@
 					<textFieldExpression><![CDATA[$F{mother.fullName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="404" y="0" width="172" height="22" forecolor="#0000CC" uuid="b6832909-a744-49a0-8db2-b2f5404ae5f9">
+					<reportElement x="411" y="0" width="164" height="22" forecolor="#0000CC" uuid="b6832909-a744-49a0-8db2-b2f5404ae5f9">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center">
@@ -2625,14 +2658,24 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{MOTHER_DOB}]]></textFieldExpression>
 				</textField>
-				<image>
-					<reportElement x="266" y="5" width="12" height="12" uuid="b80468f6-1df4-4758-ae4a-089272f2816a"/>
-					<imageExpression><![CDATA[$F{mother.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
-				<image>
-					<reportElement x="306" y="6" width="12" height="12" uuid="90d07cd6-d352-4587-8dab-c9f382e41dde"/>
-					<imageExpression><![CDATA[$F{mother.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
-				</image>
+				<textField>
+					<reportElement x="267" y="0" width="17" height="22" forecolor="#0000CC" uuid="2608a85e-752d-40ab-91f1-b940d5efb739">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{father.isAlive}.equals(true) ? "\u2611" : "\u2610"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="313" y="0" width="17" height="22" forecolor="#0000CC" uuid="6fe34096-debf-48f1-905b-bdb81c4a4425">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Khmer OS Siemreap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{father.isAlive}.equals(false) ? "\u2611" : "\u2610"]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement x="10" y="24" width="567" height="22" uuid="e87761d6-0c4e-4438-929d-36a6d30812a6">
