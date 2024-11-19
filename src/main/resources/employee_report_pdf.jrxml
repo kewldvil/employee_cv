@@ -462,7 +462,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<text><![CDATA[ឃុំ/សង្កាត់....................................ស្រុក/ខណ្ឌ.........................ខេត្ត/រាជធានី..................]]></text>
+				<text><![CDATA[ ឃុំ/សង្កាត់....................................ស្រុក/ខណ្ឌ.........................ខេត្ត/រាជធានី..................]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="13" y="26" width="101" height="22" uuid="32f14915-4ab8-453e-9163-cd5a3d73d1a1">
@@ -812,7 +812,7 @@
 					<subreportParameterExpression><![CDATA[$P{VEHICLE_LIST}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{VEHICLE_LIST})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{REPORT_PATH}+"vehicle_report_docx.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{REPORT_PATH}+"vehicle_report.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="44">
@@ -1324,7 +1324,7 @@
 					<imageExpression><![CDATA[$F{isMarried}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 				</image>
 				<image>
-					<reportElement x="265" y="5" width="12" height="12" uuid="43622b49-7670-4d09-b2fa-65f366f13198"/>
+					<reportElement x="266" y="5" width="12" height="12" uuid="43622b49-7670-4d09-b2fa-65f366f13198"/>
 					<imageExpression><![CDATA[$F{isMarried}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 				</image>
 			</frame>
@@ -1579,7 +1579,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<text><![CDATA[ឃុំ/សង្កាត់....................................ស្រុក/ខណ្ឌ.........................ខេត្ត/រាជធានី..................]]></text>
+				<text><![CDATA[ ឃុំ/សង្កាត់....................................ស្រុក/ខណ្ឌ.........................ខេត្ត/រាជធានី..................]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="115" y="221" width="440" height="22" uuid="7129a2d5-cd2b-4e50-b047-9f584e7811b5">
@@ -1779,14 +1779,14 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<text><![CDATA[ឃុំ/សង្កាត់....................................ស្រុក/ខណ្ឌ.........................ខេត្ត/រាជធានី..................]]></text>
+				<text><![CDATA[ ឃុំ/សង្កាត់....................................ស្រុក/ខណ្ឌ.........................ខេត្ត/រាជធានី..................]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="1" y="133" width="555" height="22" uuid="1f8f64a7-3d51-4f55-a775-23dcff947445"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<text><![CDATA[ឃ-ម្ដាយបង្កើតឈ្មោះ..........................................រស់     ស្លាប់      ថ្ងៃខែឆ្នាំកំណើត.................................................]]></text>
+				<text><![CDATA[ ឃ-ម្ដាយបង្កើតឈ្មោះ..........................................រស់     ស្លាប់      ថ្ងៃខែឆ្នាំកំណើត.................................................]]></text>
 			</staticText>
 			<textField textAdjust="ScaleFont">
 				<reportElement x="97" y="131" width="140" height="22" forecolor="#0000CC" uuid="2a018ee0-8a78-4d3f-8fb3-fbea2d895217">
@@ -1798,11 +1798,11 @@
 				<textFieldExpression><![CDATA[$F{mother.fullName}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="254" y="137" width="12" height="12" uuid="9b9d5837-dd82-4340-a51c-b8cc481584a5"/>
+				<reportElement x="260" y="137" width="12" height="12" uuid="9b9d5837-dd82-4340-a51c-b8cc481584a5"/>
 				<imageExpression><![CDATA[$F{mother.isAlive}.equals(true) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="295" y="137" width="12" height="12" uuid="5768bb7d-dc5c-4d31-86fa-896764fc33bc"/>
+				<reportElement x="302" y="137" width="12" height="12" uuid="5768bb7d-dc5c-4d31-86fa-896764fc33bc"/>
 				<imageExpression><![CDATA[$F{mother.isAlive}.equals(false) ? $P{REPORT_PHOTO_PATH}+"check.png" : $P{REPORT_PHOTO_PATH}+"unchecked.png"]]></imageExpression>
 			</image>
 			<textField>

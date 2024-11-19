@@ -153,34 +153,25 @@ public class EmployeeController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
 
+        if (page < 0 || size <= 0) {
+            throw new IllegalArgumentException("Page and size must be positive.");
+        }
+
         Pageable pageable = PageRequest.of(page, size);
         Page<User> users;
 
-        // Logging the input parameters
-        System.out.println(filter);
-        System.out.println(departmentId);
-        System.out.println(page);
-        System.out.println(size);
-
-        // Handle filter conditions with a switch statement
+        // Handle filter conditions
         switch (filter) {
-            case "employee" -> {
-                if (departmentId == 0) {
-                    System.out.println("GET ALL ACTIVE USERS");
-                    users = userService.findAllActiveUser(search, pageable);
-                } else {
-                    System.out.println("GET ALL USERS BY DEPARTMENT");
-                    users = userService.findByDepartmentId(departmentId, search, pageable);
-                }
-            }
-            case "weapon" ->
-                    users = userService.findAllUsersWithEmployeeAndWeaponsByDepartment(departmentId, search, pageable);
-            default ->
-                    users = userService.findAllUsersWithEmployeeAndPoliceCarByDepartment(departmentId, search, pageable);
+            case "employee" -> users = (departmentId == 0)
+                    ? userService.findAllActiveUser(search, pageable)
+                    : userService.findByDepartmentId(departmentId, search, pageable);
+            case "weapon" -> users = userService.findAllUsersWithEmployeeAndWeaponsByDepartment(departmentId, search, pageable);
+            case "car" -> users = userService.findAllUsersWithEmployeeAndPoliceCarByDepartment(departmentId, search, pageable);
+            default -> throw new IllegalArgumentException("Invalid filter value.");
         }
 
         // Check if users list is empty
-        if (users.isEmpty()) {
+        if (!users.hasContent()) {
             return ResponseEntity.notFound().build();
         }
 
@@ -196,10 +187,9 @@ public class EmployeeController {
         response.put("totalItems", users.getTotalElements());
         response.put("totalPages", users.getTotalPages());
 
-        // Return paginated list with metadata
-//        System.out.println(response);
         return ResponseEntity.ok(response);
     }
+
 
 
     @GetMapping("/report/{format}/{empId}")
