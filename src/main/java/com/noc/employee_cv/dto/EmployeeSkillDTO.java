@@ -6,4 +6,5 @@ import lombok.Data;
 public class EmployeeSkillDTO {
     private Integer id;
     private String skillName;
+    private boolean enabled;
 }

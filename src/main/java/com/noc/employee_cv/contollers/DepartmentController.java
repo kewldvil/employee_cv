@@ -24,7 +24,7 @@ public class DepartmentController {
     private final GeneralDepartmentRepo generalDepartmentRepo;
     @PostMapping("/")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<DepartmentDTO> createGeneralDepartment(@RequestBody DepartmentDTO departmentDTO) {
+    public ResponseEntity<Department> createGeneralDepartment(@RequestBody DepartmentDTO departmentDTO) {
 
         GeneralDepartment generalDepartment = generalDepartmentRepo.findById(departmentDTO.getGeneralDepartmentId()).orElseThrow();
         Department department = new Department();

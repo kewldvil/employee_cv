@@ -1,7 +1,9 @@
 package com.noc.employee_cv;
 
 import com.noc.employee_cv.enums.Role;
+import com.noc.employee_cv.models.Skill;
 import com.noc.employee_cv.models.User;
+import com.noc.employee_cv.repositories.SkillRepo;
 import com.noc.employee_cv.repositories.UserRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -61,4 +64,24 @@ public class EmployeeCvApplication {
 //            }
 //        };
 //    }
+
+//    @Bean
+//    public CommandLineRunner commandLineRunner(SkillRepo skillRepo) {
+//        return args -> {
+//            // Retrieve all skills
+//            List<Skill> existingSkills = skillRepo.findAll();
+//
+//            // Update skills if necessary
+//            existingSkills.forEach(skill -> {
+//                if (skill.getEnabled() == null) {
+//                    skill.setEnabled(true); // Assign a default value for null
+//                } else if (!skill.getEnabled()) {
+//                    skill.setEnabled(true); // Update logic if needed
+//                }
+//            });
+//            // Save all updated skills at once
+//            skillRepo.saveAll(existingSkills);
+//        };
+//    }
+
 }

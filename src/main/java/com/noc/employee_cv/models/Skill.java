@@ -14,6 +14,8 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String skillName;
+    private boolean enabled;
+
 
     @JsonIgnore
     @ManyToMany(mappedBy = "skills")

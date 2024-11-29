@@ -8,6 +8,7 @@ import com.noc.employee_cv.dto.UserProfileDTO;
 import com.noc.employee_cv.enums.Role;
 import com.noc.employee_cv.models.Department;
 import com.noc.employee_cv.models.Employee;
+import com.noc.employee_cv.models.Skill;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.DepartmentRepo;
 import com.noc.employee_cv.repositories.EmployeeRepo;
@@ -239,4 +240,6 @@ public class DashboardController {
     public ResponseEntity<Object[]> getAllEmployeeState() {
         return ResponseEntity.ok(userRepo.getAllUserStats());
     }
+
+
 }
