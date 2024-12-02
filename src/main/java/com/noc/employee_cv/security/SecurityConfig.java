@@ -56,7 +56,7 @@ public class SecurityConfig {
                         // Common roles for multiple endpoints
                         .requestMatchers("/api/v1/photo/**", "/api/v1/files/**", "/api/v1/employee/**", "/api/v1/address/**", "/api/v1/enum/**")
                         .hasAnyRole(COMMON_ROLES)
-                        .requestMatchers("/api/v1/general-department/**", "/api/v1/department/**", "/api/v1/skill/**")
+                        .requestMatchers("/api/v1/general-department/**", "/api/v1/department/**", "/api/v1/skill/**", "/api/v1/positions/**")
                         .hasAnyRole(COMMON_ROLES)
 
                         // Bureau endpoint restricted to ADMIN only
