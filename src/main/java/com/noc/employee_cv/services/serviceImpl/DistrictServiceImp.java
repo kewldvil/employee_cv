@@ -23,7 +23,21 @@ public class DistrictServiceImp implements DistrictService {
 
     @Override
     public List<District> getAllDistrictById(Integer id) {
-        return districtRepo.findByProvince_city_id(id);
+        return districtRepo.findByProvinceCityIdAndEnabledTrue(id);
     }
 
+    @Override
+    public void save(District district) {
+        districtRepo.save(district);
+    }
+
+    @Override
+    public void update(District district) {
+        districtRepo.save(district);
+    }
+    public String getNextDistrictCode() {
+        return districtRepo.findFirstByOrderByDistrict_codeDesc()
+                .map(district -> String.valueOf(Integer.parseInt(district.getDistrict_code()) + 1))
+                .orElse("1"); // Default to "1" if no record exists
+    }
 }

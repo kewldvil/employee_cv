@@ -3,6 +3,8 @@ package com.noc.employee_cv;
 import com.noc.employee_cv.enums.Role;
 import com.noc.employee_cv.models.Skill;
 import com.noc.employee_cv.models.User;
+import com.noc.employee_cv.provinces.District;
+import com.noc.employee_cv.repositories.DistrictRepo;
 import com.noc.employee_cv.repositories.SkillRepo;
 import com.noc.employee_cv.repositories.UserRepo;
 import org.springframework.boot.CommandLineRunner;
@@ -81,6 +83,22 @@ public class EmployeeCvApplication {
 //            });
 //            // Save all updated skills at once
 //            skillRepo.saveAll(existingSkills);
+//        };
+//    }
+//        @Bean
+//    public CommandLineRunner commandLineRunner(DistrictRepo districtRepo) {
+//        return args -> {
+//            // Retrieve all skills
+//            List<District> existingDistricts = districtRepo.findAll();
+//
+//            // Update skills if necessary
+//            existingDistricts.forEach(district -> {
+//                if (district.getEnabled()== null) {
+//                    district.setEnabled(true); // Assign a default value for null
+//                }
+//            });
+//            // Save all updated skills at once
+//            districtRepo.saveAll(existingDistricts);
 //        };
 //    }
 

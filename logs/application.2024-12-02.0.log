@@ -164,3 +164,7 @@
 2024-12-02 10:00:12 [http-nio-8080-exec-3] WARN  org.hibernate.orm.query - HHH90003004: firstResult/maxResults specified with collection fetch; applying in memory
 2024-12-02 10:00:33 [http-nio-8080-exec-1] WARN  org.hibernate.orm.query - HHH90003004: firstResult/maxResults specified with collection fetch; applying in memory
 2024-12-02 10:05:42 [http-nio-8080-exec-3] WARN  org.hibernate.orm.query - HHH90003004: firstResult/maxResults specified with collection fetch; applying in memory
+2024-12-02 13:33:45 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h3m58s357ms832µs500ns).
+2024-12-02 15:00:28 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-02 15:00:28 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-12-02 15:00:28 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

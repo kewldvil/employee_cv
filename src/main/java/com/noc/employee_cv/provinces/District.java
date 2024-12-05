@@ -18,10 +18,14 @@ public class District {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "province_city_id", nullable = false)
     private int province_city_id;
+    @Column(name = "district_code", nullable = false)
     private String district_code;
     private String district_name_kh;
     private String district_name_en;
+    private boolean enabled ;
+
 
     @JsonIgnore
     @ManyToMany(mappedBy = "districts")

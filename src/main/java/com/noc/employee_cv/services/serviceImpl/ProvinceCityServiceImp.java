@@ -25,4 +25,19 @@ public class ProvinceCityServiceImp implements ProvinceCityService {
         return provinceCityRepo.findAll();
     }
 
+    @Override
+    public void save(ProvinceCity provinceCity) {
+        provinceCityRepo.save(provinceCity);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+
+    }
+
+    @Override
+    public void update(ProvinceCity provinceCity) {
+        provinceCityRepo.save(provinceCity);
+    }
+
 }

@@ -12,8 +12,6 @@ public enum Position implements CommonEnum{
     ASSISTANT("ជំនួយការ"),
     OTHER("ផ្សេងៗ");
 
-
-
     public final String value;
 
     Position( String value) {
