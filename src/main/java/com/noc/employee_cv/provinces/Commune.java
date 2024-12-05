@@ -21,7 +21,7 @@ public class Commune {
     private String commune_code;
     private String commune_name_kh;
     private String commune_name_en;
-
+    private boolean enabled;
     @JsonIgnore
     @ManyToMany(mappedBy = "communes")
     private List<Address> addresses = new ArrayList<>();

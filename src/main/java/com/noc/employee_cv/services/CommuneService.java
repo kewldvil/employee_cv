@@ -8,4 +8,6 @@ import java.util.List;
 public interface CommuneService {
     Commune getCommuneById(Integer id);
     List<Commune> getAllCommuneById(Integer districtId);
+    void save(Commune commune);
+    void update(Commune commune);
 }

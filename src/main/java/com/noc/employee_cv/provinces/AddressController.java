@@ -1,5 +1,6 @@
 package com.noc.employee_cv.provinces;
 
+import com.noc.employee_cv.records.CommuneRecord;
 import com.noc.employee_cv.records.DistrictRecord;
 import com.noc.employee_cv.services.serviceImpl.CommuneServiceImp;
 import com.noc.employee_cv.services.serviceImpl.DistrictServiceImp;
@@ -78,7 +79,7 @@ public class AddressController {
     }
 
 //    END DISTRICTS
-
+//  START COMMUNES
     @GetMapping("/communes")
     public ResponseEntity<List<Commune>> commune(@RequestParam(required = false, defaultValue = "0") Integer district_id) {
         if (district_id == 0) {
@@ -91,6 +92,35 @@ public class AddressController {
         return ResponseEntity.ok(communes); // Return 200 OK with body
 
     }
+
+    @PostMapping("/communes")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<District> createCommune(@RequestBody CommuneRecord commune) {
+        Commune cm = new Commune();
+        cm.setDistrict_id(commune.district_id());
+        cm.setCommune_code(communeService.getNextCommuneCode());
+        cm.setCommune_name_en(commune.commune_name_en());
+        cm.setCommune_name_kh(commune.commune_name_kh());
+        cm.setEnabled(true);
+        communeService.save(cm);
+        return ResponseEntity.accepted().build();
+    }
+
+    @PutMapping("/communes")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<Commune> updateCommune(@RequestBody CommuneRecord commune) {
+        Commune cm = new Commune();
+        cm.setId(commune.id());
+        cm.setEnabled(commune.enabled());
+        cm.setCommune_code(commune.commune_code());
+        cm.setDistrict_id(commune.district_id());
+        cm.setCommune_name_en(commune.commune_name_en());
+        cm.setCommune_name_kh(commune.commune_name_kh());
+        communeService.update(cm);
+        return ResponseEntity.accepted().build();
+    }
+
+//    END COMMUNES
 
     @GetMapping("/villages")
     public ResponseEntity<List<Village>> village(@RequestParam(required = false, defaultValue = "0") Integer commune_id) {

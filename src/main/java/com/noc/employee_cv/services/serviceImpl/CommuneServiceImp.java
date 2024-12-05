@@ -22,6 +22,22 @@ public class CommuneServiceImp implements CommuneService {
 
     @Override
     public List<Commune> getAllCommuneById(Integer districtId) {
-        return communeRepo.findByDistrict_id(districtId);
+        return communeRepo.findByDistrictIdEAndEnabledTrue(districtId);
+    }
+
+    @Override
+    public void save(Commune commune) {
+        communeRepo.save(commune);
+    }
+
+    @Override
+    public void update(Commune commune) {
+        communeRepo.save(commune);
+    }
+
+    public String getNextCommuneCode() {
+        return communeRepo.findFirstByOrderByCommuneCodeDesc()
+                .map(commune -> String.valueOf(Integer.parseInt(commune.getCommune_code() + 1)))
+                .orElse("1"); // Default to "1" if no record exists
     }
 }

@@ -3,7 +3,9 @@ package com.noc.employee_cv;
 import com.noc.employee_cv.enums.Role;
 import com.noc.employee_cv.models.Skill;
 import com.noc.employee_cv.models.User;
+import com.noc.employee_cv.provinces.Commune;
 import com.noc.employee_cv.provinces.District;
+import com.noc.employee_cv.repositories.CommuneRepo;
 import com.noc.employee_cv.repositories.DistrictRepo;
 import com.noc.employee_cv.repositories.SkillRepo;
 import com.noc.employee_cv.repositories.UserRepo;
@@ -101,5 +103,20 @@ public class EmployeeCvApplication {
 //            districtRepo.saveAll(existingDistricts);
 //        };
 //    }
-
+//        @Bean
+//    public CommandLineRunner commandLineRunner(CommuneRepo communeRepo) {
+//        return args -> {
+//            // Retrieve all skills
+//            List<Commune> existingCommunes = communeRepo.findAll();
+//
+//            // Update skills if necessary
+//            existingCommunes.forEach(commune -> {
+//                if (commune.getEnabled()==null) {
+//                    commune.setEnabled(true); // Assign a default value for null
+//                }
+//            });
+//            // Save all updated skills at once
+//            communeRepo.saveAll(existingCommunes);
+//        };
+//    }
 }
