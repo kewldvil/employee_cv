@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface CommuneRepo extends JpaRepository<Commune,Integer> {
     @Query("SELECT c FROM Commune c WHERE c.district_id = :id AND c.enabled=true")
     List<Commune> findByDistrictIdEAndEnabledTrue(Integer id);
-    @Query(value = "SELECT * FROM Commune ORDER BY commune_code DESC LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM Commune WHERE commune_code IS NOT NULL ORDER BY commune_code DESC LIMIT 1", nativeQuery = true)
     Optional<Commune> findFirstByOrderByCommuneCodeDesc();
 }

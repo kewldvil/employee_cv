@@ -5,10 +5,8 @@ import com.noc.employee_cv.models.Skill;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.provinces.Commune;
 import com.noc.employee_cv.provinces.District;
-import com.noc.employee_cv.repositories.CommuneRepo;
-import com.noc.employee_cv.repositories.DistrictRepo;
-import com.noc.employee_cv.repositories.SkillRepo;
-import com.noc.employee_cv.repositories.UserRepo;
+import com.noc.employee_cv.provinces.Village;
+import com.noc.employee_cv.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -104,19 +102,19 @@ public class EmployeeCvApplication {
 //        };
 //    }
 //        @Bean
-//    public CommandLineRunner commandLineRunner(CommuneRepo communeRepo) {
+//    public CommandLineRunner commandLineRunner(VillageRepo villageRepo) {
 //        return args -> {
 //            // Retrieve all skills
-//            List<Commune> existingCommunes = communeRepo.findAll();
+//            List<Village> existingVillages = villageRepo.findAll();
 //
 //            // Update skills if necessary
-//            existingCommunes.forEach(commune -> {
-//                if (commune.getEnabled()==null) {
-//                    commune.setEnabled(true); // Assign a default value for null
+//            existingVillages.forEach(village -> {
+//                if (village.getEnabled()==null) {
+//                    village.setEnabled(true); // Assign a default value for null
 //                }
 //            });
 //            // Save all updated skills at once
-//            communeRepo.saveAll(existingCommunes);
+//            villageRepo.saveAll(existingVillages);
 //        };
 //    }
 }

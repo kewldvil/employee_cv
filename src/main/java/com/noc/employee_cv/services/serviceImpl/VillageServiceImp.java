@@ -22,7 +22,21 @@ public class VillageServiceImp implements VillageService {
 
     @Override
     public List<Village> getAllVillageById(Integer communeId) {
-        return villageRepo.findByCommune_id(communeId);
+        return villageRepo.findByCommuneIdAndEnabledTrue(communeId);
     }
 
+    @Override
+    public void save(Village village) {
+        villageRepo.save(village);
+    }
+
+    @Override
+    public void update(Village village) {
+        villageRepo.save(village);
+    }
+    public String getNextVillageCode() {
+        return villageRepo.findFirstByOrderByVillageCodeDesc()
+                .map(village -> String.valueOf(Integer.parseInt(village.getVillage_code()) + 1))
+                .orElse("1"); // Default to "1" if no record exists
+    }
 }

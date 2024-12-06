@@ -2,6 +2,7 @@ package com.noc.employee_cv.provinces;
 
 import com.noc.employee_cv.records.CommuneRecord;
 import com.noc.employee_cv.records.DistrictRecord;
+import com.noc.employee_cv.records.VillageRecord;
 import com.noc.employee_cv.services.serviceImpl.CommuneServiceImp;
 import com.noc.employee_cv.services.serviceImpl.DistrictServiceImp;
 import com.noc.employee_cv.services.serviceImpl.ProvinceCityServiceImp;
@@ -121,7 +122,7 @@ public class AddressController {
     }
 
 //    END COMMUNES
-
+//  START VILLAGES
     @GetMapping("/villages")
     public ResponseEntity<List<Village>> village(@RequestParam(required = false, defaultValue = "0") Integer commune_id) {
         if (commune_id == 0) {
@@ -135,6 +136,33 @@ public class AddressController {
 
     }
 
+    @PostMapping("/villages")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<District> createVillage(@RequestBody VillageRecord village) {
+        Village vl = new Village();
+        vl.setCommune_id(village.commune_id());
+        vl.setVillage_code(villageService.getNextVillageCode());
+        vl.setVillage_name_en(village.village_name_en());
+        vl.setVillage_name_kh(village.village_name_kh());
+        vl.setEnabled(true);
+        villageService.save(vl);
+        return ResponseEntity.accepted().build();
+    }
+
+    @PutMapping("/villages")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<Village> updateVillage(@RequestBody VillageRecord village) {
+        Village vl = new Village();
+        vl.setId(village.id());
+        vl.setEnabled(village.enabled());
+        vl.setVillage_code(village.village_code());
+        vl.setCommune_id(village.commune_id());
+        vl.setVillage_name_en(village.village_name_en());
+        vl.setVillage_name_kh(village.village_name_kh());
+        villageService.update(vl);
+        return ResponseEntity.accepted().build();
+    }
+//  END VILLAGES
 }
 
 

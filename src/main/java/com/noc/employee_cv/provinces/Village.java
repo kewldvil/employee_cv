@@ -21,6 +21,7 @@ public class Village {
     private String village_code;
     private String village_name_kh;
     private String village_name_en;
+    private boolean enabled;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "villages")
