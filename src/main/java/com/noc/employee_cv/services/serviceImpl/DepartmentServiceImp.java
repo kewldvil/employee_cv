@@ -12,8 +12,9 @@ import java.util.List;
 public class DepartmentServiceImp implements DepartmentService {
     private final DepartmentRepo departmentRepo;
     @Override
-    public void save(Department department) {
+    public Department save(Department department) {
         departmentRepo.save(department);
+        return department;
     }
 
     @Override

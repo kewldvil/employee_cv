@@ -5,7 +5,7 @@ import com.noc.employee_cv.models.Department;
 import java.util.List;
 
 public interface DepartmentService {
-    void save(Department department);
+    Department save(Department department);
     Department findById(Integer id);
     List<Department> findAll();
     List<Department> findAllByGeneralDepartmentId(Integer id);

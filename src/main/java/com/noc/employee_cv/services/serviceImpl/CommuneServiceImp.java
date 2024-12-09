@@ -37,7 +37,7 @@ public class CommuneServiceImp implements CommuneService {
 
     public String getNextCommuneCode() {
         return communeRepo.findFirstByOrderByCommuneCodeDesc()
-                .map(commune -> String.valueOf(Integer.parseInt(commune.getCommune_code() + 1)))
+                .map(commune -> String.valueOf(Long.parseLong(commune.getCommune_code() + 1)))
                 .orElse("1"); // Default to "1" if no record exists
     }
 }
