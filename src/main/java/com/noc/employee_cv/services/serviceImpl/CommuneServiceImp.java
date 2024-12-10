@@ -3,6 +3,7 @@ package com.noc.employee_cv.services.serviceImpl;
 import com.noc.employee_cv.provinces.Commune;
 import com.noc.employee_cv.repositories.CommuneRepo;
 import com.noc.employee_cv.services.CommuneService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +27,25 @@ public class CommuneServiceImp implements CommuneService {
     }
 
     @Override
-    public void save(Commune commune) {
+    public Commune save(Commune commune) {
         communeRepo.save(commune);
+        return commune;
     }
 
     @Override
     public void update(Commune commune) {
         communeRepo.save(commune);
     }
+
+    @Transactional
+    public List<Commune> disableAndRetrieveCommunesByDistrictId(int districtId) {
+        // Step 1: Perform the update
+        communeRepo.updateSetEnabledFalseWhereDistrictId(districtId);
+
+        // Step 2: Retrieve the updated communes
+        return communeRepo.findDisabledCommunesByDistrictId(districtId);
+    }
+
 
     public String getNextCommuneCode() {
         return communeRepo.findFirstByOrderByCommuneCodeDesc()

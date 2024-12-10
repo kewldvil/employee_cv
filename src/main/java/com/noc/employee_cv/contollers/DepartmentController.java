@@ -24,9 +24,31 @@ import java.util.stream.Collectors;
 public class DepartmentController {
     private final DepartmentServiceImp departmentService;
     private final GeneralDepartmentRepo generalDepartmentRepo;
-
     @GetMapping
-    public ResponseEntity<List<DepartmentDTO>> department(@RequestParam(required = false, defaultValue = "0") Integer generalDepartmentId) {
+    public ResponseEntity<List<DepartmentDTO>> listAllDepartments() {
+
+        List<Department> departments = departmentService.findAll();
+
+        if (departments.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Return 204 No Content
+        }
+
+        // Map Department to DepartmentDTO using stream
+        List<DepartmentDTO> departmentDTOs = departments.stream()
+                .map(department -> new DepartmentDTO(
+                        department.getId(),
+                        department.getName(),
+                        department.isEnabled(),
+                        department.getGeneralDepartment().getName(),
+                        department.getGeneralDepartment().getId() // Assuming GeneralDepartment has getId()
+                ))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(departmentDTOs); // Return 200 OK with DTO list
+    }
+
+    @GetMapping("/by-general-department")
+    public ResponseEntity<List<DepartmentDTO>> departmentByGeneralDepartmentId(@RequestParam(required = false, defaultValue = "0") Integer generalDepartmentId) {
 
         if (generalDepartmentId == 0) {
             return ResponseEntity.ok(Collections.emptyList()); // Return empty list if generalDepartmentId is default value (0)

@@ -11,5 +11,5 @@ public interface DepartmentService {
     List<Department> findAllByGeneralDepartmentId(Integer id);
     void deleteById(Integer id);
     void update(Department department);
-
+    int disableDepartmentsByGeneralDepartmentId(Integer id);
 }

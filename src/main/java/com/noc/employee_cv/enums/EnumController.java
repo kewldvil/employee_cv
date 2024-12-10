@@ -17,30 +17,37 @@ public class EnumController {
     public <E extends Enum<E>> List<String> getPoliceRankings() {
         return getEnumKeyValuePairs(PoliceRank.class);
     }
+
     @GetMapping("/position")
     public <E extends Enum<E>> List<String> getPosition() {
         return getEnumKeyValuePairs(Position.class);
     }
+
     @GetMapping("/blood-type")
     public <E extends Enum<E>> List<String> getBloodType() {
         return getEnumKeyValuePairs(BloodType.class);
     }
+
     @GetMapping("/skill-level")
     public <E extends Enum<E>> List<String> getSkillLevel() {
         return getEnumKeyValuePairs(SkillLevel.class);
     }
+
     @GetMapping("/foreign-language")
     public <E extends Enum<E>> List<String> getForeignLang() {
         return getEnumKeyValuePairs(ForeignLang.class);
     }
+
     @GetMapping("/general-department")
     public <E extends Enum<E>> List<String> getGeneralDepartment() {
         return getEnumKeyValuePairs(GeneralDepartment.class);
     }
+
     @GetMapping("/university-major")
     public <E extends Enum<E>> List<String> getUniversityMajor() {
         return getEnumKeyValuePairs(UniversityMajor.class);
     }
+
     public static <E extends Enum<E>> List<String> getEnumKeyValuePairs(Class<E> enumClass) {
         List<String> resultList = new ArrayList<>();
         // Iterate over enum constants
@@ -53,7 +60,7 @@ public class EnumController {
         }
 
         return resultList;
-        }
+    }
 //    }  public static <E extends Enum<E>> List<Map<Enum<E>, String>> getEnumKeyValuePairs(Class<E> enumClass) {
 //        List<Map<Enum<E>, String>> resultList = new ArrayList<>();
 //        // Iterate over enum constants

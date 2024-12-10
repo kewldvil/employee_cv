@@ -1,6 +1,5 @@
 package com.noc.employee_cv.services.serviceImpl;
 
-import com.noc.employee_cv.dto.GeneralDepartmentDTO;
 import com.noc.employee_cv.models.GeneralDepartment;
 import com.noc.employee_cv.repositories.GeneralDepartmentRepo;
 import com.noc.employee_cv.services.GeneralDepartmentService;
@@ -13,8 +12,9 @@ import java.util.List;
 public class GeneralDepartmentServiceImp implements GeneralDepartmentService {
     private final GeneralDepartmentRepo generalDepartmentRepo;
     @Override
-    public void save(GeneralDepartment generalDepartment) {
+    public GeneralDepartment save(GeneralDepartment generalDepartment) {
         generalDepartmentRepo.save(generalDepartment);
+        return generalDepartment;
     }
 
     @Override

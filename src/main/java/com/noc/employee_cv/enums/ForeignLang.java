@@ -1,16 +1,17 @@
 package com.noc.employee_cv.enums;
 
 public enum ForeignLang implements CommonEnum{
-    CHINESE("ចិន"),
     ENGLISH("អង់គ្លេស"),
+    FRENCH("បារាំង"),
+    RUSSIAN("រុស្ស៊ី"),
+    CHINESE("ចិន"),
     THAI("ថៃ"),
-    VIETNAMESE("វៀតណាម"),
     KOREAN("កូរ៉េ"),
     JAPANESE("ជប៉ុន"),
-    FRENCH("បារាំង"),
+    VIETNAMESE("វៀតណាម"),
+    LOA("ឡាវ"),
     SPANISH("អេស្ប៉ាញ"),
     GERMAN("អាល្លឺម៉ង់"),
-    RUSSIAN("រុស្ស៊ី"),
     ARABIC("អារ៉ាប់"),
     PORTUGUESE("ព័រទុយហ្គាល់"),
     ITALIAN("អ៊ីតាលី");

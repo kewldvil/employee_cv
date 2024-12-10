@@ -34,6 +34,12 @@ public class VillageServiceImp implements VillageService {
     public void update(Village village) {
         villageRepo.save(village);
     }
+
+    @Override
+    public int disableVillageByCommuneId(int communeId) {
+        return villageRepo.updateSetEnabledFalseWhereCommuneId(communeId);
+    }
+
     public String getNextVillageCode() {
         return villageRepo.findFirstByOrderByVillageCodeDesc()
                 .map(village -> String.valueOf(Integer.parseInt(village.getVillage_code()) + 1))

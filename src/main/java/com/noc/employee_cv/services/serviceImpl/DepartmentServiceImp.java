@@ -41,4 +41,9 @@ public class DepartmentServiceImp implements DepartmentService {
     public void update(Department department) {
         departmentRepo.save(department);
     }
+
+    @Override
+    public int disableDepartmentsByGeneralDepartmentId(Integer id) {
+        return departmentRepo.updateSetEnabledFalseWhereGeneralDepartmentId(id);
+    }
 }

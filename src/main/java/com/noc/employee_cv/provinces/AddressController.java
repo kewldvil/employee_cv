@@ -67,19 +67,34 @@ public class AddressController {
 
     @PutMapping("/districts")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<District> updateDistrict(@RequestBody DistrictRecord district) {
-        District ds = new District();
-        ds.setId(district.id());
-        ds.setEnabled(district.enabled());
-        ds.setDistrict_code(district.district_code());
-        ds.setProvince_city_id(district.province_city_id());
-        ds.setDistrict_name_en(district.district_name_en());
-        ds.setDistrict_name_kh(district.district_name_kh());
-        districtService.update(ds);
-        return ResponseEntity.accepted().build();
+    public ResponseEntity<District> updateDistrict(@RequestBody DistrictRecord districtRecord) {
+        // Map DistrictRecord to District entity
+        District district = new District();
+        district.setId(districtRecord.id());
+        district.setEnabled(districtRecord.enabled());
+        district.setDistrict_code(districtRecord.district_code());
+        district.setProvince_city_id(districtRecord.province_city_id());
+        district.setDistrict_name_en(districtRecord.district_name_en());
+        district.setDistrict_name_kh(districtRecord.district_name_kh());
+
+        // Handle disabling of related entities if the district is being disabled
+        if (!district.isEnabled()) {
+            // Disable related communes
+            List<Commune> disabledCommunes = communeService.disableAndRetrieveCommunesByDistrictId(district.getId());
+
+            // Disable related villages for each disabled commune
+            disabledCommunes.forEach(commune -> villageService.disableVillageByCommuneId(commune.getId()));
+        }
+
+        // Save the updated district
+        District updatedDistrict = districtService.save(district);
+
+        // Return the updated district as the response
+        return ResponseEntity.accepted().body(updatedDistrict);
     }
 
-//    END DISTRICTS
+
+    //    END DISTRICTS
 //  START COMMUNES
     @GetMapping("/communes")
     public ResponseEntity<List<Commune>> commune(@RequestParam(required = false, defaultValue = "0") Integer district_id) {
@@ -117,11 +132,14 @@ public class AddressController {
         cm.setDistrict_id(commune.district_id());
         cm.setCommune_name_en(commune.commune_name_en());
         cm.setCommune_name_kh(commune.commune_name_kh());
-        communeService.update(cm);
-        return ResponseEntity.accepted().build();
+        if (!cm.isEnabled()) {
+            villageService.disableVillageByCommuneId(cm.getId());
+        }
+        Commune updatedCommune = communeService.save(cm);
+        return ResponseEntity.accepted().body(updatedCommune);
     }
 
-//    END COMMUNES
+    //    END COMMUNES
 //  START VILLAGES
     @GetMapping("/villages")
     public ResponseEntity<List<Village>> village(@RequestParam(required = false, defaultValue = "0") Integer commune_id) {
