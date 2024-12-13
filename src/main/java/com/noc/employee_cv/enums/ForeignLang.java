@@ -14,7 +14,8 @@ public enum ForeignLang implements CommonEnum{
     GERMAN("អាល្លឺម៉ង់"),
     ARABIC("អារ៉ាប់"),
     PORTUGUESE("ព័រទុយហ្គាល់"),
-    ITALIAN("អ៊ីតាលី");
+    ITALIAN("អ៊ីតាលី"),
+    INDONESIA("ឥណ្ឌូនេស៊ី");
 
     public final String language;
 
