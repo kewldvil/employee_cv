@@ -192,7 +192,7 @@
 	<field name="bloodType" class="java.lang.String"/>
 	<field name="createdAt" class="java.sql.Timestamp"/>
 	<field name="currentPoliceRank" class="java.lang.String"/>
-	<field name="currentPosition" class="java.lang.String"/>
+	<field name="currentPosition" class="com.noc.employee_cv.models.Position"/>
 	<field name="dateJoinGov" class="java.time.LocalDate"/>
 	<field name="dateJoinPolice" class="java.time.LocalDate"/>
 	<field name="dateOfBirth" class="java.sql.Date"/>
@@ -210,7 +210,7 @@
 	<field name="positionDocumentIssueDate" class="java.sql.Date"/>
 	<field name="positionDocumentNumber" class="java.lang.String"/>
 	<field name="prevPoliceRank" class="java.lang.String"/>
-	<field name="prevPosition" class="java.lang.String"/>
+	<field name="previousPosition" class="com.noc.employee_cv.models.Position"/>
 	<field name="previousActivityAndPositionStartYear" class="java.lang.Integer"/>
 	<field name="updatedAt" class="java.sql.Timestamp"/>
 	<field name="currentAddress.id" class="java.lang.Integer"/>
@@ -711,7 +711,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{currentPosition}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{currentPosition}.getPosition()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="340" y="199" width="43" height="22" forecolor="#0000CC" uuid="08c1337d-0257-43bd-95bf-10d53837d245">
@@ -1243,7 +1243,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{prevPosition}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{previousPosition}.getPosition()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="96" y="106" width="459" height="22" forecolor="#0000CC" uuid="f83c476d-41ec-492a-9170-cd93089ee820">

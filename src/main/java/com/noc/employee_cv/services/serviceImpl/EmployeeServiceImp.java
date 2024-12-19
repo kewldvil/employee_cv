@@ -4,6 +4,7 @@ import com.noc.employee_cv.dto.*;
 import com.noc.employee_cv.enums.*;
 import com.noc.employee_cv.mapper.EmployeeMapper;
 import com.noc.employee_cv.models.*;
+import com.noc.employee_cv.models.Position;
 import com.noc.employee_cv.provinces.*;
 import com.noc.employee_cv.repositories.*;
 import com.noc.employee_cv.security.UserDetailServiceImpl;
@@ -51,6 +52,7 @@ public class EmployeeServiceImp implements EmployeeService {
     private final AppreciationRepo appreciationRepo;
     private final VocationalTrainingRepo vocationalTrainingRepo;
     private final DepartmentRepo departmentRepo;
+    private final PositionRepo positionRepo;
 
 
     @Override
@@ -63,6 +65,14 @@ public class EmployeeServiceImp implements EmployeeService {
         setUserForEmployee(employee, employeeDTO.getUserId());
         employee.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(employeeDTO.getPhoneNumber()));
         employee.setDepartment(dp);
+        // Fetch the positions and set them
+        Position currentPosition = positionRepo.findById(employeeDTO.getCurrentPositionId())
+                .orElseThrow(() -> new RuntimeException("Position not found for currentPositionId"));
+        Position previousPosition = positionRepo.findById(employeeDTO.getPreviousPositionId())
+                .orElseThrow(() -> new RuntimeException("Position not found for previousPositionId"));
+
+        employee.setCurrentPosition(currentPosition);
+        employee.setPreviousPosition(previousPosition);
         setSpouseAndChildren(employee, employeeDTO.getSpouse());
         setPolicePlateNumberCars(employee, employeeDTO.getPolicePlateNumberCars());
         setWeapons(employee, employeeDTO.getWeapons());
@@ -1377,12 +1387,28 @@ public class EmployeeServiceImp implements EmployeeService {
         System.out.println(employeeDTO.toString());
         Employee employee = employeeRepo.findById(employeeDTO.getId())
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        // Convert phone number
         employeeDTO.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(employeeDTO.getPhoneNumber()));
-//        setEmployeeDegreeLevels(employee,employeeDTO.getDegreeLevels());
+
         // Map partial update from DTO to entity
-        employeeMapper.fromEmployeeDtoPartially(employeeDTO, employee);
+        employeeMapper.updateEmployeeFromDto(employeeDTO, employee);
+
+        // Fetch currentPosition and previousPosition from the database
+        Position currentPosition = positionRepo.findById(employeeDTO.getCurrentPositionId())
+                .orElseThrow(() -> new RuntimeException("Position not found for currentPositionId"));
+        Position previousPosition = positionRepo.findById(employeeDTO.getPreviousPositionId())
+                .orElseThrow(() -> new RuntimeException("Position not found for previousPositionId"));
+
+        // Assign the full Position entities (not just the id)
+        employee.setCurrentPosition(currentPosition);
+        employee.setPreviousPosition(previousPosition);
+
+        // Fetch and assign the department
         Department dp = departmentRepo.findById(employeeDTO.getDepartmentId()).orElseThrow();
         employee.setDepartment(dp);
+
+        // Set other related fields (vehicles, weapons, etc.)
         setPolicePlateNumberCars(employee, employeeDTO.getPolicePlateNumberCars());
         setWeapons(employee, employeeDTO.getWeapons());
         setAppreciation(employee, employeeDTO.getAppreciations());
@@ -1395,8 +1421,11 @@ public class EmployeeServiceImp implements EmployeeService {
         setEmployeeDegreeLevels(employee, employeeDTO.getDegreeLevels());
         setEmployeeLanguages(employee, employeeDTO.getEmployeeLanguages());
         setEmployeeSkill(employee, employeeDTO.getEmployeeSkills());
+
+        // Save the updated Employee
         employeeRepo.save(employee);
     }
+
 
 
 }

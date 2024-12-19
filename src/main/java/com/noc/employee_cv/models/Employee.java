@@ -58,7 +58,6 @@ public class Employee {
 
     // Police and Position Details
     private String currentPoliceRank;
-    private String currentPosition;
 
     @NotNull
     private String policeRankDocumentNumber;
@@ -83,10 +82,16 @@ public class Employee {
     private LocalDate dateJoinPolice;
 
     private String prevPoliceRank;
-    private String prevPosition;
     private String generalDepartment;
     private int previousActivityAndPositionStartYear;
+    // Police and Position Details
+    @ManyToOne
+    @JoinColumn(name = "current_position_id")
+    private Position currentPosition;
 
+    @ManyToOne
+    @JoinColumn(name = "previous_position_id")
+    private Position previousPosition;
     // Address Information
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "place_of_birth_id", referencedColumnName = "id")

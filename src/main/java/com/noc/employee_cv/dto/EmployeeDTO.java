@@ -31,7 +31,7 @@ public class EmployeeDTO {
 
     // Police and Position Details
     private String currentPoliceRank;
-    private String currentPosition;
+    private int currentPositionId;
     private String policeRankDocumentNumber;
     private String positionDocumentNumber;
     private int departmentId;
@@ -48,7 +48,7 @@ public class EmployeeDTO {
     private LocalDate dateJoinPolice;
 
     private String prevPoliceRank;
-    private String prevPosition;
+    private int previousPositionId;
     private String generalDepartment;
     private int previousActivityAndPositionStartYear;
 

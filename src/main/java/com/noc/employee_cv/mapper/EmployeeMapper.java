@@ -11,9 +11,15 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface EmployeeMapper {
 
+    // Map DTO to Employee
+    @Mapping(source = "currentPositionId", target = "currentPosition.id")
+    @Mapping(source = "previousPositionId", target = "previousPosition.id")
     Employee fromEmployeeDto(EmployeeDTO employeeDTO);
+
+    // Map Employee to DTO
+    @Mapping(target = "currentPositionId", source = "currentPosition.id")
+    @Mapping(target = "previousPositionId", source = "previousPosition.id")
     EmployeeDTO toEmployeeDto(Employee employee);
 
-    void fromEmployeeDtoPartially(EmployeeDTO employeeDTO, @MappingTarget Employee employee);
-
+    void updateEmployeeFromDto(EmployeeDTO employeeDTO, @MappingTarget Employee employee);
 }

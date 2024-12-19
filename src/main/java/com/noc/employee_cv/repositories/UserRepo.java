@@ -115,8 +115,8 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 //    @Query("SELECT e.department.name, " +
 //            "e.department.id, " +
 //            "COUNT(DISTINCT u) AS totalUsers, " +  // Count distinct users to avoid duplicates
-//            "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
-//            "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
+//            "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
+//            "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
 //            "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END) AS totalMaleTrainees, " +
 //            "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END) AS totalFemaleTrainees, " +
 //            "SUM(CASE WHEN (w.id IS NOT NULL AND w.weaponBrand IS NOT NULL AND w.weaponBrand <> '' AND w.weaponBrand <> 'គ្មាន') " +
@@ -135,10 +135,10 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 @Query("SELECT e.department.name, " +
         "e.department.id, " +
         "COUNT(DISTINCT u) AS totalUsers, " +  // Count distinct users to avoid duplicates
-        "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
-        "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
-        "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END) AS totalMaleTrainees, " +
-        "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END) AS totalFemaleTrainees, " +
+        "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
+        "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
+        "SUM(CASE WHEN e.currentPosition.position = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END) AS totalMaleTrainees, " +
+        "SUM(CASE WHEN e.currentPosition.position = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END) AS totalFemaleTrainees, " +
         "SUM(CASE WHEN EXISTS (SELECT 1 FROM Weapon w2 WHERE w2.employee.id = e.id " +
         "                      AND ((w2.weaponBrand IS NOT NULL AND w2.weaponBrand <> '' AND w2.weaponBrand <> 'គ្មាន') " +
         "                           OR (w2.weaponSerialNumber IS NOT NULL AND w2.weaponSerialNumber <> '' AND w2.weaponSerialNumber <> 'គ្មាន') " +
@@ -158,30 +158,43 @@ List<Object[]> getUserStatsByDepartment();
 
 
     @Query("SELECT  " +
-            "COUNT(DISTINCT u) AS totalUsers, " +  // Count distinct users to avoid duplicates
-            "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
-            "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
-            "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END) AS totalMaleTrainees, " +
-            "SUM(CASE WHEN e.currentPosition = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END) AS totalFemaleTrainees, " +
-            "COUNT(DISTINCT e.id) FILTER (WHERE( w.id IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន')OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A')) AS totalEmployeesWithWeapons, " +  // Count distinct employees with at least one weapon
-            "COUNT(DISTINCT e.id) FILTER (WHERE p.vehicleBrand <> '' AND p.vehicleNumber <> '') AS totalEmployeesWithPoliceCars " +  // Count distinct employees with at least one police car
+            "COUNT(DISTINCT u), " +  // Count distinct users to avoid duplicates
+            "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END), " +
+            "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END), " +
+            "SUM(CASE WHEN e.currentPosition.position = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END), " +
+            "SUM(CASE WHEN e.currentPosition.position = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END), " +
+            "COUNT(DISTINCT e.id) FILTER (WHERE (w.id IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') OR " +
+            "(w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន') OR " +
+            "(w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A')), " +
+            "COUNT(DISTINCT e.id) FILTER (WHERE p.vehicleBrand <> '' AND p.vehicleNumber <> '') " +
             "FROM User u " +
             "LEFT JOIN u.employee e " +  // Join Employee entity
             "LEFT JOIN e.weapons w " +  // Join Weapons entity (one-to-many)
             "LEFT JOIN e.policePlateNumberCars p " +  // Join PoliceCars entity (one-to-many)
-            "WHERE u.enabled = true ")
+            "WHERE u.enabled = true")
     Object[] getAllUserStats();
 
 
-    @Query("SELECT u FROM User u JOIN u.employee e WHERE e.department.id = :departmentId " +
-            "AND (CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%)")
+
+    @Query("SELECT u FROM User u JOIN u.employee e" +
+            " JOIN e.currentPosition p  " +
+            " WHERE e.department.id = :departmentId " +
+            "AND (CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%)"+
+            "ORDER BY COALESCE(p.sortOrder, 0) DESC")
     Page<User> findByDepartmentIdAndSearch(
             @Param("departmentId") Integer departmentId,
             @Param("search") String search,
             Pageable pageable
     );
 
-    @Query("SELECT u FROM User u WHERE CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%")
+    @Query("SELECT u FROM User u " +
+            "LEFT JOIN u.employee e " +
+            "LEFT JOIN e.currentPosition p  " +
+            "WHERE CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% " +
+            "OR u.username LIKE %:search% " +
+            "ORDER BY COALESCE(p.sortOrder, 0) DESC")
     Page<User> findAllByNameOrUsername(@Param("search") String search, Pageable pageable);
+
+
 
 }

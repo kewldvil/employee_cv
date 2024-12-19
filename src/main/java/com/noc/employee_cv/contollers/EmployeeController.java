@@ -3,6 +3,7 @@ package com.noc.employee_cv.contollers;
 
 import com.noc.employee_cv.dto.EmployeeDTO;
 import com.noc.employee_cv.dto.UserEmployeeDTO;
+import com.noc.employee_cv.enums.PoliceRank;
 import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
@@ -213,8 +214,10 @@ public class EmployeeController {
         if (user.getEmployee() != null) {
             userEmployeeDTO.setGender(user.getEmployee().getGender());
             userEmployeeDTO.setIsMarried(user.getEmployee().getIsMarried());
-            userEmployeeDTO.setCurrentPosition(user.getEmployee().getCurrentPosition());
+            userEmployeeDTO.setCurrentPosition(user.getEmployee().getCurrentPosition().getPosition());
+            userEmployeeDTO.setCurrentPositionSortOrder(user.getEmployee().getCurrentPosition().getSortOrder());
             userEmployeeDTO.setCurrentPoliceRank(user.getEmployee().getCurrentPoliceRank());
+            userEmployeeDTO.setCurrentPoliceRankSortOrder(PoliceRank.getKeyByValue(userEmployeeDTO.getCurrentPoliceRank()));
 //            userEmployeeDTO.setDegreeLevels(user.getEmployee().getEmployeeDegreeLevels());
             userEmployeeDTO.setDepartmentName(user.getEmployee().getDepartment().getName());
             userEmployeeDTO.setDepartmentId(user.getEmployee().getDepartment().getId());

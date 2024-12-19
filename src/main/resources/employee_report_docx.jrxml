@@ -191,7 +191,7 @@
 	<field name="bloodType" class="java.lang.String"/>
 	<field name="createdAt" class="java.sql.Timestamp"/>
 	<field name="currentPoliceRank" class="java.lang.String"/>
-	<field name="currentPosition" class="java.lang.String"/>
+	<field name="currentPosition" class="com.noc.employee_cv.models.Position"/>
 	<field name="dateJoinGov" class="java.time.LocalDate"/>
 	<field name="dateJoinPolice" class="java.time.LocalDate"/>
 	<field name="dateOfBirth" class="java.sql.Date"/>
@@ -209,7 +209,7 @@
 	<field name="positionDocumentIssueDate" class="java.sql.Date"/>
 	<field name="positionDocumentNumber" class="java.lang.String"/>
 	<field name="prevPoliceRank" class="java.lang.String"/>
-	<field name="prevPosition" class="java.lang.String"/>
+	<field name="previousPosition" class="com.noc.employee_cv.models.Position"/>
 	<field name="previousActivityAndPositionStartYear" class="java.lang.Integer"/>
 	<field name="updatedAt" class="java.sql.Timestamp"/>
 	<field name="currentAddress.id" class="java.lang.Integer"/>
@@ -801,7 +801,7 @@
 					<textElement textAlignment="Center">
 						<font fontName="Khmer OS Siemreap" size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{currentPosition}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{currentPosition}.getPosition()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -1603,7 +1603,7 @@
 						<textElement textAlignment="Center">
 							<font fontName="Khmer OS Siemreap" size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{prevPosition}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{previousPosition}.getPosition()]]></textFieldExpression>
 					</textField>
 				</frame>
 			</frame>
