@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -88,13 +89,13 @@ public class EmployeeController {
             if (employee.getSpouse() != null && employee.getSpouse().getChildren() != null) {
                 // Convert Set to List for sorting
                 List<SpouseChildren> childrenList = new ArrayList<>(employee.getSpouse().getChildren());
-                System.out.println("Sorted Children details by Date of Birth (DESC):");
-                for (SpouseChildren child : childrenList) {
-                    System.out.println("Full Name: " + child.getFullName());
-                    System.out.println("Date of Birth: " + child.getDateOfBirth());
-                    System.out.println("Gender: " + child.getGender());
-                    System.out.println("Job: " + child.getJob());
-                }
+//                System.out.println("Sorted Children details by Date of Birth (DESC):");
+//                for (SpouseChildren child : childrenList) {
+//                    System.out.println("Full Name: " + child.getFullName());
+//                    System.out.println("Date of Birth: " + child.getDateOfBirth());
+//                    System.out.println("Gender: " + child.getGender());
+//                    System.out.println("Job: " + child.getJob());
+//                }
                 // Sort the list by date of birth in descending order, handling nulls
                 childrenList.sort(Comparator.nullsLast(Comparator.comparing(SpouseChildren::getDateOfBirth, Comparator.nullsLast(Comparator.naturalOrder()))));
 
@@ -145,6 +146,7 @@ public class EmployeeController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_HEAD_OF_BUREAU')")
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Map<String, Object>> getAllUsers(
