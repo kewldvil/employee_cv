@@ -146,7 +146,7 @@ public class EmployeeController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_HEAD_OF_BUREAU')")
+
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Map<String, Object>> getAllUsers(
@@ -156,24 +156,25 @@ public class EmployeeController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
 
+        // Validate page and size parameters early
         if (page < 0 || size <= 0) {
             throw new IllegalArgumentException("Page and size must be positive.");
         }
 
+        // Efficient pagination handling
         Pageable pageable = PageRequest.of(page, size);
-        Page<User> users;
 
-        // Handle filter conditions
-        switch (filter) {
-            case "employee" -> users = (departmentId == 0)
+        // Fetch data based on filter
+        Page<User> users = switch (filter) {
+            case "employee" -> (departmentId == 0)
                     ? userService.findAllActiveUser(search, pageable)
                     : userService.findByDepartmentId(departmentId, search, pageable);
-            case "weapon" -> users = userService.findAllUsersWithEmployeeAndWeaponsByDepartment(departmentId, search, pageable);
-            case "car" -> users = userService.findAllUsersWithEmployeeAndPoliceCarByDepartment(departmentId, search, pageable);
+            case "weapon" -> userService.findAllUsersWithEmployeeAndWeaponsByDepartment(departmentId, search, pageable);
+            case "car" -> userService.findAllUsersWithEmployeeAndPoliceCarByDepartment(departmentId, search, pageable);
             default -> throw new IllegalArgumentException("Invalid filter value.");
-        }
+        };
 
-        // Check if users list is empty
+        // If no content, return HTTP 404 Not Found
         if (!users.hasContent()) {
             return ResponseEntity.notFound().build();
         }
@@ -181,7 +182,7 @@ public class EmployeeController {
         // Map users to DTOs
         List<UserEmployeeDTO> employees = users.stream()
                 .map(EmployeeController::convertToDTO)
-                .toList();
+                .collect(Collectors.toList());
 
         // Prepare response with pagination details
         Map<String, Object> response = new HashMap<>();

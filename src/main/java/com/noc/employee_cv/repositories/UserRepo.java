@@ -176,10 +176,11 @@ List<Object[]> getUserStatsByDepartment();
 
 
 
-    @Query("SELECT u FROM User u JOIN u.employee e" +
-            " JOIN e.currentPosition p  " +
-            " WHERE e.department.id = :departmentId " +
-            "AND (CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%)"+
+    @Query("SELECT u FROM User u " +
+            "JOIN u.employee e " +
+            "LEFT JOIN e.currentPosition p " +
+            "WHERE e.department.id = :departmentId " +
+            "AND (u.lastname LIKE %:search% OR u.firstname LIKE %:search% OR u.username LIKE %:search%) " +
             "ORDER BY COALESCE(p.sortOrder, 0) DESC")
     Page<User> findByDepartmentIdAndSearch(
             @Param("departmentId") Integer departmentId,
@@ -187,13 +188,14 @@ List<Object[]> getUserStatsByDepartment();
             Pageable pageable
     );
 
+
     @Query("SELECT u FROM User u " +
             "LEFT JOIN u.employee e " +
-            "LEFT JOIN e.currentPosition p  " +
-            "WHERE CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% " +
-            "OR u.username LIKE %:search% " +
+            "LEFT JOIN e.currentPosition p " +
+            "WHERE u.lastname LIKE %:search% OR u.firstname LIKE %:search% OR u.username LIKE %:search% " +
             "ORDER BY COALESCE(p.sortOrder, 0) DESC")
     Page<User> findAllByNameOrUsername(@Param("search") String search, Pageable pageable);
+
 
 
 

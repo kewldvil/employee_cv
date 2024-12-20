@@ -1,6 +1,7 @@
 package com.noc.employee_cv.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,9 +23,12 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-public class BeanConfig {
+public class BeanConfig implements WebMvcConfigurer {
     private final UserDetailsService userDetailsService;
-
+    @Value("${file.upload-dir}")
+    private String filePath;
+    @Value("${file.photo-dir}")
+    private String photoFilePath;
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -32,8 +36,24 @@ public class BeanConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        System.out.println("Configured photo directory: " + photoFilePath); // Add this for debugging
+        // Serve photos from the file system
+        registry.addResourceHandler("/photos/**")
+                .addResourceLocations("file:///" + photoFilePath);
 
-    ;
+        // Serve files from the file system
+        registry.addResourceHandler("/files/**")
+                .addResourceLocations("file:///" + filePath);
+        // Optionally serve files from the classpath (if you have files inside /static or /resources)
+//        registry.addResourceHandler("/photos/**")
+//                .addResourceLocations("classpath:/static/photos/");
+//
+//        registry.addResourceHandler("/files/**")
+//                .addResourceLocations("classpath:/static/files/");
+    }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

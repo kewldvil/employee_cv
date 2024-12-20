@@ -42,6 +42,7 @@ public class FileUploadController {
 
     @GetMapping("/user-files/{userId}")
     public ResponseEntity<List<FileResponseDTO>> getUserFiles(@PathVariable Integer userId) {
+        System.out.println("LOADING FILE");
         List<FileUpload> files = fileService.getFilesByUserId(userId);
         if (files.isEmpty()) {
             return ResponseEntity.noContent().build();
