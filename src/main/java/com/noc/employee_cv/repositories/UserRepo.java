@@ -51,11 +51,27 @@ public interface UserRepo extends JpaRepository<User, Integer> {
             "   OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A'))")
     List<User> findAllUsersWithEmployeeAndWeapons();
 
+    //    @Query("SELECT DISTINCT u FROM User u " +
+//            "JOIN FETCH u.employee e " +
+//            "LEFT JOIN FETCH e.weapons w " +
+//            "WHERE u.enabled = true " +
+//            "AND (:departmentId = 0 OR e.department.id = :departmentId) " +  // Allow all departments if departmentId == 0
+//            "AND ( " +
+//            "   (w.weaponBrand IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') " +
+//            "   OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន') " +
+//            "   OR (w.weaponType IS NOT NULL AND w.weaponType != '' AND w.weaponType != 'គ្មាន' AND w.weaponType != 'N/A') " +
+//            ") " +
+//            "AND (CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%)")
+//    Page<User> findAllUsersWithEmployeeAndWeaponsByDepartment(
+//            @Param("departmentId") Integer departmentId,
+//            @Param("search") String search,
+//            Pageable pageable
+//    );
     @Query("SELECT DISTINCT u FROM User u " +
-            "JOIN FETCH u.employee e " +
-            "LEFT JOIN FETCH e.weapons w " +
+            "JOIN u.employee e " +
+            "LEFT JOIN e.weapons w " +
             "WHERE u.enabled = true " +
-            "AND (:departmentId = 0 OR e.department.id = :departmentId) " +  // Allow all departments if departmentId == 0
+            "AND (:departmentId = 0 OR e.department.id = :departmentId) " +
             "AND ( " +
             "   (w.weaponBrand IS NOT NULL AND w.weaponBrand != '' AND w.weaponBrand != 'គ្មាន') " +
             "   OR (w.weaponSerialNumber IS NOT NULL AND w.weaponSerialNumber != '' AND w.weaponSerialNumber != 'គ្មាន') " +
@@ -69,7 +85,6 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     );
 
 
-
     @Query("SELECT DISTINCT u FROM User u " +
             "JOIN FETCH u.employee e " +
             "LEFT JOIN FETCH e.policePlateNumberCars p " +
@@ -78,9 +93,23 @@ public interface UserRepo extends JpaRepository<User, Integer> {
             "(p.vehicleBrand != '')")
     List<User> findAllUsersWithEmployeeAndPoliceCar();
 
+//    @Query("SELECT DISTINCT u FROM User u " +
+//            "JOIN FETCH u.employee e " +
+//            "LEFT JOIN FETCH e.policePlateNumberCars p " +
+//            "WHERE u.enabled = true " +
+//            "AND (:departmentId = 0 OR e.department.id = :departmentId) " +  // Allow all departments if departmentId == 0
+//            "AND (p.vehicleNumber IS NOT NULL AND p.vehicleNumber <> '') " + // Ensure vehicleNumber is not null or empty
+//            "AND (p.vehicleBrand IS NOT NULL AND p.vehicleBrand <> '') " +   // Ensure vehicleBrand is not null or empty
+//            "AND (CONCAT(u.lastname, ' ', u.firstname) LIKE %:search% OR u.username LIKE %:search%)")
+//    Page<User> findAllUsersWithEmployeeAndPoliceCarByDepartment(
+//            @Param("departmentId") Integer departmentId,
+//            @Param("search") String search,
+//            Pageable pageable
+//    );
+
     @Query("SELECT DISTINCT u FROM User u " +
-            "JOIN FETCH u.employee e " +
-            "LEFT JOIN FETCH e.policePlateNumberCars p " +
+            "JOIN u.employee e " +
+            "LEFT JOIN e.policePlateNumberCars p " +
             "WHERE u.enabled = true " +
             "AND (:departmentId = 0 OR e.department.id = :departmentId) " +  // Allow all departments if departmentId == 0
             "AND (p.vehicleNumber IS NOT NULL AND p.vehicleNumber <> '') " + // Ensure vehicleNumber is not null or empty
@@ -91,7 +120,6 @@ public interface UserRepo extends JpaRepository<User, Integer> {
             @Param("search") String search,
             Pageable pageable
     );
-
 
     @Query("SELECT DISTINCT u FROM User u " +
             "JOIN FETCH u.employee e " +
@@ -112,7 +140,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     boolean existsByUsername(String username);
 
-//    @Query("SELECT e.department.name, " +
+    //    @Query("SELECT e.department.name, " +
 //            "e.department.id, " +
 //            "COUNT(DISTINCT u) AS totalUsers, " +  // Count distinct users to avoid duplicates
 //            "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
@@ -132,29 +160,28 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 //            "GROUP BY e.department.name, e.department.id " +
 //            "ORDER BY e.department.id ASC")
 //    List<Object[]> getUserStatsByDepartment();
-@Query("SELECT e.department.name, " +
-        "e.department.id, " +
-        "COUNT(DISTINCT u) AS totalUsers, " +  // Count distinct users to avoid duplicates
-        "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
-        "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
-        "SUM(CASE WHEN e.currentPosition.position = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END) AS totalMaleTrainees, " +
-        "SUM(CASE WHEN e.currentPosition.position = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END) AS totalFemaleTrainees, " +
-        "SUM(CASE WHEN EXISTS (SELECT 1 FROM Weapon w2 WHERE w2.employee.id = e.id " +
-        "                      AND ((w2.weaponBrand IS NOT NULL AND w2.weaponBrand <> '' AND w2.weaponBrand <> 'គ្មាន') " +
-        "                           OR (w2.weaponSerialNumber IS NOT NULL AND w2.weaponSerialNumber <> '' AND w2.weaponSerialNumber <> 'គ្មាន') " +
-        "                           OR (w2.weaponType IS NOT NULL AND w2.weaponType <> '' AND w2.weaponType <> 'គ្មាន' AND w2.weaponType <> 'N/A'))) " +
-        "THEN 1 ELSE 0 END) AS totalEmployeesWithWeapons, " +
-        "SUM(CASE WHEN EXISTS (SELECT 1 FROM PolicePlateNumberCar p2 WHERE p2.employee.id = e.id " +
-        "                      AND (p2.vehicleBrand IS NOT NULL AND p2.vehicleBrand <> '') " +
-        "                      AND (p2.vehicleNumber IS NOT NULL AND p2.vehicleNumber <> '')) " +
-        "THEN 1 ELSE 0 END) AS totalEmployeesWithPoliceCars " +
-        "FROM User u " +
-        "LEFT JOIN u.employee e " +  // Join Employee entity
-        "WHERE u.enabled = true " +  // Filter for enabled users
-        "GROUP BY e.department.name, e.department.id " +
-        "ORDER BY e.department.id ASC")
-List<Object[]> getUserStatsByDepartment();
-
+    @Query("SELECT e.department.name, " +
+            "e.department.id, " +
+            "COUNT(DISTINCT u) AS totalUsers, " +  // Count distinct users to avoid duplicates
+            "SUM(CASE WHEN e.gender = 'M' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalMales, " +
+            "SUM(CASE WHEN e.gender = 'F' AND e.currentPosition.position != 'មន្រ្តីហាត់ការ' THEN 1 ELSE 0 END) AS totalFemales, " +
+            "SUM(CASE WHEN e.currentPosition.position = 'មន្រ្តីហាត់ការ' AND e.gender = 'M' THEN 1 ELSE 0 END) AS totalMaleTrainees, " +
+            "SUM(CASE WHEN e.currentPosition.position = 'មន្រ្តីហាត់ការ' AND e.gender = 'F' THEN 1 ELSE 0 END) AS totalFemaleTrainees, " +
+            "SUM(CASE WHEN EXISTS (SELECT 1 FROM Weapon w2 WHERE w2.employee.id = e.id " +
+            "                      AND ((w2.weaponBrand IS NOT NULL AND w2.weaponBrand <> '' AND w2.weaponBrand <> 'គ្មាន') " +
+            "                           OR (w2.weaponSerialNumber IS NOT NULL AND w2.weaponSerialNumber <> '' AND w2.weaponSerialNumber <> 'គ្មាន') " +
+            "                           OR (w2.weaponType IS NOT NULL AND w2.weaponType <> '' AND w2.weaponType <> 'គ្មាន' AND w2.weaponType <> 'N/A'))) " +
+            "THEN 1 ELSE 0 END) AS totalEmployeesWithWeapons, " +
+            "SUM(CASE WHEN EXISTS (SELECT 1 FROM PolicePlateNumberCar p2 WHERE p2.employee.id = e.id " +
+            "                      AND (p2.vehicleBrand IS NOT NULL AND p2.vehicleBrand <> '') " +
+            "                      AND (p2.vehicleNumber IS NOT NULL AND p2.vehicleNumber <> '')) " +
+            "THEN 1 ELSE 0 END) AS totalEmployeesWithPoliceCars " +
+            "FROM User u " +
+            "LEFT JOIN u.employee e " +  // Join Employee entity
+            "WHERE u.enabled = true " +  // Filter for enabled users
+            "GROUP BY e.department.name, e.department.id " +
+            "ORDER BY e.department.id ASC")
+    List<Object[]> getUserStatsByDepartment();
 
 
     @Query("SELECT  " +
@@ -175,6 +202,33 @@ List<Object[]> getUserStatsByDepartment();
     Object[] getAllUserStats();
 
 
+//    @Query("SELECT u FROM User u " +
+//            "JOIN u.employee e " +
+//            "LEFT JOIN e.currentPosition p " +
+//            "WHERE e.department.id = :departmentId " +
+//            "AND (u.lastname LIKE %:search% OR u.firstname LIKE %:search% OR u.username LIKE %:search%) " +
+//            "ORDER BY COALESCE(p.sortOrder, 0) DESC")
+//    Page<User> findByDepartmentIdAndSearch(
+//            @Param("departmentId") Integer departmentId,
+//            @Param("search") String search,
+//            Pageable pageable
+//    );
+
+
+    //    @Query("SELECT u FROM User u " +
+//            "LEFT JOIN u.employee e " +
+//            "LEFT JOIN e.currentPosition p " +
+//            "WHERE u.lastname LIKE %:search% OR u.firstname LIKE %:search% OR u.username LIKE %:search% " +
+//            "ORDER BY COALESCE(p.sortOrder, 0) DESC")
+//    Page<User> findAllByNameOrUsername(@Param("search") String search, Pageable pageable);
+    @Query("SELECT u FROM User u " +
+            "LEFT JOIN u.employee e " +
+            "LEFT JOIN e.currentPosition p " +
+            "WHERE u.lastname LIKE %:search% OR u.firstname LIKE %:search% OR u.username LIKE %:search% " +
+            "ORDER BY COALESCE(p.sortOrder, 0) DESC")
+    Page<User> findAllByNameOrUsername(@Param("search") String search, Pageable pageable);
+
+
 
     @Query("SELECT u FROM User u " +
             "JOIN u.employee e " +
@@ -187,15 +241,6 @@ List<Object[]> getUserStatsByDepartment();
             @Param("search") String search,
             Pageable pageable
     );
-
-
-    @Query("SELECT u FROM User u " +
-            "LEFT JOIN u.employee e " +
-            "LEFT JOIN e.currentPosition p " +
-            "WHERE u.lastname LIKE %:search% OR u.firstname LIKE %:search% OR u.username LIKE %:search% " +
-            "ORDER BY COALESCE(p.sortOrder, 0) DESC")
-    Page<User> findAllByNameOrUsername(@Param("search") String search, Pageable pageable);
-
 
 
 

@@ -234,12 +234,12 @@
 	<title>
 		<band height="154" splitType="Immediate">
 			<frame>
-				<reportElement x="-10" y="26" width="200" height="113" uuid="7acee003-af3e-4b1a-81c2-1948b53e350d">
+				<reportElement x="-16" y="26" width="218" height="113" uuid="7acee003-af3e-4b1a-81c2-1948b53e350d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<staticText>
-					<reportElement x="0" y="0" width="200" height="26" forecolor="#0000CC" uuid="c20de3ff-a539-4053-b58f-c2927cf4528c">
+					<reportElement x="0" y="0" width="218" height="26" forecolor="#0000CC" uuid="c20de3ff-a539-4053-b58f-c2927cf4528c">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
@@ -249,18 +249,18 @@
 					<text><![CDATA[ក្រសួងមហាផ្ទៃ]]></text>
 				</staticText>
 				<textField textAdjust="StretchHeight">
-					<reportElement x="0" y="26" width="200" height="38" forecolor="#0000CC" uuid="5e51ff4d-c0a3-4829-97a0-12bc22f80e8c"/>
+					<reportElement x="0" y="26" width="218" height="38" forecolor="#0000CC" uuid="5e51ff4d-c0a3-4829-97a0-12bc22f80e8c"/>
 					<textElement textAlignment="Center">
 						<font fontName="Khmer OS Niroth" size="13" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{GENERAL_DEPARTMENT}.replace("<br>", "\n")]]></textFieldExpression>
 				</textField>
 				<frame>
-					<reportElement x="0" y="63" width="200" height="48" uuid="a0d8ecd5-1cef-46b7-a631-0e7b77ba1218">
+					<reportElement x="0" y="63" width="218" height="48" uuid="a0d8ecd5-1cef-46b7-a631-0e7b77ba1218">
 						<printWhenExpression><![CDATA[$P{GENERAL_DEPARTMENT}!=null && $P{GENERAL_DEPARTMENT}.contains("<br>")]]></printWhenExpression>
 					</reportElement>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="0" y="0" width="200" height="44" forecolor="#0000CC" uuid="0cdc9f87-bd0d-4374-9d02-4a8fd6688ec4">
+						<reportElement x="0" y="0" width="218" height="44" forecolor="#0000CC" uuid="0cdc9f87-bd0d-4374-9d02-4a8fd6688ec4">
 							<property name="com.jaspersoft.studio.unit.x" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -272,7 +272,7 @@
 						<textFieldExpression><![CDATA[$P{DEPARTMENT}.replace("<br>", "\n")]]></textFieldExpression>
 					</textField>
 					<staticText>
-						<reportElement x="0" y="14" width="200" height="13" forecolor="#0000CC" uuid="2d4f5c5b-2dc6-4336-bbca-4e9dd69264a0">
+						<reportElement x="0" y="14" width="218" height="13" forecolor="#0000CC" uuid="2d4f5c5b-2dc6-4336-bbca-4e9dd69264a0">
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
 							<printWhenExpression><![CDATA[$P{DEPARTMENT} != null &&!$P{DEPARTMENT}.contains("<br>")]]></printWhenExpression>
 						</reportElement>
@@ -282,7 +282,7 @@
 						<text><![CDATA[ris]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="0" y="40" width="200" height="13" forecolor="#0000CC" uuid="4390c625-bf94-4496-a142-efb41a9d7b36">
+						<reportElement x="0" y="40" width="218" height="13" forecolor="#0000CC" uuid="4390c625-bf94-4496-a142-efb41a9d7b36">
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
 							<printWhenExpression><![CDATA[$P{DEPARTMENT} != null &&$P{DEPARTMENT}.contains("<br>")]]></printWhenExpression>
 						</reportElement>
@@ -293,11 +293,11 @@
 					</staticText>
 				</frame>
 				<frame>
-					<reportElement x="0" y="43" width="200" height="48" uuid="f5dd97e0-46f0-4546-a070-cc9083bdac80">
+					<reportElement x="0" y="43" width="218" height="48" uuid="f5dd97e0-46f0-4546-a070-cc9083bdac80">
 						<printWhenExpression><![CDATA[$P{GENERAL_DEPARTMENT}!=null && !$P{GENERAL_DEPARTMENT}.contains("<br>")]]></printWhenExpression>
 					</reportElement>
 					<textField textAdjust="StretchHeight">
-						<reportElement x="0" y="0" width="200" height="44" forecolor="#0000CC" uuid="a25eb13a-0193-4153-b363-373107e891e1">
+						<reportElement x="0" y="0" width="218" height="44" forecolor="#0000CC" uuid="a25eb13a-0193-4153-b363-373107e891e1">
 							<property name="com.jaspersoft.studio.unit.x" value="px"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -309,7 +309,7 @@
 						<textFieldExpression><![CDATA[$P{DEPARTMENT}.replace("<br>", "\n")]]></textFieldExpression>
 					</textField>
 					<staticText>
-						<reportElement x="0" y="19" width="200" height="13" forecolor="#0000CC" uuid="bb38d7a9-4afe-422b-8d6f-64c3ade8e496">
+						<reportElement x="0" y="19" width="218" height="13" forecolor="#0000CC" uuid="bb38d7a9-4afe-422b-8d6f-64c3ade8e496">
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
 							<printWhenExpression><![CDATA[$P{DEPARTMENT} != null &&!$P{DEPARTMENT}.contains("<br>")]]></printWhenExpression>
 						</reportElement>
@@ -319,7 +319,7 @@
 						<text><![CDATA[ris]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="0" y="40" width="200" height="13" forecolor="#0000CC" uuid="8d6aac85-544d-4af5-8ba2-f869861f6704">
+						<reportElement x="0" y="40" width="218" height="13" forecolor="#0000CC" uuid="8d6aac85-544d-4af5-8ba2-f869861f6704">
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
 							<printWhenExpression><![CDATA[$P{DEPARTMENT} != null &&$P{DEPARTMENT}.contains("<br>")]]></printWhenExpression>
 						</reportElement>
