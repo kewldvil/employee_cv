@@ -7,6 +7,7 @@ import com.noc.employee_cv.enums.PoliceRank;
 import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
+import com.noc.employee_cv.services.serviceImpl.FileServiceImp;
 import com.noc.employee_cv.services.serviceImpl.ReportServiceImp;
 import com.noc.employee_cv.services.serviceImpl.UserServiceImpl;
 import jakarta.mail.MessagingException;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class EmployeeController {
     private final UserRepo userRepo;
     private final ReportServiceImp reportService;
     private final UserServiceImpl userService;
-
+    private final FileServiceImp fileService;
     @PostMapping("/")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Employee> createNewEmployee(@RequestBody @Valid EmployeeDTO req) throws MessagingException {
@@ -83,52 +85,78 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Employee> getEmployeeByUserId(@PathVariable Integer id) throws MessagingException {
         System.out.println("GET EMPLOYEE BY USER ID");
+
+        // Fetch employee by user ID
         Employee employee = service.findByUserId(id);
-        if (employee != null) {
-            // Check if the spouse and children are not null
-            if (employee.getSpouse() != null && employee.getSpouse().getChildren() != null) {
-                // Convert Set to List for sorting
-                List<SpouseChildren> childrenList = new ArrayList<>(employee.getSpouse().getChildren());
-//                System.out.println("Sorted Children details by Date of Birth (DESC):");
-//                for (SpouseChildren child : childrenList) {
-//                    System.out.println("Full Name: " + child.getFullName());
-//                    System.out.println("Date of Birth: " + child.getDateOfBirth());
-//                    System.out.println("Gender: " + child.getGender());
-//                    System.out.println("Job: " + child.getJob());
-//                }
-                // Sort the list by date of birth in descending order, handling nulls
-                childrenList.sort(Comparator.nullsLast(Comparator.comparing(SpouseChildren::getDateOfBirth, Comparator.nullsLast(Comparator.naturalOrder()))));
 
-                // Optionally, if you need to store the sorted list back into a Set
-                employee.getSpouse().setChildren(new LinkedHashSet<>(childrenList));
-
-                // Print sorted children details
-            } else {
-                System.out.println("No spouse or children found for the employee.");
-            }
-
-            // Sort vocational trainings by training start date ascending, handling nulls
-            if (employee.getVocationalTrainings() != null) {
-                employee.getVocationalTrainings().sort(Comparator.nullsLast(Comparator.comparing(VocationalTraining::getTrainingStartDate, Comparator.nullsLast(Comparator.naturalOrder()))));
-            }
-
-            // Sort appreciations by appreciation date ascending, handling nulls
-            if (employee.getAppreciations() != null) {
-                employee.getAppreciations().sort(Comparator.nullsLast(Comparator.comparing(Appreciation::getAppreciationDate, Comparator.nullsLast(Comparator.naturalOrder()))));
-            }
-
-            // Sort job history by job start date ascending, handling nulls
-            if (employee.getActivityAndPositions() != null) {
-                employee.getActivityAndPositions().sort(Comparator.nullsLast(Comparator.comparing(PreviousActivityAndPosition::getFromDate, Comparator.nullsLast(Comparator.naturalOrder()))));
-            }
-
-            // If response body is not null, return it with HTTP status 200 OK
-            return ResponseEntity.ok(employee);
-        } else {
-            // If response body is null, return 404 Not Found status code
+        // If employee not found, return 404
+        if (employee == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+
+        // Attach additional data: File names
+        attachFileNames(employee, id);
+
+        // Process spouse and children
+        processSpouseAndChildren(employee);
+
+        // Sort related collections
+        sortCollections(employee);
+
+        // Return the modified employee
+        return ResponseEntity.ok(employee);
     }
+
+    /**
+     * Attaches file names to the Employee entity.
+     *
+     * @param employee The Employee entity to modify.
+     * @param userId The user ID to fetch file names for.
+     */
+    private void attachFileNames(Employee employee, Integer userId) {
+        List<String> fileNames = fileService.getFileNamesByUserId(userId);
+        employee.setFileNames(fileNames);
+    }
+
+    /**
+     * Processes the spouse and children data of the employee.
+     * Converts children set to a sorted list and handles null cases.
+     */
+    private void processSpouseAndChildren(Employee employee) {
+        if (employee.getSpouse() != null && employee.getSpouse().getChildren() != null) {
+            List<SpouseChildren> sortedChildren = employee.getSpouse().getChildren()
+                    .stream()
+                    .sorted(Comparator.nullsLast(
+                            Comparator.comparing(SpouseChildren::getDateOfBirth, Comparator.nullsLast(Comparator.naturalOrder()))))
+                    .toList();
+
+            // Set the sorted list back to the spouse
+            employee.getSpouse().setChildren(new LinkedHashSet<>(sortedChildren));
+        } else {
+            System.out.println("No spouse or children found for the employee.");
+        }
+    }
+
+    /**
+     * Sorts the collections in the employee object (vocational trainings, appreciations, job history).
+     */
+    private void sortCollections(Employee employee) {
+        // Sort vocational trainings
+        Optional.ofNullable(employee.getVocationalTrainings())
+                .ifPresent(vt -> vt.sort(Comparator.nullsLast(
+                        Comparator.comparing(VocationalTraining::getTrainingStartDate, Comparator.nullsLast(Comparator.naturalOrder())))));
+
+        // Sort appreciations
+        Optional.ofNullable(employee.getAppreciations())
+                .ifPresent(appreciations -> appreciations.sort(Comparator.nullsLast(
+                        Comparator.comparing(Appreciation::getAppreciationDate, Comparator.nullsLast(Comparator.naturalOrder())))));
+
+        // Sort job history
+        Optional.ofNullable(employee.getActivityAndPositions())
+                .ifPresent(activities -> activities.sort(Comparator.nullsLast(
+                        Comparator.comparing(PreviousActivityAndPosition::getFromDate, Comparator.nullsLast(Comparator.naturalOrder())))));
+    }
+
 
 
     @GetMapping("/{userId}/{employeeId}")

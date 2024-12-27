@@ -5,6 +5,8 @@ import com.noc.employee_cv.models.FileUpload;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.FileService;
+import com.noc.employee_cv.services.serviceImpl.FileServiceImp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -25,15 +27,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/files")
+@RequiredArgsConstructor
 public class FileUploadController {
 
     private static final int MAX_FILE_COUNT = 10; // Limit to 10 files
 
-    @Autowired
-    private FileService fileService;
+    private final FileServiceImp fileService;
 
-    @Autowired
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
 
     @Value("${file.upload-dir}")
     private String uploadDir;
@@ -141,5 +142,10 @@ public class FileUploadController {
         Optional<FileUpload> fileUpload = fileService.getFileById(id);
         return fileUpload.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/user-filenames/{userId}")
+    public List<String> getUserFileNames(@PathVariable Integer userId) {
+        return fileService.getFileNamesByUserId(userId);
     }
 }

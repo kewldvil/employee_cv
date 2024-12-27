@@ -84,6 +84,8 @@ public class Employee {
     private String prevPoliceRank;
     private String generalDepartment;
     private int previousActivityAndPositionStartYear;
+    @Transient
+    private List<String> fileNames;
     // Police and Position Details
     @ManyToOne
     @JoinColumn(name = "current_position_id")

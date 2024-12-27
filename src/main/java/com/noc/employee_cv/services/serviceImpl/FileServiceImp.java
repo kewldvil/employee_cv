@@ -127,6 +127,11 @@ public class FileServiceImp implements FileService {
     }
 
     @Override
+    public List<String> getFileNamesByUserId(Integer userId) {
+        return fileUploadRepo.findFileNamesByUserId(userId);
+    }
+
+    @Override
     @Transactional
     public void deleteFileByUserIdAndFileName(Integer userId, String fileName) {
         User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found for ID: " + userId));
