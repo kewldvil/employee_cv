@@ -1,10 +1,12 @@
 package com.noc.employee_cv.services;
 
+import com.noc.employee_cv.dto.UserFileDTO;
 import com.noc.employee_cv.models.FileUpload;
 import com.noc.employee_cv.models.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface FileService {
@@ -14,7 +16,7 @@ public interface FileService {
     List<FileUpload> getAllFiles();
     Optional<FileUpload> getFileById(Integer id);
     List<FileUpload> getFilesByUserId(Integer userId);
-    List<String> getFileNamesByUserId(Integer userId);
+    List<UserFileDTO> getFileNamesByUserId(Integer userId);
     void deleteFileByUserIdAndFileName(Integer userId, String fileName);
 
 

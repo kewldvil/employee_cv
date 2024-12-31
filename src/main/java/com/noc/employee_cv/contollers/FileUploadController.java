@@ -1,6 +1,7 @@
 package com.noc.employee_cv.contollers;
 
 import com.noc.employee_cv.dto.FileResponseDTO;
+import com.noc.employee_cv.dto.UserFileDTO;
 import com.noc.employee_cv.models.FileUpload;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.UserRepo;
@@ -20,10 +21,7 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/files")
@@ -138,14 +136,38 @@ public class FileUploadController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FileUpload> getFileById(@PathVariable Integer id) {
-        Optional<FileUpload> fileUpload = fileService.getFileById(id);
-        return fileUpload.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<FileResponseDTO> getFileById(@PathVariable Integer id) {
+        Optional<FileUpload> file = fileService.getFileById(id);
+        if (file.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        FileResponseDTO fileResponse = new FileResponseDTO();
+        try {
+            Path path = Paths.get(this.uploadDir, file.get().getFileName());
+
+            if (!Files.exists(path)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            String fileType = Files.probeContentType(path);
+            byte[] fileContent = Files.readAllBytes(path);
+            String base64Content = Base64.getEncoder().encodeToString(fileContent);
+
+            fileResponse.setId(file.get().getId());
+            fileResponse.setName(file.get().getFileName());
+            fileResponse.setType(fileType != null ? fileType : "application/octet-stream");
+            fileResponse.setBase64Content(base64Content);
+            fileResponse.setUrl(file.get().getFilePath());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return ResponseEntity.ok(fileResponse);
     }
 
+
     @GetMapping("/user-filenames/{userId}")
-    public List<String> getUserFileNames(@PathVariable Integer userId) {
+    public List<UserFileDTO> getUserFileNames(@PathVariable Integer userId) {
         return fileService.getFileNamesByUserId(userId);
     }
 }

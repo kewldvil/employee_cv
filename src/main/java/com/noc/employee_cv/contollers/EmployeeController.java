@@ -3,6 +3,7 @@ package com.noc.employee_cv.contollers;
 
 import com.noc.employee_cv.dto.EmployeeDTO;
 import com.noc.employee_cv.dto.UserEmployeeDTO;
+import com.noc.employee_cv.dto.UserFileDTO;
 import com.noc.employee_cv.enums.PoliceRank;
 import com.noc.employee_cv.models.*;
 import com.noc.employee_cv.repositories.UserRepo;
@@ -114,7 +115,7 @@ public class EmployeeController {
      * @param userId The user ID to fetch file names for.
      */
     private void attachFileNames(Employee employee, Integer userId) {
-        List<String> fileNames = fileService.getFileNamesByUserId(userId);
+        List<UserFileDTO> fileNames = fileService.getFileNamesByUserId(userId);
         employee.setFileNames(fileNames);
     }
 

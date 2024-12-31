@@ -1,5 +1,6 @@
 package com.noc.employee_cv.services.serviceImpl;
 
+import com.noc.employee_cv.dto.UserFileDTO;
 import com.noc.employee_cv.models.FileUpload;
 import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.FileUploadRepo;
@@ -19,10 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -127,9 +125,10 @@ public class FileServiceImp implements FileService {
     }
 
     @Override
-    public List<String> getFileNamesByUserId(Integer userId) {
-        return fileUploadRepo.findFileNamesByUserId(userId);
+    public List<UserFileDTO> getFileNamesByUserId(Integer userId) {
+        return fileUploadRepo.findFileNamesByUserId(userId); //
     }
+
 
     @Override
     @Transactional
