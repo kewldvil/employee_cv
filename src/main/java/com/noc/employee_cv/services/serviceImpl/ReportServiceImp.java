@@ -715,6 +715,7 @@ public class ReportServiceImp {
         String updateDateJoinPolice = KhmerNumberUtil.convertToKhmerDayMonthYear(formatDateToKh(employee.getDateJoinPolice()));
         String updateStartYear = KhmerNumberUtil.convertToKhmerNumber(employee.getPreviousActivityAndPositionStartYear());
         String empDepartment=employee.getDepartment().getName();
+        int empDepartmentId=employee.getDepartment().getId();
         String empGeneralDepartment=employee.getDepartment().getGeneralDepartment().getName();
         // Parameters map can be used to pass additional parameters to the report
         Map<String, Object> parameters = new HashMap<>();
@@ -726,6 +727,7 @@ public class ReportServiceImp {
         parameters.put("APPRECIATION", appreciationDataset);
         parameters.put("ACTIVITY", activityDataset);
         parameters.put("DEPARTMENT", empDepartment);
+        parameters.put("DEPARTMENT_ID", empDepartmentId);
         parameters.put("GENERAL_DEPARTMENT", empGeneralDepartment);
         parameters.put("WEAPON_LIST", empWeapons);
         parameters.put("VEHICLE_LIST", empVehicle);

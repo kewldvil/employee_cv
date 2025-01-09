@@ -185,7 +185,8 @@
 	<parameter name="DATE_JOIN_GOV" class="java.lang.String"/>
 	<parameter name="DATE_JOIN_POLICE" class="java.lang.String"/>
 	<parameter name="GENERAL_DEPARTMENT" class="java.lang.String"/>
-	<parameter name="DEPARTMENT" class="java.lang.String">
+	<parameter name="DEPARTMENT" class="java.lang.String"/>
+	<parameter name="DEPARTMENT_ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[$P{DEPARTMENT}]]></defaultValueExpression>
 	</parameter>
 	<field name="id" class="java.lang.Integer"/>
@@ -2087,11 +2088,24 @@
 						<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី..........ខែ..............]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="0" y="110" width="318" height="22" uuid="03053920-d47a-4201-afe4-f0267d49c12d"/>
+						<reportElement x="0" y="110" width="318" height="22" uuid="03053920-d47a-4201-afe4-f0267d49c12d">
+							<printWhenExpression><![CDATA[$P{DEPARTMENT_ID}!=7]]></printWhenExpression>
+						</reportElement>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font fontName="My Khmer Os Muol Light" size="12"/>
 						</textElement>
 						<text><![CDATA[ប្រធាននាយកដ្ឋាន]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="0" y="111" width="318" height="22" uuid="e0271a93-daba-4570-b4b1-9f8d1c776441">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<printWhenExpression><![CDATA[$P{DEPARTMENT_ID}==7]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="My Khmer Os Muol Light" size="12"/>
+						</textElement>
+						<text><![CDATA[ប្រធានស្ថានីយ]]></text>
 					</staticText>
 				</frame>
 				<textField>
