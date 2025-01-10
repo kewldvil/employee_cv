@@ -2105,7 +2105,7 @@
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font fontName="My Khmer Os Muol Light" size="12"/>
 						</textElement>
-						<text><![CDATA[ប្រធានស្ថានីយ]]></text>
+						<text><![CDATA[ប្រធានស្ថានីយ៍]]></text>
 					</staticText>
 				</frame>
 				<textField>
