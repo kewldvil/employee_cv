@@ -16,12 +16,21 @@ import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -38,6 +47,8 @@ public class DashboardController {
     private final AuthenticationService service;
     private final DepartmentRepo departmentRepo;
     private final EmployeeRepo employeeRepo;
+    @Value("${file.signature-dir}")
+    private String SIGNATURE_UPLOAD_DIR;
 
     @GetMapping("/total-employee")
     public ResponseEntity<Long> getTotalEmployees() {
@@ -162,37 +173,85 @@ public class DashboardController {
         }
     }
 
-    @PutMapping("/user/profile/{userId}")
-    public ResponseEntity<String> updateUserProfile(@PathVariable Integer userId, @RequestBody UserProfileDTO userProfile) {
-        System.out.println("Updating user " + userId);
+
+    @PutMapping(value = "/user/profile/{userId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> updateUserProfile(
+            @PathVariable Integer userId,
+            @RequestParam("firstname") String firstname,
+            @RequestParam("lastname") String lastname,
+            @RequestParam("email") String email,
+            @RequestParam("username") String username,
+            @RequestParam("role") String role,
+            @RequestParam(value = "file", required = false) MultipartFile file) {
+
         try {
-            // Find the user by userId, or throw an exception if not found
+            // Update user profile logic
             User user = userRepo.findUserById(userId);
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setEmail(email);
+            user.setUsername(username);
+            user.setRole(Role.valueOf(role));
+            // Handle file upload (if present)
+            if (file != null && !file.isEmpty()) {
+                try {
+                    // Define the upload directory
+                    File dir = new File(SIGNATURE_UPLOAD_DIR);
 
-            // Update the user details
-            user.setFirstname(userProfile.getFirstname());
-            user.setLastname(userProfile.getLastname());
-            user.setEmail(userProfile.getEmail());
-            user.setUsername(userProfile.getUsername());
+                    // Create the upload directory if it doesn't exist
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
 
-            try {
-                // Ensure role is valid
-                user.setRole(Role.valueOf(userProfile.getRole()));
-            } catch (IllegalArgumentException e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role specified");
+                    // Construct the new filename using the username
+                    String fileExtension = Objects.requireNonNull(file.getOriginalFilename()).split("\\.")[1]; // Get the file extension
+                    String newFileName = user.getUsername() + "." + fileExtension; // Use username as the filename
+                    String filePath = SIGNATURE_UPLOAD_DIR + newFileName; // Full file path
+
+                    // Save the file to the target location
+                    Path targetLocation = Paths.get(filePath).toAbsolutePath().normalize();
+                    Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+                    System.out.println("File saved: " + targetLocation);
+                } catch (IOException e) {
+                    // Handle file operation errors
+                    System.err.println("Failed to save file: " + e.getMessage());
+                    throw new RuntimeException("Failed to save file", e);
+                }
+            }else {
+                try {
+                    // Define possible file extensions
+                    String[] possibleExtensions = {"jpg", "png"};
+
+                    // Try to delete the file with each extension
+                    boolean fileDeleted = false;
+                    for (String extension : possibleExtensions) {
+                        String filePath = SIGNATURE_UPLOAD_DIR + user.getUsername() + "." + extension;
+                        Path fileToDelete = Paths.get(filePath).toAbsolutePath().normalize();
+
+                        if (Files.deleteIfExists(fileToDelete)) {
+                            System.out.println("File deleted: " + fileToDelete);
+                            fileDeleted = true;
+                            break; // Exit loop if file is deleted
+                        }
+                    }
+
+                    if (!fileDeleted) {
+                        System.out.println("No file found for user: " + user.getUsername());
+                    }
+                } catch (IOException e) {
+                    // Handle file deletion errors
+                    System.err.println("Failed to delete file: " + e.getMessage());
+                    throw new RuntimeException("Failed to delete file", e);
+                }
             }
 
             // Save the updated user
             userRepo.save(user);
 
-            // Return 202 Accepted response
             return ResponseEntity.accepted().body("User profile updated successfully");
 
-        } catch (ResponseStatusException e) {
-            // Handle specific errors, like "User not found"
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         } catch (Exception e) {
-            // Handle any other unexpected errors
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating user profile");
         }
     }

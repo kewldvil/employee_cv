@@ -48,6 +48,9 @@ public class ReportServiceImp {
     @Value("${file.photo-dir}")
     private String REPORT_PHOTO_PATH;
 
+    @Value("${file.signature-dir}")
+    private String REPORT_SIGNATURE_PATH;
+
     @Autowired
     private ResourceLoader resourceLoader;
 
@@ -475,6 +478,7 @@ public class ReportServiceImp {
         String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
         String khmerLunarDateString = "ឆ្នាំ" + khmerLunarDate.getLunarZodiac() + " " + khmerLunarDate.getLunarEra() + " ព.ស." + khmerLunarDate.getLunarYear();
         Employee employee = employeeRepo.findEmployeeAndUserById(empId);
+        String signatureName=employee.getPoliceId();
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
         employee.setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getPhoneNumber()));
 
@@ -722,6 +726,8 @@ public class ReportServiceImp {
 
         parameters.put("REPORT_PATH", REPORT_DIR);
         parameters.put("REPORT_PHOTO_PATH", REPORT_PHOTO_PATH);
+        parameters.put("REPORT_SIGNATURE_PATH", REPORT_SIGNATURE_PATH);
+        parameters.put("SIGNATURE_NAME", signatureName);
         parameters.put("employeeKhmerDOB", KhmerNumberUtil.convertToKhmerDayMonthYear(employee.getFormattedDateOfBirth()));
         parameters.put("VOCATIONAL_TRAINING", vocationalTrainingsDatasource);
         parameters.put("APPRECIATION", appreciationDataset);

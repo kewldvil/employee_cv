@@ -53,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers(WHITE_LIST_URL).permitAll()
                         .requestMatchers("/photos/**").permitAll()
                         .requestMatchers("/files/**").permitAll()
+                        .requestMatchers("/signatures/**").permitAll()
 
                         // Common roles for multiple endpoints
                         .requestMatchers("/api/v1/photo/**", "/api/v1/files/**", "/api/v1/employee/**", "/api/v1/address/**", "/api/v1/enum/**")

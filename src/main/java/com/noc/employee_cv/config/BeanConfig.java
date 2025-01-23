@@ -29,6 +29,8 @@ public class BeanConfig implements WebMvcConfigurer {
     private String filePath;
     @Value("${file.photo-dir}")
     private String photoFilePath;
+    @Value("${file.signature-dir}")
+    private String signaturePhotoPath;
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -46,6 +48,10 @@ public class BeanConfig implements WebMvcConfigurer {
         // Serve files from the file system
         registry.addResourceHandler("/files/**")
                 .addResourceLocations("file:///" + filePath);
+
+        // Serve signature photo from the file system
+        registry.addResourceHandler("/signatures/**")
+                .addResourceLocations("file:///" + signaturePhotoPath);
         // Optionally serve files from the classpath (if you have files inside /static or /resources)
 //        registry.addResourceHandler("/photos/**")
 //                .addResourceLocations("classpath:/static/photos/");

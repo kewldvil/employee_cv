@@ -120,6 +120,8 @@
 	</subDataset>
 	<parameter name="REPORT_PATH" class="java.lang.String"/>
 	<parameter name="REPORT_PHOTO_PATH" class="java.lang.String"/>
+	<parameter name="REPORT_SIGNATURE_PATH" class="java.lang.String"/>
+	<parameter name="SIGNATURE_NAME" class="java.lang.String"/>
 	<parameter name="START_YEAR" class="java.lang.String"/>
 	<parameter name="KHMER_LUNAR_DATE" class="java.lang.String"/>
 	<parameter name="KHMER_YEAR_STRING" class="java.lang.String"/>
@@ -2144,6 +2146,44 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{KHMER_YEAR_STRING}]]></textFieldExpression>
 				</textField>
+				<textField>
+					<reportElement x="320" y="132" width="233" height="22" forecolor="#000000" uuid="0f5fa536-7e3a-4b45-b4f3-cc47147e9f04">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="My Khmer Os Muol Light" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(
+$F{currentPoliceRank} == null ? "" :
+$F{currentPoliceRank}.equals("ពលបាលត្រី") ? "ព.ត្រី" :
+$F{currentPoliceRank}.equals("ពលបាលទោ") ? "ព.ទោ" :
+$F{currentPoliceRank}.equals("ពលបាលឯក") ? "ព.ឯក" :
+$F{currentPoliceRank}.equals("ព្រឹន្ទបាលទោ") ? "ព្រ.ទោ" :
+$F{currentPoliceRank}.equals("ព្រឹន្ទបាលត្រី") ? "ព្រ.ត្រី" :
+$F{currentPoliceRank}.equals("ព្រឹន្ទបាលឯក") ? "ព្រ.ឯក" :
+$F{currentPoliceRank}.equals("វរសេនីយ៍ត្រី") ? "វ.ត្រី" :
+$F{currentPoliceRank}.equals("វរសេនីយ៍ទោ") ? "វ.ទោ" :
+$F{currentPoliceRank}.equals("វរសេនីយ៍ឯក") ? "វ.ឯក" :
+$F{currentPoliceRank}.equals("អនុសេនីយ៍ត្រី") ? "អ.ត្រី" :
+$F{currentPoliceRank}.equals("អនុសេនីយ៍ទោ") ? "អ.ទោ" :
+$F{currentPoliceRank}.equals("អនុសេនីយ៍ឯក") ? "អ.ឯក" :
+$F{currentPoliceRank}.equals("ឧត្តមសេនីយ៍ត្រី") ? "ឧ.ត្រី" :
+$F{currentPoliceRank}.equals("ឧត្តមសេនីយ៍ទោ") ? "ឧ.ទោ" :
+$F{currentPoliceRank}.equals("ឧត្តមសេនីយ៍ឯក") ? "ឧ.ឯក" :
+"" // Default value if no match is found
+)
++ " "
++ $F{lastname}
++ " "
++ $F{firstname}]]></textFieldExpression>
+				</textField>
+				<image scaleImage="FillFrame">
+					<reportElement x="376" y="90" width="114" height="40" uuid="c35ffdee-d91e-4fab-8eda-3ad0518a889d">
+						<printWhenExpression><![CDATA[new java.io.File($P{REPORT_SIGNATURE_PATH} + $P{SIGNATURE_NAME} + ".png").exists() ||new java.io.File($P{REPORT_SIGNATURE_PATH} + $P{SIGNATURE_NAME} + ".jpg").exists()]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA[new java.io.File($P{REPORT_SIGNATURE_PATH}+$P{SIGNATURE_NAME}+".jpg").exists()?$P{REPORT_SIGNATURE_PATH}+$P{SIGNATURE_NAME}+".jpg":$P{REPORT_SIGNATURE_PATH}+$P{SIGNATURE_NAME}+".png"]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</detail>
