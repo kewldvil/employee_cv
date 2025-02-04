@@ -218,7 +218,7 @@ public class DashboardController {
                     System.err.println("Failed to save file: " + e.getMessage());
                     throw new RuntimeException("Failed to save file", e);
                 }
-            }else {
+            } else {
                 try {
                     // Define possible file extensions
                     String[] possibleExtensions = {"jpg", "png"};

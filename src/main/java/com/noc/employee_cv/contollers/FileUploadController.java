@@ -8,6 +8,8 @@ import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.FileService;
 import com.noc.employee_cv.services.serviceImpl.FileServiceImp;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/v1/files")
 @RequiredArgsConstructor
+@Slf4j
 public class FileUploadController {
 
     private static final int MAX_FILE_COUNT = 10; // Limit to 10 files
@@ -75,6 +78,8 @@ public class FileUploadController {
     @PostMapping("/upload/{userId}")
     public ResponseEntity<?> uploadFiles(@RequestParam("file") MultipartFile[] files,
                                          @PathVariable("userId") Integer userId) {
+        log.info("max file size: {}", MAX_FILE_SIZE);
+
         // Check file count limit
         if (files.length > MAX_FILE_COUNT) {
             return ResponseEntity.badRequest().body("Maximum file upload limit is " + MAX_FILE_COUNT);
@@ -91,6 +96,7 @@ public class FileUploadController {
 
         // Process each file
         for (MultipartFile file : files) {
+            log.info("file size: {}", file.getSize());
             // Check if the file is empty
             if (file.isEmpty()) {
                 return ResponseEntity.badRequest().build();

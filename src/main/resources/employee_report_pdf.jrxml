@@ -2147,9 +2147,10 @@
 					<textFieldExpression><![CDATA[$P{KHMER_YEAR_STRING}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="320" y="132" width="233" height="22" forecolor="#000000" uuid="0f5fa536-7e3a-4b45-b4f3-cc47147e9f04">
+					<reportElement x="322" y="155" width="233" height="22" forecolor="#000000" uuid="0f5fa536-7e3a-4b45-b4f3-cc47147e9f04">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[$F{gender}=="sopheak"]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Center">
 						<font fontName="My Khmer Os Muol Light" size="11"/>
@@ -2179,7 +2180,7 @@ $F{currentPoliceRank}.equals("ឧត្តមសេនីយ៍ឯក") ? "ឧ.�
 + $F{firstname}]]></textFieldExpression>
 				</textField>
 				<image scaleImage="FillFrame">
-					<reportElement x="376" y="90" width="114" height="40" uuid="c35ffdee-d91e-4fab-8eda-3ad0518a889d">
+					<reportElement x="376" y="90" width="123" height="60" uuid="c35ffdee-d91e-4fab-8eda-3ad0518a889d">
 						<printWhenExpression><![CDATA[new java.io.File($P{REPORT_SIGNATURE_PATH} + $P{SIGNATURE_NAME} + ".png").exists() ||new java.io.File($P{REPORT_SIGNATURE_PATH} + $P{SIGNATURE_NAME} + ".jpg").exists()]]></printWhenExpression>
 					</reportElement>
 					<imageExpression><![CDATA[new java.io.File($P{REPORT_SIGNATURE_PATH}+$P{SIGNATURE_NAME}+".jpg").exists()?$P{REPORT_SIGNATURE_PATH}+$P{SIGNATURE_NAME}+".jpg":$P{REPORT_SIGNATURE_PATH}+$P{SIGNATURE_NAME}+".png"]]></imageExpression>
