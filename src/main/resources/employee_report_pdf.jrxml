@@ -2030,11 +2030,11 @@
 					<text><![CDATA[ខ្ញុំ/នាងខ្ញុំ សូមធានាអះអាងចំពោះមុខច្បាប់ថា សេចក្ដីរាយការណ៍ក្នុងជីវប្រវត្តិនេះ សុទ្ធតែពិតប្រាកដទាំងអស់។ ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="269" y="22" width="286" height="22" uuid="6c905c5d-9978-4932-b33c-6e300540d33d"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
+					<reportElement x="223" y="22" width="329" height="22" uuid="6c905c5d-9978-4932-b33c-6e300540d33d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="My Khmer Os Siem Reap" size="12"/>
 					</textElement>
-					<text><![CDATA[ថ្ងៃ..........................ខែ..............ឆ្នាំ................ព.ស២៥៦...]]></text>
+					<text><![CDATA[ថ្ងៃ.............................ខែ..............ឆ្នាំ......................ព.ស២៥៦...]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="0" y="44" width="554" height="22" uuid="20b9126d-b7ee-4520-8bd6-fbdb085c0099"/>
@@ -2074,11 +2074,11 @@
 						<text><![CDATA[..................................................................................]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="17" y="66" width="301" height="22" uuid="b088b6de-33ec-41a8-a9b2-c3ada92d9616"/>
+						<reportElement x="2" y="66" width="316" height="22" uuid="b088b6de-33ec-41a8-a9b2-c3ada92d9616"/>
 						<textElement textAlignment="Left" verticalAlignment="Middle">
 							<font fontName="My Khmer Os Siem Reap" size="12"/>
 						</textElement>
-						<text><![CDATA[ថ្ងៃ...........................ខែ..................ឆ្នាំ................ព.ស២៥៦...]]></text>
+						<text><![CDATA[ថ្ងៃ.............................ខែ..............ឆ្នាំ......................ព.ស២៥៦...]]></text>
 					</staticText>
 					<staticText>
 						<reportElement x="15" y="88" width="282" height="22" uuid="3fd33409-217b-431d-a40c-aa461f2f7f64"/>
