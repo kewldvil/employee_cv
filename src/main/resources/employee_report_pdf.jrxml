@@ -2034,7 +2034,7 @@
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="My Khmer Os Siem Reap" size="12"/>
 					</textElement>
-					<text><![CDATA[ថ្ងៃ.............................ខែ..............ឆ្នាំ......................ព.ស២៥៦...]]></text>
+					<text><![CDATA[ថ្ងៃ.........................ខែ...........ឆ្នាំ......................ព.ស២៥៦...]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="0" y="44" width="554" height="22" uuid="20b9126d-b7ee-4520-8bd6-fbdb085c0099"/>
@@ -2075,10 +2075,10 @@
 					</staticText>
 					<staticText>
 						<reportElement x="2" y="66" width="316" height="22" uuid="b088b6de-33ec-41a8-a9b2-c3ada92d9616"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Right" verticalAlignment="Middle">
 							<font fontName="My Khmer Os Siem Reap" size="12"/>
 						</textElement>
-						<text><![CDATA[ថ្ងៃ.............................ខែ..............ឆ្នាំ......................ព.ស២៥៦...]]></text>
+						<text><![CDATA[ថ្ងៃ.........................ខែ...........ឆ្នាំ......................ព.ស២៥៦...]]></text>
 					</staticText>
 					<staticText>
 						<reportElement x="15" y="88" width="282" height="22" uuid="3fd33409-217b-431d-a40c-aa461f2f7f64"/>
