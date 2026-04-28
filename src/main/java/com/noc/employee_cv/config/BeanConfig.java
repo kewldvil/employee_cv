@@ -24,58 +24,94 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 public class BeanConfig implements WebMvcConfigurer {
+
     private final UserDetailsService userDetailsService;
+
     @Value("${file.upload-dir}")
     private String filePath;
+
     @Value("${file.photo-dir}")
     private String photoFilePath;
+
+    @Value("${app.cors.allowed-origins}")
+    private List<String> allowedOrigins;
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
+
+        // Prevent leaking whether username exists or password is wrong
+        authProvider.setHideUserNotFoundExceptions(true);
+
         return authProvider;
     }
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        System.out.println("Configured photo directory: " + photoFilePath); // Add this for debugging
-        // Serve photos from the file system
-        registry.addResourceHandler("/photos/**")
-                .addResourceLocations("file:///" + photoFilePath);
-
-        // Serve files from the file system
-        registry.addResourceHandler("/files/**")
-                .addResourceLocations("file:///" + filePath);
-        // Optionally serve files from the classpath (if you have files inside /static or /resources)
-//        registry.addResourceHandler("/photos/**")
-//                .addResourceLocations("classpath:/static/photos/");
-//
-//        registry.addResourceHandler("/files/**")
-//                .addResourceLocations("classpath:/static/files/");
-    }
-
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration config
+    ) throws Exception {
         return config.getAuthenticationManager();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Allow frontend URL
-//        configuration.setAllowedOrigins(List.of("*")); // Allow frontend URL
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        configuration.setAllowedOrigins(allowedOrigins);
+
+        configuration.setAllowedMethods(List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE",
+                "OPTIONS"
+        ));
+
+        configuration.setAllowedHeaders(List.of(
+                "Authorization",
+                "Content-Type",
+                "Accept",
+                "Origin",
+                "X-Requested-With"
+        ));
+
+        configuration.setExposedHeaders(List.of(
+                "Authorization",
+                "Content-Disposition"
+        ));
+
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
+        registry.addResourceHandler("/photos/**")
+                .addResourceLocations(toFileLocation(photoFilePath));
+
+        // Be careful: only do this if /files/** is protected in SecurityConfig
+        registry.addResourceHandler("/files/**")
+                .addResourceLocations(toFileLocation(filePath));
+    }
+
+    private String toFileLocation(String path) {
+        String normalized = path.endsWith("/") ? path : path + "/";
+        return "file:" + normalized;
+    }
 }

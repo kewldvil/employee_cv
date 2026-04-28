@@ -38,8 +38,8 @@ public class AuthenticationService {
     private final UserRepo userRepo;
     private final EmailService emailService;
 
-    @Value("${activation_url}")
-    private String activationUrl;
+//    @Value("${activation_url}")
+//    private String activationUrl;
 
 
     public void register(RegistrationRequest request) throws MessagingException {
@@ -97,16 +97,16 @@ public class AuthenticationService {
         return sb.toString();
     }
 
-    private void sendValidationEmail(User user) throws MessagingException {
-        String newToken = generateAndSaveToken(user);
-        emailService.sendEmail(
-                user.getEmail(),
-                user.getFullName(),
-                EmailTemplateName.ACTIVATE_ACCOUNT,
-                activationUrl,
-                newToken, "Account Activation"
-        );
-    }
+//    private void sendValidationEmail(User user) throws MessagingException {
+//        String newToken = generateAndSaveToken(user);
+//        emailService.sendEmail(
+//                user.getEmail(),
+//                user.getFullName(),
+//                EmailTemplateName.ACTIVATE_ACCOUNT,
+//                activationUrl,
+//                newToken, "Account Activation"
+//        );
+//    }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var authentication = authenticationManager.authenticate(
@@ -146,10 +146,10 @@ public class AuthenticationService {
         Token savedToken = tokenRepo.findByToken(token)
                 // todo exception has to be defined
                 .orElseThrow(() -> new RuntimeException("Invalid token"));
-        if (LocalDateTime.now().isAfter(savedToken.getExpiredAt())) {
-            sendValidationEmail(savedToken.getUser());
-            throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
-        }
+//        if (LocalDateTime.now().isAfter(savedToken.getExpiredAt())) {
+//            sendValidationEmail(savedToken.getUser());
+//            throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
+//        }
 
         var user = userRepo.findById(savedToken.getUser().getId())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));

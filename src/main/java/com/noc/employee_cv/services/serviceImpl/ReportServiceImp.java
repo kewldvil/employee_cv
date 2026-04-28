@@ -1,5 +1,6 @@
 package com.noc.employee_cv.services.serviceImpl;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.util.JRFontNotFoundException;
 import com.noc.employee_cv.dto.*;
@@ -40,6 +41,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ReportServiceImp {
 
     private final EmployeeRepo employeeRepo;
@@ -54,6 +56,7 @@ public class ReportServiceImp {
     public String exportReport(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
         KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
         String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
+        log.error("khmerLunarDate: " + khmerYearString);
         String khmerLunarDateString = "ឆ្នាំ" + khmerLunarDate.getLunarZodiac() + " " + khmerLunarDate.getLunarEra() + "ព.ស." + khmerLunarDate.getLunarYear();
         Employee employee = employeeRepo.findEmployeeAndUserById(empId);
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
