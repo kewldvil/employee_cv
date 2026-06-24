@@ -122,6 +122,7 @@
 	<parameter name="REPORT_PHOTO_PATH" class="java.lang.String"/>
 	<parameter name="START_YEAR" class="java.lang.String"/>
 	<parameter name="KHMER_LUNAR_DATE" class="java.lang.String"/>
+	<parameter name="KHMER_LUNAR_YEAR" class="java.lang.String"/>
 	<parameter name="KHMER_YEAR_STRING" class="java.lang.String"/>
 	<parameter name="VOCATIONAL_TRAINING" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="APPRECIATION" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
@@ -193,7 +194,7 @@
 	<field name="bloodType" class="java.lang.String"/>
 	<field name="createdAt" class="java.sql.Timestamp"/>
 	<field name="currentPoliceRank" class="java.lang.String"/>
-	<field name="currentPosition" class="com.noc.employee_cv.models.Position"/>
+	<field name="currentPosition.position" class="java.lang.String"/>
 	<field name="dateJoinGov" class="java.time.LocalDate"/>
 	<field name="dateJoinPolice" class="java.time.LocalDate"/>
 	<field name="dateOfBirth" class="java.sql.Date"/>
@@ -211,7 +212,7 @@
 	<field name="positionDocumentIssueDate" class="java.sql.Date"/>
 	<field name="positionDocumentNumber" class="java.lang.String"/>
 	<field name="prevPoliceRank" class="java.lang.String"/>
-	<field name="previousPosition" class="com.noc.employee_cv.models.Position"/>
+	<field name="previousPosition.position" class="java.lang.String"/>
 	<field name="previousActivityAndPositionStartYear" class="java.lang.Integer"/>
 	<field name="updatedAt" class="java.sql.Timestamp"/>
 	<field name="currentAddress.id" class="java.lang.Integer"/>
@@ -712,7 +713,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{currentPosition}.getPosition()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{currentPosition.position}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="340" y="199" width="43" height="22" forecolor="#0000CC" uuid="08c1337d-0257-43bd-95bf-10d53837d245">
@@ -1244,7 +1245,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{previousPosition}.getPosition()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{previousPosition.position}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="96" y="106" width="459" height="22" forecolor="#0000CC" uuid="f83c476d-41ec-492a-9170-cd93089ee820">
@@ -2030,13 +2031,6 @@
 					<text><![CDATA[ខ្ញុំ/នាងខ្ញុំ សូមធានាអះអាងចំពោះមុខច្បាប់ថា សេចក្ដីរាយការណ៍ក្នុងជីវប្រវត្តិនេះ សុទ្ធតែពិតប្រាកដទាំងអស់។ ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="223" y="22" width="329" height="22" uuid="6c905c5d-9978-4932-b33c-6e300540d33d"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[ថ្ងៃ.........................ខែ...........ឆ្នាំ......................ព.ស២៥៦...]]></text>
-				</staticText>
-				<staticText>
 					<reportElement x="5" y="44" width="504" height="22" uuid="20b9126d-b7ee-4520-8bd6-fbdb085c0099"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="My Khmer Os Siem Reap" size="12"/>
@@ -2074,13 +2068,6 @@
 						<text><![CDATA[..................................................................................]]></text>
 					</staticText>
 					<staticText>
-						<reportElement x="11" y="66" width="306" height="22" uuid="b088b6de-33ec-41a8-a9b2-c3ada92d9616"/>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
-							<font fontName="My Khmer Os Siem Reap" size="12"/>
-						</textElement>
-						<text><![CDATA[ថ្ងៃ.........................ខែ...........ឆ្នាំ......................ព.ស២៥៦...]]></text>
-					</staticText>
-					<staticText>
 						<reportElement x="15" y="88" width="282" height="22" uuid="3fd33409-217b-431d-a40c-aa461f2f7f64"/>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font fontName="My Khmer Os Siem Reap" size="12"/>
@@ -2107,6 +2094,25 @@
 						</textElement>
 						<text><![CDATA[ប្រធានស្ថានីយ៍]]></text>
 					</staticText>
+					<frame>
+						<reportElement x="11" y="66" width="306" height="43" uuid="b3cc77aa-37c8-45d9-965c-43cb4d07f69a"/>
+						<staticText>
+							<reportElement x="0" y="0" width="306" height="22" uuid="b088b6de-33ec-41a8-a9b2-c3ada92d9616"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle">
+								<font fontName="My Khmer Os Siem Reap" size="12"/>
+							</textElement>
+							<text><![CDATA[ថ្ងៃ.........................ខែ...........ឆ្នាំ......................]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement x="230" y="0" width="76" height="22" forecolor="#000000" uuid="8115c55f-23ce-4672-a972-738ad4c1b120">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
+							<textElement textAlignment="Left">
+								<font fontName="My Khmer Os Siem Reap" size="12"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$P{KHMER_LUNAR_YEAR}]]></textFieldExpression>
+						</textField>
+					</frame>
 				</frame>
 				<textField isBlankWhenNull="true">
 					<reportElement x="253" y="132" width="44" height="22" forecolor="#000000" uuid="66726839-1000-44bd-ac8d-2b0cef0aec47">
@@ -2126,6 +2132,25 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{KHMER_YEAR_STRING}]]></textFieldExpression>
 				</textField>
+				<frame>
+					<reportElement x="223" y="0" width="329" height="44" uuid="6518cc48-096a-4d35-9819-36f1967f94a0"/>
+					<staticText>
+						<reportElement x="28" y="22" width="301" height="22" uuid="6c905c5d-9978-4932-b33c-6e300540d33d"/>
+						<textElement textAlignment="Left" verticalAlignment="Middle">
+							<font fontName="My Khmer Os Siem Reap" size="12"/>
+						</textElement>
+						<text><![CDATA[ថ្ងៃ.........................ខែ...........ឆ្នាំ......................]]></text>
+					</staticText>
+					<textField isBlankWhenNull="true">
+						<reportElement x="250" y="22" width="76" height="22" forecolor="#000000" uuid="0bb75bf9-12de-4b38-a829-c042694fc6e0">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Left">
+							<font fontName="My Khmer Os Siem Reap" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{KHMER_LUNAR_YEAR}]]></textFieldExpression>
+					</textField>
+				</frame>
 			</frame>
 		</band>
 	</detail>

@@ -19,6 +19,7 @@ import io.github.metheax.utils.ChhankitekUtils;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.export.SimpleDocxReportConfiguration;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
@@ -477,6 +478,7 @@ public class ReportServiceImp {
         KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
         String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
         String khmerLunarDateString = "ឆ្នាំ" + khmerLunarDate.getLunarZodiac() + " " + khmerLunarDate.getLunarEra() + " ព.ស." + khmerLunarDate.getLunarYear();
+        String khmerLunarYearString=" ព.ស." + khmerLunarDate.getLunarYear();
         Employee employee = employeeRepo.findEmployeeAndUserById(empId);
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
         employee.setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getPhoneNumber()));
@@ -491,19 +493,7 @@ public class ReportServiceImp {
         String childNumber = KhmerNumberUtil.convertToKhmerNumber(getNumberOfChildren(employee));
         String imageName = employee.getUser().getImageName();
 
-        // Load file and compile
-        JasperReport jasperReport;
-        String reportPath = REPORT_DIR + "employee_report_"+reportFormat+".jrxml";
-        Resource resource = resourceLoader.getResource(reportPath);
-        try (InputStream inputStream = resource.getInputStream()) {
-            jasperReport = JasperCompileManager.compileReport(inputStream);
-        } catch (IOException e) {
-            throw new FileNotFoundException("The report file was not found: " + reportPath);
-        } catch (JRException e) {
-            String errorMsg = "Unable to compile the report file: " + reportPath;
-            System.err.println(errorMsg);
-            throw new JRException(errorMsg, e);
-        }
+        JasperReport jasperReport = loadReportTemplate(reportFormat);
 
         // Create a list containing the single employee
         List<Employee> employees = Collections.singletonList(employee);
@@ -788,6 +778,7 @@ public class ReportServiceImp {
         parameters.put("TOTAL_FEMALE_CHILD", totalFemaleChildren);
         parameters.put("TOTAL_MALE_CHILD", totalMaleChildren);
         parameters.put("KHMER_LUNAR_DATE", khmerLunarDateString);
+        parameters.put("KHMER_LUNAR_YEAR", khmerLunarYearString);
         parameters.put("KHMER_YEAR_STRING", khmerYearString);
         parameters.put("DATE_JOIN_POLICE", updateDateJoinPolice);
         parameters.put("DATE_JOIN_GOV", updateDateJoinGov);
@@ -837,5 +828,33 @@ public class ReportServiceImp {
         }
 
 
+    }
+
+    private JasperReport loadReportTemplate(String reportFormat) throws FileNotFoundException, JRException {
+        if ("pdf".equalsIgnoreCase(reportFormat)) {
+            String reportPath = REPORT_DIR + "employee_report_pdf.jasper";
+            Resource resource = resourceLoader.getResource(reportPath);
+            try (InputStream inputStream = resource.getInputStream()) {
+                return (JasperReport) JRLoader.loadObject(inputStream);
+            } catch (IOException e) {
+                throw new FileNotFoundException("The compiled report file was not found: " + reportPath);
+            } catch (JRException e) {
+                String errorMsg = "Unable to load compiled report file: " + reportPath;
+                System.err.println(errorMsg);
+                throw new JRException(errorMsg, e);
+            }
+        }
+
+        String reportPath = REPORT_DIR + "employee_report_" + reportFormat + ".jrxml";
+        Resource resource = resourceLoader.getResource(reportPath);
+        try (InputStream inputStream = resource.getInputStream()) {
+            return JasperCompileManager.compileReport(inputStream);
+        } catch (IOException e) {
+            throw new FileNotFoundException("The report file was not found: " + reportPath);
+        } catch (JRException e) {
+            String errorMsg = "Unable to compile the report file: " + reportPath;
+            System.err.println(errorMsg);
+            throw new JRException(errorMsg, e);
+        }
     }
 }
