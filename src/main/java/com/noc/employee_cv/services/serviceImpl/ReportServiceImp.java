@@ -31,6 +31,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
 import javax.print.attribute.standard.Media;
@@ -54,12 +55,13 @@ public class ReportServiceImp {
     @Autowired
     private ResourceLoader resourceLoader;
 
+    @Transactional(readOnly = true)
     public String exportReport(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
         KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
         String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
         log.error("khmerLunarDate: " + khmerYearString);
         String khmerLunarDateString = "ឆ្នាំ" + khmerLunarDate.getLunarZodiac() + " " + khmerLunarDate.getLunarEra() + "ព.ស." + khmerLunarDate.getLunarYear();
-        Employee employee = employeeRepo.findEmployeeAndUserById(empId);
+        Employee employee = findEmployeeForReport(empId);
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
         employee.setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getPhoneNumber()));
 
@@ -474,12 +476,13 @@ public class ReportServiceImp {
         return new LinkedHashSet<>(list);
     }
 
+    @Transactional(readOnly = true)
     public ResponseEntity<byte[]> exportReportToFrontEnd(String reportFormat, Integer empId) throws FileNotFoundException, JRException {
         KhmerLunarDate khmerLunarDate = Chhankitek.toKhmerLunarDateFormat(LocalDateTime.now());
         String khmerYearString = ChhankitekUtils.convertIntegerToKhmerNumber(LocalDateTime.now().getYear());
         String khmerLunarDateString = "ឆ្នាំ" + khmerLunarDate.getLunarZodiac() + " " + khmerLunarDate.getLunarEra() + " ព.ស." + khmerLunarDate.getLunarYear();
         String khmerLunarYearString=" ព.ស." + khmerLunarDate.getLunarYear();
-        Employee employee = employeeRepo.findEmployeeAndUserById(empId);
+        Employee employee = findEmployeeForReport(empId);
         employee.setPoliceId(KhmerNumberUtil.convertToKhmerNumber(Integer.parseInt(employee.getPoliceId())));
         employee.setPhoneNumber(PhoneNumberFormatter.updatePhoneNumber(employee.getPhoneNumber()));
 
@@ -828,6 +831,11 @@ public class ReportServiceImp {
         }
 
 
+    }
+
+    private Employee findEmployeeForReport(Integer empId) {
+        return employeeRepo.findById(empId)
+                .orElseThrow(() -> new NoSuchElementException("Employee not found with ID: " + empId));
     }
 
     private JasperReport loadReportTemplate(String reportFormat) throws FileNotFoundException, JRException {

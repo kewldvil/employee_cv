@@ -4,53 +4,37 @@ import com.noc.employee_cv.dto.*;
 import com.noc.employee_cv.enums.*;
 import com.noc.employee_cv.mapper.EmployeeMapper;
 import com.noc.employee_cv.models.*;
-import com.noc.employee_cv.models.Position;
 import com.noc.employee_cv.provinces.*;
 import com.noc.employee_cv.repositories.*;
-import com.noc.employee_cv.security.UserDetailServiceImpl;
 import com.noc.employee_cv.services.EmployeeService;
 import com.noc.employee_cv.utils.KhmerNumberUtil;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
+@Transactional(readOnly = true)
 public class EmployeeServiceImp implements EmployeeService {
 
     private final EmployeeRepo employeeRepo;
-    private final AddressRepo addressRepo;
-    private final EmployeeAddressRepo employeeAddressRepo;
     private final EmployeeMapper employeeMapper;
-    private final UserDetailServiceImpl userDetailService;
     private final ProvinceCityServiceImp provinceServiceImp;
     private final DistrictServiceImp districtServiceImp;
     private final CommuneServiceImp communeServiceImp;
     private final VillageServiceImp villageServiceImp;
-    private final AddressServiceImp addressServiceImp;
-    private final UniversitySkillRepo universitySkillRepo;
     private final EmployeeSkillRepo employeeSkillRepo;
-    private final UniversitySkillServiceImp universitySkillServiceImp;
-    private final EmployeeUniversitySkillServiceImp employeeUniversitySkillServiceImp;
-    private final LanguageServiceImp languageServiceImp;
-    private final EmployeeLanguageServiceImp employeeLanguageServiceImp;
     private final UserRepo userRepo;
-    private final SpouseRepo spouseRepo;
-    private final FatherRepo fatherRepo;
-    private final MotherRepo motherRepo;
-    private final ChildRepo childRepo;
     private final EmployeeLanguageRepo employeeLanguageRepo;
     private final DegreeLevelRepo degreeLevelRepo;
     private final LanguageRepo languageRepo;
     private final EmployeeDegreeLevelRepo employeeDegreeLevelRepo;
     private final SkillRepo skillRepo;
-    private final PreviousActivityAndPositionRepo previousActivityAndPositionRepo;
-    private final PolicePlateNumberCarRepo policePlateNumberCarRepo;
-    private final WeaponRepo weaponRepo;
-    private final AppreciationRepo appreciationRepo;
-    private final VocationalTrainingRepo vocationalTrainingRepo;
     private final DepartmentRepo departmentRepo;
     private final PositionRepo positionRepo;
 
@@ -58,21 +42,15 @@ public class EmployeeServiceImp implements EmployeeService {
     @Override
     @Transactional
     public void save(EmployeeDTO employeeDTO) {
-        System.out.println(employeeDTO.toString());
-        System.out.println("Saving employee.....");
+        log.debug("Saving employee for user id {}", employeeDTO.getUserId());
         Employee employee = employeeMapper.fromEmployeeDto(employeeDTO);
-        Department dp = departmentRepo.findById(employeeDTO.getDepartmentId()).orElseThrow();
         setUserForEmployee(employee, employeeDTO.getUserId());
         employee.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(employeeDTO.getPhoneNumber()));
-        employee.setDepartment(dp);
-        // Fetch the positions and set them
-        Position currentPosition = positionRepo.findById(employeeDTO.getCurrentPositionId())
-                .orElseThrow(() -> new RuntimeException("Position not found for currentPositionId"));
-        Position previousPosition = positionRepo.findById(employeeDTO.getPreviousPositionId())
-                .orElseThrow(() -> new RuntimeException("Position not found for previousPositionId"));
+        employee.setDepartment(departmentRepo.getReferenceById(employeeDTO.getDepartmentId()));
+        employee.setCurrentPosition(positionRepo.getReferenceById(employeeDTO.getCurrentPositionId()));
+        employee.setPreviousPosition(positionRepo.getReferenceById(employeeDTO.getPreviousPositionId()));
+        employee = employeeRepo.save(employee);
 
-        employee.setCurrentPosition(currentPosition);
-        employee.setPreviousPosition(previousPosition);
         setSpouseAndChildren(employee, employeeDTO.getSpouse());
         setPolicePlateNumberCars(employee, employeeDTO.getPolicePlateNumberCars());
         setWeapons(employee, employeeDTO.getWeapons());
@@ -85,9 +63,6 @@ public class EmployeeServiceImp implements EmployeeService {
         setEmployeeDegreeLevels(employee, employeeDTO.getDegreeLevels());
         setEmployeeLanguages(employee, employeeDTO.getEmployeeLanguages());
         setEmployeeSkill(employee, employeeDTO.getEmployeeSkills());
-
-        employeeRepo.save(employee);
-
     }
 
 
@@ -119,103 +94,56 @@ public class EmployeeServiceImp implements EmployeeService {
     @Transactional
     protected void setSpouseAndChildren(Employee employee, SpouseDTO spouseDTO) {
         Spouse spouse = employee.getSpouse();
-        if (employee.getIsMarried()) {
-            if (spouse == null) {
-                // If the spouse does not exist, create a new instance
-                spouse = new Spouse();
-                spouse.setEmployee(employee);
-                employee.setSpouse(spouse);
-            }
-
-            // Update spouse information
-            spouse.setFullName(spouseDTO.getFullName());
-            spouse.setDateOfBirth(spouseDTO.getDateOfBirth());
-            spouse.setJob(spouseDTO.getJob());
-            spouse.setIsAlive(spouseDTO.getIsAlive());
-            spouse.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(spouseDTO.getPhoneNumber()));
-            spouse.setEmployee(employee);
-
-            // Save or update the spouse entity to ensure it's managed and has an ID
-            spouse = spouseRepo.save(spouse);
-
-            // Handle the spouse's children
-            Set<SpouseChildren> existingChildren = spouse.getChildren() != null ? spouse.getChildren() : new HashSet<>();
-            Set<Integer> updatedChildIds = new HashSet<>();
-            Set<SpouseChildren> childrenToRemove = new HashSet<>(existingChildren);
-
-            if (spouseDTO.getChildren() != null) {
-                for (ChildDTO childDTO : spouseDTO.getChildren()) {
-                    SpouseChildren child = null;
-                    if (childDTO.getId() != null) {
-                        // Find the existing child by ID if it exists
-                        for (SpouseChildren existingChild : existingChildren) {
-                            if (existingChild.getId().equals(childDTO.getId())) {
-                                child = existingChild;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (child == null) {
-                        // Create a new child entity if it does not exist
-                        child = new SpouseChildren();
-                        child.setSpouse(spouse);
-                    }
-
-                    child.setFullName(childDTO.getFullName());
-                    child.setGender(childDTO.getGender());
-                    child.setDateOfBirth(childDTO.getDateOfBirth());
-                    child.setJob(childDTO.getJob());
-
-                    // Save the child to ensure it has an ID and add to updated children
-                    childRepo.save(child);
-                    updatedChildIds.add(child.getId());
-                    childrenToRemove.remove(child);
-                }
-            }
-
-            // Remove children that are no longer present in the DTO
-            existingChildren.removeAll(childrenToRemove);
-            childRepo.deleteAll(childrenToRemove);
-
-            // Persist the remaining children and add any new ones
-            for (SpouseChildren child : existingChildren) {
-                childRepo.save(child);
-            }
-
-            // Update the spouse's children set with the updated children
-            spouse.getChildren().clear();
-            spouse.getChildren().addAll(existingChildren);
-
-            setSpousePlaceOfBirth(spouse, spouseDTO.getPlaceOfBirth(), AddressType.SPOUSE_POB);
-            setSpouseCurrentAddress(spouse, spouseDTO.getCurrentAddress(), AddressType.SPOUSE_ADDRESS);
-
-            // Save or update the spouse with the children and addresses
-            spouseRepo.save(spouse);
-        } else {
-            // If employee is not married, delete spouse and children
-            if (spouse != null) {
-                // Delete spouse from repository
-                spouseRepo.delete(spouse);
-                // Remove reference to spouse from employee
-                employee.setSpouse(null);
-
-
-            }
-
-            // Delete all children related to the employee if any
-//            Set<SpouseChildren> children = employee.getSpouse().getChildren();
-//            if (children != null && !children.isEmpty()) {
-//                // Delete children from repository
-//                childRepo.deleteAll(children);
-//                // Remove reference to children from employee
-//                employee.getSpouse().setChildren(null);
-//            }
-
-            // Save the updated employee entity
-            employeeRepo.save(employee);
+        if (!Boolean.TRUE.equals(employee.getIsMarried())) {
+            employee.setSpouse(null);
+            return;
         }
 
+        if (spouseDTO == null) {
+            return;
+        }
+
+        if (spouse == null) {
+            spouse = new Spouse();
+            spouse.setEmployee(employee);
+            employee.setSpouse(spouse);
+        }
+
+        spouse.setFullName(spouseDTO.getFullName());
+        spouse.setDateOfBirth(spouseDTO.getDateOfBirth());
+        spouse.setJob(spouseDTO.getJob());
+        spouse.setIsAlive(spouseDTO.getIsAlive());
+        spouse.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(spouseDTO.getPhoneNumber()));
+        spouse.setEmployee(employee);
+
+        Map<Integer, SpouseChildren> childrenById = new HashMap<>();
+        for (SpouseChildren child : spouse.getChildren()) {
+            if (child.getId() != null) {
+                childrenById.put(child.getId(), child);
+            }
+        }
+
+        Set<SpouseChildren> updatedChildren = new HashSet<>();
+        if (spouseDTO.getChildren() != null) {
+            for (ChildDTO childDTO : spouseDTO.getChildren()) {
+                SpouseChildren child = childDTO.getId() == null ? null : childrenById.get(childDTO.getId());
+                if (child == null) {
+                    child = new SpouseChildren();
+                }
+                child.setFullName(childDTO.getFullName());
+                child.setGender(childDTO.getGender());
+                child.setDateOfBirth(childDTO.getDateOfBirth());
+                child.setJob(childDTO.getJob());
+                child.setSpouse(spouse);
+                updatedChildren.add(child);
+            }
+        }
+
+        spouse.getChildren().clear();
+        spouse.getChildren().addAll(updatedChildren);
+
+        setSpousePlaceOfBirth(spouse, spouseDTO.getPlaceOfBirth(), AddressType.SPOUSE_POB);
+        setSpouseCurrentAddress(spouse, spouseDTO.getCurrentAddress(), AddressType.SPOUSE_ADDRESS);
     }
 
 
@@ -239,9 +167,6 @@ public class EmployeeServiceImp implements EmployeeService {
 
             // Ensure the mother has the correct Employee reference
             mother.setEmployee(employee);
-
-            // Save the mother entity
-            motherRepo.save(mother);
         }
     }
 
@@ -265,9 +190,6 @@ public class EmployeeServiceImp implements EmployeeService {
 
             // Ensure the father has the correct Employee reference
             father.setEmployee(employee);
-
-            // Save the father entity
-            fatherRepo.save(father);
         }
     }
 
@@ -755,11 +677,6 @@ public class EmployeeServiceImp implements EmployeeService {
     @Transactional
     protected void setEmployeeLanguages(Employee employee, List<EmployeeLanguageDTO> languageDTOList) {
         if (languageDTOList != null && !languageDTOList.isEmpty()) {
-            // Persist the employee first if it's not already persisted
-            if (employee.getId() == null) {
-                employee = employeeRepo.save(employee);
-            }
-
             // Retrieve existing EmployeeLanguage entities
             List<EmployeeLanguage> existingLanguages = employeeLanguageRepo.findByEmployeeId(employee.getId());
 
@@ -876,14 +793,10 @@ public class EmployeeServiceImp implements EmployeeService {
 
         // Set the skills to the employee
         employee.setSkills(skills);
-
-        // Save the employee entity, which will persist the relationship
-        employeeRepo.save(employee);
     }
 
     private void setUserForEmployee(Employee employee, Integer userId) {
-        User user = userRepo.findById(userId).orElseThrow();
-        employee.setUser(user);
+        employee.setUser(userRepo.getReferenceById(userId));
     }
 
     @Transactional
@@ -905,12 +818,10 @@ public class EmployeeServiceImp implements EmployeeService {
                     // Update existing police car
                     policeCar = currentPoliceCarMap.get(carDTO.getId());
                     currentPoliceCarMap.remove(carDTO.getId());
-                    System.out.println("Updating existing police car: " + carDTO.getId());
                 } else {
                     // Create new police car
                     policeCar = new PolicePlateNumberCar();
                     policeCar.setEmployee(employee);  // Ensure the new police car is associated with the employee
-                    System.out.println("Creating new police car");
                 }
 
                 policeCar.setVehicleBrand(carDTO.getVehicleBrand());
@@ -921,8 +832,6 @@ public class EmployeeServiceImp implements EmployeeService {
             // Remove police cars that are no longer present in the DTO list
             for (PolicePlateNumberCar oldCar : currentPoliceCarMap.values()) {
                 employee.getPolicePlateNumberCars().remove(oldCar);
-                policePlateNumberCarRepo.delete(oldCar);
-                System.out.println("Deleting old police car: " + oldCar.getId());
             }
 
             // Add or update the police cars in the employee
@@ -934,9 +843,7 @@ public class EmployeeServiceImp implements EmployeeService {
                 policeCar.setEmployee(employee);
             }
 
-            // Save the employee with updated police cars
-            employeeRepo.save(employee);
-            System.out.println("Employee police cars updated: " + employee.getPolicePlateNumberCars().size());
+            log.debug("Employee police cars updated: {}", employee.getPolicePlateNumberCars().size());
         }
     }
 
@@ -960,12 +867,10 @@ public class EmployeeServiceImp implements EmployeeService {
                     // Update existing weapon
                     weapon = currentWeaponMap.get(weaponDTO.getId());
                     currentWeaponMap.remove(weaponDTO.getId());
-                    System.out.println("Updating existing weapon: " + weaponDTO.getId());
                 } else {
                     // Create new weapon
                     weapon = new Weapon();
                     weapon.setEmployee(employee);
-                    System.out.println("Creating new weapon");
                 }
 
                 weapon.setWeaponType(weaponDTO.getWeaponType());
@@ -977,8 +882,6 @@ public class EmployeeServiceImp implements EmployeeService {
             // Remove weapons that are no longer present in the DTO list
             for (Weapon oldWeapon : currentWeaponMap.values()) {
                 employee.getWeapons().remove(oldWeapon);
-                weaponRepo.delete(oldWeapon);
-                System.out.println("Deleting old weapon: " + oldWeapon.getId());
             }
 
             // Add or update the weapons in the employee
@@ -990,9 +893,7 @@ public class EmployeeServiceImp implements EmployeeService {
                 weapon.setEmployee(employee);
             }
 
-            // Save the employee with updated weapons
-            employeeRepo.save(employee);
-            System.out.println("Employee weapons updated: " + employee.getWeapons().size());
+            log.debug("Employee weapons updated: {}", employee.getWeapons().size());
         }
     }
 
@@ -1033,12 +934,6 @@ public class EmployeeServiceImp implements EmployeeService {
     @Transactional
     protected void setEmployeeDegreeLevels(Employee employee, List<EmployeeDegreeLevelDTO> educationDTOList) {
         if (educationDTOList != null && !educationDTOList.isEmpty()) {
-            if (employee.getId() == null) {
-                // If the employee does not exist, save it first
-                employee = employeeRepo.save(employee);
-                System.out.println("New employee saved: " + employee.getId());
-            }
-
             // Create a map of existing EmployeeDegreeLevels for easy lookup
             Map<Integer, EmployeeDegreeLevel> currentDegreeLevelsMap = new HashMap<>();
             for (EmployeeDegreeLevel degreeLevel : employee.getEmployeeDegreeLevels()) {
@@ -1055,7 +950,6 @@ public class EmployeeServiceImp implements EmployeeService {
                     degreeLevel = new DegreeLevel();
                     degreeLevel.setEducationLevel(educationDTO.getEducationLevel());
                     degreeLevel = degreeLevelRepo.save(degreeLevel);
-                    System.out.println("New degree level saved: " + degreeLevel.getId());
                 }
 
                 // Check if the EmployeeDegreeLevel already exists
@@ -1065,14 +959,12 @@ public class EmployeeServiceImp implements EmployeeService {
                     employeeDegreeLevel = currentDegreeLevelsMap.get(degreeLevel.getId());
                     employeeDegreeLevel.setIsChecked(educationDTO.getIsChecked());
                     currentDegreeLevelsMap.remove(degreeLevel.getId());
-                    System.out.println("Updated existing degree level: " + employeeDegreeLevel.getId());
                 } else {
                     // Create new EmployeeDegreeLevel
                     employeeDegreeLevel = new EmployeeDegreeLevel();
                     employeeDegreeLevel.setDegreeLevel(degreeLevel);
                     employeeDegreeLevel.setEmployee(employee);
                     employeeDegreeLevel.setIsChecked(educationDTO.getIsChecked());
-                    System.out.println("Created new EmployeeDegreeLevel: " + employeeDegreeLevel.getId());
                 }
 
                 // Add the EmployeeDegreeLevel to the set
@@ -1087,9 +979,7 @@ public class EmployeeServiceImp implements EmployeeService {
             employee.getEmployeeDegreeLevels().clear();
             employee.getEmployeeDegreeLevels().addAll(updatedDegreeLevels);
 
-            // Save the Employee with the updated degree levels
-            employeeRepo.save(employee);
-            System.out.println("Employee degree levels updated: " + employee.getEmployeeDegreeLevels().size());
+            log.debug("Employee degree levels updated: {}", employee.getEmployeeDegreeLevels().size());
         }
     }
 
@@ -1113,12 +1003,10 @@ public class EmployeeServiceImp implements EmployeeService {
                     // Update existing appreciation
                     appreciation = currentAppreciationMap.get(appreciationDTO.getId());
                     currentAppreciationMap.remove(appreciationDTO.getId());
-                    System.out.println("Updating existing appreciation: " + appreciationDTO.getId());
                 } else {
                     // Create new appreciation
                     appreciation = new Appreciation();
                     appreciation.setEmployee(employee);
-                    System.out.println("Creating new appreciation");
                 }
 
                 appreciation.setAppreciationNumber(appreciationDTO.getAppreciationNumber());
@@ -1130,17 +1018,13 @@ public class EmployeeServiceImp implements EmployeeService {
             // Remove appreciations that are no longer present in the DTO list
             for (Appreciation oldAppreciation : currentAppreciationMap.values()) {
                 employee.getAppreciations().remove(oldAppreciation);
-                appreciationRepo.delete(oldAppreciation);
-                System.out.println("Deleting old appreciation: " + oldAppreciation.getId());
             }
 
             // Add or update the appreciations in the employee
             employee.getAppreciations().clear();
             employee.getAppreciations().addAll(updatedAppreciationList);
 
-            // Save the employee with updated appreciations
-            employeeRepo.save(employee);
-            System.out.println("Employee appreciations updated: " + employee.getAppreciations().size());
+            log.debug("Employee appreciations updated: {}", employee.getAppreciations().size());
         }
     }
 
@@ -1164,12 +1048,10 @@ public class EmployeeServiceImp implements EmployeeService {
                     // Update existing vocational training
                     vocationalTraining = currentTrainingMap.get(trainingDTO.getId());
                     currentTrainingMap.remove(trainingDTO.getId());
-                    System.out.println("Updating existing vocational training: " + trainingDTO.getId());
                 } else {
                     // Create new vocational training
                     vocationalTraining = new VocationalTraining();
                     vocationalTraining.setEmployee(employee);
-                    System.out.println("Creating new vocational training");
                 }
 
                 vocationalTraining.setTrainingCenter(trainingDTO.getTrainingCenter().trim());
@@ -1185,17 +1067,13 @@ public class EmployeeServiceImp implements EmployeeService {
             // Remove vocational trainings that are no longer present in the DTO list
             for (VocationalTraining oldTraining : currentTrainingMap.values()) {
                 employee.getVocationalTrainings().remove(oldTraining);
-                vocationalTrainingRepo.delete(oldTraining);
-                System.out.println("Deleting old vocational training: " + oldTraining.getId());
             }
 
             // Add or update the vocational trainings in the employee
             employee.getVocationalTrainings().clear();
             employee.getVocationalTrainings().addAll(updatedVocationalTrainingList);
 
-            // Save the employee with updated vocational trainings
-            employeeRepo.save(employee);
-            System.out.println("Employee vocational trainings updated: " + employee.getVocationalTrainings().size());
+            log.debug("Employee vocational trainings updated: {}", employee.getVocationalTrainings().size());
         }
     }
 
@@ -1219,12 +1097,10 @@ public class EmployeeServiceImp implements EmployeeService {
                     // Update existing activity
                     activity = currentActivityMap.get(activityDTO.getId());
                     currentActivityMap.remove(activityDTO.getId());
-                    System.out.println("Updating existing activity: " + activityDTO.getId());
                 } else {
                     // Create new activity
                     activity = new PreviousActivityAndPosition();
                     activity.setEmployee(employee);
-                    System.out.println("Creating new activity");
                 }
 
                 activity.setFromDate(activityDTO.getFromDate());
@@ -1239,24 +1115,20 @@ public class EmployeeServiceImp implements EmployeeService {
             // Remove old activities that are not present in the updated list
             for (PreviousActivityAndPosition oldActivity : currentActivityMap.values()) {
                 employee.getActivityAndPositions().remove(oldActivity);
-                previousActivityAndPositionRepo.delete(oldActivity);
-                System.out.println("Deleting old activity: " + oldActivity.getId());
             }
 
             // Add or update the activities in the employee
             employee.getActivityAndPositions().clear();
             employee.getActivityAndPositions().addAll(updatedActivityList);
 
-            // Save the employee with updated activities
-            employeeRepo.save(employee);
-            System.out.println("Employee activities updated: " + employee.getActivityAndPositions().size());
+            log.debug("Employee activities updated: {}", employee.getActivityAndPositions().size());
         }
     }
 
 
     @Override
-    public Employee findByUserIdAndEmployeeId(Integer userId, Integer employeeId) {
-        return employeeRepo.findByIdAndUserId(userId, employeeId);
+    public Employee findByUserIdAndEmployeeId(Integer employeeId, Integer userId) {
+        return initializeForResponse(employeeRepo.findByIdAndUserId(employeeId, userId));
     }
 
     @Override
@@ -1362,11 +1234,70 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Override
     public Employee findById(Integer id) {
-        return employeeRepo.findById(id).orElse(null);
+        return initializeForResponse(employeeRepo.findById(id).orElse(null));
     }
 
     public Employee findByUserId(Integer id) {
-        return employeeRepo.findByUserId(id);
+        return initializeForResponse(employeeRepo.findByUserId(id));
+    }
+
+    private Employee initializeForResponse(Employee employee) {
+        if (employee == null) {
+            return null;
+        }
+
+        Hibernate.initialize(employee.getSpouse());
+        if (employee.getSpouse() != null) {
+            Hibernate.initialize(employee.getSpouse().getChildren());
+            List<SpouseChildren> sortedChildren = employee.getSpouse().getChildren()
+                    .stream()
+                    .sorted(Comparator.nullsLast(
+                            Comparator.comparing(SpouseChildren::getDateOfBirth, Comparator.nullsLast(Comparator.naturalOrder()))))
+                    .toList();
+            employee.getSpouse().setChildren(new LinkedHashSet<>(sortedChildren));
+            Hibernate.initialize(employee.getSpouse().getPlaceOfBirth());
+            Hibernate.initialize(employee.getSpouse().getCurrentAddress());
+        }
+
+        Hibernate.initialize(employee.getFather());
+        if (employee.getFather() != null) {
+            Hibernate.initialize(employee.getFather().getPlaceOfBirth());
+            Hibernate.initialize(employee.getFather().getCurrentAddress());
+        }
+
+        Hibernate.initialize(employee.getMother());
+        if (employee.getMother() != null) {
+            Hibernate.initialize(employee.getMother().getPlaceOfBirth());
+            Hibernate.initialize(employee.getMother().getCurrentAddress());
+        }
+
+        Hibernate.initialize(employee.getPlaceOfBirth());
+        Hibernate.initialize(employee.getCurrentAddress());
+        Hibernate.initialize(employee.getPolicePlateNumberCars());
+        Hibernate.initialize(employee.getWeapons());
+        Hibernate.initialize(employee.getEmployeeDegreeLevels());
+        Hibernate.initialize(employee.getEmployeeLanguages());
+        Hibernate.initialize(employee.getSkills());
+        Hibernate.initialize(employee.getAppreciations());
+        Hibernate.initialize(employee.getVocationalTrainings());
+        Hibernate.initialize(employee.getActivityAndPositions());
+        sortResponseCollections(employee);
+
+        return employee;
+    }
+
+    private void sortResponseCollections(Employee employee) {
+        Optional.ofNullable(employee.getVocationalTrainings())
+                .ifPresent(vt -> vt.sort(Comparator.nullsLast(
+                        Comparator.comparing(VocationalTraining::getTrainingStartDate, Comparator.nullsLast(Comparator.naturalOrder())))));
+
+        Optional.ofNullable(employee.getAppreciations())
+                .ifPresent(appreciations -> appreciations.sort(Comparator.nullsLast(
+                        Comparator.comparing(Appreciation::getAppreciationDate, Comparator.nullsLast(Comparator.naturalOrder())))));
+
+        Optional.ofNullable(employee.getActivityAndPositions())
+                .ifPresent(activities -> activities.sort(Comparator.nullsLast(
+                        Comparator.comparing(PreviousActivityAndPosition::getFromDate, Comparator.nullsLast(Comparator.naturalOrder())))));
     }
 
     @Override
@@ -1382,9 +1313,7 @@ public class EmployeeServiceImp implements EmployeeService {
     @Transactional
     @Override
     public void update(EmployeeDTO employeeDTO) {
-        // Load data from the database
-        System.out.println("updating.....");
-        System.out.println(employeeDTO.toString());
+        log.debug("Updating employee id {}", employeeDTO.getId());
         Employee employee = employeeRepo.findById(employeeDTO.getId())
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
 
@@ -1394,19 +1323,9 @@ public class EmployeeServiceImp implements EmployeeService {
         // Map partial update from DTO to entity
         employeeMapper.updateEmployeeFromDto(employeeDTO, employee);
 
-        // Fetch currentPosition and previousPosition from the database
-        Position currentPosition = positionRepo.findById(employeeDTO.getCurrentPositionId())
-                .orElseThrow(() -> new RuntimeException("Position not found for currentPositionId"));
-        Position previousPosition = positionRepo.findById(employeeDTO.getPreviousPositionId())
-                .orElseThrow(() -> new RuntimeException("Position not found for previousPositionId"));
-
-        // Assign the full Position entities (not just the id)
-        employee.setCurrentPosition(currentPosition);
-        employee.setPreviousPosition(previousPosition);
-
-        // Fetch and assign the department
-        Department dp = departmentRepo.findById(employeeDTO.getDepartmentId()).orElseThrow();
-        employee.setDepartment(dp);
+        employee.setCurrentPosition(positionRepo.getReferenceById(employeeDTO.getCurrentPositionId()));
+        employee.setPreviousPosition(positionRepo.getReferenceById(employeeDTO.getPreviousPositionId()));
+        employee.setDepartment(departmentRepo.getReferenceById(employeeDTO.getDepartmentId()));
 
         // Set other related fields (vehicles, weapons, etc.)
         setPolicePlateNumberCars(employee, employeeDTO.getPolicePlateNumberCars());
@@ -1421,9 +1340,6 @@ public class EmployeeServiceImp implements EmployeeService {
         setEmployeeDegreeLevels(employee, employeeDTO.getDegreeLevels());
         setEmployeeLanguages(employee, employeeDTO.getEmployeeLanguages());
         setEmployeeSkill(employee, employeeDTO.getEmployeeSkills());
-
-        // Save the updated Employee
-        employeeRepo.save(employee);
     }
 
 

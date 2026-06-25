@@ -1,0 +1,35 @@
+spring:
+  config:
+    import: optional:file:.env.dev[.properties]
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/officer_cv}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:root}
+    hikari:
+      auto-commit: false
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:false}
+    properties:
+      hibernate:
+        format_sql: ${HIBERNATE_FORMAT_SQL:false}
+
+file:
+  photo-max-size: ${PHOTO_MAX_SIZE:5242880}
+  file-max-size: ${FILE_MAX_SIZE:5242880}
+  upload-dir: ${FILE_UPLOAD_DIR:D:/30-10-2024/files/}
+  photo-dir: ${PHOTO_UPLOAD_DIR:D:/30-10-2024/photos/}
+
+app:
+  swagger:
+    enabled: ${SWAGGER_ENABLED:true}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
+
+springdoc:
+  api-docs:
+    enabled: ${SWAGGER_ENABLED:true}
+  swagger-ui:
+    enabled: ${SWAGGER_ENABLED:true}

@@ -98,12 +98,6 @@ public class EmployeeController {
         // Attach additional data: File names
         attachFileNames(employee, id);
 
-        // Process spouse and children
-        processSpouseAndChildren(employee);
-
-        // Sort related collections
-        sortCollections(employee);
-
         // Return the modified employee
         return ResponseEntity.ok(employee);
     }
@@ -118,47 +112,6 @@ public class EmployeeController {
         List<UserFileDTO> fileNames = fileService.getFileNamesByUserId(userId);
         employee.setFileNames(fileNames);
     }
-
-    /**
-     * Processes the spouse and children data of the employee.
-     * Converts children set to a sorted list and handles null cases.
-     */
-    private void processSpouseAndChildren(Employee employee) {
-        if (employee.getSpouse() != null && employee.getSpouse().getChildren() != null) {
-            List<SpouseChildren> sortedChildren = employee.getSpouse().getChildren()
-                    .stream()
-                    .sorted(Comparator.nullsLast(
-                            Comparator.comparing(SpouseChildren::getDateOfBirth, Comparator.nullsLast(Comparator.naturalOrder()))))
-                    .toList();
-
-            // Set the sorted list back to the spouse
-            employee.getSpouse().setChildren(new LinkedHashSet<>(sortedChildren));
-        } else {
-            System.out.println("No spouse or children found for the employee.");
-        }
-    }
-
-    /**
-     * Sorts the collections in the employee object (vocational trainings, appreciations, job history).
-     */
-    private void sortCollections(Employee employee) {
-        // Sort vocational trainings
-        Optional.ofNullable(employee.getVocationalTrainings())
-                .ifPresent(vt -> vt.sort(Comparator.nullsLast(
-                        Comparator.comparing(VocationalTraining::getTrainingStartDate, Comparator.nullsLast(Comparator.naturalOrder())))));
-
-        // Sort appreciations
-        Optional.ofNullable(employee.getAppreciations())
-                .ifPresent(appreciations -> appreciations.sort(Comparator.nullsLast(
-                        Comparator.comparing(Appreciation::getAppreciationDate, Comparator.nullsLast(Comparator.naturalOrder())))));
-
-        // Sort job history
-        Optional.ofNullable(employee.getActivityAndPositions())
-                .ifPresent(activities -> activities.sort(Comparator.nullsLast(
-                        Comparator.comparing(PreviousActivityAndPosition::getFromDate, Comparator.nullsLast(Comparator.naturalOrder())))));
-    }
-
-
 
     @GetMapping("/{userId}/{employeeId}")
     @ResponseStatus(HttpStatus.ACCEPTED)

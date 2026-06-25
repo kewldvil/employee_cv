@@ -26,6 +26,14 @@ import java.util.*;
 @AllArgsConstructor
 public class FileServiceImp implements FileService {
 
+    private static final Set<String> ALLOWED_CONTENT_TYPES = Set.of(
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "image/jpeg",
+            "image/png"
+    );
+
     private final FileUploadRepo fileUploadRepo;
     private final Path fileStorageLocation;
     private final UserRepo userRepo;
@@ -51,9 +59,7 @@ public class FileServiceImp implements FileService {
         String fileName = generateUniqueFileName(originalFilename);
 
         try {
-            if (fileName.contains("..")) {
-                throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
+            validateUpload(fileUpload, fileName);
             // Check for existing file by this user with the same name
             FileUpload existingFile = fileUploadRepo.findByUserAndFileName(user, fileName);
             if (existingFile != null) {
@@ -66,7 +72,10 @@ public class FileServiceImp implements FileService {
             }
 
             //store the new file
-            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Path targetLocation = this.fileStorageLocation.resolve(fileName).normalize();
+            if (!targetLocation.startsWith(this.fileStorageLocation)) {
+                throw new RuntimeException("Invalid file path");
+            }
             Files.copy(fileUpload.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
             FileUpload file = new FileUpload();
@@ -91,6 +100,19 @@ public class FileServiceImp implements FileService {
         String cleanedFilename = StringUtils.cleanPath(originalFilename);
         // Replace single quotes and spaces with underscores using regex
         return cleanedFilename.replaceAll("[ ']", "_");
+    }
+
+    private void validateUpload(MultipartFile fileUpload, String fileName) {
+        if (fileName.isBlank() || fileName.contains("..") || fileName.contains("/") || fileName.contains("\\")) {
+            throw new RuntimeException("Invalid file name");
+        }
+        if (fileName.length() > 180) {
+            throw new RuntimeException("File name is too long");
+        }
+        String contentType = fileUpload.getContentType();
+        if (contentType == null || !ALLOWED_CONTENT_TYPES.contains(contentType)) {
+            throw new RuntimeException("Unsupported file type");
+        }
     }
 
 

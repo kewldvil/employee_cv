@@ -30,6 +30,7 @@ public class Department {
     @ManyToOne
     @JoinColumn(name = "general_department_id")
     private GeneralDepartment generalDepartment;
+    @JsonIgnore
     @OneToMany(mappedBy = "department",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Bureau> bureauList;
 

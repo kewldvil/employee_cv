@@ -2,6 +2,7 @@ package com.noc.employee_cv.security;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,7 +28,10 @@ import static org.springframework.http.HttpMethod.*;
 public class SecurityConfig {
 
     private static final String[] WHITE_LIST_URL = {
-            "/api/v1/auth/**",
+            "/api/v1/auth/**"
+    };
+
+    private static final String[] SWAGGER_URLS = {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html"
@@ -35,6 +39,10 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
     private final JwtFilter jwtAuthFilter;
+
+    @Value("${app.swagger.enabled:false}")
+    private boolean swaggerEnabled;
+
     String[] READ_AUTHORITIES = {
             ADMIN_READ.name(),
             MANAGER_READ.name(),
@@ -69,6 +77,9 @@ public class SecurityConfig {
 
                         // Public endpoints
                         .requestMatchers(WHITE_LIST_URL).permitAll()
+                        .requestMatchers(SWAGGER_URLS).access((authentication, context) ->
+                                new org.springframework.security.authorization.AuthorizationDecision(swaggerEnabled)
+                        )
 
                         // Better: avoid public /files/** unless these are truly public
                         .requestMatchers("/photos/**").permitAll()

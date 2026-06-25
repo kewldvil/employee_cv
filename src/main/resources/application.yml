@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: employee_cv
+  profiles:
+    default: dev
+  servlet:
+    multipart:
+      max-file-size: ${MULTIPART_MAX_FILE_SIZE:10MB}
+      max-request-size: ${MULTIPART_MAX_REQUEST_SIZE:30MB}
+  web:
+    resources:
+      static-locations: classpath:/static/
+      cache:
+        period: ${STATIC_CACHE_PERIOD:3600}
+
+server:
+  forward-headers-strategy: framework
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+file:
+  report-dir: ${REPORT_DIR:classpath:/}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+app:
+  swagger:
+    enabled: false

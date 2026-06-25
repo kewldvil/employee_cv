@@ -7,6 +7,7 @@ import com.noc.employee_cv.models.User;
 import com.noc.employee_cv.repositories.UserRepo;
 import com.noc.employee_cv.services.FileService;
 import com.noc.employee_cv.services.serviceImpl.FileServiceImp;
+import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/v1/files")
 @RequiredArgsConstructor
+@Slf4j
 public class FileUploadController {
 
     private static final int MAX_FILE_COUNT = 10; // Limit to 10 files
@@ -41,7 +43,6 @@ public class FileUploadController {
 
     @GetMapping("/user-files/{userId}")
     public ResponseEntity<List<FileResponseDTO>> getUserFiles(@PathVariable Integer userId) {
-        System.out.println("LOADING FILE");
         List<FileUpload> files = fileService.getFilesByUserId(userId);
         if (files.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -51,7 +52,12 @@ public class FileUploadController {
         for (FileUpload file : files) {
 
             try {
-                Path path = Paths.get(this.uploadDir + file.getFileName());
+                Path path = resolveStoredFile(file);
+                if (!Files.exists(path) || !Files.isRegularFile(path)) {
+                    log.warn("Skipping missing uploaded file record id={}, path={}", file.getId(), path);
+                    continue;
+                }
+
                 String fileType = Files.probeContentType(path);
                 byte[] fileContent = Files.readAllBytes(path);
                 String base64Content = Base64.getEncoder().encodeToString(fileContent);
@@ -59,14 +65,18 @@ public class FileUploadController {
                 FileResponseDTO fileResponse = new FileResponseDTO();
                 fileResponse.setId(file.getId());
                 fileResponse.setName(file.getFileName());
-                fileResponse.setType(fileType);
+                fileResponse.setType(fileType != null ? fileType : "application/octet-stream");
                 fileResponse.setBase64Content(base64Content);
                 fileResponse.setUrl(file.getFilePath());
 
                 uploadedFiles.add(fileResponse);
             } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                log.warn("Unable to read uploaded file record id={}, name={}", file.getId(), file.getFileName(), e);
             }
+        }
+
+        if (uploadedFiles.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
 
         return ResponseEntity.ok(uploadedFiles);
@@ -121,7 +131,7 @@ public class FileUploadController {
     public ResponseEntity<String> deleteFile(@PathVariable Integer userId, @PathVariable String fileName) {
         fileService.deleteFileByUserIdAndFileName(userId, fileName);
         try {
-            Path path = Paths.get(uploadDir + fileName);
+            Path path = Paths.get(uploadDir).toAbsolutePath().normalize().resolve(fileName).normalize();
             Files.deleteIfExists(path);
             return ResponseEntity.ok("File deleted successfully");
         } catch (IOException ex) {
@@ -144,7 +154,7 @@ public class FileUploadController {
 
         FileResponseDTO fileResponse = new FileResponseDTO();
         try {
-            Path path = Paths.get(this.uploadDir, file.get().getFileName());
+            Path path = resolveStoredFile(file.get());
 
             if (!Files.exists(path)) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -163,6 +173,16 @@ public class FileUploadController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         return ResponseEntity.ok(fileResponse);
+    }
+
+    private Path resolveStoredFile(FileUpload file) {
+        if (file.getFilePath() != null && !file.getFilePath().isBlank()) {
+            Path storedPath = Paths.get(file.getFilePath()).toAbsolutePath().normalize();
+            if (Files.exists(storedPath)) {
+                return storedPath;
+            }
+        }
+        return Paths.get(uploadDir).toAbsolutePath().normalize().resolve(file.getFileName()).normalize();
     }
 
 
