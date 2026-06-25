@@ -19,8 +19,8 @@ spring:
 file:
   photo-max-size: ${PHOTO_MAX_SIZE:5242880}
   file-max-size: ${FILE_MAX_SIZE:5242880}
-  upload-dir: ${FILE_UPLOAD_DIR:D:/30-10-2024/files/}
-  photo-dir: ${PHOTO_UPLOAD_DIR:D:/30-10-2024/photos/}
+  upload-dir: ${FILE_UPLOAD_DIR:upload/files/}
+  photo-dir: ${PHOTO_UPLOAD_DIR:upload/photos/}
 
 app:
   swagger:

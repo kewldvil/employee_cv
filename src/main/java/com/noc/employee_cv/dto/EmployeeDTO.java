@@ -59,10 +59,10 @@ public class EmployeeDTO {
     @Positive(message = "currentPositionId is required")
     private int currentPositionId;
 
-    @NotBlank(message = "policeRankDocumentNumber is required")
+//    @NotBlank(message = "policeRankDocumentNumber is required")
     private String policeRankDocumentNumber;
 
-    @NotBlank(message = "positionDocumentNumber is required")
+//    @NotBlank(message = "positionDocumentNumber is required")
     private String positionDocumentNumber;
 
     @Positive(message = "departmentId is required")
@@ -77,7 +77,7 @@ public class EmployeeDTO {
     private LocalDate positionDocumentIssueDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @NotNull(message = "dateJoinGov is required")
+//    @NotNull(message = "dateJoinGov is required")
     private LocalDate dateJoinGov;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")

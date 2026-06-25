@@ -37,6 +37,8 @@ public class EmployeeServiceImp implements EmployeeService {
     private final SkillRepo skillRepo;
     private final DepartmentRepo departmentRepo;
     private final PositionRepo positionRepo;
+    private final FatherRepo fatherRepo;
+    private final MotherRepo motherRepo;
 
 
     @Override
@@ -159,6 +161,10 @@ public class EmployeeServiceImp implements EmployeeService {
                 employee.setMother(mother);
             }
 
+            mother.setFullName(motherDTO.getFullName());
+            mother.setDateOfBirth(motherDTO.getDateOfBirth());
+            mother.setJob(motherDTO.getJob());
+            mother.setIsAlive(motherDTO.getIsAlive());
             mother.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(motherDTO.getPhoneNumber()));
 
             // Handle mother's place of birth and current address
@@ -167,6 +173,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
             // Ensure the mother has the correct Employee reference
             mother.setEmployee(employee);
+            motherRepo.save(mother);
         }
     }
 
@@ -182,6 +189,10 @@ public class EmployeeServiceImp implements EmployeeService {
                 employee.setFather(father);
             }
 
+            father.setFullName(fatherDTO.getFullName());
+            father.setDateOfBirth(fatherDTO.getDateOfBirth());
+            father.setJob(fatherDTO.getJob());
+            father.setIsAlive(fatherDTO.getIsAlive());
             father.setPhoneNumber(KhmerNumberUtil.convertKhmerToLatin(fatherDTO.getPhoneNumber()));
 
             // Handle father's place of birth and current address
@@ -190,6 +201,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
             // Ensure the father has the correct Employee reference
             father.setEmployee(employee);
+            fatherRepo.save(father);
         }
     }
 

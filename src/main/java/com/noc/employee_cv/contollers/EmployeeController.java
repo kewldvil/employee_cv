@@ -15,6 +15,7 @@ import jakarta.mail.MessagingException;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +34,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/employee")
 @RequiredArgsConstructor
+@Slf4j
 public class EmployeeController {
     private final EmployeeServiceImp service;
     private final UserRepo userRepo;

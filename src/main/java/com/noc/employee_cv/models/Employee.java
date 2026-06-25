@@ -72,7 +72,6 @@ public class Employee {
     private LocalDate positionDocumentIssueDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @NotNull
     private LocalDate dateJoinGov;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
