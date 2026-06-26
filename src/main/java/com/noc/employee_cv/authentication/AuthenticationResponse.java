@@ -1,7 +1,7 @@
 package com.noc.employee_cv.authentication;
 
 
-import com.noc.employee_cv.models.User;
+import com.noc.employee_cv.model.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

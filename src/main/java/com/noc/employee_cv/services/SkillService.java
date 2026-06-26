@@ -1,7 +1,7 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.Skill;
-import com.noc.employee_cv.models.UniversitySkill;
+import com.noc.employee_cv.model.Skill;
+import com.noc.employee_cv.model.UniversitySkill;
 
 import java.util.List;
 

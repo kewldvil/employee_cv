@@ -1,6 +1,6 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.provinces.Commune;
+import com.noc.employee_cv.model.Commune;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.PreviousActivityAndPosition;
+import com.noc.employee_cv.model.PreviousActivityAndPosition;
 
 import java.util.List;
 

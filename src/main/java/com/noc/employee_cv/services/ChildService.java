@@ -2,9 +2,9 @@ package com.noc.employee_cv.services;
 
 import com.noc.employee_cv.dto.EmployeeDTO;
 import com.noc.employee_cv.enums.AddressType;
-import com.noc.employee_cv.models.Employee;
-import com.noc.employee_cv.models.Father;
-import com.noc.employee_cv.models.SpouseChildren;
+import com.noc.employee_cv.model.Employee;
+import com.noc.employee_cv.model.Father;
+import com.noc.employee_cv.model.SpouseChildren;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.noc.employee_cv.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.noc.employee_cv.models.Employee;
+import com.noc.employee_cv.model.Employee;
 import jakarta.persistence.*;
 import lombok.Data;
 

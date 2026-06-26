@@ -1,12 +1,12 @@
 package com.noc.employee_cv;
 
 import com.noc.employee_cv.enums.Role;
-import com.noc.employee_cv.models.Skill;
-import com.noc.employee_cv.models.User;
-import com.noc.employee_cv.provinces.Commune;
-import com.noc.employee_cv.provinces.District;
-import com.noc.employee_cv.provinces.Village;
-import com.noc.employee_cv.repositories.*;
+import com.noc.employee_cv.model.Skill;
+import com.noc.employee_cv.model.User;
+import com.noc.employee_cv.model.Commune;
+import com.noc.employee_cv.model.District;
+import com.noc.employee_cv.model.Village;
+import com.noc.employee_cv.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

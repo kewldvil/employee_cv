@@ -1,7 +1,7 @@
 package com.noc.employee_cv.dto;
 
-import com.noc.employee_cv.models.Department;
-import com.noc.employee_cv.models.EmployeeDegreeLevel;
+import com.noc.employee_cv.model.Department;
+import com.noc.employee_cv.model.EmployeeDegreeLevel;
 import lombok.Getter;
 import lombok.Setter;
 

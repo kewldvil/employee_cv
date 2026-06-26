@@ -1,6 +1,6 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.Spouse;
+import com.noc.employee_cv.model.Spouse;
 
 import java.util.List;
 

@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:employee_cv_test;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+jwt:
+  secret-key: dGVzdC10ZXN0LXRlc3QtdGVzdC10ZXN0LXRlc3QtdGVzdA==
+  expiration: 60000
+
+file:
+  upload-dir: ${java.io.tmpdir}/employee-cv-test/files/
+  photo-dir: ${java.io.tmpdir}/employee-cv-test/photos/
+  report-dir: classpath:/
+  photo-max-size: 5242880
+  file-max-size: 5242880
+
+app:
+  swagger:
+    enabled: false
+  seed:
+    enabled: false
+  cors:
+    allowed-origins: http://localhost:4200

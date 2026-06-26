@@ -46,3 +46,11 @@ springdoc:
 app:
   swagger:
     enabled: false
+  seed:
+    enabled: ${APP_SEED_ENABLED:true}
+    admin:
+      username: ${ADMIN_USERNAME:}
+      password: ${ADMIN_PASSWORD:}
+      email: ${ADMIN_EMAIL:admin@local.invalid}
+      firstname: ${ADMIN_FIRSTNAME:Admin}
+      lastname: ${ADMIN_LASTNAME:User}

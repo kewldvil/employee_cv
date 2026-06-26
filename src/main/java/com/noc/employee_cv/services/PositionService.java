@@ -1,5 +1,5 @@
 package com.noc.employee_cv.services;
-import com.noc.employee_cv.models.Position;
+import com.noc.employee_cv.model.Position;
 
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.SpouseChildren;
-import com.noc.employee_cv.models.User;
+import com.noc.employee_cv.model.SpouseChildren;
+import com.noc.employee_cv.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

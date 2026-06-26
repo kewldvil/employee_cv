@@ -1,7 +1,7 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.Father;
-import com.noc.employee_cv.models.Language;
+import com.noc.employee_cv.model.Father;
+import com.noc.employee_cv.model.Language;
 
 import java.util.List;
 

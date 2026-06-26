@@ -77,6 +77,8 @@ public class SecurityConfig {
 
                         // Public endpoints
                         .requestMatchers(WHITE_LIST_URL).permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/actuator/health").permitAll()
                         .requestMatchers(SWAGGER_URLS).access((authentication, context) ->
                                 new org.springframework.security.authorization.AuthorizationDecision(swaggerEnabled)
                         )
@@ -127,7 +129,7 @@ public class SecurityConfig {
                                 HEAD_OF_BUREAU.name()
                         )
 
-                        .anyRequest().authenticated()
+                        .anyRequest().denyAll()
                 )
 
                 .exceptionHandling(ex -> ex

@@ -32,3 +32,17 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/resources/static/
+
+# Runtime/generated data
+.DS_Store
+.env
+.env.*
+!.env.example
+logs/
+upload/
+*.log
+logging.file.name_IS_UNDEFINED
+
+# Local report exports
+employee_report.pdf
+employee_report.docx

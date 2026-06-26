@@ -1,6 +1,6 @@
 package com.noc.employee_cv.security;
 
-import com.noc.employee_cv.repositories.UserRepo;
+import com.noc.employee_cv.repository.UserRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

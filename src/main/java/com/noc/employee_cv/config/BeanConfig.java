@@ -18,7 +18,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -111,6 +110,9 @@ public class BeanConfig implements WebMvcConfigurer {
     }
 
     private String toFileLocation(String path) {
+        if (path == null || path.isBlank()) {
+            throw new IllegalArgumentException("File storage path must not be blank");
+        }
         String normalized = path.endsWith("/") ? path : path + "/";
         return "file:" + normalized;
     }

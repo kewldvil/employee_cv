@@ -1,18 +1,22 @@
 package com.noc.employee_cv.services.serviceImpl;
 
-import com.noc.employee_cv.models.Position;
-import com.noc.employee_cv.repositories.PositionRepo;
+import com.noc.employee_cv.model.Position;
+import com.noc.employee_cv.repository.PositionRepo;
 import com.noc.employee_cv.services.PositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PositionServiceImpl implements PositionService {
     private final PositionRepo positionRepo;
+
     @Override
+    @Transactional
     public void save(Position position) {
         positionRepo.save(position);
     }
@@ -33,11 +37,13 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Integer id) {
-
+        positionRepo.deleteById(id);
     }
 
     @Override
+    @Transactional
     public void update(Position position) {
         positionRepo.save(position);
     }

@@ -1,6 +1,6 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.EmployeeLanguage;
+import com.noc.employee_cv.model.EmployeeLanguage;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.Bureau;
-import com.noc.employee_cv.models.Department;
+import com.noc.employee_cv.model.Bureau;
+import com.noc.employee_cv.model.Department;
 
 import java.util.List;
 

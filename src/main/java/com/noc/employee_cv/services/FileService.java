@@ -1,8 +1,8 @@
 package com.noc.employee_cv.services;
 
 import com.noc.employee_cv.dto.UserFileDTO;
-import com.noc.employee_cv.models.FileUpload;
-import com.noc.employee_cv.models.User;
+import com.noc.employee_cv.model.FileUpload;
+import com.noc.employee_cv.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

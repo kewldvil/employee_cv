@@ -1,6 +1,6 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.provinces.District;
+import com.noc.employee_cv.model.District;
 
 import java.util.List;
 

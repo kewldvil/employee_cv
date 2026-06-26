@@ -1,35 +1,50 @@
 package com.noc.employee_cv.authentication;
 
 import com.noc.employee_cv.email.EmailService;
-import com.noc.employee_cv.email.EmailTemplateName;
 import com.noc.employee_cv.enums.Role;
-import com.noc.employee_cv.models.Employee;
-import com.noc.employee_cv.models.Token;
-import com.noc.employee_cv.models.User;
-import com.noc.employee_cv.repositories.EmployeeRepo;
-import com.noc.employee_cv.repositories.TokenRepo;
-import com.noc.employee_cv.repositories.UserRepo;
+import com.noc.employee_cv.model.Employee;
+import com.noc.employee_cv.model.Token;
+import com.noc.employee_cv.model.User;
+import com.noc.employee_cv.repository.EmployeeRepo;
+import com.noc.employee_cv.repository.TokenRepo;
+import com.noc.employee_cv.repository.UserRepo;
 import com.noc.employee_cv.security.JwtService;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class AuthenticationService {
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+    private static final int TEMPORARY_PASSWORD_LENGTH = 8;
+    private static final String PASSWORD_UPPERCASE = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+    private static final String PASSWORD_LOWERCASE = "abcdefghijkmnopqrstuvwxyz";
+    private static final String PASSWORD_DIGITS = "23456789";
+    private static final String PASSWORD_SYMBOLS = "!@#$%^&*()-_=+[]{}";
+    private static final String PASSWORD_ALLOWED_CHARACTERS =
+            PASSWORD_UPPERCASE + PASSWORD_LOWERCASE + PASSWORD_DIGITS + PASSWORD_SYMBOLS;
+
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
@@ -42,7 +57,7 @@ public class AuthenticationService {
 //    private String activationUrl;
 
 
-    public void register(RegistrationRequest request) throws MessagingException {
+    public void register(@Valid @NotNull RegistrationRequest request) throws MessagingException {
         // Check if the username already exists
         if (userRepo.existsByUsername(request.getUsername())) {
             // Throw a custom exception or handle the error accordingly
@@ -88,9 +103,8 @@ public class AuthenticationService {
     public String generateActivationCode(int length) {
         String characters = "0123456789";
         StringBuilder sb = new StringBuilder(length);
-        SecureRandom secureRandom = new SecureRandom();
         for (int i = 0; i < length; i++) {
-            int randomMix = secureRandom.nextInt(characters.length());//0..9
+            int randomMix = SECURE_RANDOM.nextInt(characters.length());//0..9
             sb.append(characters.charAt(randomMix));
 
         }
@@ -108,7 +122,7 @@ public class AuthenticationService {
 //        );
 //    }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(@Valid @NotNull AuthenticationRequest request) {
         var authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -130,7 +144,6 @@ public class AuthenticationService {
         if (employee != null && employee.getDepartment() != null) {
             claims.put("depId", employee.getDepartment().getId());
         } else {
-            System.out.println("Employee or Department is null");
         }
 
         var jwtToken = jwtService.generateToken(claims, user);
@@ -142,7 +155,7 @@ public class AuthenticationService {
 
 
     //    @Transactional
-    public void activateAccount(String token) throws MessagingException {
+    public void activateAccount(@NotBlank(message = "token is required") String token) throws MessagingException {
         Token savedToken = tokenRepo.findByToken(token)
                 // todo exception has to be defined
                 .orElseThrow(() -> new RuntimeException("Invalid token"));
@@ -160,7 +173,7 @@ public class AuthenticationService {
         tokenRepo.save(savedToken);
     }
 
-    public User getCurrentUserName(AuthenticationRequest request) {
+    public User getCurrentUserName(@Valid @NotNull AuthenticationRequest request) {
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -171,9 +184,7 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public void forgetPassword(ForgetPasswordRequest request) throws MessagingException {
-        System.out.println("update password");
-        System.out.println(request.toString());
+    public void forgetPassword(@Valid @NotNull ForgetPasswordRequest request) throws MessagingException {
         // Preparing parameters for delimiter checks
         String delimiterPhoneNumberStart = request.getPhoneNumber() + "/%";
         String phoneNumberDelimiterEnd = "%/" + request.getPhoneNumber();
@@ -189,7 +200,12 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public void changePassword(Integer userId, String oldPassword, String newPassword) throws ChangeSetPersister.NotFoundException {
+    public void changePassword(
+            @NotNull(message = "userId is required") Integer userId,
+            @NotBlank(message = "oldPassword is required") String oldPassword,
+            @NotBlank(message = "newPassword is required")
+            @Size(min = 8, max = 72, message = "newPassword must be between 8 and 72 characters") String newPassword
+    ) throws ChangeSetPersister.NotFoundException {
         try {
             User user = userRepo.findById(userId)
                     .orElseThrow(ChangeSetPersister.NotFoundException::new);
@@ -206,19 +222,41 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public void resetPassword(Integer userId) throws ChangeSetPersister.NotFoundException {
-        try {
-            User user = userRepo.findById(userId).orElseThrow(ChangeSetPersister.NotFoundException::new);
-            user.setPassword(passwordEncoder.encode("12345678"));
-            userRepo.save(user);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to reset password: " + e.getMessage(), e);
+    public String resetPassword(@NotNull(message = "userId is required") Integer userId) throws ChangeSetPersister.NotFoundException {
+        User user = userRepo.findById(userId).orElseThrow(ChangeSetPersister.NotFoundException::new);
+        String temporaryPassword = generateStrongPassword();
+        user.setPassword(passwordEncoder.encode(temporaryPassword));
+        userRepo.save(user);
+        return temporaryPassword;
+    }
+
+    private String generateStrongPassword() {
+        List<Character> passwordCharacters = new ArrayList<>(TEMPORARY_PASSWORD_LENGTH);
+        passwordCharacters.add(randomCharacter(PASSWORD_UPPERCASE));
+        passwordCharacters.add(randomCharacter(PASSWORD_LOWERCASE));
+        passwordCharacters.add(randomCharacter(PASSWORD_DIGITS));
+        passwordCharacters.add(randomCharacter(PASSWORD_SYMBOLS));
+
+        while (passwordCharacters.size() < TEMPORARY_PASSWORD_LENGTH) {
+            passwordCharacters.add(randomCharacter(PASSWORD_ALLOWED_CHARACTERS));
         }
+
+        Collections.shuffle(passwordCharacters, SECURE_RANDOM);
+
+        StringBuilder password = new StringBuilder(TEMPORARY_PASSWORD_LENGTH);
+        for (Character character : passwordCharacters) {
+            password.append(character);
+        }
+        return password.toString();
+    }
+
+    private char randomCharacter(String characters) {
+        return characters.charAt(SECURE_RANDOM.nextInt(characters.length()));
     }
 
 
     @Transactional
-    public void updateUserByEnabled(Integer userId, boolean enabled) {
+    public void updateUserByEnabled(@NotNull(message = "userId is required") Integer userId, boolean enabled) {
         userRepo.updateUserByEnabled(userId, enabled);
     }
 }

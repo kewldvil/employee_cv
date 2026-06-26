@@ -1,6 +1,6 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.Father;
+import com.noc.employee_cv.model.Father;
 
 import java.util.List;
 

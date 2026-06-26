@@ -1,6 +1,6 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.models.Appreciation;
+import com.noc.employee_cv.model.Appreciation;
 
 import java.util.List;
 

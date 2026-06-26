@@ -1,8 +1,8 @@
 package com.noc.employee_cv.services;
 
-import com.noc.employee_cv.provinces.Commune;
-import com.noc.employee_cv.provinces.District;
-import com.noc.employee_cv.provinces.Village;
+import com.noc.employee_cv.model.Commune;
+import com.noc.employee_cv.model.District;
+import com.noc.employee_cv.model.Village;
 
 import java.util.List;
 
