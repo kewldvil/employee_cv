@@ -22,7 +22,7 @@ import java.util.List;
 @Component
 public class AdminUserSeeder implements ApplicationRunner {
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
-    private static final int RANDOM_PASSWORD_LENGTH = 12;
+    private static final int RANDOM_PASSWORD_LENGTH = 8;
     private static final String PASSWORD_UPPERCASE = "ABCDEFGHJKLMNPQRSTUVWXYZ";
     private static final String PASSWORD_LOWERCASE = "abcdefghijkmnopqrstuvwxyz";
     private static final String PASSWORD_DIGITS = "23456789";
@@ -33,6 +33,7 @@ public class AdminUserSeeder implements ApplicationRunner {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
     private final boolean enabled;
+    private final boolean resetNonAdminPasswords;
     private final String adminUsername;
     private final String adminPassword;
     private final String adminEmail;
@@ -43,6 +44,7 @@ public class AdminUserSeeder implements ApplicationRunner {
             UserRepo userRepo,
             PasswordEncoder passwordEncoder,
             @Value("${app.seed.enabled:true}") boolean enabled,
+            @Value("${app.seed.reset-non-admin-passwords:false}") boolean resetNonAdminPasswords,
             @Value("${app.seed.admin.username}") String adminUsername,
             @Value("${app.seed.admin.password}") String adminPassword,
             @Value("${app.seed.admin.email:admin@local.invalid}") String adminEmail,
@@ -52,6 +54,7 @@ public class AdminUserSeeder implements ApplicationRunner {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
         this.enabled = enabled;
+        this.resetNonAdminPasswords = resetNonAdminPasswords;
         this.adminUsername = adminUsername;
         this.adminPassword = adminPassword;
         this.adminEmail = adminEmail;
@@ -75,7 +78,13 @@ public class AdminUserSeeder implements ApplicationRunner {
 
         userRepo.save(admin);
 
+        if (!resetNonAdminPasswords) {
+            log.info("Admin user '{}' is ready. Non-admin password reset is disabled.", adminUsername);
+            return;
+        }
+
         List<User> resetUsers = userRepo.findAllExceptUsername(adminUsername);
+        log.warn("Resetting passwords for {} non-admin user(s). This may take some time.", resetUsers.size());
         resetUsers.forEach(user -> user.setPassword(passwordEncoder.encode(generateRandomPassword())));
         userRepo.saveAll(resetUsers);
 

@@ -48,6 +48,7 @@ app:
     enabled: false
   seed:
     enabled: ${APP_SEED_ENABLED:true}
+    reset-non-admin-passwords: ${APP_SEED_RESET_NON_ADMIN_PASSWORDS:false}
     admin:
       username: ${ADMIN_USERNAME:}
       password: ${ADMIN_PASSWORD:}

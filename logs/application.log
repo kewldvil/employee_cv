@@ -171,3 +171,345 @@
 2026-06-27 06:55:44 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-06-27 06:55:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-06-27 06:55:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 09:35:59 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:35:59 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 09:35:59 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 09:36:01 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 09:36:01 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 13352 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 09:36:01 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 09:36:01 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 09:36:01 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 32 JPA repository interfaces.
+2026-06-27 09:36:02 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 09:36:02 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:36:02 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 09:36:02 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 09:36:02 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 09:36:02 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 541 ms
+2026-06-27 09:36:02 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 09:36:02 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 09:36:02 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 09:36:02 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 09:36:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 09:36:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@42b500aa
+2026-06-27 09:36:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 09:36:02 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 09:36:02 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1acd952e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 09:36:03 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:36:03 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 09:36:04 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 09:36:04 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7382ccea, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7fdbb0ac, org.springframework.security.web.context.SecurityContextHolderFilter@17bae4c8, org.springframework.security.web.header.HeaderWriterFilter@7841dff9, org.springframework.web.filter.CorsFilter@1221d181, org.springframework.security.web.authentication.logout.LogoutFilter@3d3d4bc2, com.noc.employee_cv.security.JwtFilter@46e48aaf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4ade9b2e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@61785a1d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@17ad99d7, org.springframework.security.web.session.SessionManagementFilter@e59dc95, org.springframework.security.web.access.ExceptionTranslationFilter@6f9090c6, org.springframework.security.web.access.intercept.AuthorizationFilter@7f7269f8]
+2026-06-27 09:36:04 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:36:04 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 09:36:04 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 2.864 seconds (process running for 3.054)
+2026-06-27 09:36:04 [main] INFO  c.n.e.config.AdminUserSeeder - Admin user 'admin' is ready. Non-admin password reset is disabled.
+2026-06-27 09:36:04 [RMI TCP Connection(3)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 09:36:04 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 09:36:04 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-06-27 09:39:19 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:39:19 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 09:39:19 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 09:39:20 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 09:39:20 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 13960 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 09:39:20 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 09:39:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 09:39:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 32 JPA repository interfaces.
+2026-06-27 09:39:21 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 09:39:21 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:39:21 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 09:39:21 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 09:39:21 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 09:39:21 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 575 ms
+2026-06-27 09:39:21 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 09:39:21 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 09:39:21 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 09:39:21 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 09:39:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 09:39:21 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@63d66761
+2026-06-27 09:39:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 09:39:21 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 09:39:21 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1a2b23f2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 09:39:21 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:39:22 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 09:39:22 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 09:39:23 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@66019544, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5a780f42, org.springframework.security.web.context.SecurityContextHolderFilter@75c6bb04, org.springframework.security.web.header.HeaderWriterFilter@3f80d919, org.springframework.web.filter.CorsFilter@68ebe2e6, org.springframework.security.web.authentication.logout.LogoutFilter@32378f7c, com.noc.employee_cv.security.JwtFilter@60552827, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@615a8309, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@512c5bf5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@38e0403f, org.springframework.security.web.session.SessionManagementFilter@3ef2e0f3, org.springframework.security.web.access.ExceptionTranslationFilter@46638272, org.springframework.security.web.access.intercept.AuthorizationFilter@62c4efd4]
+2026-06-27 09:39:23 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:39:23 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 09:39:23 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 2.908 seconds (process running for 3.119)
+2026-06-27 09:39:23 [main] INFO  c.n.e.config.AdminUserSeeder - Admin user 'admin' is ready. Non-admin password reset is disabled.
+2026-06-27 09:39:23 [RMI TCP Connection(1)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 09:39:23 [RMI TCP Connection(1)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 09:39:23 [RMI TCP Connection(1)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-06-27 09:40:42 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:40:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 09:40:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 09:40:43 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 09:40:43 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 14223 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 09:40:43 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 09:40:44 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 09:40:44 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 32 JPA repository interfaces.
+2026-06-27 09:40:44 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 09:40:44 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:40:44 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 09:40:44 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 09:40:44 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 09:40:44 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 591 ms
+2026-06-27 09:40:44 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 09:40:44 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 09:40:44 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 09:40:44 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 09:40:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 09:40:44 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@63f2d024
+2026-06-27 09:40:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 09:40:45 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 09:40:45 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3e02988] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 09:40:45 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:40:45 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 09:40:46 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 09:40:46 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@442abccd, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@41fcaba9, org.springframework.security.web.context.SecurityContextHolderFilter@121f17ac, org.springframework.security.web.header.HeaderWriterFilter@5d121316, org.springframework.web.filter.CorsFilter@aefdf20, org.springframework.security.web.authentication.logout.LogoutFilter@739a4efa, com.noc.employee_cv.security.JwtFilter@1dbef693, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@da29da1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@75c6bb04, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62c4efd4, org.springframework.security.web.session.SessionManagementFilter@2c76c7e1, org.springframework.security.web.access.ExceptionTranslationFilter@f4c6bb3, org.springframework.security.web.access.intercept.AuthorizationFilter@7c9bb034]
+2026-06-27 09:40:46 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:40:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 09:40:46 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 2.912 seconds (process running for 3.106)
+2026-06-27 09:40:46 [main] INFO  c.n.e.config.AdminUserSeeder - Admin user 'admin' is ready. Non-admin password reset is disabled.
+2026-06-27 09:40:47 [RMI TCP Connection(4)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 09:40:47 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 09:40:47 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-06-27 09:41:15 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:41:15 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 09:41:15 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 09:41:16 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 09:41:16 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 14368 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 09:41:16 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 09:41:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 09:41:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 36 ms. Found 32 JPA repository interfaces.
+2026-06-27 09:41:17 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 09:41:17 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:41:17 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 09:41:17 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 09:41:17 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 09:41:17 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 583 ms
+2026-06-27 09:41:17 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 09:41:17 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 09:41:17 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 09:41:17 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 09:41:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 09:41:17 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@36120a8b
+2026-06-27 09:41:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 09:41:17 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 09:41:17 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1d8e9f22] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 09:41:17 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:41:18 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 09:41:19 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 09:41:19 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@48394ecb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7f7269f8, org.springframework.security.web.context.SecurityContextHolderFilter@e59dc95, org.springframework.security.web.header.HeaderWriterFilter@52a31a61, org.springframework.web.filter.CorsFilter@45a92f91, org.springframework.security.web.authentication.logout.LogoutFilter@24db9a52, com.noc.employee_cv.security.JwtFilter@60552827, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@24a60d68, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1edb31ec, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1d1e113f, org.springframework.security.web.session.SessionManagementFilter@75c6bb04, org.springframework.security.web.access.ExceptionTranslationFilter@6ae148c1, org.springframework.security.web.access.intercept.AuthorizationFilter@5a780f42]
+2026-06-27 09:41:19 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:41:19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 09:41:19 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 2.948 seconds (process running for 3.146)
+2026-06-27 09:41:28 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 09:41:28 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 09:41:28 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-06-27 09:42:02 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:42:02 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 09:42:02 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 09:42:03 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 09:42:03 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 14534 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 09:42:03 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 09:42:03 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 09:42:03 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 32 JPA repository interfaces.
+2026-06-27 09:42:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 09:42:03 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:42:03 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 09:42:03 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 09:42:03 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 09:42:03 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 593 ms
+2026-06-27 09:42:03 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 09:42:03 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 09:42:03 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 09:42:03 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 09:42:03 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 09:42:03 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@67c2b55d
+2026-06-27 09:42:03 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 09:42:04 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 09:42:04 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@36d8ddc5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 09:42:04 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:42:04 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 09:42:05 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 09:42:05 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@41fcaba9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@aefdf20, org.springframework.security.web.context.SecurityContextHolderFilter@6170aaf0, org.springframework.security.web.header.HeaderWriterFilter@46638272, org.springframework.web.filter.CorsFilter@62c4efd4, org.springframework.security.web.authentication.logout.LogoutFilter@79580b51, com.noc.employee_cv.security.JwtFilter@57eee7ac, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@69e191cf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6c907f88, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7319fb95, org.springframework.security.web.session.SessionManagementFilter@7841dff9, org.springframework.security.web.access.ExceptionTranslationFilter@144ade73, org.springframework.security.web.access.intercept.AuthorizationFilter@10f2a42d]
+2026-06-27 09:42:05 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:42:05 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 09:42:05 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 2.931 seconds (process running for 3.127)
+2026-06-27 09:42:06 [main] INFO  c.n.e.config.AdminUserSeeder - Admin user 'admin' is ready. Non-admin password reset is disabled.
+2026-06-27 09:42:06 [RMI TCP Connection(4)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 09:42:06 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 09:42:06 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-06-27 09:42:29 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:42:29 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 09:42:29 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 09:42:29 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 09:42:30 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 14647 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 09:42:30 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 09:42:30 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 09:42:30 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 36 ms. Found 32 JPA repository interfaces.
+2026-06-27 09:42:30 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 09:42:30 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:42:30 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 09:42:30 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 09:42:30 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 09:42:30 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 584 ms
+2026-06-27 09:42:30 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 09:42:30 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 09:42:30 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 09:42:30 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 09:42:30 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 09:42:30 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@405223e4
+2026-06-27 09:42:30 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 09:42:31 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 09:42:31 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4973fb7d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 09:42:31 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:42:31 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 09:42:32 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 09:42:32 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@41fcaba9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@aefdf20, org.springframework.security.web.context.SecurityContextHolderFilter@6170aaf0, org.springframework.security.web.header.HeaderWriterFilter@46638272, org.springframework.web.filter.CorsFilter@62c4efd4, org.springframework.security.web.authentication.logout.LogoutFilter@79580b51, com.noc.employee_cv.security.JwtFilter@57f16a00, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@69e191cf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6c907f88, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7319fb95, org.springframework.security.web.session.SessionManagementFilter@7841dff9, org.springframework.security.web.access.ExceptionTranslationFilter@144ade73, org.springframework.security.web.access.intercept.AuthorizationFilter@10f2a42d]
+2026-06-27 09:42:32 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:42:32 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 09:42:32 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 3.002 seconds (process running for 3.193)
+2026-06-27 09:42:49 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 09:42:49 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 09:42:49 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-06-27 09:45:45 [main] INFO  c.n.e.config.AdminUserSeeder - Admin user 'admin' is ready. Reset passwords for 690 non-admin user(s).
+2026-06-27 09:47:11 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:47:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 09:47:11 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 09:47:12 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 09:47:12 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 15667 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 09:47:12 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 09:47:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 09:47:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 32 JPA repository interfaces.
+2026-06-27 09:47:13 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 09:47:13 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:47:13 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 09:47:13 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 09:47:13 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 09:47:13 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 582 ms
+2026-06-27 09:47:13 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 09:47:13 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 09:47:13 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 09:47:13 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 09:47:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 09:47:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@67c2b55d
+2026-06-27 09:47:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 09:47:14 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 09:47:14 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7296675e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 09:47:14 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 09:47:14 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 09:47:15 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 09:47:15 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@a783412, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6511ba4b, org.springframework.security.web.context.SecurityContextHolderFilter@7e843b26, org.springframework.security.web.header.HeaderWriterFilter@d12aecb, org.springframework.web.filter.CorsFilter@442abccd, org.springframework.security.web.authentication.logout.LogoutFilter@4355a192, com.noc.employee_cv.security.JwtFilter@1dbef693, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3ef2e0f3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@69e191cf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@41fcaba9, org.springframework.security.web.session.SessionManagementFilter@d311e9b, org.springframework.security.web.access.ExceptionTranslationFilter@4e14a84, org.springframework.security.web.access.intercept.AuthorizationFilter@32450ab3]
+2026-06-27 09:47:15 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 09:47:15 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 09:47:15 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 2.899 seconds (process running for 3.105)
+2026-06-27 09:47:23 [main] WARN  c.n.e.config.AdminUserSeeder - Resetting passwords for 690 non-admin user(s). This may take some time.
+2026-06-27 09:47:31 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 09:47:31 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 09:47:31 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-06-27 09:50:26 [main] INFO  c.n.e.config.AdminUserSeeder - Admin user 'admin' is ready. Reset passwords for 690 non-admin user(s).
+2026-06-27 10:04:51 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m57s887ms).
+2026-06-27 10:09:09 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 10:09:09 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 10:09:09 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 10:09:10 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 10:09:10 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 19268 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 10:09:10 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 10:09:10 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 10:09:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 32 JPA repository interfaces.
+2026-06-27 10:09:11 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 10:09:11 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 10:09:11 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 10:09:11 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 10:09:11 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 10:09:11 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 613 ms
+2026-06-27 10:09:11 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 10:09:11 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 10:09:11 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 10:09:11 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 10:09:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 10:09:11 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@12e40e98
+2026-06-27 10:09:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 10:09:11 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 10:09:11 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2a12389e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 10:09:12 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 10:09:12 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 10:09:13 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 10:09:13 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@15236c48, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3287f2d, org.springframework.security.web.context.SecurityContextHolderFilter@52a31a61, org.springframework.security.web.header.HeaderWriterFilter@32d52900, org.springframework.web.filter.CorsFilter@65712e84, org.springframework.security.web.authentication.logout.LogoutFilter@599c8fc9, com.noc.employee_cv.security.JwtFilter@2c18bd39, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2c76c7e1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7e843b26, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@32450ab3, org.springframework.security.web.session.SessionManagementFilter@3f80d919, org.springframework.security.web.access.ExceptionTranslationFilter@52458842, org.springframework.security.web.access.intercept.AuthorizationFilter@12c75e2b]
+2026-06-27 10:09:13 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 10:09:13 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 10:09:13 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 2.94 seconds (process running for 3.174)
+2026-06-27 10:09:13 [main] INFO  c.n.e.config.AdminUserSeeder - Admin user 'admin' is ready. Non-admin password reset is disabled.
+2026-06-27 10:09:14 [RMI TCP Connection(4)-127.0.0.1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 10:09:14 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 10:09:14 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-06-27 10:10:14 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 10:10:14 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 10:10:14 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 10:10:15 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 10:10:15 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 19496 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 10:10:15 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 10:10:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 10:10:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 32 JPA repository interfaces.
+2026-06-27 10:10:16 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 10:10:16 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 10:10:16 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 10:10:16 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 10:10:16 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 10:10:16 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 603 ms
+2026-06-27 10:10:16 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 10:10:16 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 10:10:16 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 10:10:16 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 10:10:16 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 10:10:16 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4067634b
+2026-06-27 10:10:16 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 10:10:17 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 10:10:17 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@21dd405a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 10:10:17 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 10:10:17 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 10:10:18 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 10:10:18 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@12c75e2b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@49bbf4dd, org.springframework.security.web.context.SecurityContextHolderFilter@1e44794c, org.springframework.security.web.header.HeaderWriterFilter@2bbb9812, org.springframework.web.filter.CorsFilter@314aeeb2, org.springframework.security.web.authentication.logout.LogoutFilter@19b6b6, com.noc.employee_cv.security.JwtFilter@6f309e47, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@52a31a61, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@664cb95b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d3d4bc2, org.springframework.security.web.session.SessionManagementFilter@5b71d8bc, org.springframework.security.web.access.ExceptionTranslationFilter@6d088a74, org.springframework.security.web.access.intercept.AuthorizationFilter@5583419]
+2026-06-27 10:10:18 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 10:10:18 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 10:10:18 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 2.98 seconds (process running for 3.171)
+2026-06-27 10:10:23 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 10:10:23 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 10:10:23 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-06-27 10:10:27 [main] WARN  c.n.e.config.AdminUserSeeder - Resetting passwords for 690 non-admin user(s). This may take some time.
+2026-06-27 10:11:21 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 10:11:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 10:11:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-27 10:11:22 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 10:11:22 [main] INFO  c.n.e.EmployeeCvApplication - Starting EmployeeCvApplication using Java 25.0.2 with PID 19735 (/Users/sopheak/IdeaProjects/employee_cv/target/classes started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 10:11:22 [main] INFO  c.n.e.EmployeeCvApplication - No active profile set, falling back to 1 default profile: "dev"
+2026-06-27 10:11:22 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 10:11:22 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 32 JPA repository interfaces.
+2026-06-27 10:11:22 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-27 10:11:22 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-27 10:11:22 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-27 10:11:22 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-06-27 10:11:22 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-27 10:11:22 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 586 ms
+2026-06-27 10:11:22 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 10:11:22 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 10:11:22 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 10:11:22 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 10:11:22 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 10:11:22 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2d2133fd
+2026-06-27 10:11:22 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 10:11:23 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 10:11:23 [main] INFO  o.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2d492d46] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-06-27 10:11:23 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 10:11:23 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 10:11:24 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 10:11:24 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7f7269f8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@45a92f91, org.springframework.security.web.context.SecurityContextHolderFilter@50bc6266, org.springframework.security.web.header.HeaderWriterFilter@55902e78, org.springframework.web.filter.CorsFilter@1d1e113f, org.springframework.security.web.authentication.logout.LogoutFilter@567b5001, com.noc.employee_cv.security.JwtFilter@2f24dcc8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@17bae4c8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@a82b212, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1fd35b41, org.springframework.security.web.session.SessionManagementFilter@6c907f88, org.springframework.security.web.access.ExceptionTranslationFilter@3f80d919, org.springframework.security.web.access.intercept.AuthorizationFilter@68ebe2e6]
+2026-06-27 10:11:24 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-27 10:11:24 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-27 10:11:24 [main] INFO  c.n.e.EmployeeCvApplication - Started EmployeeCvApplication in 2.975 seconds (process running for 3.171)
+2026-06-27 10:11:33 [main] WARN  c.n.e.config.AdminUserSeeder - Resetting passwords for 690 non-admin user(s). This may take some time.
+2026-06-27 10:12:08 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-27 10:12:08 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-27 10:12:08 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-06-27 10:14:38 [main] INFO  c.n.e.config.AdminUserSeeder - Admin user 'admin' is ready. Reset passwords for 690 non-admin user(s).
