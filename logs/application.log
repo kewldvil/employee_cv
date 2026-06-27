@@ -2571,3 +2571,24 @@ CREATE INDEX IF NOT EXISTS idx_file_upload_user_id
 2026-06-27 17:26:49 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m54s702ms).
 2026-06-27 17:30:10 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m21s610ms).
 2026-06-27 17:47:34 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m53s560ms).
+2026-06-27 18:09:21 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-06-27 18:09:21 [main] INFO  c.n.e.EmployeeCvApplicationTests - Starting EmployeeCvApplicationTests using Java 25.0.2 with PID 82497 (started by sopheak in /Users/sopheak/IdeaProjects/employee_cv)
+2026-06-27 18:09:21 [main] INFO  c.n.e.EmployeeCvApplicationTests - The following 1 profile is active: "test"
+2026-06-27 18:09:22 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-27 18:09:22 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 32 JPA repository interfaces.
+2026-06-27 18:09:22 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-27 18:09:22 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-06-27 18:09:22 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-06-27 18:09:22 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-27 18:09:22 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-27 18:09:22 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:employee_cv_test user=SA
+2026-06-27 18:09:22 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-27 18:09:23 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-27 18:09:23 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 18:09:23 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-27 18:09:24 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2026-06-27 18:09:24 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3893de24, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5d4a80, org.springframework.security.web.context.SecurityContextHolderFilter@25e42acb, org.springframework.security.web.header.HeaderWriterFilter@56549935, org.springframework.web.filter.CorsFilter@216b8aa8, org.springframework.security.web.authentication.logout.LogoutFilter@363679a, com.noc.employee_cv.security.LoginRateLimitFilter@10db1a9d, com.noc.employee_cv.security.JwtFilter@504dda01, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7f73d565, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c75524, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@36845587, org.springframework.security.web.session.SessionManagementFilter@68ce10f4, org.springframework.security.web.access.ExceptionTranslationFilter@15c90b87, org.springframework.security.web.access.intercept.AuthorizationFilter@2941fab3]
+2026-06-27 18:09:24 [main] INFO  c.n.e.EmployeeCvApplicationTests - Started EmployeeCvApplicationTests in 3.047 seconds (process running for 3.387)
+2026-06-27 18:09:24 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-27 18:09:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-27 18:09:24 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
