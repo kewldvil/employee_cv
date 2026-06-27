@@ -39,6 +39,8 @@ public class User implements UserDetails, Principal {
     @Column(unique = true)
     private String email;
     private boolean accountLocked;
+    private int failedLoginAttempts;
+    private LocalDateTime accountLockedAt;
     private boolean enabled;
 
     @Enumerated(EnumType.STRING)

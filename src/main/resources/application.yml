@@ -46,6 +46,11 @@ springdoc:
 app:
   swagger:
     enabled: false
+  security:
+    login-rate-limit:
+      capacity: ${LOGIN_RATE_LIMIT_CAPACITY:10}
+      refill-tokens: ${LOGIN_RATE_LIMIT_REFILL_TOKENS:10}
+      refill-duration: ${LOGIN_RATE_LIMIT_REFILL_DURATION:PT1M}
   seed:
     enabled: ${APP_SEED_ENABLED:true}
     reset-non-admin-passwords: ${APP_SEED_RESET_NON_ADMIN_PASSWORDS:false}

@@ -99,6 +99,7 @@ public class AdminUserSeeder implements ApplicationRunner {
                 .lastname(adminLastname)
                 .email(adminEmail)
                 .accountLocked(false)
+                .failedLoginAttempts(0)
                 .enabled(true)
                 .role(Role.ADMIN)
                 .createdDate(LocalDateTime.now())
@@ -112,6 +113,8 @@ public class AdminUserSeeder implements ApplicationRunner {
         admin.setLastname(adminLastname);
         admin.setEmail(adminEmail);
         admin.setAccountLocked(false);
+        admin.setFailedLoginAttempts(0);
+        admin.setAccountLockedAt(null);
         admin.setEnabled(true);
         admin.setRole(Role.ADMIN);
         return admin;

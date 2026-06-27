@@ -127,4 +127,6 @@ public class EmployeeDTO {
     private List<EmployeeLanguageDTO> employeeLanguages;
     @Valid
     private List<EmployeeSkillDTO> employeeSkills;
+
+    private List<UserFileDTO> fileNames;
 }

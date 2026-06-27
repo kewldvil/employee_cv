@@ -2,10 +2,11 @@ package com.noc.employee_cv.repository;
 
 import com.noc.employee_cv.model.Employee;
 import com.noc.employee_cv.model.User;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +20,10 @@ import java.util.Optional;
 public interface UserRepo extends JpaRepository<User, Integer> {
     //    Optional<User> findByEmail(String email);
     Optional<User> findByUsername(String username);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT u FROM User u WHERE u.username = :username")
+    Optional<User> findByUsernameForUpdate(@Param("username") String username);
 
     User findUserById(Integer id);
 
@@ -133,10 +138,6 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.enabled = true")
     long countEnabledUsers();
-
-    @Modifying
-    @Query("UPDATE User u SET u.enabled = :enabled WHERE u.id = :id")
-    void updateUserByEnabled(Integer id, boolean enabled);
 
     @Query("SELECT u FROM User u WHERE u.username IS NULL OR u.username <> :adminUsername")
     List<User> findAllExceptUsername(@Param("adminUsername") String adminUsername);

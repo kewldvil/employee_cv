@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -133,12 +134,13 @@ public class DashboardController {
             @PathVariable Integer userId,
             @PathVariable boolean status) {
         try {
-            // Call the service to update the user's status
             service.updateUserByEnabled(userId, status);
-            return ResponseEntity.ok("User status updated successfully.");
+            return ResponseEntity.accepted().body("User status updated successfully.");
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         } catch (Exception e) {
-            // Handle exceptions and return an appropriate response
-            return ResponseEntity.status(500).body("Error updating user status: " + e.getMessage());
+            log.error("Failed to update user status for userId={}", userId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user status");
         }
     }
 

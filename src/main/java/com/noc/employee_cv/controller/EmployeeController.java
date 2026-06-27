@@ -3,10 +3,8 @@ package com.noc.employee_cv.controller;
 
 import com.noc.employee_cv.dto.EmployeeDTO;
 import com.noc.employee_cv.dto.UserEmployeeDTO;
-import com.noc.employee_cv.dto.UserFileDTO;
 import com.noc.employee_cv.enums.PoliceRank;
 import com.noc.employee_cv.model.*;
-import com.noc.employee_cv.repository.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImpl;
 import com.noc.employee_cv.services.serviceImpl.FileServiceImpl;
 import com.noc.employee_cv.services.serviceImpl.ReportServiceImpl;
@@ -22,8 +20,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -37,7 +33,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EmployeeController {
     private final EmployeeServiceImpl service;
-    private final UserRepo userRepo;
     private final ReportServiceImpl reportService;
     private final UserServiceImpl userService;
     private final FileServiceImpl fileService;
@@ -83,45 +78,22 @@ public class EmployeeController {
 
     @GetMapping("/user/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<Employee> getEmployeeByUserId(@PathVariable Integer id) throws MessagingException {
-
-        // Fetch employee by user ID
-        Employee employee = service.findByUserId(id);
-
-        // If employee not found, return 404
+    public ResponseEntity<EmployeeDTO> getEmployeeByUserId(@PathVariable Integer id) throws MessagingException {
+        EmployeeDTO employee = service.findDetailDtoByUserId(id, fileService.getFileNamesByUserId(id));
         if (employee == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.notFound().build();
         }
-
-        // Attach additional data: File names
-        attachFileNames(employee, id);
-
-        // Return the modified employee
         return ResponseEntity.ok(employee);
-    }
-
-    /**
-     * Attaches file names to the Employee entity.
-     *
-     * @param employee The Employee entity to modify.
-     * @param userId The user ID to fetch file names for.
-     */
-    private void attachFileNames(Employee employee, Integer userId) {
-        List<UserFileDTO> fileNames = fileService.getFileNamesByUserId(userId);
-        employee.setFileNames(fileNames);
     }
 
     @GetMapping("/{userId}/{employeeId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<Employee> getEmployeeByUserIdAndEmployeeId(@PathVariable Integer userId, @PathVariable Integer employeeId) throws MessagingException {
-        Employee employee = service.findByUserIdAndEmployeeId(employeeId, userId);
-
+    public ResponseEntity<EmployeeDTO> getEmployeeByUserIdAndEmployeeId(@PathVariable Integer userId, @PathVariable Integer employeeId) throws MessagingException {
+        EmployeeDTO employee = service.findDetailDtoByUserIdAndEmployeeId(employeeId, userId, fileService.getFileNamesByUserId(userId));
         if (employee != null) {
-            // If response body is not null, return it with HTTP status 200 OK
             return ResponseEntity.ok(employee);
         } else {
-            // If response body is null, return 404 Not Found status code
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.notFound().build();
         }
     }
 

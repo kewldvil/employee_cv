@@ -19,7 +19,11 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +40,7 @@ import java.util.List;
 @Validated
 @RequiredArgsConstructor
 public class AuthenticationService {
+    private static final int MAX_FAILED_LOGIN_ATTEMPTS = 5;
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     private static final int TEMPORARY_PASSWORD_LENGTH = 8;
     private static final String PASSWORD_UPPERCASE = "ABCDEFGHJKLMNPQRSTUVWXYZ";
@@ -72,6 +77,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
+                .failedLoginAttempts(0)
                 .enabled(true)
                 .role(Role.valueOf(request.getRole()))
                 .createdDate(LocalDateTime.now())
@@ -122,15 +128,21 @@ public class AuthenticationService {
 //        );
 //    }
 
+    @Transactional(dontRollbackOn = {BadCredentialsException.class, LockedException.class})
     public AuthenticationResponse authenticate(@Valid @NotNull AuthenticationRequest request) {
-        var authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+        userRepo.findByUsername(request.getUsername()).ifPresent(user -> {
+            if (user.isAccountLocked()) {
+                throw new LockedException("Account is locked after too many failed login attempts");
+            }
+            if (!user.isEnabled()) {
+                throw new DisabledException("Account is disabled");
+            }
+        });
+
+        var authentication = authenticateCredentials(request);
 
         var user = (User) authentication.getPrincipal();
+        resetFailedLoginAttempts(user);
         var claims = new HashMap<String, Object>();
         Employee employee = employeeRepo.findByUserId(user.getId());
 
@@ -151,6 +163,54 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    private org.springframework.security.core.Authentication authenticateCredentials(AuthenticationRequest request) {
+        try {
+            return authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
+        } catch (BadCredentialsException exception) {
+            boolean accountLocked = recordFailedLoginAttempt(request.getUsername());
+            if (accountLocked) {
+                throw new LockedException("Account is locked after too many failed login attempts");
+            }
+            throw new BadCredentialsException("Invalid username or password");
+        } catch (AuthenticationException exception) {
+            throw exception;
+        }
+    }
+
+    private boolean recordFailedLoginAttempt(String username) {
+        return userRepo.findByUsernameForUpdate(username).map(user -> {
+            int failedAttempts = user.getFailedLoginAttempts() + 1;
+            user.setFailedLoginAttempts(failedAttempts);
+            if (failedAttempts >= MAX_FAILED_LOGIN_ATTEMPTS) {
+                user.setAccountLocked(true);
+                user.setEnabled(false);
+                user.setAccountLockedAt(LocalDateTime.now());
+            }
+            userRepo.save(user);
+            return user.isAccountLocked();
+        }).orElse(false);
+    }
+
+    private void resetFailedLoginAttempts(User user) {
+        if (user.getFailedLoginAttempts() == 0 && !user.isAccountLocked() && user.getAccountLockedAt() == null) {
+            return;
+        }
+        unlockUser(user);
+        userRepo.save(user);
+    }
+
+    private void unlockUser(User user) {
+        user.setFailedLoginAttempts(0);
+        user.setAccountLocked(false);
+        user.setAccountLockedAt(null);
+
     }
 
 
@@ -193,6 +253,7 @@ public class AuthenticationService {
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
             user.setPassword(passwordEncoder.encode(request.getPassword()));
+            unlockUser(user);
             userRepo.save(user);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update password: " + e.getMessage(), e);
@@ -215,6 +276,7 @@ public class AuthenticationService {
             }
 
             user.setPassword(passwordEncoder.encode(newPassword));
+            unlockUser(user);
             userRepo.save(user);
         } catch (Exception e) {
             throw new RuntimeException("Failed to change password: " + e.getMessage(), e);
@@ -226,6 +288,7 @@ public class AuthenticationService {
         User user = userRepo.findById(userId).orElseThrow(ChangeSetPersister.NotFoundException::new);
         String temporaryPassword = generateStrongPassword();
         user.setPassword(passwordEncoder.encode(temporaryPassword));
+        unlockUser(user);
         userRepo.save(user);
         return temporaryPassword;
     }
@@ -257,6 +320,12 @@ public class AuthenticationService {
 
     @Transactional
     public void updateUserByEnabled(@NotNull(message = "userId is required") Integer userId, boolean enabled) {
-        userRepo.updateUserByEnabled(userId, enabled);
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        user.setEnabled(enabled);
+        if (enabled) {
+            unlockUser(user);
+        }
+        userRepo.save(user);
     }
 }

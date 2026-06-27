@@ -730,6 +730,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         return initializeForResponse(employeeRepo.findByUserId(id));
     }
 
+    public EmployeeDTO findDetailDtoByUserId(Integer id, List<UserFileDTO> fileNames) {
+        return employeeMapper.toEmployeeDetailDto(initializeForResponse(employeeRepo.findByUserId(id)), fileNames);
+    }
+
+    public EmployeeDTO findDetailDtoByUserIdAndEmployeeId(Integer employeeId, Integer userId, List<UserFileDTO> fileNames) {
+        return employeeMapper.toEmployeeDetailDto(initializeForResponse(employeeRepo.findByIdAndUserId(employeeId, userId)), fileNames);
+    }
+
     private Employee initializeForResponse(Employee employee) {
         if (employee == null) {
             return null;

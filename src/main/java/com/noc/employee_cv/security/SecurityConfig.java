@@ -39,6 +39,7 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
     private final JwtFilter jwtAuthFilter;
+    private final LoginRateLimitFilter loginRateLimitFilter;
 
     @Value("${app.swagger.enabled:false}")
     private boolean swaggerEnabled;
@@ -150,6 +151,7 @@ public class SecurityConfig {
                 )
 
                 .authenticationProvider(authenticationProvider)
+                .addFilterBefore(loginRateLimitFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

@@ -17,7 +17,7 @@ public class AuthenticationRequest {
     private String username;
     @NotEmpty(message = "មិនអាចទទេរ!")
     @NotBlank(message = "មិនអាចទទេរ!")
-    @Size(min = 8, max = 72, message = "password must be between 8 and 72 characters")
+    @Size(max = 72, message = "password must be 72 characters or less")
     private String password;
 
 

@@ -15,6 +15,10 @@ spring:
     properties:
       hibernate:
         format_sql: ${HIBERNATE_FORMAT_SQL:false}
+  flyway:
+    enabled: ${FLYWAY_ENABLED:true}
+    baseline-on-migrate: ${FLYWAY_BASELINE_ON_MIGRATE:true}
+    baseline-version: ${FLYWAY_BASELINE_VERSION:1}
 
 file:
   photo-max-size: ${PHOTO_MAX_SIZE:5242880}
