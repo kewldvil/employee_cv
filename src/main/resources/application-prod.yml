@@ -40,4 +40,4 @@ springdoc:
 
 server:
   ssl:
-    enabled: ${SERVER_SSL_ENABLED:false}
+    enabled: ${SERVER_SSL_ENABLED:true}
