@@ -1,6 +1,5 @@
 package com.noc.employee_cv;
 
-import com.noc.employee_cv.enums.Role;
 import com.noc.employee_cv.model.Skill;
 import com.noc.employee_cv.model.User;
 import com.noc.employee_cv.model.Commune;

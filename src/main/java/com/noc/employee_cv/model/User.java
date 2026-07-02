@@ -1,18 +1,20 @@
 package com.noc.employee_cv.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.noc.employee_cv.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "_user")
@@ -43,10 +45,14 @@ public class User implements UserDetails, Principal {
     private LocalDateTime accountLockedAt;
     private boolean enabled;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    private Set<Role> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    @Builder.Default
+    private Set<Role> roles = new HashSet<>();
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
     @Column(nullable = false)
@@ -79,15 +85,30 @@ public class User implements UserDetails, Principal {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthorities();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+
+            for (Permission permission : role.getPermissions()) {
+                authorities.add(new SimpleGrantedAuthority(permission.getName()));
+            }
+        }
+
+        return authorities;
     }
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return this.roles
-//                .stream()
-//                .map(r->new SimpleGrantedAuthority(r.getName()))
-//                .collect(Collectors.toList());
-//    }
+
+    public String getRoleName() {
+        return roles.stream()
+                .findFirst()
+                .map(Role::getName)
+                .orElse(null);
+    }
+
+    public void replaceRole(Role role) {
+        roles.clear();
+        roles.add(role);
+    }
 
     @Override
     public String getPassword() {

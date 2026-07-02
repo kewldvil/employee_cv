@@ -164,7 +164,7 @@ public class EmployeeController {
         userEmployeeDTO.setEmail(user.getEmail());
         userEmployeeDTO.getFullName();
         userEmployeeDTO.setEnabled(user.isEnabled());
-        userEmployeeDTO.setRole(user.getRole().name());
+        userEmployeeDTO.setRole(user.getRoleName());
         if (user.getEmployee() != null) {
             userEmployeeDTO.setGender(user.getEmployee().getGender());
             userEmployeeDTO.setIsMarried(user.getEmployee().getIsMarried());

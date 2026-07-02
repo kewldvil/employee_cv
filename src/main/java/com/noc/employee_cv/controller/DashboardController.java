@@ -5,13 +5,14 @@ import com.noc.employee_cv.authentication.IncorrectPasswordException;
 import com.noc.employee_cv.dto.PoliceRankCountProjection;
 import com.noc.employee_cv.dto.UserEmployeeDTO;
 import com.noc.employee_cv.dto.UserProfileDTO;
-import com.noc.employee_cv.enums.Role;
 import com.noc.employee_cv.model.Department;
 import com.noc.employee_cv.model.Employee;
+import com.noc.employee_cv.model.Role;
 import com.noc.employee_cv.model.Skill;
 import com.noc.employee_cv.model.User;
 import com.noc.employee_cv.repository.DepartmentRepo;
 import com.noc.employee_cv.repository.EmployeeRepo;
+import com.noc.employee_cv.repository.RoleRepo;
 import com.noc.employee_cv.repository.UserRepo;
 import com.noc.employee_cv.services.serviceImpl.EmployeeServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,7 @@ public class DashboardController {
     private final AuthenticationService service;
     private final DepartmentRepo departmentRepo;
     private final EmployeeRepo employeeRepo;
+    private final RoleRepo roleRepo;
 
     @GetMapping("/total-employee")
     public ResponseEntity<Long> getTotalEmployees() {
@@ -168,12 +170,9 @@ public class DashboardController {
             user.setEmail(userProfile.getEmail());
             user.setUsername(userProfile.getUsername());
 
-            try {
-                // Ensure role is valid
-                user.setRole(Role.valueOf(userProfile.getRole()));
-            } catch (IllegalArgumentException e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role specified");
-            }
+            Role role = roleRepo.findByName(userProfile.getRole())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid role specified"));
+            user.replaceRole(role);
 
             // Save the updated user
             userRepo.save(user);
@@ -181,6 +180,8 @@ public class DashboardController {
             // Return 202 Accepted response
             return ResponseEntity.accepted().body("User profile updated successfully");
 
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (ResponseStatusException e) {
             // Handle specific errors, like "User not found"
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");

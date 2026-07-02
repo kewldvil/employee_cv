@@ -1,11 +1,12 @@
 package com.noc.employee_cv.authentication;
 
 import com.noc.employee_cv.email.EmailService;
-import com.noc.employee_cv.enums.Role;
 import com.noc.employee_cv.model.Employee;
+import com.noc.employee_cv.model.Role;
 import com.noc.employee_cv.model.Token;
 import com.noc.employee_cv.model.User;
 import com.noc.employee_cv.repository.EmployeeRepo;
+import com.noc.employee_cv.repository.RoleRepo;
 import com.noc.employee_cv.repository.TokenRepo;
 import com.noc.employee_cv.repository.UserRepo;
 import com.noc.employee_cv.security.JwtService;
@@ -56,6 +57,7 @@ public class AuthenticationService {
     private final TokenRepo tokenRepo;
     private final EmployeeRepo employeeRepo;
     private final UserRepo userRepo;
+    private final RoleRepo roleRepo;
     private final EmailService emailService;
 
 //    @Value("${activation_url}")
@@ -69,6 +71,8 @@ public class AuthenticationService {
             throw new IllegalArgumentException("Username '" + request.getUsername() + "' is already taken.");
         }
 
+        Role role = findRole(request.getRole());
+
         // Create the user object
         var user = User.builder()
                 .username(request.getUsername())
@@ -79,10 +83,10 @@ public class AuthenticationService {
                 .accountLocked(false)
                 .failedLoginAttempts(0)
                 .enabled(true)
-                .role(Role.valueOf(request.getRole()))
                 .createdDate(LocalDateTime.now())
                 .updatedDate(LocalDateTime.now())
                 .build();
+        user.replaceRole(role);
 
         // Save the user to the repository
         userRepo.save(user);
@@ -150,7 +154,7 @@ public class AuthenticationService {
         claims.put("firstname", user.getFirstname());
         claims.put("lastname", user.getLastname());
         claims.put("id", user.getId());
-        claims.put("role", user.getRole());
+        claims.put("role", user.getRoleName());
 
         // Add department ID if available
         if (employee != null && employee.getDepartment() != null) {
@@ -211,6 +215,11 @@ public class AuthenticationService {
         user.setAccountLocked(false);
         user.setAccountLockedAt(null);
 
+    }
+
+    private Role findRole(String roleName) {
+        return roleRepo.findByName(roleName)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid role specified"));
     }
 
 

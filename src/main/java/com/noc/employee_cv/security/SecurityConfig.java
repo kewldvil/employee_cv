@@ -18,14 +18,18 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 
-import static com.noc.employee_cv.enums.Permission.*;
-import static com.noc.employee_cv.enums.Role.*;
-import static org.springframework.http.HttpMethod.*;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private static final String ROLE_ADMIN = "ADMIN";
+    private static final String ROLE_MANAGER = "MANAGER";
+    private static final String ROLE_USER = "USER";
+    private static final String ROLE_HEAD_OF_BUREAU = "HEAD_OF_BUREAU";
+
+    private static final String EMPLOYEE_CV_READ = "EMPLOYEE_CV_READ";
+    private static final String USER_ACCOUNT_MANAGE = "USER_ACCOUNT_MANAGE";
+    private static final String USER_RESET_PASSWORD = "USER_RESET_PASSWORD";
 
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**"
@@ -43,12 +47,6 @@ public class SecurityConfig {
 
     @Value("${app.swagger.enabled:false}")
     private boolean swaggerEnabled;
-
-    String[] READ_AUTHORITIES = {
-            ADMIN_READ.name(),
-            MANAGER_READ.name(),
-            HEAD_OF_BUREAU_READ.name()
-    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -92,24 +90,23 @@ public class SecurityConfig {
 
                         // Management: method-specific rules FIRST
                         .requestMatchers(HttpMethod.GET, "/api/v1/managements/**")
-                        .hasAnyAuthority(
-                                ADMIN_READ.name(),
-                                MANAGER_READ.name(),
-                                HEAD_OF_BUREAU_READ.name()
-                        )
+                        .hasAuthority(EMPLOYEE_CV_READ)
 
                         .requestMatchers(HttpMethod.POST, "/api/v1/managements/**")
-                        .hasAuthority(ADMIN_CREATE.name())
+                        .hasAuthority(USER_ACCOUNT_MANAGE)
+
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/managements/user/reset-password/**")
+                        .hasAuthority(USER_RESET_PASSWORD)
 
                         .requestMatchers(HttpMethod.PUT, "/api/v1/managements/**")
-                        .hasAuthority(ADMIN_UPDATE.name())
+                        .hasAuthority(USER_ACCOUNT_MANAGE)
 
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/managements/**")
-                        .hasAuthority(ADMIN_DELETE.name())
+                        .hasAuthority(USER_ACCOUNT_MANAGE)
 
                         // Bureau
                         .requestMatchers("/api/v1/bureau/**")
-                        .hasRole(ADMIN.name())
+                        .hasRole(ROLE_ADMIN)
 
                         // Common protected APIs
                         .requestMatchers(
@@ -124,10 +121,10 @@ public class SecurityConfig {
                                 "/api/v1/positions/**"
                         )
                         .hasAnyRole(
-                                ADMIN.name(),
-                                MANAGER.name(),
-                                USER.name(),
-                                HEAD_OF_BUREAU.name()
+                                ROLE_ADMIN,
+                                ROLE_MANAGER,
+                                ROLE_USER,
+                                ROLE_HEAD_OF_BUREAU
                         )
 
                         .anyRequest().denyAll()
