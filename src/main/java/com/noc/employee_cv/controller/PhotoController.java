@@ -62,7 +62,7 @@ public class PhotoController {
         try {
             User user = storageService.getPhotoByUserId(userId);
             if (user != null && user.getImageName() != null) {
-                Path filePath = Paths.get(uploadDir).resolve(user.getImageName());
+                Path filePath = resolvePhotoPath(user.getImageName());
                 if (Files.exists(filePath)) {
                     // Read original image bytes
                     byte[] originalImageBytes = Files.readAllBytes(filePath);
@@ -96,7 +96,7 @@ public class PhotoController {
         try {
             User user = storageService.getPhotoByUserId(userId);
             if (user != null && user.getImageName() != null) {
-                Path filePath = Paths.get(uploadDir).resolve(user.getImageName());
+                Path filePath = resolvePhotoPath(user.getImageName());
                 if (Files.exists(filePath)) {
                     // Read original image file
                     ByteArrayOutputStream compressedOutputStream = new ByteArrayOutputStream();
@@ -162,7 +162,7 @@ public class PhotoController {
                 // Decode the filename to handle Unicode characters properly
                 String decodedFilename = new String(filename.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
-                Path filePath = Paths.get(uploadDir).resolve(decodedFilename);
+                Path filePath = resolvePhotoPath(decodedFilename);
                 if (Files.exists(filePath)) {
                     // Detect MIME type dynamically
                     String mimeType = Files.probeContentType(filePath);
@@ -203,5 +203,14 @@ public class PhotoController {
         } catch (IOException ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    private Path resolvePhotoPath(String fileName) {
+        Path photoRoot = Paths.get(uploadDir).toAbsolutePath().normalize();
+        Path path = photoRoot.resolve(fileName).normalize();
+        if (!path.startsWith(photoRoot)) {
+            throw new IllegalArgumentException("Invalid photo path");
+        }
+        return path;
     }
 }
