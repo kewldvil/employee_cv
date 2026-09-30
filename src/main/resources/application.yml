@@ -23,7 +23,9 @@ server:
 
 jwt:
   secret-key: ${JWT_SECRET_KEY}
-  expiration: ${JWT_EXPIRATION:86400000}
+  expiration: ${JWT_EXPIRATION:900000}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:P7D}
+  refresh-cookie-secure: ${JWT_REFRESH_COOKIE_SECURE:true}
 
 file:
   report-dir: ${REPORT_DIR:classpath:/}
@@ -52,8 +54,9 @@ app:
       refill-tokens: ${LOGIN_RATE_LIMIT_REFILL_TOKENS:10}
       refill-duration: ${LOGIN_RATE_LIMIT_REFILL_DURATION:PT1M}
   seed:
-    enabled: ${APP_SEED_ENABLED:true}
+    enabled: ${APP_SEED_ENABLED:false}
     reset-non-admin-passwords: ${APP_SEED_RESET_NON_ADMIN_PASSWORDS:false}
+    rotate-existing-admin-password: ${APP_SEED_ROTATE_EXISTING_ADMIN_PASSWORD:false}
     admin:
       username: ${ADMIN_USERNAME:}
       password: ${ADMIN_PASSWORD:}

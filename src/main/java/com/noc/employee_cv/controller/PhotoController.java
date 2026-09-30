@@ -13,11 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,23 +34,6 @@ public class PhotoController {
     @Value("${file.photo-max-size}")
     private long MAX_PHOTO_SIZE;
 
-
-    @PostMapping("/upload/")
-    public ResponseEntity<Void> uploadPhoto(@RequestParam("photo") MultipartFile photo) {
-        try {
-            User storedPhoto = storageService.storeFile(photo);
-            userRepo.save(storedPhoto);
-
-            URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/uploads/")
-                    .path(storedPhoto.getId().toString())
-                    .build()
-                    .toUri();
-            return ResponseEntity.created(uri).build();
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
 
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)

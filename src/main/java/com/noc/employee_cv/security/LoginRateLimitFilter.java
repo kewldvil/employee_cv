@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LoginRateLimitFilter extends OncePerRequestFilter {
     private static final String LOGIN_PATH = "/api/v1/auth/authenticate/login";
+    private static final String REFRESH_PATH = "/api/v1/auth/authenticate/refresh";
 
     private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
     private final long capacity;
@@ -40,7 +41,9 @@ public class LoginRateLimitFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !"POST".equalsIgnoreCase(request.getMethod()) || !LOGIN_PATH.equals(request.getRequestURI());
+        String requestUri = request.getRequestURI();
+        return !"POST".equalsIgnoreCase(request.getMethod())
+                || (!LOGIN_PATH.equals(requestUri) && !REFRESH_PATH.equals(requestUri));
     }
 
     @Override
@@ -77,16 +80,9 @@ public class LoginRateLimitFilter extends OncePerRequestFilter {
     }
 
     private String resolveClientIp(HttpServletRequest request) {
-        String forwardedFor = request.getHeader("X-Forwarded-For");
-        if (forwardedFor != null && !forwardedFor.isBlank()) {
-            return forwardedFor.split(",")[0].trim();
-        }
-
-        String realIp = request.getHeader("X-Real-IP");
-        if (realIp != null && !realIp.isBlank()) {
-            return realIp.trim();
-        }
-
+        // Spring's ForwardedHeaderFilter already resolves trusted proxy headers when
+        // server.forward-headers-strategy is configured. Reading raw headers here lets
+        // an attacker rotate arbitrary values and bypass the limiter.
         return request.getRemoteAddr();
     }
 }

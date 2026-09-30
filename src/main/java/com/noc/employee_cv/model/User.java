@@ -33,10 +33,13 @@ public class User implements UserDetails, Principal {
 
 //    @Column(unique = true)
     private String username;
+    @JsonIgnore
+    @ToString.Exclude
     private String password;
     private String firstname;
     private String lastname;
     private String imageName;
+    @JsonIgnore
     private String imagePath;
     @Column(unique = true)
     private String email;

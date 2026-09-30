@@ -22,19 +22,15 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private static final String ROLE_ADMIN = "ADMIN";
-    private static final String ROLE_MANAGER = "MANAGER";
-    private static final String ROLE_USER = "USER";
-    private static final String ROLE_HEAD_OF_BUREAU = "HEAD_OF_BUREAU";
-
     private static final String EMPLOYEE_CV_READ = "EMPLOYEE_CV_READ";
+    private static final String EMPLOYEE_CV_CREATE = "EMPLOYEE_CV_CREATE";
+    private static final String EMPLOYEE_CV_UPDATE = "EMPLOYEE_CV_UPDATE";
+    private static final String EMPLOYEE_CV_DELETE = "EMPLOYEE_CV_DELETE";
     private static final String USER_ACCOUNT_MANAGE = "USER_ACCOUNT_MANAGE";
     private static final String USER_RESET_PASSWORD = "USER_RESET_PASSWORD";
+    private static final String ORGANIZATION_MANAGE = "ORGANIZATION_MANAGE";
 
-    private static final String[] WHITE_LIST_URL = {
-            "/api/v1/auth/**"
-    };
-
+    private static final String LOGIN_URL = "/api/v1/auth/authenticate/login";
     private static final String[] SWAGGER_URLS = {
             "/v3/api-docs/**",
             "/swagger-ui/**",
@@ -75,18 +71,28 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req
 
                         // Public endpoints
-                        .requestMatchers(WHITE_LIST_URL).permitAll()
+                        .requestMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/v1/auth/authenticate/refresh",
+                                "/api/v1/auth/authenticate/logout").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/authenticate/register")
+                        .hasAuthority(USER_ACCOUNT_MANAGE)
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/authenticate/change-password")
+                        .authenticated()
+                        // Personal-data based password reset is intentionally disabled. Use an
+                        // expiring, single-use recovery token before exposing a replacement.
+                        .requestMatchers("/api/v1/auth/**").denyAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
                         .requestMatchers(SWAGGER_URLS).access((authentication, context) ->
-                                new org.springframework.security.authorization.AuthorizationDecision(swaggerEnabled)
+                                new org.springframework.security.authorization.AuthorizationDecision(
+                                        swaggerEnabled && authentication.get().getAuthorities().stream()
+                                                .anyMatch(authority -> "ROLE_ADMIN".equals(authority.getAuthority()))
+                                )
                         )
 
-                        // Better: avoid public /files/** unless these are truly public
-                        .requestMatchers("/photos/**").permitAll()
-
-                        // Static uploaded files should usually be authenticated
-                        .requestMatchers("/files/**").authenticated()
+                        .requestMatchers("/photos/**", "/files/**")
+                        .hasAuthority(EMPLOYEE_CV_READ)
 
                         // Management: method-specific rules FIRST
                         .requestMatchers(HttpMethod.GET, "/api/v1/managements/**")
@@ -104,28 +110,23 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/managements/**")
                         .hasAuthority(USER_ACCOUNT_MANAGE)
 
-                        // Bureau
-                        .requestMatchers("/api/v1/bureau/**")
-                        .hasRole(ROLE_ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/api/v1/employee/**", "/api/v1/files/**", "/api/v1/photo/**")
+                        .hasAuthority(EMPLOYEE_CV_READ)
+                        .requestMatchers(HttpMethod.POST, "/api/v1/employee/**", "/api/v1/files/**", "/api/v1/photo/**")
+                        .hasAuthority(EMPLOYEE_CV_CREATE)
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/employee/**", "/api/v1/files/**", "/api/v1/photo/**")
+                        .hasAuthority(EMPLOYEE_CV_UPDATE)
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/employee/**", "/api/v1/files/**", "/api/v1/photo/**")
+                        .hasAuthority(EMPLOYEE_CV_DELETE)
 
-                        // Common protected APIs
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/v1/address/**", "/api/v1/enum/**", "/api/v1/general-department/**",
+                                "/api/v1/departments/**", "/api/v1/skill/**", "/api/v1/positions/**")
+                        .hasAuthority(EMPLOYEE_CV_READ)
                         .requestMatchers(
-                                "/api/v1/photo/**",
-                                "/api/v1/files/**",
-                                "/api/v1/employee/**",
-                                "/api/v1/address/**",
-                                "/api/v1/enum/**",
-                                "/api/v1/general-department/**",
-                                "/api/v1/departments/**",
-                                "/api/v1/skill/**",
-                                "/api/v1/positions/**"
-                        )
-                        .hasAnyRole(
-                                ROLE_ADMIN,
-                                ROLE_MANAGER,
-                                ROLE_USER,
-                                ROLE_HEAD_OF_BUREAU
-                        )
+                                "/api/v1/address/**", "/api/v1/general-department/**", "/api/v1/departments/**",
+                                "/api/v1/skill/**", "/api/v1/positions/**", "/api/v1/bureau/**")
+                        .hasAuthority(ORGANIZATION_MANAGE)
 
                         .anyRequest().denyAll()
                 )

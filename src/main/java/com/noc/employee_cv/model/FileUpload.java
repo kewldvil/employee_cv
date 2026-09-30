@@ -26,6 +26,7 @@ public class FileUpload {
     private String fileType;
 
     @NotNull
+    @JsonIgnore
     private String filePath;
 
     @ManyToOne
@@ -52,4 +53,3 @@ public class FileUpload {
         updatedAt = LocalDateTime.now();
     }
 }
-

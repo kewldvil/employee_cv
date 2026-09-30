@@ -2,7 +2,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/officer_cv}
     username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:root}
+    password: ${DB_PASSWORD}
     hikari:
       auto-commit: false
   jpa:
@@ -25,6 +25,9 @@ app:
     enabled: ${SWAGGER_ENABLED:true}
   cors:
     allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
+
+jwt:
+  refresh-cookie-secure: ${JWT_REFRESH_COOKIE_SECURE:false}
 
 springdoc:
   api-docs:

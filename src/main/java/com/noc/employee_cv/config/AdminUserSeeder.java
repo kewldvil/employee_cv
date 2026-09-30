@@ -52,6 +52,7 @@ public class AdminUserSeeder implements ApplicationRunner {
     private final PasswordEncoder passwordEncoder;
     private final boolean enabled;
     private final boolean resetNonAdminPasswords;
+    private final boolean rotateExistingAdminPassword;
     private final String adminUsername;
     private final String adminPassword;
     private final String adminEmail;
@@ -65,6 +66,7 @@ public class AdminUserSeeder implements ApplicationRunner {
             PasswordEncoder passwordEncoder,
             @Value("${app.seed.enabled:true}") boolean enabled,
             @Value("${app.seed.reset-non-admin-passwords:false}") boolean resetNonAdminPasswords,
+            @Value("${app.seed.rotate-existing-admin-password:false}") boolean rotateExistingAdminPassword,
             @Value("${app.seed.admin.username}") String adminUsername,
             @Value("${app.seed.admin.password}") String adminPassword,
             @Value("${app.seed.admin.email:admin@local.invalid}") String adminEmail,
@@ -77,6 +79,7 @@ public class AdminUserSeeder implements ApplicationRunner {
         this.passwordEncoder = passwordEncoder;
         this.enabled = enabled;
         this.resetNonAdminPasswords = resetNonAdminPasswords;
+        this.rotateExistingAdminPassword = rotateExistingAdminPassword;
         this.adminUsername = adminUsername;
         this.adminPassword = adminPassword;
         this.adminEmail = adminEmail;
@@ -133,7 +136,10 @@ public class AdminUserSeeder implements ApplicationRunner {
     }
 
     private User updateAdminUser(User admin, Role adminRole) {
-        admin.setPassword(passwordEncoder.encode(adminPassword));
+        if (rotateExistingAdminPassword) {
+            admin.setPassword(passwordEncoder.encode(adminPassword));
+            log.warn("Rotated password for existing admin user '{}'.", adminUsername);
+        }
         admin.setFirstname(adminFirstname);
         admin.setLastname(adminLastname);
         admin.setEmail(adminEmail);

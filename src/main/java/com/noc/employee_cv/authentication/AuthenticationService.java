@@ -59,6 +59,7 @@ public class AuthenticationService {
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
     private final EmailService emailService;
+    private final RefreshTokenService refreshTokenService;
 
 //    @Value("${activation_url}")
 //    private String activationUrl;
@@ -147,26 +148,38 @@ public class AuthenticationService {
 
         var user = (User) authentication.getPrincipal();
         resetFailedLoginAttempts(user);
+        var jwtToken = generateAccessToken(user);
+        var refreshToken = refreshTokenService.issue(user);
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .refreshToken(refreshToken.value())
+                .build();
+    }
+
+    public AuthenticationResponse refresh(String rawRefreshToken) {
+        RefreshTokenService.RotatedRefreshToken rotated = refreshTokenService.rotate(rawRefreshToken);
+        return AuthenticationResponse.builder()
+                .token(generateAccessToken(rotated.user()))
+                .refreshToken(rotated.refreshToken().value())
+                .build();
+    }
+
+    public void logout(String rawRefreshToken) {
+        refreshTokenService.revoke(rawRefreshToken);
+    }
+
+    private String generateAccessToken(User user) {
         var claims = new HashMap<String, Object>();
         Employee employee = employeeRepo.findByUserId(user.getId());
-
-        // Add user details to claims
         claims.put("firstname", user.getFirstname());
         claims.put("lastname", user.getLastname());
         claims.put("id", user.getId());
         claims.put("role", user.getRoleName());
-
-        // Add department ID if available
         if (employee != null && employee.getDepartment() != null) {
             claims.put("depId", employee.getDepartment().getId());
-        } else {
         }
-
-        var jwtToken = jwtService.generateToken(claims, user);
-
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        return jwtService.generateToken(claims, user);
     }
 
     private org.springframework.security.core.Authentication authenticateCredentials(AuthenticationRequest request) {
@@ -276,20 +289,17 @@ public class AuthenticationService {
             @NotBlank(message = "newPassword is required")
             @Size(min = 8, max = 72, message = "newPassword must be between 8 and 72 characters") String newPassword
     ) throws ChangeSetPersister.NotFoundException {
-        try {
-            User user = userRepo.findById(userId)
-                    .orElseThrow(ChangeSetPersister.NotFoundException::new);
+        User user = userRepo.findById(userId)
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
 
-            if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-                throw new IncorrectPasswordException("Current password is incorrect");
-            }
-
-            user.setPassword(passwordEncoder.encode(newPassword));
-            unlockUser(user);
-            userRepo.save(user);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to change password: " + e.getMessage(), e);
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new IncorrectPasswordException("Current password is incorrect");
         }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        unlockUser(user);
+        userRepo.save(user);
+        refreshTokenService.revokeAll(user);
     }
 
     @Transactional
@@ -299,6 +309,7 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(temporaryPassword));
         unlockUser(user);
         userRepo.save(user);
+        refreshTokenService.revokeAll(user);
         return temporaryPassword;
     }
 
@@ -334,6 +345,8 @@ public class AuthenticationService {
         user.setEnabled(enabled);
         if (enabled) {
             unlockUser(user);
+        } else {
+            refreshTokenService.revokeAll(user);
         }
         userRepo.save(user);
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a86ecedf-66ce-442e-a674-5e22621fefa5">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -236,6 +236,103 @@
 	<title>
 		<band height="154" splitType="Immediate">
 			<frame>
+				<reportElement x="-16" y="26" width="218" height="113" uuid="7acee003-af3e-4b1a-81c2-1948b53e350d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="0" y="0" width="218" height="26" forecolor="#0000CC" uuid="c20de3ff-a539-4053-b58f-c2927cf4528c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="My Khmer Os Muol Light" size="14"/>
+					</textElement>
+					<text><![CDATA[ក្រសួងមហាផ្ទៃ]]></text>
+				</staticText>
+				<textField textAdjust="StretchHeight">
+					<reportElement x="0" y="26" width="218" height="38" forecolor="#0000CC" uuid="5e51ff4d-c0a3-4829-97a0-12bc22f80e8c"/>
+					<textElement textAlignment="Center">
+						<font fontName="Khmer OS Niroth" size="13" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{GENERAL_DEPARTMENT}.replace("<br>", "\n")]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="0" y="63" width="218" height="48" uuid="a0d8ecd5-1cef-46b7-a631-0e7b77ba1218">
+						<printWhenExpression><![CDATA[$P{GENERAL_DEPARTMENT}!=null && $P{GENERAL_DEPARTMENT}.contains("<br>")]]></printWhenExpression>
+					</reportElement>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="0" y="0" width="218" height="44" forecolor="#0000CC" uuid="0cdc9f87-bd0d-4374-9d02-4a8fd6688ec4">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center">
+							<font fontName="My Khmer Os Siem Reap" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{DEPARTMENT}.replace("<br>", "\n")]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="0" y="14" width="218" height="13" forecolor="#0000CC" uuid="2d4f5c5b-2dc6-4336-bbca-4e9dd69264a0">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<printWhenExpression><![CDATA[$P{DEPARTMENT} != null &&!$P{DEPARTMENT}.contains("<br>")]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Center">
+							<font fontName="My Takteng" size="12"/>
+						</textElement>
+						<text><![CDATA[ris]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="0" y="40" width="218" height="13" forecolor="#0000CC" uuid="4390c625-bf94-4496-a142-efb41a9d7b36">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<printWhenExpression><![CDATA[$P{DEPARTMENT} != null &&$P{DEPARTMENT}.contains("<br>")]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Center">
+							<font fontName="My Takteng" size="12"/>
+						</textElement>
+						<text><![CDATA[ris]]></text>
+					</staticText>
+				</frame>
+				<frame>
+					<reportElement x="0" y="43" width="218" height="48" uuid="f5dd97e0-46f0-4546-a070-cc9083bdac80">
+						<printWhenExpression><![CDATA[$P{GENERAL_DEPARTMENT}!=null && !$P{GENERAL_DEPARTMENT}.contains("<br>")]]></printWhenExpression>
+					</reportElement>
+					<textField textAdjust="StretchHeight">
+						<reportElement x="0" y="0" width="218" height="44" forecolor="#0000CC" uuid="a25eb13a-0193-4153-b363-373107e891e1">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<textElement textAlignment="Center">
+							<font fontName="My Khmer Os Siem Reap" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{DEPARTMENT}.replace("<br>", "\n")]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="0" y="19" width="218" height="13" forecolor="#0000CC" uuid="bb38d7a9-4afe-422b-8d6f-64c3ade8e496">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<printWhenExpression><![CDATA[$P{DEPARTMENT} != null &&!$P{DEPARTMENT}.contains("<br>")]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Center">
+							<font fontName="My Takteng" size="12"/>
+						</textElement>
+						<text><![CDATA[ris]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="0" y="40" width="218" height="13" forecolor="#0000CC" uuid="8d6aac85-544d-4af5-8ba2-f869861f6704">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<printWhenExpression><![CDATA[$P{DEPARTMENT} != null &&$P{DEPARTMENT}.contains("<br>")]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Center">
+							<font fontName="My Takteng" size="12"/>
+						</textElement>
+						<text><![CDATA[ris]]></text>
+					</staticText>
+				</frame>
+			</frame>
+			<frame>
 				<reportElement x="0" y="0" width="555" height="137" uuid="79d675a7-5c4f-4233-8c64-350462cc4fba">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -283,9 +380,9 @@
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="My Khmer Os Muol Light" size="15"/>
+					<font fontName="My Khmer Os Muol Light" size="13"/>
 				</textElement>
-				<text><![CDATA[លិខិតសាវតាជាតិ]]></text>
+				<text><![CDATA[ជីវប្រវត្តិមន្រ្ដីនគរបាលជាតិ]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -488,6 +585,15 @@
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{latinName}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="23" width="64" height="22" forecolor="#0000CC" uuid="7affc08a-bc5a-4be0-a955-33cc673f7623">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{policeId}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="162" y="67" width="48" height="22" forecolor="#0000CC" uuid="de25ee5a-e8cc-4b13-b34b-69cbaed6839d">
@@ -1518,7 +1624,23 @@
 				<subreportExpression><![CDATA[$P{REPORT_PATH}+"children_report.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="459" splitType="Immediate">
+		<band height="441" splitType="Immediate">
+			<staticText>
+				<reportElement x="115" y="243" width="440" height="22" uuid="36a862bd-d593-4ff3-868d-437fcbbe8f5a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<text><![CDATA[ ឃុំ/សង្កាត់....................................ស្រុក/ខណ្ឌ.........................ខេត្ត/រាជធានី..................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="221" width="440" height="22" uuid="7129a2d5-cd2b-4e50-b047-9f584e7811b5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<text><![CDATA[ផ្លូវលេខ.......................ផ្ទះលេខ............................ភូមិ..................................................]]></text>
+			</staticText>
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="22" uuid="17fe3e67-6d42-4c32-9070-c65896962340"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -1829,6 +1951,70 @@
 				<text><![CDATA[- មុខរបរបច្ចុប្បន្ន.......................................................លេខទូរសព្ទ..................................................................]]></text>
 			</staticText>
 			<staticText>
+				<reportElement x="11" y="221" width="102" height="22" uuid="0f912bce-a689-430e-b42e-cbf916212a64"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<text><![CDATA[- អាសយដ្ឋានបច្ចុប្បន្ន]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="218" width="76" height="22" forecolor="#0000CC" uuid="bf8366bc-671a-4945-8934-529577af21e6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motherCurrentStreetNumber}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="264" y="218" width="95" height="22" forecolor="#0000CC" uuid="6233f9ac-a6c4-4876-8057-465e5b8a686b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motherCurrentHouseNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="218" width="175" height="22" forecolor="#0000CC" uuid="94ca329f-e633-4ead-8239-b969ae08f002">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[!$P{motherCurrentVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motherCurrentVillage}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="241" width="84" height="22" forecolor="#0000CC" uuid="df27fb07-b98f-4fc5-955f-640baa5a21e5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[!$P{motherCurrentDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motherCurrentDistrict}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="476" y="241" width="76" height="22" forecolor="#0000CC" uuid="36b8d029-db2f-49e7-a24b-aa2d9c2d7381">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motherCurrentProvince}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="241" width="122" height="22" forecolor="#0000CC" uuid="b75a445b-a3b6-4110-adab-68c18e15697d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[!$P{motherCurrentCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="My Khmer Os Siem Reap" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{motherCurrentCommune}]]></textFieldExpression>
+			</textField>
+			<staticText>
 				<reportElement x="115" y="22" width="440" height="22" uuid="5d5a5c1c-6ed2-4ece-b259-87bacb9afd86"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="My Khmer Os Siem Reap" size="12"/>
@@ -1836,261 +2022,135 @@
 				<text><![CDATA[៖ភូមិ..................................................ឃុំ/សង្កាត់............................................................]]></text>
 			</staticText>
 			<frame>
-				<reportElement x="0" y="340" width="555" height="119" uuid="32ac79c3-73e2-4683-b36a-32da576a185e"/>
+				<reportElement x="0" y="265" width="555" height="176" uuid="32ac79c3-73e2-4683-b36a-32da576a185e"/>
 				<staticText>
-					<reportElement x="0" y="31" width="555" height="22" uuid="314430b1-4b69-446d-bf68-f1114dfb0f61"/>
+					<reportElement x="0" y="0" width="555" height="22" uuid="314430b1-4b69-446d-bf68-f1114dfb0f61"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="My Khmer Os Siem Reap" size="12"/>
 					</textElement>
 					<text><![CDATA[ខ្ញុំ/នាងខ្ញុំ សូមធានាអះអាងចំពោះមុខច្បាប់ថា សេចក្ដីរាយការណ៍ក្នុងជីវប្រវត្តិនេះ សុទ្ធតែពិតប្រាកដទាំងអស់។ ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="321" y="97" width="233" height="22" uuid="17ef7c7c-c14b-4b6d-a22a-9d468a549405"/>
+					<reportElement x="5" y="44" width="504" height="22" uuid="20b9126d-b7ee-4520-8bd6-fbdb085c0099"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="My Khmer Os Siem Reap" size="12"/>
+					</textElement>
+					<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី............ខែ............ឆ្នាំ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="321" y="66" width="233" height="22" uuid="17ef7c7c-c14b-4b6d-a22a-9d468a549405"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="My Khmer Os Muol Light" size="12"/>
 					</textElement>
 					<text><![CDATA[ហត្ថលេខា និងឈ្មោះសាមីខ្លួន]]></text>
 				</staticText>
 				<frame>
-					<reportElement x="0" y="75" width="555" height="22" uuid="a088854b-b6ac-461a-a022-f1a5bfbab922"/>
+					<reportElement x="-1" y="44" width="318" height="132" uuid="a78d5bec-814b-470b-b3bd-b78a8678b950"/>
 					<staticText>
-						<reportElement x="0" y="0" width="555" height="22" uuid="20b9126d-b7ee-4520-8bd6-fbdb085c0099"/>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
+						<reportElement x="0" y="0" width="318" height="22" uuid="0b4d8dac-63e2-49b5-bd86-a7a445f8963e"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font fontName="My Khmer Os Siem Reap" size="12"/>
 						</textElement>
-						<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី............ខែ............ឆ្នាំ...............]]></text>
+						<text><![CDATA[(សេចក្ដីបញ្ជាក់របស់ប្រធានអង្គភាព)]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="0" y="22" width="318" height="22" uuid="c8f557bf-8712-4d2c-a5c0-852b79f59c6d"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="My Khmer Os Siem Reap" size="12"/>
+						</textElement>
+						<text><![CDATA[..................................................................................]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="0" y="44" width="318" height="22" uuid="63f05705-bc6d-4216-b6a8-db93e4714a5e"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="My Khmer Os Siem Reap" size="12"/>
+						</textElement>
+						<text><![CDATA[..................................................................................]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="15" y="88" width="282" height="22" uuid="3fd33409-217b-431d-a40c-aa461f2f7f64"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="My Khmer Os Siem Reap" size="12"/>
+						</textElement>
+						<text><![CDATA[រាជធានីភ្នំពេញ ថ្ងៃទី..........ខែ..............ឆ្នាំ]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="0" y="110" width="318" height="22" uuid="03053920-d47a-4201-afe4-f0267d49c12d">
+							<printWhenExpression><![CDATA[$P{DEPARTMENT_ID}!=7]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="My Khmer Os Muol Light" size="12"/>
+						</textElement>
+						<text><![CDATA[ប្រធាននាយកដ្ឋាន]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="0" y="111" width="318" height="22" uuid="e0271a93-daba-4570-b4b1-9f8d1c776441">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<printWhenExpression><![CDATA[$P{DEPARTMENT_ID}==7]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="My Khmer Os Muol Light" size="12"/>
+						</textElement>
+						<text><![CDATA[ប្រធានស្ថានីយ៍]]></text>
+					</staticText>
+					<frame>
+						<reportElement x="11" y="66" width="306" height="43" uuid="b3cc77aa-37c8-45d9-965c-43cb4d07f69a"/>
+						<staticText>
+							<reportElement x="0" y="0" width="306" height="22" uuid="b088b6de-33ec-41a8-a9b2-c3ada92d9616"/>
+							<textElement textAlignment="Left" verticalAlignment="Middle">
+								<font fontName="My Khmer Os Siem Reap" size="12"/>
+							</textElement>
+							<text><![CDATA[ថ្ងៃ.........................ខែ...........ឆ្នាំ......................]]></text>
+						</staticText>
+						<textField isBlankWhenNull="true">
+							<reportElement x="230" y="0" width="76" height="22" forecolor="#000000" uuid="8115c55f-23ce-4672-a972-738ad4c1b120">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
+							<textElement textAlignment="Left">
+								<font fontName="My Khmer Os Siem Reap" size="12"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$P{KHMER_LUNAR_YEAR}]]></textFieldExpression>
+						</textField>
+					</frame>
+				</frame>
+				<textField isBlankWhenNull="true">
+					<reportElement x="253" y="132" width="44" height="22" forecolor="#000000" uuid="66726839-1000-44bd-ac8d-2b0cef0aec47">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left">
+						<font fontName="My Khmer Os Siem Reap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{KHMER_YEAR_STRING}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="509" y="44" width="44" height="22" forecolor="#000000" uuid="dd38010c-f409-423d-b5af-b7384fcb5ffe">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left">
+						<font fontName="My Khmer Os Siem Reap" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{KHMER_YEAR_STRING}]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement x="223" y="0" width="329" height="44" uuid="6518cc48-096a-4d35-9819-36f1967f94a0"/>
+					<staticText>
+						<reportElement x="28" y="22" width="301" height="22" uuid="6c905c5d-9978-4932-b33c-6e300540d33d"/>
+						<textElement textAlignment="Left" verticalAlignment="Middle">
+							<font fontName="My Khmer Os Siem Reap" size="12"/>
+						</textElement>
+						<text><![CDATA[ថ្ងៃ.........................ខែ...........ឆ្នាំ......................]]></text>
 					</staticText>
 					<textField isBlankWhenNull="true">
-						<reportElement x="507" y="0" width="44" height="22" forecolor="#000000" uuid="dd38010c-f409-423d-b5af-b7384fcb5ffe">
+						<reportElement x="250" y="22" width="76" height="22" forecolor="#000000" uuid="0bb75bf9-12de-4b38-a829-c042694fc6e0">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</reportElement>
 						<textElement textAlignment="Left">
 							<font fontName="My Khmer Os Siem Reap" size="12"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$P{KHMER_YEAR_STRING}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$P{KHMER_LUNAR_YEAR}]]></textFieldExpression>
 					</textField>
 				</frame>
-			</frame>
-			<frame>
-				<reportElement x="11" y="290" width="544" height="78" uuid="53938156-1ed4-43b7-8938-ab6e49007953"/>
-				<staticText>
-					<reportElement x="104" y="56" width="440" height="22" uuid="36a862bd-d593-4ff3-868d-437fcbbe8f5a"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[ ឃុំ/សង្កាត់....................................ស្រុក/ខណ្ឌ.........................ខេត្ត/រាជធានី..................]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="104" y="34" width="440" height="22" uuid="7129a2d5-cd2b-4e50-b047-9f584e7811b5">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[ផ្លូវលេខ.......................ផ្ទះលេខ............................ភូមិ..................................................]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="0" y="34" width="102" height="22" uuid="0f912bce-a689-430e-b42e-cbf916212a64"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[- អាសយដ្ឋានបច្ចុប្បន្ន]]></text>
-				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement x="139" y="31" width="76" height="22" forecolor="#0000CC" uuid="bf8366bc-671a-4945-8934-529577af21e6">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Center">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{motherCurrentStreetNumber}]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="253" y="31" width="95" height="22" forecolor="#0000CC" uuid="6233f9ac-a6c4-4876-8057-465e5b8a686b">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Center">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{motherCurrentHouseNumber}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="366" y="31" width="175" height="22" forecolor="#0000CC" uuid="94ca329f-e633-4ead-8239-b969ae08f002">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<printWhenExpression><![CDATA[!$P{motherCurrentVillage}.equals("ផ្សេងៗ")]]></printWhenExpression>
-					</reportElement>
-					<textElement textAlignment="Center">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{motherCurrentVillage}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="322" y="54" width="84" height="22" forecolor="#0000CC" uuid="df27fb07-b98f-4fc5-955f-640baa5a21e5">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<printWhenExpression><![CDATA[!$P{motherCurrentDistrict}.equals("ផ្សេងៗ")]]></printWhenExpression>
-					</reportElement>
-					<textElement textAlignment="Center">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{motherCurrentDistrict}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="149" y="54" width="122" height="22" forecolor="#0000CC" uuid="b75a445b-a3b6-4110-adab-68c18e15697d">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<printWhenExpression><![CDATA[!$P{motherCurrentCommune}.equals("ផ្សេងៗ")]]></printWhenExpression>
-					</reportElement>
-					<textElement textAlignment="Center">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{motherCurrentCommune}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="467" y="54" width="76" height="22" forecolor="#0000CC" uuid="2df44d13-3cfe-4cd5-b40e-735456715270">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<textElement textAlignment="Center">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{motherCurrentProvince}]]></textFieldExpression>
-				</textField>
-			</frame>
-			<frame>
-				<reportElement x="12" y="220" width="543" height="24" uuid="c05aff9b-ec49-4787-a51f-43d953c127dd"/>
-				<staticText>
-					<reportElement x="0" y="2" width="543" height="22" uuid="a8df1f2a-b8a1-4e6e-9de7-8db3cf356d3f"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[- មានកូនចំនួន៖..................នាក់, ស្រី....................នាក់, ប្រុស....................នាក់]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="87" y="-2" width="22" height="24" forecolor="#0000CC" uuid="207dba0b-1e92-4d9a-b541-449241d91e10"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[០៣]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="323" y="-2" width="22" height="24" forecolor="#0000CC" uuid="72370884-507d-4ba6-8caa-69dfa068c4a6"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[០៣]]></text>
-				</staticText>
-			</frame>
-			<frame>
-				<reportElement x="22" y="244" width="528" height="26" uuid="f982a3e2-980a-49f7-a638-440c8b1cd9a6"/>
-				<staticText>
-					<reportElement x="0" y="2" width="523" height="22" uuid="a6bc5eff-eebc-46b1-afff-346d50a02bf7"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[១-ឈ្មោះ.........................ភេទ.............ថ្ងៃខែឆ្នាំកំណើត...............................មុខរបរ...................................]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="50" y="-2" width="76" height="26" forecolor="#0000CC" uuid="acc0d86b-8063-4cdc-bf6b-ecc9b2f02c04"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[ណែម សុភាព]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="268" y="-2" width="99" height="26" forecolor="#0000CC" uuid="5ce90c7d-96ee-4c34-b217-1753e47a1910"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[០៣-មេសា-១៩៨០]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="152" y="-2" width="29" height="26" forecolor="#0000CC" uuid="7f81b1d1-97c6-4969-b966-6b69ab51bb87"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[ប្រុស]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="411" y="-2" width="99" height="26" forecolor="#0000CC" uuid="ea50a18d-523f-46eb-b819-dcca5a48cfb2"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[មន្រ្តីនគរបាលជាតិ]]></text>
-				</staticText>
-			</frame>
-			<frame>
-				<reportElement x="23" y="269" width="528" height="26" uuid="48d6a8bb-9c6b-441e-bedb-fa4ae3f59558"/>
-				<staticText>
-					<reportElement x="0" y="2" width="523" height="22" uuid="c0ddb8f5-8a32-4af8-8103-4972f994c69d"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[២-ឈ្មោះ.........................ភេទ.............ថ្ងៃខែឆ្នាំកំណើត...............................មុខរបរ...................................]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="50" y="-2" width="76" height="26" forecolor="#0000CC" uuid="399166ab-46a0-43f0-9de7-83d52793c72f"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[ណែម សុភ័ណ្ឌ]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="268" y="-2" width="99" height="26" forecolor="#0000CC" uuid="d7764036-18d8-4d40-98f8-3bcabbe7fbf7"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[១២-កុម្ភៈ-១៩៨២]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="152" y="-2" width="29" height="26" forecolor="#0000CC" uuid="d4dd691d-9006-476e-8665-fb08fc5bc395"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[ប្រុស]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="411" y="-2" width="99" height="26" forecolor="#0000CC" uuid="df6cbfe2-4727-4183-a793-e2aebcc4a85d"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[មន្រ្តីរាជការ]]></text>
-				</staticText>
-			</frame>
-			<frame>
-				<reportElement x="23" y="294" width="528" height="26" uuid="fe25b014-52c0-4433-933f-4fbacfbb2c97"/>
-				<staticText>
-					<reportElement x="0" y="2" width="523" height="22" uuid="ea2cfec4-ad07-452b-8d86-7958e8445861"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[៣-ឈ្មោះ.........................ភេទ.............ថ្ងៃខែឆ្នាំកំណើត...............................មុខរបរ...................................]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="50" y="-2" width="76" height="26" forecolor="#0000CC" uuid="0125fcd6-c58c-49cf-b1f1-78254d8f6027"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[ណែម សុភ័ក្រ្ត]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="268" y="-2" width="99" height="26" forecolor="#0000CC" uuid="dd0a6d17-3419-4815-8845-b17d413a4459"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[១៨-មករា-១៩៨៦]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="152" y="-2" width="29" height="26" forecolor="#0000CC" uuid="cf4f544d-e2cb-4159-b394-2471e94d8ffa"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[ប្រុស]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="411" y="-2" width="99" height="26" forecolor="#0000CC" uuid="a94c710a-e5b1-4507-8838-241a82d74dac"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="My Khmer Os Siem Reap" size="12"/>
-					</textElement>
-					<text><![CDATA[មន្រ្តីហាត់ការ]]></text>
-				</staticText>
 			</frame>
 		</band>
 	</detail>

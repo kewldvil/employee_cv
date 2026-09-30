@@ -67,7 +67,7 @@ public class FileUploadController {
                 fileResponse.setName(file.getFileName());
                 fileResponse.setType(fileType != null ? fileType : "application/octet-stream");
                 fileResponse.setBase64Content(base64Content);
-                fileResponse.setUrl(file.getFilePath());
+                fileResponse.setUrl("/api/v1/files/" + file.getId());
 
                 uploadedFiles.add(fileResponse);
             } catch (IOException e) {
@@ -170,7 +170,7 @@ public class FileUploadController {
             fileResponse.setName(file.get().getFileName());
             fileResponse.setType(fileType != null ? fileType : "application/octet-stream");
             fileResponse.setBase64Content(base64Content);
-            fileResponse.setUrl(file.get().getFilePath());
+            fileResponse.setUrl("/api/v1/files/" + file.get().getId());
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

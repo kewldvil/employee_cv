@@ -18,6 +18,8 @@ spring:
 jwt:
   secret-key: dGVzdC10ZXN0LXRlc3QtdGVzdC10ZXN0LXRlc3QtdGVzdA==
   expiration: 60000
+  refresh-expiration: P7D
+  refresh-cookie-secure: false
 
 file:
   upload-dir: ${java.io.tmpdir}/employee-cv-test/files/

@@ -5,6 +5,7 @@ import com.noc.employee_cv.model.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
@@ -12,4 +13,6 @@ import lombok.Setter;
 public class AuthenticationResponse {
     private String token;
     private User user;
+    @JsonIgnore
+    private String refreshToken;
 }
